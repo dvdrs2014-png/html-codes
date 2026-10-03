@@ -221,6 +221,8 @@ button{font:inherit;color:inherit}
 .ghearts,.gitems{background:#fff;color:var(--g-ink);border:3px solid var(--g-ink);border-radius:99px;padding:3px 14px;box-shadow:0 4px 0 var(--g-ink)}
 .ghearts{font-size:22px;letter-spacing:3px;color:var(--g-pink);line-height:1.2}
 .gitems{font-weight:800;font-size:15px}
+.gfps{font:800 13px var(--g-font);font-variant-numeric:tabular-nums;background:var(--g-ink);color:#7dff9a;border-radius:99px;padding:2px 10px}
+.gfps.mid{color:var(--g-sun)}.gfps.low{color:var(--g-pink)}
 .gboss{flex:1;max-width:420px;text-align:center;font-weight:800;font-size:16px;color:#fff;
   text-shadow:2px 0 var(--g-ink),-2px 0 var(--g-ink),0 2px var(--g-ink),0 -2px var(--g-ink)}
 .gbar{height:16px;border-radius:99px;background:#fff;border:3px solid var(--g-ink);overflow:hidden;margin-top:5px;box-shadow:0 4px 0 var(--g-ink)}
@@ -521,6 +523,7 @@ button{font:inherit;color:inherit}
       <p class="glevel" id="gLevel">La Comarca</p>
       <p class="ghearts" id="gHearts" aria-label="Vidas"></p>
       <p class="gitems" id="gItems"></p>
+      <p class="gfps" id="gFps" title="Cuadros por segundo (F para ocultar)">— FPS</p>
     </div>
     <div class="gboss" id="gBoss" hidden>
       <span id="gBossName">Jefe</span>
@@ -535,7 +538,7 @@ button{font:inherit;color:inherit}
       <p class="gkick" id="gcKick">Nivel 1 de 5</p>
       <h2 id="gcTitle">La Comarca</h2>
       <p id="gcText"></p>
-      <p class="gkeys" id="gcKeys">Mover: WASD o flechas · Correr: Shift · Saltar: espacio (mantené para saltar más alto) · Cámara: Q/E o arrastrando · Pausa: P o Esc · Reiniciar nivel: R · También con mando (stick, A para saltar, B para correr) o en el celular con joystick y botón. Los objetos brillan con un haz de luz y aparecen en el minimapa.</p>
+      <p class="gkeys" id="gcKeys">Mover: WASD o flechas · Correr: Shift · Saltar: espacio (mantené para saltar más alto) · Cámara: Q/E o arrastrando · Pausa: P o Esc · Reiniciar nivel: R · Mostrar/ocultar FPS: F · También con mando (stick, A para saltar, B para correr) o en el celular con joystick y botón. Los objetos brillan con un haz de luz y aparecen en el minimapa.</p>
       <div class="gbtns"><button type="button" class="gbtn" id="gcBtn">Jugar</button><button type="button" class="gbtn ghost" id="gcBtn2" hidden>Ver el mapa</button></div>
     </div>
   </div>
@@ -2127,8 +2130,13 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       slX.restore();}
     window.__clearGameInput=()=>clearInput();
     window.__pauseGame=()=>{if(!paused)togglePause(true);};
+    // contador de FPS (se actualiza cada medio segundo; F lo muestra u oculta)
+    const fpsEl=$("gFps");let fpsN=0,fpsT=performance.now();
+    addEventListener("keydown",e=>{if(!ov.hidden&&e.code==="KeyF"&&!e.repeat)fpsEl.hidden=!fpsEl.hidden;});
+    function countFps(){fpsN++;const now=performance.now();if(now-fpsT>=500){const f=Math.round(fpsN*1000/(now-fpsT));fpsEl.textContent=f+" FPS";fpsEl.className="gfps"+(f<30?" low":f<50?" mid":"");fpsN=0;fpsT=now;}}
     function loop(){
       requestAnimationFrame(loop);
+      if(!ov.hidden)countFps();
       // Paso fijo de simulación: el juego va a la misma velocidad en una PC rápida o lenta
       // (antes el tiempo se cortaba en 0.05 s y en equipos lentos todo iba en cámara lenta)
       const real=Math.min(clock.getDelta(),.25);
