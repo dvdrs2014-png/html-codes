@@ -21,9 +21,10 @@ que se abre con doble clic en el navegador.
 3. **Itera en pasos pequeños**: una mecánica a la vez, probándola tras cada cambio.
 4. **Pulido ("juice")** solo cuando la mecánica ya es divertida (sección 5).
 5. **Optimiza solo tras medir** (sección 6). Nada de optimizar a ciegas.
-6. **Verifica**: abre el juego en Chromium headless con Playwright (ya está instalado,
-   `PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers`), comprueba que no hay errores en consola y
-   toma una captura. No digas que funciona sin haberlo comprobado.
+6. **Verifica rápido, sin jugar**: el usuario prueba el juego él mismo y avisa qué corregir.
+   No abras el navegador ni hagas partidas de prueba (en esta máquina no hay placa de video
+   y cada prueba tarda minutos). Solo revisa que el JavaScript no tenga errores de sintaxis
+   (`node -e "new Function(código)"`) y entrega. Aclara siempre que no lo probaste jugando.
 7. **Entrega**: commit con mensaje claro, push a la rama asignada, y explica cómo jugar
    (controles, objetivo).
 
