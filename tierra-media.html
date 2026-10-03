@@ -6,7 +6,7 @@
 <title>La Comarca y la Tierra Media</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=M+PLUS+Rounded+1c:wght@500;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=M+PLUS+Rounded+1c:wght@500;800&family=Lilita+One&display=swap">
 <style>
 :root{
   color-scheme: dark;
@@ -258,6 +258,50 @@ button{font:inherit;color:inherit}
 .gmini{position:absolute;right:16px;top:calc(64px + env(safe-area-inset-top,0px));width:150px;height:150px;border-radius:50%;border:4px solid #fff;box-shadow:0 0 0 3px var(--g-ink),0 8px 0 3px rgba(42,26,46,.5)}
 @media (max-width:700px){.gmini{width:104px;height:104px}.glevel{font-size:21px}}
 @media (prefers-reduced-motion:reduce){.gmsg.on,.gcard-in{animation:none;opacity:1}.gflash.go{animation:none;opacity:0}}
+
+/* ---------- Botones estilo videojuego (inspirados en los menús de Fortnite) ----------
+   Paralelogramo inclinado, letra gruesa en mayúsculas, degradé con brillo arriba,
+   borde oscuro, sombra "sólida" abajo y salto al pasar el mouse. */
+:root{--btn-font:"Lilita One","Luckiest Guy","Arial Black",Impact,system-ui,sans-serif;--btn-ink:#14122a;
+  --btn-y1:#fff27a;--btn-y2:#ffd21f;--btn-y3:#f2a900;--btn-b1:#7fd4ff;--btn-b2:#2f9bff;--btn-b3:#1a5fd6;--btn-p1:#ff9ec4;--btn-p2:#ff4f8f;--btn-p3:#c4176a}
+.enter,.tod button,.chip,.gbtn,.gexit,.gjump,.ctrls button,.card .stepnav button{
+  --c1:var(--btn-b1);--c2:var(--btn-b2);--c3:var(--btn-b3);--tx:#fff;
+  position:relative;isolation:isolate;border:0!important;cursor:pointer;
+  font-family:var(--btn-font)!important;font-weight:400;text-transform:uppercase;letter-spacing:.04em!important;font-style:normal;
+  color:var(--tx)!important;text-shadow:0 2px 0 rgba(20,18,42,.45);
+  background:linear-gradient(180deg,var(--c1) 0%,var(--c2) 48%,var(--c3) 52%,var(--c2) 100%)!important;
+  clip-path:polygon(6% 0,100% 0,94% 100%,0 100%);border-radius:0!important;
+  filter:drop-shadow(0 4px 0 var(--btn-ink)) drop-shadow(0 8px 10px rgba(0,0,0,.35));
+  box-shadow:inset 0 0 0 3px var(--btn-ink),inset 0 6px 0 rgba(255,255,255,.35)!important;
+  transition:transform .14s cubic-bezier(.3,1.8,.5,1),filter .14s,background .2s;-webkit-tap-highlight-color:transparent}
+.enter::after,.chip::after,.gbtn::after,.tod button::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.55) 45%,transparent 55%);background-size:250% 100%;background-position:130% 0;transition:background-position .55s ease}
+.enter:hover,.tod button:hover,.chip:hover,.gbtn:hover,.gexit:hover,.gjump:hover,.ctrls button:hover,.card .stepnav button:hover:not(:disabled){
+  transform:translateY(-3px) scale(1.06);filter:drop-shadow(0 7px 0 var(--btn-ink)) drop-shadow(0 0 14px rgba(255,255,255,.55)) brightness(1.08)}
+.enter:hover::after,.chip:hover::after,.gbtn:hover::after,.tod button:hover::after{background-position:-30% 0}
+.enter:active,.tod button:active,.chip:active,.gbtn:active,.gexit:active,.gjump:active,.ctrls button:active,.card .stepnav button:active{
+  transform:translateY(3px) scale(.97);filter:drop-shadow(0 1px 0 var(--btn-ink)) brightness(.95)}
+.enter:focus-visible,.tod button:focus-visible,.chip:focus-visible,.gbtn:focus-visible,.gexit:focus-visible,.ctrls button:focus-visible{outline:3px solid #fff;outline-offset:3px}
+/* principal = amarillo (como "JUGAR"), activos = rosa, el resto azul */
+.enter,.gbtn,.chip.play,.gjump{--c1:var(--btn-y1);--c2:var(--btn-y2);--c3:var(--btn-y3);--tx:var(--btn-ink);text-shadow:0 2px 0 rgba(255,255,255,.5)}
+.tod button[aria-checked="true"],.chip[aria-pressed="true"]{--c1:var(--btn-p1);--c2:var(--btn-p2);--c3:var(--btn-p3);--tx:#fff}
+.gbtn.ghost,.gexit{--c1:#f4f6ff;--c2:#d9def5;--c3:#b9c2e6;--tx:var(--btn-ink);text-shadow:none}
+.enter{padding:16px 34px!important;font-size:22px!important;margin:0 14px 14px 0!important}
+.enter span{display:inline-block;transition:transform .2s}.enter:hover span{transform:translateX(5px)}
+.tod{background:rgba(20,18,42,.45)!important;border:0!important;border-radius:0!important;padding:6px 8px!important;gap:6px;clip-path:polygon(3% 0,100% 0,97% 100%,0 100%)}
+.tod button{padding:8px 18px!important;font-size:15px!important}
+.chip{padding:8px 16px!important;font-size:14px!important}
+.ctrls .grp{background:transparent!important;box-shadow:none!important;overflow:visible!important;gap:6px}
+.ctrls button{width:42px!important;height:40px!important;font-size:22px!important}
+.ctrls button+button{border-top:0!important}
+.card .stepnav button{width:44px!important;height:36px!important;font-size:18px!important}
+.card .stepnav button:disabled{opacity:.35;filter:grayscale(1)}
+.gbtn{padding:14px 32px!important;font-size:20px!important}
+.gexit{padding:8px 18px!important;font-size:15px!important}
+.gjump{border-radius:0!important;clip-path:polygon(10% 0,100% 0,90% 100%,0 100%);width:112px!important;height:76px!important;font-size:19px!important}
+@media (prefers-reduced-motion:reduce){.enter,.tod button,.chip,.gbtn,.gexit,.gjump,.ctrls button{transition:none}.enter::after,.chip::after,.gbtn::after,.tod button::after{display:none}}
+/* ---------- Inicio 3D ---------- */
+#shire3d{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0}
 </style>
 </head>
 <body class="t-dusk">
@@ -511,7 +555,7 @@ button{font:inherit;color:inherit}
 </section>
 
 <footer class="foot">
-  <p>Concepto no oficial, hecho por fans. Todo está dibujado con código (HTML, SVG, CSS y JavaScript), sin una sola imagen. El juego 3D usa three.js con estilo anime: cel-shading, contornos y formas suaves.</p>
+  <p>Concepto no oficial, hecho por fans. Todo está dibujado con código (HTML, SVG, CSS y JavaScript), sin una sola imagen. El inicio y el juego 3D usan three.js con estilo anime: cel-shading, contornos y formas suaves.</p>
 </footer>
 
 <div id="game" hidden role="dialog" aria-modal="true" aria-label="Juego: el viaje del Anillo">
@@ -1418,6 +1462,191 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
     cur=-1;const p=P.hobbiton;$("cKick").textContent="La historia completa · 22 capítulos";$("cName").textContent="Todo empieza en la Comarca";$("cAlt").textContent="Hobbiton · Bolsón Cerrado";$("cDesc").textContent="Tocá «Entrar en la Comarca» y el mapa te lleva por la historia completa de El Señor de los Anillos: de la fiesta de Bilbo a los Puertos Grises. También podés tocar cualquier lugar o capítulo.";$("prevStep").disabled=true;$("cStepTxt").textContent="Capítulo 1 de 22";setPlayUI();}
   init();
   let rt;window.addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>{const c=cen(),w0=V.w;size();V={x:c[0]-w0/2,y:c[1]-w0*bh/bw/2,w:w0};render();},120);});
+})();
+
+/* =========================================================
+   INICIO 3D — La Comarca en estilo anime (three.js)
+   Colinas con contorno, puertas hobbit, árboles esponjosos,
+   nubes lentas, cámara que flota y pájaros que aletean y planean.
+   Si WebGL o three.js fallan, queda la ilustración SVG de siempre.
+   ========================================================= */
+(function hero3d(){
+  const hero=document.getElementById("comarca"), svg=document.getElementById("shire");
+  if(!hero||!window.WebGLRenderingContext)return;
+  function boot(){
+    const T=window.THREE;let renderer;
+    try{renderer=new T.WebGLRenderer({antialias:true,alpha:false});}catch(e){return;}
+    renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));
+    const cv=renderer.domElement;cv.id="shire3d";cv.setAttribute("aria-hidden","true");
+    hero.insertBefore(cv,hero.firstChild);svg.style.visibility="hidden";
+    const scene=new T.Scene(),camera=new T.PerspectiveCamera(42,1,.5,1600);
+    const R=rngFrom(2024),rnd=(a=0,b=1)=>a+R()*(b-a);
+    const C=T.Color;
+    /* ---- materiales toon + contorno anime ---- */
+    const grad=new T.DataTexture(new Uint8Array([150,150,150,216,216,216,216,240]),8,1,T.LuminanceFormat);grad.minFilter=grad.magFilter=T.NearestFilter;grad.needsUpdate=true;
+    const mc={};const M=(c,e,ei)=>mc[c+"|"+e]||(mc[c+"|"+e]=new T.MeshToonMaterial({color:c,gradientMap:grad,emissive:e||0,emissiveIntensity:ei||1}));
+    const OW={value:2.6},ORES={value:new T.Vector2(1,1)};
+    const outMat=new T.MeshBasicMaterial({color:0x2a1a2e,side:T.BackSide});
+    outMat.onBeforeCompile=sh=>{sh.uniforms.oW=OW;sh.uniforms.oRes=ORES;
+      sh.vertexShader=sh.vertexShader.replace("#include <common>","#include <common>\nattribute vec3 onrm;uniform float oW;uniform vec2 oRes;")
+       .replace("#include <project_vertex>",`vec4 mvPosition=vec4(transformed,1.);vec3 on=onrm;
+#ifdef USE_INSTANCING
+mvPosition=instanceMatrix*mvPosition;on=mat3(instanceMatrix)*on;
+#endif
+mvPosition=modelViewMatrix*mvPosition;gl_Position=projectionMatrix*mvPosition;
+vec2 dir=(projectionMatrix*vec4(normalize(mat3(modelViewMatrix)*on),0.)).xy;
+float px=oW*clamp(60./max(-mvPosition.z,1.),.25,1.);
+if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);};
+    outMat.customProgramCacheKey=()=>"hero-outline";
+    function smoothN(g){if(g.attributes.onrm)return;const p=g.attributes.position,n=g.attributes.normal,m=new Map(),key=i=>Math.round(p.getX(i)*1e3)+"_"+Math.round(p.getY(i)*1e3)+"_"+Math.round(p.getZ(i)*1e3);
+      for(let i=0;i<p.count;i++){const k=key(i);let a=m.get(k);if(!a)m.set(k,a=[0,0,0]);a[0]+=n.getX(i);a[1]+=n.getY(i);a[2]+=n.getZ(i);}
+      const o=new Float32Array(p.count*3);for(let i=0;i<p.count;i++){const a=m.get(key(i)),l=Math.hypot(...a)||1;o[i*3]=a[0]/l;o[i*3+1]=a[1]/l;o[i*3+2]=a[2]/l;}g.setAttribute("onrm",new T.BufferAttribute(o,3));}
+    function outline(root){root.traverse(o=>{if(!o.isMesh||o.userData.hull||o.userData.noOut||!o.material.isMeshToonMaterial)return;smoothN(o.geometry);
+      const h=o.isInstancedMesh?new T.InstancedMesh(o.geometry,outMat,o.count):new T.Mesh(o.geometry,outMat);if(o.isInstancedMesh){h.instanceMatrix=o.instanceMatrix;h.frustumCulled=false;}h.userData.hull=true;h.matrixAutoUpdate=false;o.add(h);});}
+    const mesh=(g,m,x,y,z,p)=>{const o=new T.Mesh(g,m);o.position.set(x||0,y||0,z||0);(p||scene).add(o);return o;};
+    function blob(r,n=14){const g=new T.SphereGeometry(r,n,Math.round(n*.7)),p=g.attributes.position;for(let i=0;i<p.count;i++){const x=p.getX(i),y=p.getY(i),z=p.getZ(i),k=1+.09*Math.sin(x*3.1/r+1)*Math.sin(y*2.7/r+2)*Math.sin(z*3.3/r);p.setXYZ(i,x*k,y*k*.92,z*k);}g.computeVertexNormals();return g;}
+    function rbox(w,h,d){const g=new T.SphereGeometry(1,14,10),p=g.attributes.position;for(let i=0;i<p.count;i++){const f=v=>Math.sign(v)*Math.pow(Math.abs(v),.22);p.setXYZ(i,f(p.getX(i))*w/2,f(p.getY(i))*h/2,f(p.getZ(i))*d/2);}g.computeVertexNormals();return g;}
+    /* ---- luces y cielo ---- */
+    const hemi=new T.HemisphereLight(0xffffff,0x7a8aa0,.6);scene.add(hemi);
+    const sun=new T.DirectionalLight(0xfff0d8,.9);sun.position.set(-80,60,40);scene.add(sun);
+    const skyU={top:{value:new C()},hor:{value:new C()},sunC:{value:new C()},sunDir:{value:new T.Vector3(-.5,.12,-1).normalize()},glow:{value:1}};
+    const sky=new T.Mesh(new T.SphereGeometry(1200,32,16),new T.ShaderMaterial({side:T.BackSide,depthWrite:false,uniforms:skyU,
+      vertexShader:"varying vec3 p;void main(){p=normalize(position);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}",
+      fragmentShader:"uniform vec3 top,hor,sunC,sunDir;uniform float glow;varying vec3 p;void main(){float t=smoothstep(-.05,.6,p.y);vec3 c=mix(hor,top,t);float d=max(dot(p,sunDir),0.);c+=sunC*(pow(d,40.)*.5+pow(d,6.)*.25)*glow;c=mix(c,sunC*1.1+.2,smoothstep(.9992,.9996,d)*glow);gl_FragColor=vec4(c,1.);}"}));
+    scene.add(sky);
+    const stars=new T.Points((()=>{const g=new T.BufferGeometry(),a=[];for(let i=0;i<900;i++){const th=rnd(0,6.283),ph=rnd(.08,1.4),r=1100;a.push(Math.cos(th)*Math.cos(ph)*r,Math.sin(ph)*r,Math.sin(th)*Math.cos(ph)*r);}g.setAttribute("position",new T.Float32BufferAttribute(a,3));return g;})(),
+      new T.PointsMaterial({color:0xffffff,size:2.2,sizeAttenuation:false,transparent:true,opacity:0,fog:false}));scene.add(stars);
+    scene.fog=new T.Fog(0xffffff,120,520);
+    /* ---- terreno: colinas suaves ---- */
+    const hills=[[0,-30,34,26],[-70,-60,40,22],[75,-55,42,24],[-30,10,22,8],[45,5,24,9],[0,-140,90,40],[-150,-120,70,46],[150,-130,80,50]];
+    const H=(x,z)=>{let h=1.4*Math.sin(x*.05)*Math.cos(z*.04)+.8*Math.sin(x*.11+z*.07);for(const [hx,hz,s,a] of hills){const dx=x-hx,dz=z-hz;h+=a*Math.exp(-(dx*dx+dz*dz)/(2*s*s));}
+      const rv=Math.abs(z-38-8*Math.sin(x*.035));h-=3.2*(1-Math.min(1,rv/7));return h;};
+    const river=x=>38+8*Math.sin(x*.035);
+    const path=[[0,-6],[-6,8],[4,20],[-4,32],[0,60]];
+    const pathD=(x,z)=>{let b=1e9;for(let i=0;i<path.length-1;i++){const [ax,az]=path[i],[bx,bz]=path[i+1],dx=bx-ax,dz=bz-az,t=Math.max(0,Math.min(1,((x-ax)*dx+(z-az)*dz)/(dx*dx+dz*dz)));b=Math.min(b,Math.hypot(x-ax-t*dx,z-az-t*dz));}return b;};
+    const tg=new T.PlaneGeometry(520,340,170,110);tg.rotateX(-Math.PI/2);tg.translate(0,0,-60);
+    const tp=tg.attributes.position,tcol=new Float32Array(tp.count*3),gA=new C(0x4fa83a),gB=new C(0x7cc24a),gC=new C(0x9fd35a),dirt=new C(0xd9b47a);
+    for(let i=0;i<tp.count;i++){const x=tp.getX(i),z=tp.getZ(i),y=H(x,z);tp.setY(i,y);const n=.5+.5*Math.sin(x*.09+Math.sin(z*.06)*2)*Math.cos(z*.08);
+      const c=gA.clone().lerp(gB,n).lerp(gC,Math.min(1,Math.max(0,(y-8)/20)));const pd=pathD(x,z);if(pd<2.4)c.lerp(dirt,1-Math.max(0,(pd-1.2)/1.2));tcol[i*3]=c.r;tcol[i*3+1]=c.g;tcol[i*3+2]=c.b;}
+    tg.setAttribute("color",new T.BufferAttribute(tcol,3));tg.computeVertexNormals();
+    const terrain=mesh(tg,new T.MeshToonMaterial({vertexColors:true,gradientMap:grad}));terrain.userData.noOut=true;
+    const water=mesh(new T.PlaneGeometry(520,30,60,4),new T.MeshToonMaterial({color:0x5cc4f0,gradientMap:grad,transparent:true,opacity:.88,emissive:0x1a4a6a,emissiveIntensity:.25}),0,-1.1,38);water.rotation.x=-Math.PI/2;water.userData.noOut=true;
+    { const wp=water.geometry.attributes.position;for(let i=0;i<wp.count;i++)wp.setY(i,wp.getY(i)-8*Math.sin(wp.getX(i)*.035));wp.needsUpdate=true; }
+    /* ---- puertas hobbit y casitas ---- */
+    const lightsMats=[];
+    function hobbitDoor(x,z,ry,col,s=1){const y=H(x,z),g=new T.Group();g.position.set(x,y-.4*s,z);g.rotation.y=ry;scene.add(g);
+      mesh(new T.CircleGeometry(1.5*s,40),M(col),0,1.6*s,.06,g);
+      mesh(new T.TorusGeometry(1.6*s,.26*s,12,40),M(0xb8916a),0,1.6*s,0,g);
+      mesh(new T.SphereGeometry(.16*s,12,8),M(0xf2c94c),0,1.6*s,.2,g);
+      [-1,1].forEach(sd=>{const wm=new T.MeshToonMaterial({color:0xfff0b0,gradientMap:grad,emissive:0xffb040,emissiveIntensity:.2});lightsMats.push(wm);
+        mesh(new T.CircleGeometry(.62*s,32),wm,sd*2.9*s,1.8*s,.05,g);mesh(new T.TorusGeometry(.68*s,.12*s,10,32),M(0x8a5e3a),sd*2.9*s,1.8*s,0,g);
+        for(let k=0;k<4;k++)mesh(new T.SphereGeometry(.16,10,8),M([0xff8fb1,0xffe066,0xb18cff,0xff6b4a][k]),sd*2.9*s-.5+k*.33,1.05*s,.35,g);});
+      mesh(rbox(3.6*s,.25,1.8*s),M(0xcfc3a8),0,.12,1.1*s,g);
+      const lamp=new T.MeshToonMaterial({color:0xffe9a0,gradientMap:grad,emissive:0xffb040,emissiveIntensity:.3});lightsMats.push(lamp);
+      mesh(new T.CylinderGeometry(.07,.07,2.4,10),M(0x3a3a3a),3.9*s,1.2,1.6*s,g);mesh(rbox(.5,.55,.5),lamp,3.9*s,2.6,1.6*s,g);
+      for(let i=-4;i<=4;i++){if(Math.abs(i)<2)continue;mesh(rbox(.16,1,.16),M(0x8a6a44),i*.9*s,.5,3.2*s,g);}
+      mesh(rbox(6.8*s,.12,.1),M(0x8a6a44),0,.78,3.2*s,g);
+      const ch=mesh(new T.CylinderGeometry(.4,.45,2.2,14),M(0x9a5a42),-1.5*s,4.2*s,-5*s,g);chimneys.push(ch.getWorldPosition(new T.Vector3()));}
+    const chimneys=[];
+    hobbitDoor(0,-6.5,0,0x2f8a3e,1.25);hobbitDoor(-34,-1,.45,0xf1c84a);hobbitDoor(39,-2,-.5,0xc4442f);hobbitDoor(-62,-32,.35,0x2f5d9a,.9);hobbitDoor(66,-30,-.4,0x7a3f8a,.9);
+    function cottage(x,z,ry,w,d,h){const y=H(x,z),g=new T.Group();g.position.set(x,y-.2,z);g.rotation.y=ry;scene.add(g);
+      mesh(rbox(w,h,d),M(0xf3e6c8),0,h/2,0,g);const r=mesh(new T.ConeGeometry(Math.max(w,d)*.78,h*.95,4,1),M(0xd9a24f),0,h*1.42,0,g);r.rotation.y=Math.PI/4;r.scale.set(w/Math.max(w,d),1,d/Math.max(w,d));
+      const wm=new T.MeshToonMaterial({color:0xfff0b0,gradientMap:grad,emissive:0xffb040,emissiveIntensity:.2});lightsMats.push(wm);
+      mesh(new T.CircleGeometry(.5,28),wm,-w*.22,h*.6,d/2+.05,g);mesh(rbox(1,1.7,.12),M(0x3f7a3a),w*.22,.85,d/2+.04,g);}
+    cottage(-20,30,.3,6,5,3.6);cottage(26,28,-.25,7,5,4);
+    // molino con rueda que gira junto al río
+    const mx=58,mz=30;cottage(mx,mz,-.5,6,6,5);const wheel=new T.Group();wheel.position.set(mx-2.2,H(mx,mz)+2.4,mz+3.6);wheel.rotation.y=-.5;scene.add(wheel);
+    mesh(new T.TorusGeometry(2.4,.22,10,36),M(0x6e4a2c),0,0,0,wheel);for(let i=0;i<8;i++){mesh(rbox(.22,4.8,.7),M(0x7a5634),0,0,0,wheel).rotation.z=i*Math.PI/8;}
+    // Gran árbol de la fiesta sobre Bolsón Cerrado
+    {const g=new T.Group();g.position.set(0,H(0,-30)-1,-30);scene.add(g);mesh(new T.CylinderGeometry(1.4,2.4,12,16),M(0x6a4428),0,6,0,g);
+      [[-1,.9],[1,.8]].forEach(([dx,a])=>{mesh(new T.CylinderGeometry(.5,.8,7,12),M(0x6a4428),dx*3,11,0,g).rotation.z=-dx*a;});
+      const cols=[0x3f9a3a,0x5bb244,0x7cc650];for(let i=0;i<18;i++){const a=rnd(0,6.283),r=rnd(0,8);mesh(blob(rnd(3.8,5.6),16),M(cols[i%3]),Math.cos(a)*r,rnd(13,19),Math.sin(a)*r*.7,g);}}
+    /* ---- árboles (instanciados) ---- */
+    const trunkI=[],leafI=[[],[],[]];
+    for(let i=0;i<220;i++){const x=rnd(-230,230),z=rnd(-210,25);if(Math.abs(x)<14&&z>-40)continue;if(pathD(x,z)<6)continue;if(Math.abs(z-river(x))<8)continue;
+      let near=false;for(const [dx,dz] of [[0,-6.5],[-34,-1],[39,-2],[-62,-32],[66,-30],[-20,30],[26,28],[58,30]])if(Math.hypot(x-dx,z-dz)<10)near=true;if(near)continue;
+      const y=H(x,z),s=rnd(.8,1.6);trunkI.push([x,y+1.4*s,z,s]);const k=i%3;leafI[k].push([x,y+3.8*s,z,s*rnd(.95,1.2)]);leafI[(k+1)%3].push([x+1*s,y+4.6*s,z+.3*s,s*.72]);leafI[k].push([x-.9*s,y+4.9*s,z-.4*s,s*.66]);}
+    const inst=(geo,mat,list)=>{const im=new T.InstancedMesh(geo,mat,list.length),o=new T.Object3D();list.forEach(([x,y,z,s],i)=>{o.position.set(x,y,z);o.rotation.y=rnd(0,6);o.scale.setScalar(s);o.updateMatrix();im.setMatrixAt(i,o.matrix);});im.frustumCulled=false;scene.add(im);return im;};
+    inst(new T.CylinderGeometry(.35,.5,2.8,10),M(0x6e4a2c),trunkI);const leafCols=[0x3f9a3a,0x5bb244,0x78c24c];leafI.forEach((l,k)=>inst(blob(2.3,12),M(leafCols[k]),l));
+    // flores
+    const fl=[0xff8fb1,0xffe066,0xb18cff,0xffffff];fl.forEach((c,k)=>{const l=[];for(let i=0;i<260;i++){const x=rnd(-120,120),z=rnd(-50,34);if(Math.abs(z-river(x))<6)continue;l.push([x,H(x,z)+.25,z,rnd(.8,1.3)]);}const im=inst(new T.SphereGeometry(.28,8,6),M(c),l);im.userData.noOut=true;});
+    outline(scene);
+    /* ---- nubes (cúmulos dibujados, se mueven lento) ---- */
+    const cloudTex=[0,1,2].map(v=>{const c=document.createElement("canvas");c.width=512;c.height=256;const g=c.getContext("2d"),r=rngFrom(77+v*13),bl=[];
+      for(let i=0;i<10+v*2;i++){const x=90+r()*332,rr=40+r()*60*(1-Math.abs(x-256)/330);bl.push([x,190-rr*.55-r()*40*(1-Math.abs(x-256)/300),rr]);}
+      g.save();g.beginPath();g.rect(0,0,512,200);g.clip();g.fillStyle="#c6d2f0";bl.forEach(([x,y,rr])=>{g.beginPath();g.arc(x,y,rr,0,7);g.fill();});g.fillStyle="#fff";bl.forEach(([x,y,rr])=>{g.beginPath();g.arc(x-rr*.12,y-rr*.18,rr*.86,0,7);g.fill();});g.restore();return new T.CanvasTexture(c);});
+    const clouds=[];for(let i=0;i<16;i++){const m=new T.SpriteMaterial({map:cloudTex[i%3],transparent:true,depthWrite:false,fog:false});const s=new T.Sprite(m);const w=rnd(90,190);s.scale.set(w,w*.5,1);s.position.set(rnd(-600,600),rnd(70,170),rnd(-700,-380));scene.add(s);clouds.push({s,v:rnd(1.2,2.6)});}
+    /* ---- humo de chimeneas ---- */
+    const smokeTex=(()=>{const c=document.createElement("canvas");c.width=c.height=64;const g=c.getContext("2d"),rg=g.createRadialGradient(32,32,2,32,32,30);rg.addColorStop(0,"rgba(255,255,255,.9)");rg.addColorStop(1,"rgba(255,255,255,0)");g.fillStyle=rg;g.fillRect(0,0,64,64);return new T.CanvasTexture(c);})();
+    const puffs=[];chimneys.forEach(p=>{for(let j=0;j<5;j++){const s=new T.Sprite(new T.SpriteMaterial({map:smokeTex,transparent:true,depthWrite:false,opacity:.5}));scene.add(s);puffs.push({s,p,t:j/5});}});
+    /* ---- pájaros: cuerpo, cabeza, cola y alas articuladas que aletean y planean ---- */
+    const birdMat=new T.MeshToonMaterial({color:0x3a3040,gradientMap:grad});
+    const wingGeo=(()=>{// ala curva y ahusada (no un triángulo)
+      const g=new T.BufferGeometry(),P=[],I=[],N=9;for(let i=0;i<=N;i++){const u=i/N,span=u*1.6,chord=.55*(1-u*.75)*(1-Math.pow(u,6)*.5),sweep=-u*u*.35,lift=Math.sin(u*Math.PI)*.06;P.push(span,lift,sweep+chord*.35, span,lift,sweep-chord*.65);}
+      for(let i=0;i<N;i++){const a=i*2;I.push(a,a+1,a+2,a+1,a+3,a+2);}g.setAttribute("position",new T.Float32BufferAttribute(P,3));g.setIndex(I);g.computeVertexNormals();return g;})();
+    const wMat=new T.MeshToonMaterial({color:0x3a3040,gradientMap:grad,side:T.DoubleSide});
+    const birds=[];
+    function makeBird(){const b=new T.Group();
+      const body=new T.Mesh(new T.SphereGeometry(.28,12,8),birdMat);body.scale.set(.8,.75,1.6);b.add(body);
+      const head=new T.Mesh(new T.SphereGeometry(.17,10,8),birdMat);head.position.set(0,.06,.48);b.add(head);
+      const beak=new T.Mesh(new T.ConeGeometry(.05,.16,8),M(0xf0a83a));beak.rotation.x=Math.PI/2;beak.position.set(0,.04,.66);b.add(beak);
+      const tail=new T.Mesh(new T.ConeGeometry(.16,.5,8),birdMat);tail.rotation.x=-Math.PI/2;tail.scale.set(1.4,1,.3);tail.position.set(0,0,-.55);b.add(tail);
+      const wings=[1,-1].map(sd=>{const piv=new T.Group();piv.position.set(sd*.12,.08,.05);const w=new T.Mesh(wingGeo,wMat);w.scale.x=sd;piv.add(w);b.add(piv);return piv;});
+      b.userData.wings=wings;scene.add(b);return b;}
+    function flockAt(cx,cy,cz,n,spd,dir){for(let i=0;i<n;i++){const b=makeBird();const s=rnd(1.1,1.5);b.scale.setScalar(s);
+      birds.push({b,off:new T.Vector3(i===0?0:rnd(-8,8),rnd(-2.5,2.5),i===0?0:-Math.abs(rnd(2,10))),ph:rnd(0,6.283),glide:rnd(0,6.283),cx,cy,cz,spd:spd*rnd(.95,1.05),dir,t:rnd(0,1)});}}
+    flockAt(0,46,-70,7,1,1);flockAt(0,62,-160,5,.8,-1);
+    /* ---- luciérnagas (de noche) ---- */
+    const ffG=new T.BufferGeometry(),ffP=[],ffS=[];for(let i=0;i<70;i++){const x=rnd(-60,60),z=rnd(-20,34);ffP.push(x,H(x,z)+rnd(1,4),z);ffS.push(rnd(0,6.283));}
+    ffG.setAttribute("position",new T.Float32BufferAttribute(ffP,3));const ff=new T.Points(ffG,new T.PointsMaterial({color:0xfff27a,size:4,sizeAttenuation:false,transparent:true,opacity:0,depthWrite:false}));scene.add(ff);
+    /* ---- hora del día (sigue a los botones Mañana/Atardecer/Noche) ---- */
+    const PAL={day:{top:0x3b8fe8,hor:0xd4f0ff,sun:0xfff3d6,si:.95,hi:.62,fog:0xd6ecfa,glow:1,sd:[-.5,.35,-1],star:0,lamp:.15,ff:0,bird:0x3a3040},
+      dusk:{top:0x4b5bb0,hor:0xffb27c,sun:0xffa766,si:.85,hi:.5,fog:0xf2b892,glow:1.3,sd:[-.4,.06,-1],star:.15,lamp:.9,ff:.2,bird:0x2e2236},
+      night:{top:0x0a1238,hor:0x2a3c76,sun:0xa9bcff,si:.32,hi:.3,fog:0x1e2a52,glow:.45,sd:[.5,.45,-1],star:1,lamp:1.6,ff:1,bird:0x141826}};
+    const cur={top:new C(),hor:new C(),sun:new C(),fog:new C(),sd:new T.Vector3(),si:1,hi:.6,glow:1,star:0,lamp:.2,ff:0};let first=true;
+    const mode=()=>document.body.classList.contains("t-night")?"night":document.body.classList.contains("t-day")?"day":"dusk";
+    function applyPal(k){const p=PAL[mode()];const L=(c,v)=>first?c.set(v):c.lerp(new C(v),k);L(cur.top,p.top);L(cur.hor,p.hor);L(cur.sun,p.sun);L(cur.fog,p.fog);
+      const sd=new T.Vector3(...p.sd).normalize();first?cur.sd.copy(sd):cur.sd.lerp(sd,k);["si","hi","glow","star","lamp","ff"].forEach(n=>{cur[n]=first?p[n]:cur[n]+(p[n]-cur[n])*k;});first=false;
+      skyU.top.value.copy(cur.top);skyU.hor.value.copy(cur.hor);skyU.sunC.value.copy(cur.sun);skyU.sunDir.value.copy(cur.sd).normalize();skyU.glow.value=cur.glow;
+      scene.fog.color.copy(cur.fog);sun.color.copy(cur.sun);sun.intensity=cur.si;hemi.intensity=cur.hi;sun.position.copy(cur.sd).multiplyScalar(100);
+      stars.material.opacity=cur.star;ff.material.opacity=cur.ff;lightsMats.forEach(m=>m.emissiveIntensity=cur.lamp);
+      clouds.forEach(c=>c.s.material.color.copy(new C(0xffffff).lerp(cur.hor,.25).multiplyScalar(.45+.55*Math.min(1,cur.hi/.6))));}
+    /* ---- cámara que flota y sigue el mouse ---- */
+    let mx0=0,my0=0,mxs=0,mys=0;hero.addEventListener("pointermove",e=>{const r=hero.getBoundingClientRect();mx0=(e.clientX-r.left)/r.width-.5;my0=(e.clientY-r.top)/r.height-.5;});
+    function resize(){const w=hero.clientWidth,h=hero.clientHeight;renderer.setSize(w,h,false);cv.style.width="100%";cv.style.height="100%";camera.aspect=w/h;
+      camera.fov=w/h<1?58:42;camera.updateProjectionMatrix();ORES.value.set(w,h);}
+    resize();addEventListener("resize",resize);
+    let visible=true;new IntersectionObserver(es=>{visible=es[0].isIntersecting;}).observe(hero);
+    const reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const clock=new T.Clock();let t=0;
+    const gameOv=document.getElementById("game");
+    (function loop(){requestAnimationFrame(loop);const dt=Math.min(clock.getDelta(),.1);
+      if(!visible||(gameOv&&!gameOv.hidden)||document.hidden)return;
+      t+=reduce?0:dt;applyPal(1-Math.exp(-dt*2.2));
+      mxs+=(mx0-mxs)*Math.min(1,dt*2);mys+=(my0-mys)*Math.min(1,dt*2);
+      const sc=Math.min(scrollY,900);
+      camera.position.set(Math.sin(t*.05)*6+mxs*10,20+Math.sin(t*.13)*1.2-mys*4+sc*.01,86+Math.cos(t*.04)*3);
+      camera.lookAt(mxs*6,10-mys*2-sc*.012,-20);sky.position.copy(camera.position);
+      wheel.rotation.z-=dt*.6;
+      water.material.emissiveIntensity=.22+.06*Math.sin(t*1.4);
+      clouds.forEach(c=>{c.s.position.x+=c.v*dt;if(c.s.position.x>650)c.s.position.x=-650;});
+      puffs.forEach(p=>{p.t+=dt*.12;if(p.t>1)p.t-=1;const k=p.t;p.s.position.set(p.p.x+k*4,p.p.y+1.2+k*10,p.p.z+k*1.5);p.s.scale.setScalar(1.2+k*5);p.s.material.opacity=.5*(1-k)*(1-cur.star*.5);});
+      const fa=ffG.attributes.position;for(let i=0;i<fa.count;i++){fa.setY(i,fa.getY(i)+Math.sin(t*1.3+ffS[i])*.01);}fa.needsUpdate=true;ff.material.size=3+Math.sin(t*3)*1.2;
+      // vuelo: trayectoria amplia con ondulación; aleteo en ráfagas y tramos de planeo con alas abiertas
+      birds.forEach(B=>{const sp=.012*B.spd;B.t+=dt*sp;const a=B.t*6.283*B.dir;
+        const base=new T.Vector3(B.cx+Math.sin(a)*150,B.cy+Math.sin(a*2.3)*5,B.cz+Math.cos(a)*55);
+        const ahead=new T.Vector3(B.cx+Math.sin(a+.02*B.dir)*150,B.cy+Math.sin((a+.02*B.dir)*2.3)*5,B.cz+Math.cos(a+.02*B.dir)*55);
+        const fwd=ahead.clone().sub(base).normalize(),right=new T.Vector3().crossVectors(fwd,new T.Vector3(0,1,0)).normalize();
+        const pos=base.clone().addScaledVector(right,B.off.x).addScaledVector(fwd,B.off.z);pos.y+=B.off.y+Math.sin(t*.7+B.ph)*.6;
+        B.b.position.copy(pos);B.b.lookAt(pos.clone().add(fwd));
+        const turn=Math.sin(a*1.0)*.0+ (B.dir)*.35;B.b.rotateZ(-turn*.6);
+        const flapping=Math.sin(t*.45+B.glide)>-.15;B.ph+=dt*(flapping?11:0);
+        const ang=flapping?Math.sin(B.ph)*.75+.1:.12+Math.sin(t*2+B.glide)*.04;
+        B.b.userData.wings[0].rotation.z=ang;B.b.userData.wings[1].rotation.z=-ang;B.b.position.y+=flapping?Math.sin(B.ph)*-.08:0;});
+      renderer.render(scene,camera);})();
+  }
+  // carga three.js una sola vez (el juego reutiliza la misma copia)
+  if(window.THREE)boot();else{const s=document.createElement("script");s.src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";s.onload=boot;document.head.appendChild(s);}
 })();
 
 /* =========================================================
