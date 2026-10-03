@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plantilla de juego</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #111; overflow: hidden; }
+  canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
+</style>
+</head>
+<body>
+<canvas id="juego"></canvas>
+<script>
+"use strict";
+
+// ---------- Configuración (ajusta aquí sin tocar la lógica) ----------
+const CONFIG = {
+  ancho: 800, alto: 450,          // resolución lógica del mundo
+  paso: 1 / 60,                   // paso fijo de simulación (s)
+  velJugador: 320,                // px/s
+  velEnemigo: [120, 260],         // rango px/s
+  cadaEnemigo: 0.8,               // s entre enemigos
+};
+
+// ---------- Canvas con devicePixelRatio y escalado ----------
+const canvas = document.getElementById("juego");
+const ctx = canvas.getContext("2d");
+let escala = 1, offX = 0, offY = 0;
+function redimensionar() {
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = Math.floor(innerWidth * dpr);
+  canvas.height = Math.floor(innerHeight * dpr);
+  escala = Math.min(canvas.width / CONFIG.ancho, canvas.height / CONFIG.alto);
+  offX = (canvas.width - CONFIG.ancho * escala) / 2;
+  offY = (canvas.height - CONFIG.alto * escala) / 2;
+}
+addEventListener("resize", redimensionar);
+redimensionar();
+
+// ---------- Entrada (teclado + táctil) ----------
+const teclas = new Set();
+const pulsadas = new Set(); // solo el frame en que se pulsan
+addEventListener("keydown", e => {
+  if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Space"].includes(e.code)) e.preventDefault();
+  if (!teclas.has(e.code)) pulsadas.add(e.code);
+  teclas.add(e.code);
+  iniciarAudio();
+});
+addEventListener("keyup", e => teclas.delete(e.code));
+let punteroX = null;
+canvas.addEventListener("pointerdown", e => { punteroX = aMundoX(e.clientX); pulsadas.add("Tap"); iniciarAudio(); });
+canvas.addEventListener("pointermove", e => { if (punteroX !== null) punteroX = aMundoX(e.clientX); });
+addEventListener("pointerup", () => { punteroX = null; });
+function aMundoX(clientX) { return ((clientX * (window.devicePixelRatio || 1)) - offX) / escala; }
+
+// ---------- Audio (Web Audio, se activa tras la primera interacción) ----------
+let audio = null;
+function iniciarAudio() {
+  try {
+    if (!audio) audio = new (window.AudioContext || window.webkitAudioContext)();
+    if (audio.state === "suspended") audio.resume();
+  } catch (_) { audio = null; }
+}
+function sonido(freq, dur = 0.1, tipo = "square") {
+  if (!audio) return;
+  const o = audio.createOscillator(), g = audio.createGain();
+  o.type = tipo; o.frequency.value = freq;
+  g.gain.setValueAtTime(0.15, audio.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.001, audio.currentTime + dur);
+  o.connect(g).connect(audio.destination);
+  o.start(); o.stop(audio.currentTime + dur);
+}
+
+// ---------- Guardado ----------
+function leerRecord() { try { return Number(localStorage.getItem("record")) || 0; } catch (_) { return 0; } }
+function guardarRecord(v) { try { localStorage.setItem("record", String(v)); } catch (_) {} }
+
+// ---------- Utilidades ----------
+const aleatorio = (a, b) => a + Math.random() * (b - a);
+const choca = (a, b) => a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
+
+// ---------- Estado del juego ----------
+let estado = "menu"; // menu | jugando | pausa | gameover
+let jugador, enemigos, puntos, temporizador, temblor, record = leerRecord();
+
+function reiniciar() {
+  jugador = { x: CONFIG.ancho / 2 - 20, y: CONFIG.alto - 60, w: 40, h: 40 };
+  enemigos = [];
+  puntos = 0; temporizador = 0; temblor = 0;
+  estado = "jugando";
+}
+
+// ---------- Lógica (paso fijo) ----------
+function update(dt) {
+  if (estado === "menu" || estado === "gameover") {
+    if (pulsadas.has("Space") || pulsadas.has("Enter") || pulsadas.has("Tap")) reiniciar();
+    return;
+  }
+  if (pulsadas.has("KeyP") || pulsadas.has("Escape")) { estado = estado === "pausa" ? "jugando" : "pausa"; return; }
+  if (estado === "pausa") return;
+  if (pulsadas.has("KeyR")) { reiniciar(); return; }
+
+  // Movimiento del jugador
+  let dir = 0;
+  if (teclas.has("ArrowLeft") || teclas.has("KeyA")) dir -= 1;
+  if (teclas.has("ArrowRight") || teclas.has("KeyD")) dir += 1;
+  if (punteroX !== null) dir = Math.sign(punteroX - (jugador.x + jugador.w / 2)) * (Math.abs(punteroX - jugador.x - jugador.w / 2) > 4);
+  jugador.x = Math.max(0, Math.min(CONFIG.ancho - jugador.w, jugador.x + dir * CONFIG.velJugador * dt));
+
+  // Generar enemigos
+  temporizador -= dt;
+  if (temporizador <= 0) {
+    temporizador = CONFIG.cadaEnemigo;
+    enemigos.push({ x: aleatorio(0, CONFIG.ancho - 30), y: -30, w: 30, h: 30, v: aleatorio(...CONFIG.velEnemigo) });
+  }
+
+  // Mover enemigos, puntuar y comprobar colisiones
+  for (let i = enemigos.length - 1; i >= 0; i--) {
+    const e = enemigos[i];
+    e.y += e.v * dt;
+    if (choca(jugador, e)) {
+      estado = "gameover"; temblor = 0.4; sonido(110, 0.4, "sawtooth");
+      if (puntos > record) { record = puntos; guardarRecord(record); }
+      return;
+    }
+    if (e.y > CONFIG.alto) { enemigos.splice(i, 1); puntos++; sonido(660, 0.05); }
+  }
+}
+
+// ---------- Dibujo ----------
+function texto(t, x, y, tam = 24) {
+  ctx.font = `${tam}px system-ui, sans-serif`; ctx.textAlign = "center"; ctx.fillStyle = "#fff";
+  ctx.fillText(t, x, y);
+}
+function render(dtReal) {
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.fillStyle = "#000"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  temblor = Math.max(0, temblor - dtReal);
+  const s = temblor * 20;
+  ctx.setTransform(escala, 0, 0, escala, offX + aleatorio(-s, s), offY + aleatorio(-s, s));
+  ctx.fillStyle = "#1b1f2a"; ctx.fillRect(0, 0, CONFIG.ancho, CONFIG.alto);
+
+  if (jugador) {
+    ctx.fillStyle = "#4fc3f7"; ctx.fillRect(jugador.x, jugador.y, jugador.w, jugador.h);
+    ctx.fillStyle = "#ef5350"; for (const e of enemigos) ctx.fillRect(e.x, e.y, e.w, e.h);
+    ctx.textAlign = "left"; ctx.font = "18px system-ui, sans-serif"; ctx.fillStyle = "#fff";
+    ctx.fillText(`Puntos: ${puntos}   Récord: ${record}`, 12, 26);
+  }
+  const cx = CONFIG.ancho / 2, cy = CONFIG.alto / 2;
+  if (estado === "menu") { texto("Esquiva los bloques", cx, cy - 20, 36); texto("← → para moverte · Espacio o toca para empezar", cx, cy + 24, 18); }
+  if (estado === "pausa") texto("Pausa (P para seguir)", cx, cy, 32);
+  if (estado === "gameover") { texto("¡Fin del juego!", cx, cy - 20, 36); texto(`Puntos: ${puntos} · Espacio o toca para reintentar`, cx, cy + 24, 18); }
+}
+
+// ---------- Bucle principal: paso fijo + render variable ----------
+let ultimo = performance.now(), acumulador = 0;
+function bucle(ahora) {
+  requestAnimationFrame(bucle);
+  const dt = Math.min(0.25, (ahora - ultimo) / 1000); // evita la espiral de la muerte
+  ultimo = ahora;
+  acumulador += dt;
+  while (acumulador >= CONFIG.paso) {
+    update(CONFIG.paso);
+    pulsadas.clear();
+    acumulador -= CONFIG.paso;
+  }
+  render(dt);
+}
+document.addEventListener("visibilitychange", () => { if (document.hidden && estado === "jugando") estado = "pausa"; });
+requestAnimationFrame(bucle);
+</script>
+</body>
+</html>
