@@ -597,7 +597,7 @@ button{font:inherit;color:inherit}
       <p class="gkick" id="gcKick">Nivel 1 de 5</p>
       <h2 id="gcTitle">La Comarca</h2>
       <p id="gcText"></p>
-      <p class="gkeys" id="gcKeys">Mover: WASD o flechas · Correr: Shift · Saltar: espacio (mantené para saltar más alto) · Cámara: Q/E o arrastrando · Entrar a casas y hablar: E · Pausa: P o Esc · Reiniciar nivel: R · Mostrar/ocultar FPS: F · También con mando (stick, A para saltar, B para correr) o en el celular con joystick y botón. Los objetos brillan con un haz de luz y aparecen en el minimapa.</p>
+      <p class="gkeys" id="gcKeys">Mover: WASD o flechas · Correr: Shift · Saltar: espacio (mantené para saltar más alto) · Cámara: Q/E o arrastrando · Entrar a casas y hablar: E · Pausa: P o Esc · Reiniciar nivel: R · Mostrar/ocultar FPS: F · Calidad: G · También con mando (stick, A para saltar, B para correr) o en el celular con joystick y botón. Los objetos brillan con un haz de luz y aparecen en el minimapa.</p>
       <div class="gbtns"><button type="button" class="gbtn" id="gcBtn">Jugar</button><button type="button" class="gbtn ghost" id="gcBtn2" hidden>Ver el mapa</button></div>
     </div>
   </div>
@@ -2008,8 +2008,8 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       W.after&&W.after(world,ti);buildTreeInst(ti,world);
       // nubes
       // nubes de anime: cúmulos dibujados (sprites), no poliedros
-      if(!L.dark){for(let c=0;c<34;c++){const a=rnd(0,6.283),r=rnd(420,900);const sp=new T.Sprite(new T.SpriteMaterial({map:cloudTex[c%cloudTex.length],color:L.clouds||0xffffff,fog:false,depthWrite:false,transparent:true}));
-        const sz=rnd(110,240);sp.scale.set(sz,sz*.5,1);sp.position.set(Math.cos(a)*r,rnd(90,230)+r*.06,Math.sin(a)*r);sp.userData.cloud=true;world.add(sp);}}
+      if(!L.dark){for(let c=0;c<16;c++){const a=rnd(0,6.283),r=rnd(420,900);const sp=new T.Sprite(new T.SpriteMaterial({map:cloudTex[c%cloudTex.length],color:L.clouds||0xffffff,fog:false,depthWrite:false,transparent:true}));
+        const sz=rnd(90,170);sp.scale.set(sz,sz*.5,1);sp.position.set(Math.cos(a)*r,rnd(90,230)+r*.06,Math.sin(a)*r);sp.userData.cloud=true;world.add(sp);}}
       // humo
       S.puffs=[];W.smokes.forEach((sp,k)=>{for(let j=0;j<5;j++){const m=new T.Sprite(new T.SpriteMaterial({map:smokeTex,color:0xf2f2f2,transparent:true,opacity:.5,depthWrite:false}));world.add(m);S.puffs.push({m,sp,t:j/5+Math.random()*.2});}});
       // estado
@@ -2025,7 +2025,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       outline(world);
       // cámara colocada desde el primer frame (sin el "viaje" desde el centro del mapa)
       updateCamera(1);camera.position.copy(new V3(S.x-Math.sin(S.camYaw)*CAM.dist,S.y+8,S.z-Math.cos(S.camYaw)*CAM.dist));
-      spawnNPCs();buildMini();hud();
+      spawnNPCs();buildMini();hud();if(typeof applyQuality==="function")applyQuality();
     }
     function spawnBoss(){
       const make=BOSS[L.boss]();const g=new T.Group();g.add(make.g);world.add(g);
@@ -2037,7 +2037,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         [0,1,2].forEach(k=>{const a=k/3*Math.PI*2+.5;const x=bx+Math.cos(a)*26,z=bz+Math.sin(a)*26;const c=new T.Group();c.position.set(x,W.H(x,z),z);mesh(Gem(1.6,0),M(0xff2a1a,0xff2a1a,1),0,2.4,0,c).scale.y=1.8;mesh(Cyl(1.8,2.1,.7,8),M(0x2a2020),0,.35,0,c);world.add(c);S.crystals.push({g:c,x,z,alive:true});});
         msg("Jefe final: Mordor",2800,true);
       } else {msg(`¡Apareció ${L.bossName}!`,2400,true);beep(160,.5,"sawtooth",.06,.5);}
-      outline(g);
+      outline(g);applyQuality();
       S.phase="boss";hud();
     }
     function hurt(fx,fz){
@@ -2126,7 +2126,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       const room=(ROOMS[E.kind]||ROOMS.house)(interior,E);W=room;outline(interior);
       scene.fog=new T.Fog(room.fog||0x2a1a14,30,90);scene.background=new C(room.bg||0x1a120c);
       hemi.intensity=.42;sun.intensity=.28;roomLight.position.set(...room.light);roomLight.intensity=room.lightI;
-      S.inside=E;S.inNpcs=(room.npcs||[]).map(n=>makeNPC(n,interior));
+      S.inside=E;S.inNpcs=(room.npcs||[]).map(n=>makeNPC(n,interior));applyQuality();
       Object.assign(S,{x:room.spawn[0],z:room.spawn[1],y:0,vx:0,vz:0,vy:0,kx:0,kz:0,yaw:Math.PI,camYaw:Math.PI,camPitch:.32,ground:true});
       camDist=7.2;camera.position.set(S.x,4.5,S.z+6);mini.style.visibility="hidden";hud();msg(E.name,1500);});}
     function exitHouse(){const E=S.inside;beep(300,.12,"triangle",.04);fade(()=>{
@@ -2400,10 +2400,18 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     const fpsEl=$("gFps");let fpsN=0,fpsT=performance.now();
     addEventListener("keydown",e=>{if(!ov.hidden&&e.code==="KeyF"&&!e.repeat)fpsEl.hidden=!fpsEl.hidden;});
     let pr=Math.min(devicePixelRatio,1.5),lowT=0,highT=0;
+    /* Calidad: 2 = Alta (todo), 1 = Media (sin contorno en decoración, menos nubes), 0 = Baja (sin contornos ni nubes) */
+    let quality=2,autoQ=true;const QN=["Baja","Media","Alta"];
+    function applyQuality(){const roots=[world,interior,player].filter(Boolean);let ci=0;
+      roots.forEach(r=>r.traverse(o=>{if(o.userData.hull)o.visible=quality===2||(quality===1&&!(o.isInstancedMesh));
+        if(o.userData.cloud){o.visible=quality===2||(quality===1&&(ci%2===0));ci++;}}));
+      if(S.boss&&S.boss.g)S.boss.g.traverse(o=>{if(o.userData.hull)o.visible=quality>0;});}
+    addEventListener("keydown",e=>{if(!ov.hidden&&e.code==="KeyG"&&!e.repeat){autoQ=false;quality=(quality+2)%3;applyQuality();msg("Calidad: "+QN[quality]+" (automática apagada)",1400);}});
     function adaptRes(f){if(paused)return;if(f<40){lowT++;highT=0;}else if(f>57){highT++;lowT=0;}else{lowT=highT=0;}
       if(lowT>=3&&pr>.7){pr=Math.max(.7,pr-.2);renderer.setPixelRatio(pr);lowT=0;}
+      else if(lowT>=4&&autoQ&&quality>0){quality--;applyQuality();lowT=0;msg("Calidad automática: "+QN[quality],1200);}
       if(highT>=8&&pr<Math.min(devicePixelRatio,1.5)){pr=Math.min(Math.min(devicePixelRatio,1.5),pr+.1);renderer.setPixelRatio(pr);highT=0;}}
-    function countFps(){fpsN++;const now=performance.now();if(now-fpsT>=500){const f=Math.round(fpsN*1000/(now-fpsT));adaptRes(f);fpsEl.textContent=f+" FPS";fpsEl.className="gfps"+(f<30?" low":f<50?" mid":"");fpsN=0;fpsT=now;}}
+    function countFps(){fpsN++;const now=performance.now();if(now-fpsT>=500){const f=Math.round(fpsN*1000/(now-fpsT));adaptRes(f);fpsEl.textContent=f+" FPS · "+QN[quality];fpsEl.className="gfps"+(f<30?" low":f<50?" mid":"");fpsN=0;fpsT=now;}}
     function loop(){
       requestAnimationFrame(loop);
       if(!ov.hidden)countFps();
