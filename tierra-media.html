@@ -331,6 +331,47 @@ button{font:inherit;color:inherit}
 .sw:hover{transform:scale(1.15)}
 .sw.on{box-shadow:0 0 0 4px #fff,0 0 0 7px var(--btn-ink);transform:scale(1.08)}
 @media (max-width:760px){.gcustom{align-items:flex-end}.gc-panel{width:100%;height:56%}.gc-panel h2{font-size:22px;padding:10px 16px 8px}}
+.gsplash{position:absolute;inset:0;z-index:30;display:grid;place-items:center;align-content:center;gap:26px;padding:24px 16px;text-align:center;color:#fff;
+  background:radial-gradient(circle at 50% 42%,#3a2a8a 0%,#1a1240 45%,#07061a 100%);overflow:hidden}
+.gsplash[hidden]{display:none}
+.gsplash.out{animation:gsout .38s ease-in forwards}
+@keyframes gsout{to{opacity:0;transform:scale(1.08)}}
+.gs-rays{position:absolute;inset:-50%;background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.07) 0 6deg,transparent 6deg 18deg);animation:gsspin 40s linear infinite;pointer-events:none}
+@keyframes gsspin{to{transform:rotate(360deg)}}
+.gs-logo{position:relative;width:min(300px,62vw);aspect-ratio:1;border-radius:28px;background:#fff;display:grid;place-items:center;border:6px solid var(--btn-ink);
+  box-shadow:0 10px 0 var(--btn-ink),0 0 80px rgba(150,190,255,.55);animation:gslogo .9s cubic-bezier(.2,1.6,.4,1) both,gsglow 2.6s ease-in-out .9s infinite}
+.gs-logo span{font:400 clamp(22px,5vw,34px) var(--btn-font);color:#c9cde0;letter-spacing:.06em}
+.gs-logo.img{background:transparent;border:0;box-shadow:none}.gs-logo.img img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 30px rgba(150,190,255,.6))}
+@keyframes gslogo{0%{transform:scale(.2) rotate(-12deg);opacity:0}60%{opacity:1}100%{transform:none;opacity:1}}
+@keyframes gsglow{50%{box-shadow:0 10px 0 var(--btn-ink),0 0 120px rgba(150,190,255,.85)}}
+.gs-tap{position:relative;margin:0;font:400 clamp(18px,4vw,24px) var(--btn-font);text-transform:uppercase;letter-spacing:.06em;animation:gstap 1.4s ease-in-out infinite;
+  text-shadow:-2px -2px 0 var(--btn-ink),2px -2px 0 var(--btn-ink),-2px 2px 0 var(--btn-ink),2px 2px 0 var(--btn-ink)}
+.gs-tap[hidden],.gs-modes[hidden]{display:none}
+@keyframes gstap{50%{opacity:.35}}
+.gs-modes{position:relative;animation:gcardin .45s cubic-bezier(.2,1.6,.4,1)}
+.gs-modes h2{margin:0 0 14px;font:400 clamp(24px,5vw,34px) var(--btn-font);text-transform:uppercase;
+  text-shadow:-3px -3px 0 var(--btn-ink),3px -3px 0 var(--btn-ink),-3px 3px 0 var(--btn-ink),3px 3px 0 var(--btn-ink),0 5px 0 var(--btn-ink)}
+.gs-row{display:flex;flex-wrap:wrap;justify-content:center;gap:14px}
+.sgb.mode{display:flex;flex-direction:column;align-items:center;gap:4px;width:min(180px,40vw);padding:14px 10px 16px;font-size:18px}
+.sgb.mode i{font-style:normal;font-size:38px;text-shadow:none}
+.sgb.mode small{font-size:12px;opacity:.95}
+.gs-note{margin:14px 0 0;font-size:14px;opacity:.8}
+.gc-path{margin:8px 0 0;padding:10px 12px;background:#fff;border:3px solid var(--btn-ink);border-radius:14px;font-size:14px;line-height:1.4}
+.gc-row.col{display:flex;flex-direction:column;gap:10px}
+.sgb.pathb{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:3px;padding:10px 14px;font-size:16px}
+.sgb.pathb small{font-size:12px}.sgb.pathb span{font:500 13px/1.35 var(--g-font);text-transform:none;letter-spacing:0;text-shadow:none;color:#fff}
+.gpause{width:44px;padding-left:0!important;padding-right:0!important}
+.gact{position:absolute;right:26px;bottom:calc(142px + env(safe-area-inset-bottom,0px));width:96px;height:96px;border-radius:50%;border:4px solid var(--btn-ink);cursor:pointer;
+  background:linear-gradient(180deg,#fff27a,#ffcf0d 55%);box-shadow:inset 0 -6px 0 #d99a00,0 6px 0 var(--btn-ink);font:400 16px var(--btn-font);text-transform:uppercase;color:#fff;
+  text-shadow:-2px -2px 0 var(--btn-ink),2px -2px 0 var(--btn-ink),-2px 2px 0 var(--btn-ink),2px 2px 0 var(--btn-ink);display:none}
+#game[data-mode="touch"] .gact:not([hidden]){display:block}
+#game[data-mode="touch"] .gjoy,#game[data-mode="touch"] .gjump{display:block!important}
+#game[data-mode="touch"] .gattack:not([hidden]){display:block!important}
+#game:not([data-mode="touch"]) .gjoy,#game:not([data-mode="touch"]) .gjump,#game:not([data-mode="touch"]) .gattack,#game:not([data-mode="touch"]) .gact{display:none!important}
+#game[data-mode="touch"] .gjoy{width:150px;height:150px;left:20px;bottom:calc(24px + env(safe-area-inset-bottom,0px))}
+#game[data-mode="touch"] .gprompt{display:none!important}
+#game:not([data-mode="touch"]) .gpause{display:none}
+#game.customizing .gact{visibility:hidden}
 @keyframes sgidle{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
 .enter span{display:inline-block;transition:transform .2s}.enter:hover span{transform:translateX(5px)}
 .tod{background:rgba(27,24,64,.55)!important;border:3px solid var(--btn-ink)!important;border-radius:22px!important;padding:6px 8px 10px!important;gap:6px}
@@ -611,6 +652,21 @@ button{font:inherit;color:inherit}
   <canvas class="gspeed" id="gSpeed" aria-hidden="true"></canvas>
   <div class="gflash" id="gFlash" aria-hidden="true"></div>
   <div class="gfade" id="gFade" aria-hidden="true"></div>
+  <div class="gsplash" id="gSplash" hidden>
+    <div class="gs-rays" aria-hidden="true"></div>
+    <div class="gs-logo" id="gsLogo"><span>TU LOGO</span></div>
+    <p class="gs-tap" id="gsTap">Tocá la pantalla para empezar</p>
+    <div class="gs-modes" id="gsModes" hidden>
+      <h2>¿Dónde vas a jugar?</h2>
+      <div class="gs-row">
+        <button type="button" class="sgb mode" data-mode="pc"><i aria-hidden="true">🖥️</i><b>Computadora</b><small>Teclado y mouse</small></button>
+        <button type="button" class="sgb mode" data-mode="pad"><i aria-hidden="true">🎮</i><b>Mando</b><small>Joystick de consola</small></button>
+        <button type="button" class="sgb mode" data-mode="touch"><i aria-hidden="true">📱</i><b>Celular</b><small>Pantalla táctil</small></button>
+      </div>
+      <p class="gs-note">Podés cambiarlo después desde la pausa.</p>
+    </div>
+  </div>
+  <button type="button" class="gact" id="gAct" hidden>Entrar</button>
   <div class="gcustom" id="gCustom" hidden>
     <div class="gc-panel">
       <h2>¿Quién querés ser?</h2>
@@ -632,7 +688,7 @@ button{font:inherit;color:inherit}
       <span id="gBossName">Jefe</span>
       <div class="gbar"><i id="gBossBar"></i></div>
     </div>
-    <div class="gtop"><button type="button" class="gexit" id="gWardrobe">Vestuario</button><button type="button" class="gexit" id="gExit">Salir</button></div>
+    <div class="gtop"><button type="button" class="gexit gpause" id="gPauseBtn" aria-label="Pausa">⏸</button><button type="button" class="gexit" id="gWardrobe">Vestuario</button><button type="button" class="gexit" id="gExit">Salir</button></div>
   </div>
   <canvas class="gmini" id="gMini" width="150" height="150" aria-label="Minimapa"></canvas>
   <p class="gmsg" id="gMsg"></p>
@@ -1532,7 +1588,27 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
   const ov=$("game");
   let T, started=false, running=false;
 
+  /* ---------- Entrada (estilo Marvel Rivals): logo, "tocá para empezar" y elegir plataforma ---------- */
+  // Para poner tu logo: escribí acá la ruta o el enlace de la imagen (por ejemplo "logo.png").
+  const LOGO_SRC="";
+  let MODE=null,splashCbs=[];
+  try{MODE=localStorage.getItem("tm-mode");}catch(e){}
+  const MODE_KEYS={pc:"Mover: WASD o flechas · Correr: Shift · Saltar: espacio (otra vez en el aire: zambullida) · Cámara: mouse arrastrando o Q/E · Entrar y hablar: E · Atacar: clic o J · Pausa: P o Esc · Reiniciar: R · FPS: F · Calidad: G",
+    pad:"Stick izquierdo: moverte · Stick derecho: cámara · A: saltar (otra vez en el aire: zambullida) · B o RT: correr · X: entrar y hablar · Y o RB: atacar · Start: pausa",
+    touch:"Joystick: moverte (empujalo hasta el borde para correr) · Arrastrá la pantalla: cámara · Saltar (otra vez en el aire: zambullida) · Botón amarillo: entrar y hablar · Atacar · ⏸: pausa"};
+  function applyMode(m){MODE=m;ov.dataset.mode=m;try{localStorage.setItem("tm-mode",m);}catch(e){}const k=$("gcKeys");if(k)k.textContent=MODE_KEYS[m]+" · Los objetos brillan con un haz de luz y aparecen en el minimapa.";
+    if(window.__onMode)window.__onMode(m);}
+  function whenSplashDone(cb){if(!$("gSplash")||$("gSplash").hidden)cb();else splashCbs.push(cb);}
+  function showSplash(){const sp=$("gSplash");if(!sp)return;sp.hidden=false;
+    if(LOGO_SRC){const img=new Image();img.alt="Logo";img.src=LOGO_SRC;$("gsLogo").innerHTML="";$("gsLogo").appendChild(img);$("gsLogo").classList.add("img");}
+    $("gsModes").hidden=true;$("gsTap").hidden=false;
+    const toModes=()=>{sp.removeEventListener("pointerdown",toModes);removeEventListener("keydown",toModes);$("gsTap").hidden=true;$("gsModes").hidden=false;
+      if(MODE)sp.querySelector(`[data-mode="${MODE}"]`)?.classList.add("on");setTimeout(()=>sp.querySelector(".sgb.mode")?.focus(),50);};
+    setTimeout(()=>{sp.addEventListener("pointerdown",toModes);addEventListener("keydown",toModes);},700);
+    sp.querySelectorAll(".sgb.mode").forEach(b=>b.onclick=e=>{e.stopPropagation();applyMode(b.dataset.mode);sp.classList.add("out");
+      setTimeout(()=>{sp.hidden=true;sp.classList.remove("out");const c=splashCbs;splashCbs=[];c.forEach(f=>f());},380);});}
   window.openGame=function(){
+    if(!openGame.splashed){openGame.splashed=true;showSplash();}
     ov.hidden=false; document.documentElement.style.overflow="hidden";
     if(window.THREE){ T=window.THREE; if(!started){started=true;init();} else {running=true;if(window.__pauseGame)window.__pauseGame();} return; }
     const s=document.createElement("script");
@@ -1633,7 +1709,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         smoothNormals(o.geometry);
         const col=o.material.userData.line||0x2a1a2e;
         const h=o.isInstancedMesh?new T.InstancedMesh(o.geometry,outlineMat(col),o.count):new T.Mesh(o.geometry,outlineMat(col));
-        if(o.isInstancedMesh){h.instanceMatrix=o.instanceMatrix;h.frustumCulled=false;}
+        if(o.isInstancedMesh){h.instanceMatrix=o.instanceMatrix;}
         h.userData.hull=true;h.raycast=()=>{};h.matrixAutoUpdate=false;o.add(h);});}
     const noOut=m=>{m.userData.noOutline=true;return m;};
     resize(); addEventListener("resize",resize);
@@ -1647,13 +1723,23 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     // Instancias agrupadas
     function Inst(geo,mat){this.geo=geo;this.mat=mat;this.m=[];}
     Inst.prototype.add=function(x,y,z,s=1,ry=0,sy){const o=new T.Object3D();o.position.set(x,y,z);o.rotation.y=ry;o.scale.set(s,sy==null?s:sy,s);o.updateMatrix();this.m.push(o.matrix.clone());};
-    Inst.prototype.build=function(parent){if(!this.m.length)return;const im=new T.InstancedMesh(this.geo,this.mat,this.m.length);im.frustumCulled=false;if(this.noOutline)im.userData.noOutline=true;this.m.forEach((mm,i)=>im.setMatrixAt(i,mm));parent.add(im);return im;};
+    Inst.prototype.build=function(parent){if(!this.m.length)return;
+      // se divide en zonas de 120 m con su propia esfera envolvente: three.js deja de dibujar las zonas fuera de cámara
+      const CH=120,cells=new Map();this.m.forEach(mm=>{const k=Math.floor(mm.elements[12]/CH)+","+Math.floor(mm.elements[14]/CH);let c=cells.get(k);if(!c)cells.set(k,c=[]);c.push(mm);});
+      if(!this.geo.boundingSphere)this.geo.computeBoundingSphere();const gr=this.geo.boundingSphere.radius+this.geo.boundingSphere.center.length();let last;
+      cells.forEach(list=>{const g=new T.BufferGeometry();for(const n in this.geo.attributes)g.setAttribute(n,this.geo.attributes[n]);if(this.geo.index)g.setIndex(this.geo.index);
+        let cx=0,cy=0,cz=0;list.forEach(mm=>{cx+=mm.elements[12];cy+=mm.elements[13];cz+=mm.elements[14];});cx/=list.length;cy/=list.length;cz/=list.length;let r=0;
+        list.forEach(mm=>{const e=mm.elements,sc=Math.max(Math.hypot(e[0],e[1],e[2]),Math.hypot(e[4],e[5],e[6]),Math.hypot(e[8],e[9],e[10]));r=Math.max(r,Math.hypot(e[12]-cx,e[13]-cy,e[14]-cz)+gr*sc);});
+        g.boundingSphere=new T.Sphere(new T.Vector3(cx,cy,cz),r);
+        const im=new T.InstancedMesh(g,this.mat,list.length);if(this.noOutline)im.userData.noOutline=true;list.forEach((mm,i)=>im.setMatrixAt(i,mm));parent.add(im);last=im;});
+      return last;};
+    Inst.prototype.buildOld=function(parent){if(!this.m.length)return;const im=new T.InstancedMesh(this.geo,this.mat,this.m.length);im.frustumCulled=false;if(this.noOutline)im.userData.noOutline=true;this.m.forEach((mm,i)=>im.setMatrixAt(i,mm));parent.add(im);return im;};
 
     // Cielo
     const skyMat=new T.ShaderMaterial({side:T.BackSide,depthWrite:false,uniforms:{top:{value:new C(0x4f9ae0)},hor:{value:new C(0xdff1ff)}},
       vertexShader:"varying vec3 p;void main(){p=normalize(position);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}",
       fragmentShader:"uniform vec3 top;uniform vec3 hor;varying vec3 p;void main(){float t=smoothstep(-.05,.55,p.y);gl_FragColor=vec4(mix(hor,top,t),1.);}"});
-    const sky=new T.Mesh(Sph(1400,32,16),skyMat);scene.add(sky);
+    const sky=new T.Mesh(Sph(200,32,16),skyMat); // radio chico: siempre dentro del alcance de la cámara (sigue a la cámara)scene.add(sky);
     // Humo
     const smokeTex=(()=>{const c=document.createElement("canvas");c.width=c.height=64;const g=c.getContext("2d");const r=g.createRadialGradient(32,32,2,32,32,30);r.addColorStop(0,"rgba(255,255,255,.9)");r.addColorStop(1,"rgba(255,255,255,0)");g.fillStyle=r;g.fillRect(0,0,64,64);return new T.CanvasTexture(c);})();
 
@@ -1798,7 +1884,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     const LEVELS=[];
     // 1) LA COMARCA
     LEVELS.push({name:"La Comarca",kick:"Nivel 1 de 5 · La Comunidad del Anillo",size:440,
-      sky:[0x2a7de1,0xd4f0ff],fog:[0xd8eefa,140,440],sun:0xfff0d0,
+      sky:[0x2a7de1,0xd4f0ff],fog:[0xd8eefa,120,360],sun:0xfff0d0,
       text:"Bilbo desapareció en su fiesta y el Anillo quedó en tus manos. Antes de partir, recorré Hobbiton y juntá los 5 hongos perdidos del granjero Maggot… pero un Jinete Oscuro anda buscando al Portador.",
       item:"mushroom",itemName:"Hongos",boss:"rider",bossName:"El Jinete Oscuro",speed:9,shoot:0,start:[0,20],bossStart:[190,95],
       setup(W){
@@ -1898,7 +1984,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
           const bridge=mesh(Box(6,1,60),M(0x2f2d3c),0,.2,0,g);};
         W.items=[[-100,-100],[110,-70],[-120,60],[90,110],[0,-40]];}});
     // 3) ROHAN
-    LEVELS.push({name:"Rohan",kick:"Nivel 3 de 5 · Las Dos Torres",size:400,sky:[0x3f8ee0,0xffe3bd],fog:[0xffe8cc,120,410],sun:0xffe0b0,
+    LEVELS.push({name:"Rohan",kick:"Nivel 3 de 5 · Las Dos Torres",size:400,sky:[0x3f8ee0,0xffe3bd],fog:[0xffe8cc,100,320],sun:0xffe0b0,
       text:"La Comunidad se rompió. En las llanuras de Rohan, juntá 5 estandartes, llevalos al rey Théoden en Meduseld y recibí su espada para enfrentar al Jefe Orco.",
       item:"banner",itemName:"Estandartes",boss:"uruk",bossName:"El Jefe Orco",speed:11,shoot:0,start:[0,100],bossStart:[0,-150],
       setup(W){const hill=(x,z)=>22*Math.exp(-(x*x+(z+30)*(z+30))/(2*30*30));W.H=(x,z)=>4*Math.sin(x*.015)*Math.cos(z*.018)+2*Math.sin(x*.04+z*.03)+hill(x,z)+smooth(150,195,Math.max(Math.abs(x),Math.abs(z)))*40;
@@ -1939,6 +2025,43 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
           const glow=new T.PointLight(0xff5a1f,2,200);glow.position.set(0,70,-130);g.add(glow);};
         W.items=[];}});
 
+    /* ---------- Caminos: cada personaje principal vive su propia historia ---------- */
+    LEVELS.forEach((l,i)=>l.base=i);
+    const PATHS=[
+      {id:"anillo",name:"La Comunidad del Anillo",who:["Frodo","Sam"],desc:"Llevá el Anillo desde la Comarca hasta el Monte del Destino.",
+        levels:[{base:0},{base:1},{base:2},{base:3},{base:4,ringScene:true}],
+        ending:["El Anillo cayó al fuego","La Torre Oscura se derrumbó y Mordor fue vencido. Los hobbits vuelven a casa y la Comarca vuelve a estar en paz."]},
+      {id:"gandalf",name:"El Peregrino Gris",who:["Gandalf"],desc:"De los fuegos artificiales de la Comarca al puente de Khazad-dûm, y de vuelta como el Blanco.",
+        levels:[{base:0,name:"La fiesta de Bilbo",item:"light",itemName:"Fuegos artificiales",text:"La fiesta terminó y tus fuegos artificiales quedaron desparramados por Hobbiton. Juntá los 5 antes de que llegue el Jinete Oscuro buscando el Anillo."},
+          {base:1,name:"El puente de Khazad-dûm",text:"Guiá a la Comunidad por Moria. Juntá 5 gemas de mithril y enfrentá al Balrog con tus runas: ¡no podés pasar!"},
+          {base:2,name:"Gandalf el Blanco",text:"Volviste como Gandalf el Blanco. Juntá 5 estandartes, despertá al rey Théoden y vencé al Jefe Orco."}],
+        ending:["Gandalf el Blanco","Rohan está libre y el rey cabalga otra vez. «Mirá al este al amanecer del quinto día.»"]},
+      {id:"cazadores",name:"Los Tres Cazadores",who:["Aragorn","Legolas","Gimli"],desc:"Persiguen a los uruks por Rohan, vuelven al reino de Gimli y desafían a la Puerta Negra.",
+        levels:[{base:2,name:"La caza de los uruks",text:"Los uruks se llevaron a Merry y Pippin. Juntá 5 estandartes, recibí la espada del rey y vencé al Jefe Orco."},
+          {base:1,name:"El reino de Gimli",text:"Gimli quiere ver Moria. Encontrá 5 gemas de mithril y vencé al Balrog activando las runas de Gandalf."},
+          {base:4,name:"La Puerta Negra",text:"Distraé al Ojo de Sauron: rompé los 3 cristales de la Torre Oscura para que Frodo pueda llegar al Monte del Destino."}],
+        ending:["La Puerta Negra cayó","Mientras el Ojo los miraba a ustedes, Frodo arrojó el Anillo al fuego. Aragorn será coronado rey de Gondor."]},
+      {id:"eowyn",name:"La Dama de Rohan",who:["Éowyn"],desc:"Defendé Edoras y enfrentá al Rey Brujo en los campos del Pelennor.",
+        levels:[{base:2,name:"Edoras en peligro",text:"Juntá 5 estandartes, recibí la espada del rey y vencé al Jefe Orco que ataca los campos."},
+          {base:3,name:"Los campos del Pelennor",item:"light",itemName:"Antorchas",boss:"rider",bossName:"El Rey Brujo de Angmar",speed:10,shoot:0,sky:[0x2a0f12,0x7a3a2a],fog:[0x4a2a24,40,220],
+            text:"La noche cae sobre el Pelennor. Encendé 5 antorchas y enfrentá al Rey Brujo: ningún hombre puede matarlo… pero vos no sos un hombre."}],
+        ending:["¡No soy ningún hombre!","Éowyn venció al Rey Brujo de Angmar. Rohan y Gondor cantan su nombre."]},
+      {id:"arwen",name:"La Estrella de la Tarde",who:["Arwen"],desc:"Salvá a Frodo de los Nazgûl y llevá la luz élfica a la oscuridad.",
+        levels:[{base:0,name:"El vado del Bruinen",item:"light",itemName:"Hojas de athelas",text:"Frodo está herido. Juntá 5 hojas de athelas para curarlo y enfrentá al Jinete Oscuro que lo persigue."},
+          {base:3,name:"La luz de los elfos",text:"Llevá la luz élfica a Cirith Ungol: juntá 5 destellos y vencé a la araña gigante."}],
+        ending:["La Estrella de la Tarde","Gracias a Arwen, Frodo pudo seguir su viaje. La luz de los elfos todavía brilla en la Tierra Media."]},
+      {id:"traviesos",name:"Los Medianos Traviesos",who:["Merry","Pippin","Rosita"],desc:"Robale hongos al granjero Maggot, escapá de los uruks y despertá a los Ents.",
+        levels:[{base:0,name:"El atajo a los hongos",text:"¡Atajo a los hongos! Robale 5 hongos al granjero Maggot… y escapá del Jinete Oscuro."},
+          {base:2,name:"El bosque de Fangorn",noKing:true,itemName:"Ramas de Ent",bossName:"El Uruk de Isengard",text:"Escapaste de los uruks. Juntá 5 ramas para despertar a los Ents y vencé al Uruk de Isengard."}],
+        ending:["La marcha de los Ents","Los Ents despertaron y marcharon sobre Isengard. ¡Nada mal para dos medianos traviesos!"]},
+      {id:"bilbo",name:"Historia de una ida y de una vuelta",who:["Bilbo"],desc:"Bilbo revive su gran aventura: la fiesta, la montaña y el Bosque Negro.",
+        levels:[{base:0,name:"Una fiesta inesperada",text:"Trece enanos se comieron tu despensa. Juntá 5 hongos para reponerla antes de que llegue el Jinete Oscuro."},
+          {base:1,name:"Bajo la Montaña",itemName:"Joyas de los enanos",bossName:"El fuego de la montaña",text:"Bajo la montaña brillan las joyas de los enanos. Juntalas y vencé al monstruo de fuego con las runas."},
+          {base:3,name:"El Bosque Negro",bossName:"La reina de las arañas",text:"Las arañas del Bosque Negro atraparon a los enanos. Juntá 5 destellos y vencé a su reina."}],
+        ending:["Ida y vuelta","Bilbo volvió a Bolsón Cerrado con un cofre de oro… y un anillo muy especial en el bolsillo."]}];
+    let PATH=PATHS[0],CAMP=null;
+    function makeCamp(p){const c=p.levels.map((ov,i)=>Object.assign({},LEVELS[ov.base],ov,{kick:`Nivel ${i+1} de ${p.levels.length} · ${p.name}`}));c.pathId=p.id;return c;}
+    const pathFor=name=>PATHS.find(p=>p.who.includes(name));
     /* ---------- jugador ---------- */
     /* ---------- Unir piezas fijas en una sola malla por material (menos dibujos por cuadro) ---------- */
     function mergeStatic(group,skip){
@@ -2127,6 +2250,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         const st=b(9);if(st&&!padStart)togglePause();padStart=st;
         const ac=b(2);if(ac&&!padAct&&S.prompt)doAction();padAct=ac;
         const at=b(3)||b(5);if(at&&!padAtk)attack();padAtk=at;break;}
+      if(MODE==="touch"&&Math.hypot(joy.x,joy.y)>.92)run=true;
       A.moveX=mx;A.moveZ=mz;A.run=run;A.lookX=lx;A.lookY=ly;A.jumpHeld=held;}
 
     /* ---------- Controlador del personaje (como el CharacterController de Unity) ----------
@@ -2148,9 +2272,12 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       if(pausedByMenu&&!force){$("gCard").hidden=true;paused=false;pausedByMenu=false;return;}
       if(paused)return; // hay otra tarjeta abierta (inicio de nivel, derrota…)
       clearInput();
-      card("Pausa",L.name,L.item?`${L.itemName}: ${S.got}/5 · Corazones: ${S.hearts}/3`:"Jefe final en curso.","Seguir",null,"Reiniciar nivel",()=>{$("gCard").hidden=true;paused=false;pausedByMenu=false;build(lvl);});
+      card("Pausa",L.name+" · "+PATH.name,L.item?`${L.itemName}: ${S.got}/5 · Corazones: ${S.hearts}/3`:"Jefe final en curso.","Seguir",null,"Reiniciar nivel",()=>{$("gCard").hidden=true;paused=false;pausedByMenu=false;build(lvl);});
+      {const b=document.createElement("button");b.type="button";b.className="gbtn ghost";b.dataset.tmp="1";b.textContent="Cambiar plataforma";
+        b.onclick=()=>{$("gCard").hidden=true;b.remove();pausedByMenu=false;$("gSplash").hidden=false;$("gsTap").hidden=true;$("gsModes").hidden=false;splashCbs.push(()=>{paused=false;});};
+        $("gCard").querySelector(".gbtns").appendChild(b);}
       pausedByMenu=true;}
-    function card(kick,title,text,btn,cb,btn2,cb2){paused=true;pausedByMenu=false;clearInput();$("gCard").hidden=false;$("gcKick").textContent=kick;$("gcTitle").textContent=title;$("gcText").textContent=text;
+    function card(kick,title,text,btn,cb,btn2,cb2){$("gCard").querySelectorAll("[data-tmp]").forEach(x=>x.remove());paused=true;pausedByMenu=false;clearInput();$("gCard").hidden=false;$("gcKick").textContent=kick;$("gcTitle").textContent=title;$("gcText").textContent=text;
       $("gcBtn").textContent=btn;$("gcBtn").onclick=()=>{$("gCard").hidden=true;paused=false;pausedByMenu=false;iniciarAudio();cb&&cb();};
       const b2=$("gcBtn2");b2.hidden=!btn2;if(btn2){b2.textContent=btn2;b2.onclick=()=>{cb2&&cb2();};}
       setTimeout(()=>$("gcBtn").focus(),50);}
@@ -2181,15 +2308,16 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         if(o.geometry&&!shared.has(o.geometry)&&!o.userData.hull)o.geometry.dispose();
         const ms=Array.isArray(o.material)?o.material:o.material?[o.material]:[];ms.forEach(m=>{if(!shared.has(m)&&!m.userData.keep)m.dispose();});});}
     function build(i){
-      lvl=i;L=LEVELS[i];seed=7+i*101;
+      if(!CAMP)CAMP=makeCamp(PATH);lvl=i;L=CAMP[i];seed=7+L.base*101;
       if(world){scene.remove(world);disposeTree(world);}
       world=new T.Group();scene.add(world);
       if(interior){scene.remove(interior);disposeTree(interior);interior=null;}
       {const u=player.userData;S.cut=null;if(u.ring&&u.ring.parent!==u.torso){u.torso.add(u.ring);u.ring.position.set(.4,.95,.1);u.ring.rotation.set(0,1.2,0);u.ring.scale.setScalar(1);}if(u.ring)u.ring.visible=true;}
       sky.visible=true;scene.background=null;roomLight.intensity=0;mini.style.visibility="";closeTalk();
+      sky.children.slice().forEach(c=>{if(c.userData.cloud){sky.remove(c);c.material.dispose();}});
       W={solid:[],boxes:[],enter:[],smokes:[],spin:[],water:null};L.setup(W);
       skyMat.uniforms.top.value.set(L.sky[0]);skyMat.uniforms.hor.value.set(L.sky[1]);
-      scene.fog=new T.Fog(L.fog[0],L.fog[1],L.fog[2]);sun.color.set(L.sun);hemi.intensity=L.dark?.35:.55;sun.intensity=L.dark?.45:1;
+      scene.fog=new T.Fog(L.fog[0],L.fog[1],L.fog[2]);camera.far=L.fog[2]+60;camera.updateProjectionMatrix();sun.color.set(L.sun);hemi.intensity=L.dark?.35:.55;sun.intensity=L.dark?.45:1;
       // terreno
       const seg=Math.round(L.size/2.2);const geo=new T.PlaneGeometry(L.size,L.size,seg,seg);geo.rotateX(-Math.PI/2);
       const pos=geo.attributes.position,col=new Float32Array(pos.count*3);
@@ -2201,7 +2329,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       // nubes
       // nubes de anime: cúmulos dibujados (sprites), no poliedros
       if(!L.dark){for(let c=0;c<16;c++){const a=rnd(0,6.283),r=rnd(420,900);const sp=new T.Sprite(new T.SpriteMaterial({map:cloudTex[c%cloudTex.length],color:L.clouds||0xffffff,fog:false,depthWrite:false,transparent:true}));
-        const sz=rnd(90,170);sp.scale.set(sz,sz*.5,1);sp.position.set(Math.cos(a)*r,rnd(90,230)+r*.06,Math.sin(a)*r);sp.userData.cloud=true;world.add(sp);}}
+        const kc=.2,sz=rnd(90,170)*kc;sp.scale.set(sz,sz*.5,1);sp.position.set(Math.cos(a)*r*kc,(rnd(90,230)+r*.06)*kc,Math.sin(a)*r*kc);sp.userData.cloud=true;sky.add(sp);}}
       // humo
       S.puffs=[];W.smokes.forEach((sp,k)=>{for(let j=0;j<5;j++){const m=new T.Sprite(new T.SpriteMaterial({map:smokeTex,color:0xf2f2f2,transparent:true,opacity:.5,depthWrite:false}));world.add(m);S.puffs.push({m,sp,t:j/5+Math.random()*.2});}});
       // estado
@@ -2231,7 +2359,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       } else {msg(`¡Apareció ${L.bossName}!`,2400,true);beep(160,.5,"sawtooth",.06,.5);}
       if(L.boss==="demon"){spawnRunes();setTimeout(()=>{say("Gandalf","¡Es un Balrog! No podés saltarle encima: activá mis 3 runas azules (E) y esquivá su fuego.",null);hud();},1500);}
       if(L.boss!=="demon"&&!L.final)setTimeout(()=>say("Gandalf",PROG.sword?"¡Hacé clic para atacar con Herugrim! También podés saltarle encima cuando se canse.":"Esquivalo hasta que se canse. Cuando aparezca la flecha dorada, ¡saltale encima!",null),1500);
-      if(lvl===2&&PROG.riders){S.boss.hp=2;msg("¡Los Rohirrim ya debilitaron al capitán!",2000);}
+      if(L.base===2&&PROG.riders){S.boss.hp=2;msg("¡Los Rohirrim ya debilitaron al capitán!",2000);}
       outline(g);applyQuality();
       S.phase="boss";hud();
     }
@@ -2244,9 +2372,11 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       if(S.hearts<=0)card(L.kick,"Te quedaste sin corazones","El camino es largo, pero no termina acá. Probá de nuevo este nivel.","Reintentar",()=>build(lvl));
     }
     function winLevel(){
-      if(L.final){beep(523,.2,"triangle",.07);setTimeout(()=>beep(659,.2,"triangle",.07),180);setTimeout(()=>beep(784,.5,"triangle",.07),360);
+      if(lvl>=CAMP.length-1){beep(523,.2,"triangle",.07);setTimeout(()=>beep(659,.2,"triangle",.07),180);setTimeout(()=>beep(784,.5,"triangle",.07),360);
+        card("Fin del camino · "+PATH.name,PATH.ending[0],PATH.ending[1]+" ¡Completaste este camino!","Volver a jugar",()=>build(0),"Elegir otro personaje",()=>{$("gCard").hidden=true;openCustomizer(()=>startIntro());});return;}
+      if(false){beep(523,.2,"triangle",.07);setTimeout(()=>beep(659,.2,"triangle",.07),180);setTimeout(()=>beep(784,.5,"triangle",.07),360);
         card("Fin del viaje","El Anillo cayó al fuego","La Torre Oscura se derrumbó y Mordor fue vencido. Los hobbits vuelven a casa y la Comarca vuelve a estar en paz. Ganaste el juego.","Volver a jugar",()=>build(0),"Ver el mapa",()=>{closeGame();document.getElementById("mapa").scrollIntoView();});return;}
-      const n=LEVELS[lvl+1];card(n.kick,n.name,n.text,"Viajar al siguiente mundo",()=>build(lvl+1));
+      const n=CAMP[lvl+1];card(n.kick,n.name,n.text,"Viajar al siguiente mundo",()=>build(lvl+1));
     }
 
     /* ---------- Habitantes del mapa ---------- */
@@ -2274,7 +2404,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       N.tx=N.x;N.tz=N.z;collide(N,.5);N.y=W.H(N.x,N.z);m.position.set(N.x,N.y,N.z);return N;}
     function spawnNPCs(){S.npcs=[];(L.npcs||[]).forEach(n=>S.npcs.push(makeNPC(n,world)));
       // vecinos que pasean entre las puertas
-      if(lvl===0){const hs=W.enter.filter(E=>E.kind==="hobbit"&&!E.big);for(let i=0;i<9;i++){const E=hs[(i*5)%hs.length];if(!E)break;
+      if(L.base===0){const hs=W.enter.filter(E=>E.kind==="hobbit"&&!E.big);for(let i=0;i<9;i++){const E=hs[(i*5)%hs.length];if(!E)break;
         const Gn=GENERIC[i%GENERIC.length];S.npcs.push(makeNPC({name:Gn[0],look:(Gn[1]?fem:hob)(i+7,Gn[2]||{}),home:[E.x+Math.sin(E.a)*3,E.z+Math.cos(E.a)*3],roam:22,lines:CHAT[i%CHAT.length]},world));}}}
     function freeSpot(x,z){if(W.water!=null&&W.H(x,z)<W.water+.6)return false;for(const [ox,oz,r] of W.solid)if(Math.hypot(x-ox,z-oz)<r+1)return false;return !inBox(x,W.H(x,z)+.5,z);}
     function pickTarget(N){for(let k=0;k<12;k++){const a=Math.random()*6.283,r=Math.random()*N.roam,x=N.home[0]+Math.cos(a)*r,z=N.home[1]+Math.sin(a)*r;if(Math.abs(x)<L.size/2-12&&Math.abs(z)<L.size/2-12&&freeSpot(x,z)){N.tx=x;N.tz=z;return;}}N.tx=N.home[0];N.tz=N.home[1];}
@@ -2310,7 +2440,8 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       if(!S.inside){for(const r of S.runes||[])if(!r.used&&S.boss&&S.boss.alive){const d=Math.hypot(r.x-S.x,r.z-S.z);if(d<3.6&&d<bd){bd=d;best={type:"rune",r,label:"Activar runa de Gandalf"};}}
         for(const b of S.beacons||[])if(!b.lit&&!PROG.riders){const d=Math.hypot(b.x-S.x,b.z-S.z);if(d<4.2&&d<bd){bd=d;best={type:"beacon",b,label:"Encender almenara"};}}}
       for(const N of (S.inside?S.inNpcs:S.npcs)){const d=Math.hypot(N.x-S.x,N.z-S.z);if(d<3.2&&d<bd){bd=d;best={type:"talk",N,label:(S.talk&&S.talk.N===N?"Seguir hablando con ":"Hablar con ")+N.name};}}
-      S.prompt=best;const lab=best?best.label:"";if(lab!==lastPrompt){lastPrompt=lab;promptEl.hidden=!best;if(best)promptEl.querySelector("b").textContent=lab;}
+      S.prompt=best;const lab=best?best.label:"";if(lab!==lastPrompt){lastPrompt=lab;promptEl.hidden=!best;if(best)promptEl.querySelector("b").textContent=lab;
+        const ab=$("gAct");ab.hidden=!best;if(best)ab.textContent={enter:"Entrar",exit:"Salir",talk:"Hablar",cake:"Comer",treasure:"Agarrar",rune:"Runa",beacon:"Encender"}[best.type]||"Acción";}
       if(S.talk){S.talk.t-=dt;if(S.talk.t<=0||(S.talk.N&&Math.hypot(S.talk.N.x-S.x,S.talk.N.z-S.z)>6))closeTalk();}}
     function closeTalk(){S.talk=null;talkEl.hidden=true;}
     function say(name,line,N){talkEl.querySelector("b").textContent=name;talkEl.querySelector("span").textContent=line;talkEl.hidden=false;talkEl.classList.remove("pop");void talkEl.offsetWidth;talkEl.classList.add("pop");S.talk={N,t:5.5};beep(700+Math.random()*200,.05,"triangle",.03);}
@@ -2484,10 +2615,10 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         else msg("Almenara "+S.beaconNext+" de 3 encendida",1300);}
       else{S.beacons.forEach(x=>{x.lit=false;x.fire.visible=false;});S.beaconNext=0;beep(140,.3,"sawtooth",.05,.5);msg("Se apagaron todas… Ese no era el orden. Preguntale a Éowyn",2400);}}
     function addSecrets(){S.runes=[];S.beacons=[];
-      if(lvl===0)caveMouth(-158,-140,"Cueva de Gollum","gollum");
-      if(lvl===1)caveMouth(-116,124,"Cámara de Mazarbul","tomb");
-      if(lvl===2){caveMouth(168,-150,"Cavernas Centelleantes de Aglarond","glitter");spawnBeacons();}
-      if(lvl===3&&PROG.phial){hemi.intensity=.62;setTimeout(()=>msg("El Frasco de Galadriel ilumina la oscuridad",2400),600);}
+      if(L.base===0)caveMouth(-158,-140,"Cueva de Gollum","gollum");
+      if(L.base===1)caveMouth(-116,124,"Cámara de Mazarbul","tomb");
+      if(L.base===2){caveMouth(168,-150,"Cavernas Centelleantes de Aglarond","glitter");spawnBeacons();}
+      if(L.base===3&&PROG.phial){hemi.intensity=.62;setTimeout(()=>msg("El Frasco de Galadriel ilumina la oscuridad",2400),600);}
       outline(world);}
     /* ---------- Interiores secretos ---------- */
     function caveRoom(g,E,o){const Rr=o.r||9,hh=o.h||6;const W2=baseRoom(g,{key:E.name,light:o.light||[0,4,0],lightI:o.lightI||1.6,bg:o.bg||0x07060c,fog:o.fog||0x0b0a14,npcs:o.npcs});
@@ -2655,7 +2786,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       // objetos
       S.items.forEach(it=>{if(!it.alive||S.inside)return;it.model.rotation.y+=dt*2;it.model.position.y=Math.sin(t*3+it.x)*.3+.3;
         if(Math.hypot(it.x-S.x,it.z-S.z)<2.4&&S.y-W.H(it.x,it.z)<3.2){it.alive=false;world.remove(it.g);S.got++;burst(it.x,W.H(it.x,it.z)+1.6,it.z,0xfff0a0);beep(880,.1,"square",.05,1.5);setTimeout(()=>beep(1320,.12,"square",.05),90);hud();
-          if(S.got===5){if(lvl===2&&!PROG.sword){S.phase="king";msg("¡Estandartes reunidos! Llevalos al rey",2600,true);setTimeout(()=>say("Éowyn","¡Los juntaste todos! Subí a Meduseld, el Salón Dorado: el rey Théoden quiere verte.",null),900);hud();}else{msg("¡Los tenés todos!",1500,true);setTimeout(spawnBoss,1400);}}else msg(`${L.itemName}: ${S.got}/5`,1100);}});
+          if(S.got===5){if(L.base===2&&!PROG.sword&&!L.noKing){S.phase="king";msg("¡Estandartes reunidos! Llevalos al rey",2600,true);setTimeout(()=>say("Éowyn","¡Los juntaste todos! Subí a Meduseld, el Salón Dorado: el rey Théoden quiere verte.",null),900);hud();}else{msg("¡Los tenés todos!",1500,true);setTimeout(spawnBoss,1400);}}else msg(`${L.itemName}: ${S.got}/5`,1100);}});
       const B=S.boss;if(B&&B.alive&&!S.inside){if(L.final)updateFinal(dt,t,B);else updateBoss(dt,t,B);}
       if(!S.inside)S.shots=S.shots.filter(s=>{s.life-=dt;s.x+=s.vx*dt;s.z+=s.vz*dt;s.m.position.set(s.x,W.H(s.x,s.z)+1.6,s.z);s.m.rotation.x+=dt*5;
         if(Math.hypot(s.x-S.x,s.z-S.z)<1.4&&S.y-groundAt(S.x,S.z)<2){hurt(s.x,s.z);s.life=0;}
@@ -2746,6 +2877,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       S.meteors.forEach(m=>{world.remove(m.m);world.remove(m.ring);});S.meteors=[];
       msg("¡La Torre Oscura se derrumba!",2600);S.shake=1.6;beep(90,1,"sawtooth",.08,.3);
       let k=0;const iv=setInterval(()=>{k++;B.g.position.y-=.9;B.g.rotation.y+=.05;if(k>=50){clearInterval(iv);world.remove(B.g);}},50);
+      if(!L.ringScene){S.phase="done";hud();setTimeout(()=>msg("¡Sauron cayó!",2800,true),2600);setTimeout(winLevel,5200);return;}
       S.phase="volcano";hud();setTimeout(()=>msg("Ahora llevá el Anillo a la puerta del volcán",2800),2800);
     }
     // líneas de velocidad del anime al correr
@@ -2753,13 +2885,18 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     function drawSpeedLines(dt){
       slA+=((S.speedLines||0)-slA)*Math.min(1,dt*6);
       const w=slC.clientWidth,h=slC.clientHeight;if(slC.width!==w||slC.height!==h){slC.width=w;slC.height=h;}
-      slX.clearRect(0,0,w,h);if(slA<.03||reduceMotion)return;
+      if(slA<.03||reduceMotion){if(slC.dataset.on){slX.clearRect(0,0,w,h);delete slC.dataset.on;}return;}slC.dataset.on="1";slX.clearRect(0,0,w,h);
       slX.save();slX.translate(w/2,h*.45);slX.fillStyle=`rgba(255,255,255,${.5*slA})`;
       const R=Math.hypot(w,h)*.6;
       for(let i=0;i<46;i++){const a=Math.random()*6.283,r0=R*(.42+Math.random()*.2),r1=R*(1.05),wd=.006+Math.random()*.01;
         slX.beginPath();slX.moveTo(Math.cos(a-wd)*r1,Math.sin(a-wd)*r1);slX.lineTo(Math.cos(a)*r0,Math.sin(a)*r0);slX.lineTo(Math.cos(a+wd)*r1,Math.sin(a+wd)*r1);slX.fill();}
       slX.restore();}
     window.__clearGameInput=()=>clearInput();
+    $("gAct").addEventListener("pointerdown",e=>{e.preventDefault();if(S.prompt)doAction();});
+    $("gPauseBtn").onclick=()=>togglePause();
+    // en el celular arranca más liviano (nitidez 1 y calidad media)
+    window.__onMode=m=>{if(m==="touch"){pr=Math.min(pr,1);renderer.setPixelRatio(pr);if(autoQ&&quality>1){quality=1;applyQuality();}}};
+
     window.__pauseGame=()=>{if(!paused)togglePause(true);};
     // contador de FPS (se actualiza cada medio segundo; F lo muestra u oculta)
     const fpsEl=$("gFps");let fpsN=0,fpsT=performance.now();
@@ -2767,7 +2904,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     let pr=Math.min(devicePixelRatio,1.5),lowT=0,highT=0;
     /* Calidad: 2 = Alta (todo), 1 = Media (sin contorno en decoración, menos nubes), 0 = Baja (sin contornos ni nubes) */
     let quality=2,autoQ=true;const QN=["Baja","Media","Alta"]; // en todas se mantiene el estilo anime (contornos en personajes, jefes y casas)
-    function applyQuality(){const roots=[world,interior,player].filter(Boolean);let ci=0;
+    function applyQuality(){const roots=[world,interior,player,sky].filter(Boolean);let ci=0;
       roots.forEach(r=>r.traverse(o=>{if(o.userData.hull)o.visible=quality===2||!o.isInstancedMesh;
         if(o.userData.cloud){o.visible=quality===2||(quality===1&&(ci%2===0));ci++;}}));
       if(S.boss&&S.boss.g)S.boss.g.traverse(o=>{if(o.userData.hull)o.visible=true;});}
@@ -2816,14 +2953,18 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     function applyQualitySafe(){if(typeof applyQuality==="function")try{applyQuality();}catch(e){}}
     const hex=c=>"#"+c.toString(16).padStart(6,"0");
     function renderCustom(){const tabs=$("gcTabs"),body=$("gcBody");tabs.innerHTML="";body.innerHTML="";
-      [["chars","Personajes"],["hair","Pelo"],["face","Cara y cuerpo"],["clothes","Ropa"],["acc","Accesorios"]].forEach(([k,l])=>{const b=document.createElement("button");b.type="button";b.className="sgb tab"+(k===customTab?" on":"");b.textContent=l;b.onclick=()=>{customTab=k;renderCustom();beep(600,.05,"triangle",.03);};tabs.appendChild(b);});
+      [["chars","Personajes"],["path","Camino"],["hair","Pelo"],["face","Cara y cuerpo"],["clothes","Ropa"],["acc","Accesorios"]].forEach(([k,l])=>{const b=document.createElement("button");b.type="button";b.className="sgb tab"+(k===customTab?" on":"");b.textContent=l;b.onclick=()=>{customTab=k;renderCustom();beep(600,.05,"triangle",.03);};tabs.appendChild(b);});
       const sec=(title)=>{const s=document.createElement("section");const h=document.createElement("h3");h.textContent=title;s.appendChild(h);const r=document.createElement("div");r.className="gc-row";s.appendChild(r);body.appendChild(s);return r;};
       const set=(k,v)=>{if(v===undefined)delete LOOK[k];else LOOK[k]=v;rebuildPlayer();renderCustom();beep(720,.05,"triangle",.03);};
       const opt=(row,label,on,fn)=>{const b=document.createElement("button");b.type="button";b.className="sgb"+(on?" on":"");b.textContent=label;b.onclick=fn;row.appendChild(b);};
       const sws=(row,list,key,none)=>{if(none){const b=document.createElement("button");b.type="button";b.className="sw none"+(LOOK[key]==null?" on":"");b.title="Nada";b.textContent="✕";b.onclick=()=>set(key,null);row.appendChild(b);}
         list.forEach(c=>{const b=document.createElement("button");b.type="button";b.className="sw"+(LOOK[key]===c?" on":"");b.style.background=hex(c);b.setAttribute("aria-label","Color "+hex(c));b.onclick=()=>set(key,c);row.appendChild(b);});};
       if(customTab==="chars"){const r=sec("Personajes principales: tocá uno y sos vos");r.classList.add("grid");
-        PRESETS.forEach(([n,lk])=>{const b=document.createElement("button");b.type="button";b.className="sgb char";b.innerHTML=`<i style="background:${hex(lk.hair)}"></i>${n}`;b.onclick=()=>{LOOK=clone(lk);rebuildPlayer();renderCustom();msg("¡Ahora sos "+n+"!",1200);beep(880,.08,"triangle",.04);};r.appendChild(b);});}
+        PRESETS.forEach(([n,lk])=>{const b=document.createElement("button");b.type="button";b.className="sgb char";b.innerHTML=`<i style="background:${hex(lk.hair)}"></i>${n}`;b.onclick=()=>{LOOK=clone(lk);PATH=pathFor(n)||PATH;rebuildPlayer();renderCustom();msg("¡Ahora sos "+n+"! Camino: "+PATH.name,1600);beep(880,.08,"triangle",.04);};r.appendChild(b);});}
+      if(customTab==="chars"){const info=document.createElement("p");info.className="gc-path";info.innerHTML="<b>Tu camino:</b> "+PATH.name+" — "+PATH.desc;body.insertBefore(info,body.firstChild);}
+      if(customTab==="path"){const r=sec("Cada personaje tiene su historia, sus mapas y su objetivo");r.classList.add("col");
+        PATHS.forEach(P=>{const b=document.createElement("button");b.type="button";b.className="sgb pathb"+(P===PATH?" on":"");b.innerHTML=`<b>${P.name}</b><small>${P.who.join(", ")} · ${P.levels.length} mundos</small><span>${P.desc}</span>`;
+          b.onclick=()=>{PATH=P;renderCustom();beep(720,.05,"triangle",.03);};r.appendChild(b);});}
       if(customTab==="hair"){const r=sec("Peinado");HAIRS.forEach(([k,l])=>opt(r,l,(LOOK.hairStyle||"mop")===k,()=>set("hairStyle",k)));sws(sec("Color de pelo"),C_HAIR,"hair");}
       if(customTab==="face"){const r=sec("Cuerpo");opt(r,"Hombre",!LOOK.female,()=>set("female",undefined));opt(r,"Mujer",!!LOOK.female,()=>{LOOK.dress=LOOK.dress||0xff8fb1;set("female",true);});
         const a=sec("Altura");opt(a,"Hobbit",!LOOK.tall,()=>{delete LOOK.scale;set("tall",undefined);});opt(a,"Alto (hombres y elfos)",!!LOOK.tall,()=>{LOOK.scale=1.22;set("tall",true);});
@@ -2839,7 +2980,10 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         const s=sec("Bastón de mago");opt(s,"No",!LOOK.staff,()=>set("staff",undefined));opt(s,"Sí",!!LOOK.staff,()=>set("staff",true));}}
     function openCustomizer(done){if(customOpen)return;customOpen=true;customDone=done||null;paused=true;pausedByMenu=false;clearInput();closeTalk();
       $("gCard").hidden=true;$("gCustom").hidden=false;ov.classList.add("customizing");renderCustom();}
-    function closeCustomizer(){customOpen=false;$("gCustom").hidden=true;ov.classList.remove("customizing");const d=customDone;customDone=null;if(d)d();else{paused=false;}}
+    function closeCustomizer(){customOpen=false;$("gCustom").hidden=true;ov.classList.remove("customizing");const d=customDone;customDone=null;
+      const changed=!CAMP||CAMP.pathId!==PATH.id;if(changed){CAMP=makeCamp(PATH);build(0);}
+      if(d)d();else if(changed)startIntro();else{paused=false;}}
+    function startIntro(){const c=CAMP[0];card(c.kick,c.name,PATH.desc+" "+c.text,"Jugar",null);}
     $("gcPlay").onclick=()=>{beep(660,.1,"triangle",.05);setTimeout(()=>beep(990,.15,"triangle",.05),90);closeCustomizer();};
     $("gcRandom").onclick=()=>{const pick=a=>a[Math.floor(Math.random()*a.length)];const fem=Math.random()<.5;
       LOOK={female:fem||undefined,hairStyle:pick(HAIRS)[0],hair:pick(C_HAIR),skin:pick(C_SKIN),eye:pick(C_EYE),shirt:pick(C_CLOTH),vest:fem?null:pick([null,...C_CLOTH]),pants:pick(C_CLOTH),dress:pick(C_CLOTH),
@@ -2856,7 +3000,8 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     const STEP=1/60;let acc=0;
     running=true;
     build(0);
-    openCustomizer(()=>card(LEVELS[0].kick,"Entrar en la Comarca",LEVELS[0].text,"Jugar",null));
+    if(MODE)window.__onMode(MODE);
+    whenSplashDone(()=>openCustomizer(()=>startIntro()));
     loop();
   }
 })();
