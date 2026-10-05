@@ -2149,9 +2149,9 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     function makeChar(o={}){
       const g=new T.Group(),fc={},flat=c=>fc[c]||(fc[c]=new T.MeshBasicMaterial({color:c}));
       const skin=M(o.skin||0xffd9bd),hair=M(o.hair||0x7a4a26),shirt=M(o.shirt||0xfff6e4),pantsM=M(o.pants||0x8a643f);
-      const fem=!!o.female,tallK=!!o.tall,Tt=tallK?3.9:2.85,heads=tallK?5:3.8,h=Tt/heads;
-      const chinY=Tt-h,shY=chinY-.35*h,hipY=Tt*(tallK?.43:.39),chestY=shY-(shY-hipY)*.3,waistY=shY-(shY-hipY)*.68,kneeY=Tt*(tallK?.22:.19),ankY=h*.1;
-      const shW=h*(fem?.82:1.0)*(tallK?1:1.05),hipW=h*(fem?.8:.66),waistR=h*(fem?.46:.55),chestR=h*(fem?.66:.74),D=.62;
+      const fem=!!o.female,tallK=!!o.tall,Tt=tallK?3.6:2.8,heads=tallK?3.6:3,h=Tt/heads;
+      const chinY=Tt-h,shY=chinY-.3*h,hipY=Tt*(tallK?.34:.31),chestY=shY-(shY-hipY)*.3,waistY=shY-(shY-hipY)*.68,kneeY=Tt*(tallK?.16:.14),ankY=h*.08;
+      const shW=h*(fem?.82:1.0)*(tallK?1:1.05),hipW=h*(fem?.8:.66),waistR=h*(fem?.58:.68),chestR=h*(fem?.66:.72),D=.62;
       const body=new T.Group();g.add(body);
       const torso=new T.Group();body.add(torso);
       // ---- cuerpo armado músculo por músculo (formas ovaladas superpuestas, como una escultura anatómica) ----
@@ -2216,7 +2216,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       const arms=[-1,1].map(sd=>{const a=new T.Group();a.position.set(sd*(shW*.8),shY-.12*h,0);a.rotation.z=sd*.08;body.add(a);
         const fore=o.shortSleeve?skin:sleeve;
         mu(sleeve,sd*.04*h,-.05*h,0,(.25*h*k+.03*h)*1.15,.32*h,.27*h,a);                                 // deltoides
-        const ak=1.35;mesh(limbG(upL,h*.15*ak,h*.12*ak),sleeve,0,0,0,a);
+        const ak=1.6;mesh(limbG(upL,h*.15*ak,h*.12*ak),sleeve,0,0,0,a);
         mu(sleeve,0,-upL*.5,.05*h,(.15*h*k+.01*h)*ak,upL*.42,(.15*h*k+.01*h)*ak,a);                        // bíceps
         mu(sleeve,0,-upL*.42,-.05*h,(.16*h*k+.01*h)*ak,upL*.46,(.15*h*k+.01*h)*ak,a);                     // tríceps
         const el=new T.Group();el.position.y=-upL;el.rotation.x=-.12;a.add(el);
@@ -2232,7 +2232,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       const thL=hipY-kneeY-.05*h,shL=kneeY-ankY,legC=fem&&!o.pants?(o.legs?M(o.legs):skin):pantsM,boot=o.boots?M(o.boots):null;
       const legs=[],feet=[];
       if(!o.robe)[-1,1].forEach(sd=>{const lg=new T.Group();lg.position.set(sd*hipW*.5,hipY-.05*h,0);body.add(lg);legs.push(lg);
-        const lk=tallK?1.45:1.3;mesh(limbG(thL,h*.22*lk,h*.14*lk),legC,0,0,0,lg);
+        const lk=1.6;mesh(limbG(thL,h*.22*lk,h*.14*lk),legC,0,0,0,lg);
         mu(legC,0,-thL*.45,.07*h*lk,.21*h*lk*(fem?1.05:1),thL*.45,.18*h*lk,lg);                            // cuádriceps
         mu(legC,-sd*.08*h,-thL*.78,.06*h,.11*h,.16*h,.1*h,lg);                                    // vasto interno (gota sobre la rodilla)
         mu(legC,0,-thL*.5,-.07*h*lk,.19*h*lk,thL*.45,.16*h*lk,lg);                                         // isquiotibiales
