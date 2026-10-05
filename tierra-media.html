@@ -2134,44 +2134,20 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         for(let i=0;i<6;i++){const a=(i/5-.5)*3.4;lock(head,hair,R,a,.95-Math.abs(a)*.12,.7,.07,{tilt:.5,curve:.2,sway:(i%2?.15:-.15)});}}
       if(o.flower){const ring=o.crown?7:1;for(let f=0;f<ring;f++){const fl=new T.Group(),a=o.crown?(f/(ring-1)-.5)*2.6:.9;fl.position.set(Math.sin(a)*R*.95,.42-Math.abs(a)*.08,Math.cos(a)*R*.62);head.add(fl);
         for(let k=0;k<5;k++){const b=k/5*6.283;mesh(Sph(.065,8,6),M(f%2&&o.crown?0xffffff:o.flower),Math.cos(b)*.08,Math.sin(b)*.08,0,fl);}mesh(Sph(.045,8,6),M(0xffe066),0,0,.03,fl);}}}
-    /* ---------- Personajes con cuerpo realista (proporciones por "cabezas") y cara anime ----------
-       Hombres y elfos: ~7,3 cabezas (anime realista tipo Genshin). Hobbits y enanos: ~5,2 cabezas.
-       Cadera a mitad de altura, codos a la altura de la cintura, rodillas a ~1/4, hombros ~2 cabezas de ancho.
-       Brazos y piernas afinados con codo y rodilla articulados. */
-    const latheG=(key,pts,seg=20)=>geo("lt"+key,()=>{const g=new T.LatheGeometry(pts.map(([r,y])=>new T.Vector2(Math.max(0,r),y)),seg);g.computeVertexNormals();return g;});
-    // extremidad afinada: tapa redondeada arriba (r1), leve músculo en el medio, tapa redondeada abajo (r2); pivote arriba
-    const limbG=(len,r1,r2)=>geo("limb"+[len,r1,r2].map(v=>v.toFixed(3)).join(","),()=>{
-      const pr=[[0,r1*.6]];for(let i=1;i<=4;i++){const a=i/4*Math.PI/2;pr.push([Math.sin(a)*r1,Math.cos(a)*r1*.6]);}
-      for(let i=1;i<=6;i++){const t=i/6,r=r1+(r2-r1)*t+Math.sin(t*Math.PI)*(r1*.12);pr.push([r,-len*t]);}
-      for(let i=1;i<=4;i++){const a=i/4*Math.PI/2;pr.push([Math.cos(a)*r2,-len-Math.sin(a)*r2*.6]);}
-      pr.reverse(); // de abajo hacia arriba: así las caras miran hacia afuera
-      const g=new T.LatheGeometry(pr.map(([r,y])=>new T.Vector2(Math.max(0,r),y)),14);g.computeVertexNormals();return g;});
     function makeChar(o={}){
       const g=new T.Group(),fc={},flat=c=>fc[c]||(fc[c]=new T.MeshBasicMaterial({color:c}));
-      const skin=M(o.skin||0xffd9bd),hair=M(o.hair||0x7a4a26),shirt=M(o.shirt||0xfff6e4),pantsM=M(o.pants||0x8a643f);
-      const fem=!!o.female,tallK=!!o.tall,Tt=tallK?3.6:2.8,heads=tallK?3.6:3,h=Tt/heads;
-      const chinY=Tt-h,shY=chinY-.3*h,hipY=Tt*(tallK?.34:.31),chestY=shY-(shY-hipY)*.3,waistY=shY-(shY-hipY)*.68,kneeY=Tt*(tallK?.16:.14),ankY=h*.08;
-      const shW=h*(fem?.82:1.0)*(tallK?1:1.05),hipW=h*(fem?.8:.66),waistR=h*(fem?.58:.68),chestR=h*(fem?.66:.72),D=.62;
+      const skin=M(o.skin||0xffd9bd),hair=M(o.hair||0x7a4a26),tall=o.tall?1.45:1,shirt=M(o.shirt||0xfff6e4);
       const body=new T.Group();g.add(body);
-      const torso=new T.Group();body.add(torso);
-      // ---- estilo Super Bear Adventure: el cuerpo es una caja con esquinas redondeadas, sin músculos ni bultos
-      const k=fem?.78:1,mu=(mat,x,y,z,a,b,c,p,rx=0,rz=0,ry=0)=>{const m=noOut(mesh(Sph(1,16,12),mat,x,y,z,p));m.scale.set(a,b,c);m.rotation.set(rx,ry,rz);return m;};
-      const hipM=fem&&!o.pants?shirt:pantsM,vestM=o.vest!==null?M(o.vest||0x3f9a4a):null,chestM=vestM||shirt;
-      {const tW=shW*1.62,tD=h*.78,upH=shY-waistY+.28*h,loH=waistY-hipY+.42*h;
-        mesh(Box(tW,upH,tD),chestM,0,(shY+waistY)/2+.02*h,0,torso);
-        mesh(Box(tW*.96,loH,tD*.96),hipM,0,(waistY+hipY)/2-.08*h,0,torso);}
-      if(vestM)mesh(Tor(h*.2,h*.06,8,20),shirt,0,shY+.12*h,.02*h,torso).rotation.x=Math.PI/2;   // cuello de la camisa
-      mesh(Tor(waistR*1.03,h*.06,8,28),M(o.belt||0x4a3020),0,waistY+.02,0,torso).scale.set(1,1,D*1.05);
-      if(o.scarf!==null){mesh(Tor(h*.24,h*.09,8,24),M(o.scarf||0xd9442b),0,shY+.14*h,0,torso).rotation.x=Math.PI/2;ell(h*.09,1,2.2,.6,M(o.scarf||0xd9442b),h*.12,shY-.15*h,chestR*D*.95,torso);}
-      if(o.apron)ell(h*.45,1,1.6,.25,M(o.apron),0,waistY,chestR*D*.85,torso);
-      if(fem&&!o.robe){const dr=mesh(latheG("dr"+[waistY,hipY,kneeY,waistR,hipW].map(v=>v.toFixed(3)),[[waistR*1.05,waistY],[hipW*1.12,hipY],[hipW*1.55,kneeY+h*.05]]),toon({color:o.dress||0xff8fb1,side:T.DoubleSide}),0,0,0,torso);dr.scale.z=.85;}
-      if(o.robe){const rb=mesh(latheG("rb"+[waistY,shY,Tt].map(v=>v.toFixed(3)),[[chestR*1.05,chestY],[waistR*1.1,waistY],[hipW*1.2,hipY],[h*1.25,.02]]),toon({color:o.robe,side:T.DoubleSide}),0,0,0,torso);rb.scale.z=.8;}
-      // cuello y cabeza (la cabeza dibuja la cara anime de siempre)
-      mesh(limbG(chinY-shY+.25*h,h*.19,h*.17),skin,0,chinY+.15*h,0,body);
-      const hs=h*1.08/1.12,head=new T.Group();head.position.y=chinY+.56*hs;head.scale.setScalar(hs);body.add(head);
-      const R=.56;mesh(Sph(R,20,16),skin,0,0,0,head);
-      noOut(ell(.05,1,.9,1.3,skin,0,-.13,R*.95,head));
-      [-1,1].forEach(sd=>{const er=o.elf?ell(.09,.45,1.9,.45,skin,sd*R*.9,.06,-.04,head):ell(.1,.5,.95,.55,skin,sd*R*.92,-.04,-.02,head);if(o.elf)er.rotation.z=-sd*.55;});
+      const torso=new T.Group();torso.scale.y=tall;body.add(torso);
+      if(o.female){mesh(Cone(.6,.9,20),M(o.dress||0xff8fb1),0,.52,0,torso);mesh(Tor(.58,.05,8,32),M(0xffffff),0,.1,0,torso).rotation.x=Math.PI/2;}
+      else mesh(Cyl(.3,.36,.5,10),M(o.pants||0x8a643f),0,.5,0,torso);
+      mesh(Sph(.37,16,12),shirt,0,.98,0,torso).scale.set(1,.85,.92);
+      if(o.vest!==null)ell(.4,1,.62,.95,M(o.vest||0x3f9a4a),0,1.0,0,torso);
+      if(o.scarf!==null)ell(.2,1.4,.5,.9,M(o.scarf||0xd9442b),0,1.3,.2,torso);
+      if(o.robe)mesh(Cone(.66,1.55,16),M(o.robe),0,.78,0,torso);
+      if(o.apron)ell(.3,1,1.1,.25,M(o.apron),0,.82,.3,torso);
+      const head=new T.Group();head.position.y=.24+1.58*tall;body.add(head);
+      const R=.56;mesh(Sph(R,16,12),skin,0,0,0,head).scale.set(1,.96,.95);
       const hw=o.headwear;if(hw==="wizard")o=Object.assign({},o,{hat:o.hatColor||0x8a9098});if(hw==="helmet")o=Object.assign({},o,{helmet:0x9aa0aa});if(hw==="flowers")o=Object.assign({},o,{flower:o.flower||0xff8fb1,crown:true});
       buildHair(head,R,o,hair);
       {const hc=M(o.hatColor||0xc4442f);
@@ -2196,35 +2172,19 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       if(o.beard){ell(.42,1,1.35,.7,M(o.beard),0,-.42,.2,head);ell(.28,1,1.4,.8,M(o.beard),0,-.85,.25,head);}
       if(o.hat){mesh(Cyl(.95,.95,.06,24),M(o.hat),0,.46,0,head);const c=mesh(Cone(.52,1.7,16),M(o.hat),0,1.25,-.15,head);c.rotation.x=-.22;}
       if(o.helmet)mesh(Sph(R*1.12,16,10,0,Math.PI*2,0,Math.PI*.5),M(o.helmet),0,.06,0,head);
-      if(o.cloak){const cg=geo("cape"+[shY,kneeY,shW,h].map(v=>v.toFixed(3)),()=>{const pr=[[shW*.72,shY+.06*h],[shW*.85,chestY],[shW*.95,waistY],[shW*1.08,kneeY+.15*h]];
-          const g=new T.LatheGeometry(pr.map(([r,y])=>new T.Vector2(r,y)),16,Math.PI*.6,Math.PI*.8);g.computeVertexNormals();return g;});
-        const ck=mesh(cg,toon({color:o.cloak,side:T.DoubleSide}),0,0,-.04*h,torso);ck.scale.z=.55;
-        mesh(Tor(h*.24,h*.05,8,24),toon({color:o.cloak}),0,shY+.1*h,-.02*h,torso).rotation.x=Math.PI/2;}
-      if(o.backpack){const bp=M(o.backpack);ell(h*.42,1,1.2,.6,bp,0,chestY-.1*h,-chestR*D-.18*h,torso);ell(h*.17,2.2,.75,.75,M(0xd9c9a0),0,chestY+.5*h,-chestR*D-.18*h,torso);[-1,1].forEach(sd=>ell(h*.05,1,7,.6,M(0x5a3a22),sd*h*.28,chestY,chestR*D*.92,torso));}
-      if(o.brooch){const lf=mesh(Sph(h*.14,10,8),M(0x6fbf4a,0x2f7a2a,.4),-h*.28,shY-.05*h,chestR*D*.95,torso);lf.scale.set(.7,1.2,.35);mesh(Tor(h*.08,h*.02,6,16),M(0xf1c84a),-h*.28,shY-.05*h,chestR*D,torso);}
-      // brazos: hombro -> codo (a la altura de la cintura) -> mano
-      const upL=(shY-waistY)*.52,foL=(shY-waistY)*.42,sleeve=M(o.sleeve||o.shirt||0xfff6e4);
-      const arms=[-1,1].map(sd=>{const a=new T.Group();a.position.set(sd*(shW*.8),shY-.12*h,0);a.rotation.z=sd*.08;body.add(a);
-        const fore=o.shortSleeve?skin:sleeve;
-        const ak=1.35;mesh(limbG(upL,h*.15*ak,h*.12*ak),sleeve,0,0,0,a);
-        const el=new T.Group();el.position.y=-upL;el.rotation.x=-.12;a.add(el);
-        mesh(limbG(foL,h*.13*ak,h*.085*ak),fore,0,0,0,el);
-        const hd=new T.Group();hd.position.y=-foL-.04*h;el.add(hd);ell(h*.11,1,1.35,.6,skin,0,-h*.1,0,hd);ell(h*.05,1,1.6,1,skin,sd*-h*.07,-h*.04,h*.04,hd).rotation.z=sd*.6;
-        const hand=new T.Object3D();hand.position.set(0,-h*.12,.04);hd.add(hand);a.userData.hand=hand;a.userData.elbow=el;return a;});
+      if(o.cloak)mesh(Cone(.55,1.3,10,1,true),toon({color:o.cloak,side:T.DoubleSide}),0,1.0,-.14,torso);
+      if(o.backpack){const bp=M(o.backpack);ell(.36,1,1.15,.62,bp,0,1.02,-.44,torso);ell(.16,1.9,.7,.7,M(0xd9c9a0),0,1.44,-.47,torso);ell(.14,1.3,.8,.5,bp,0,.82,-.66,torso);[-1,1].forEach(sd=>ell(.05,1,5,.6,M(0x5a3a22),sd*.19,1.02,.33,torso));}
+      if(o.brooch){const lf=mesh(Sph(.17,10,8),M(0x6fbf4a,0x2f7a2a,.4),0,1.38,.36,torso);lf.scale.set(.7,1.2,.35);mesh(Tor(.09,.025,6,16),M(0xf1c84a),0,1.38,.38,torso);}
+      // brazos: grupo con pivote en el hombro (se animan al correr, saltar y atacar)
+      const arms=[-1,1].map(sd=>{const a=new T.Group();a.position.set(sd*.4,1.25*tall,0);a.rotation.z=sd*.14;body.add(a);
+        ell(.14,1,2.3,1,M(o.sleeve||o.shirt||0xfff6e4),0,-.28,0,a);mesh(Sph(.13,12,10),skin,0,-.62,0,a);
+        const hand=new T.Object3D();hand.position.set(0,-.66,.04);a.add(hand);a.userData.hand=hand;return a;});
       if(o.staff){const st=mesh(Cyl(.06,.07,3.4,8),M(0x6e4a2c),0,-.2,.1,arms[1].userData.hand);mesh(Sph(.14,10,8),M(0xffffff,0xbfe6ff,.6),0,1.5,.1,arms[1].userData.hand);st.rotation.z=-.05;}
       if(o.spear){mesh(Cyl(.05,.05,3.6,8),M(0x6e4a2c),0,0,.1,arms[1].userData.hand);mesh(Cone(.12,.5,10),M(0xc9ccd6),0,2,.1,arms[1].userData.hand);}
-      // piernas: cadera -> rodilla -> tobillo -> pie (los hobbits van descalzos con pies grandes)
-      const thL=hipY-kneeY-.05*h,shL=kneeY-ankY,legC=fem&&!o.pants?(o.legs?M(o.legs):skin):pantsM,boot=o.boots?M(o.boots):null;
-      const legs=[],feet=[];
-      if(!o.robe)[-1,1].forEach(sd=>{const lg=new T.Group();lg.position.set(sd*hipW*.5,hipY-.05*h,0);body.add(lg);legs.push(lg);
-        const lk=1.4;mesh(limbG(thL,h*.22*lk,h*.14*lk),legC,0,0,0,lg);
-        const kn=new T.Group();kn.position.y=-thL;lg.add(kn);lg.userData.knee=kn;
-        mesh(limbG(shL,h*.13*lk,h*.08*lk),boot||legC,0,0,0,kn);
-        const ft=ell(h*(boot?.16:.19),1,.62,boot?1.9:2.1,boot||skin,0,-shL-.02*h,h*.16,kn);feet.push(ft);
-        if(!boot)ell(h*.1,1.3,.4,1.2,hair,0,-shL+.06*h,h*.12,kn);});
-      let ring=null;if(o.ring){ring=mesh(Tor(h*.1,h*.03,6,16),M(0xffd24a,0xffb000,.8),hipW*.95,waistY-.08*h,h*.1,torso);ring.rotation.y=1.2;ring.userData.home=ring.position.clone();}
-      mergeStatic(torso,ring?[ring]:null);mergeStatic(head);arms.forEach(a=>{mergeStatic(a);mergeStatic(a.userData.elbow);});legs.forEach(l=>{mergeStatic(l);mergeStatic(l.userData.knee,feet);});
-      g.userData={body,head,feet,torso,arms,ring,legs,height:Tt};g.scale.setScalar((o.scale||1.3)/1.3);outline(g);return g;}
+      const feet=o.robe?[]:[-.17,.17].map(x=>{const f=mesh(Sph(.2,10,6),M(o.boots||0xf0c29a),x,.12,.12,body);f.scale.set(1,.6,1.6);return f;});
+      let ring=null;if(o.ring){ring=mesh(Tor(.12,.035,6,16),M(0xffd24a,0xffb000,.8),.4,.95,.1,torso);ring.rotation.y=1.2;}
+      mergeStatic(torso,ring?[ring]:null);mergeStatic(head);arms.forEach(a=>mergeStatic(a));
+      g.userData={body,head,feet,torso,arms,ring};g.scale.setScalar(o.scale||1.3);outline(g);return g;}
     function animArms(m,state,ph,k){const A=m.userData.arms;if(!A)return;
       (m.userData.legs||[]).forEach((l,i)=>{const sg=i?-1:1,sw=Math.sin(ph)*sg;
         const t=state==="run"?sw*.8:state==="jump"?(i?.7:-.25):state==="fall"?(i?-.15:.35):state==="dive"?-.5:0;l.rotation.x+=(t-l.rotation.x)*k;
@@ -2467,7 +2427,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
             else{N.x+=dx/d*N.spd*dt;N.z+=dz/d*N.spd*dt;N.yaw+=wrapA(Math.atan2(dx,dz)-N.yaw)*Math.min(1,dt*6);moving=true;}
             // si se traba contra algo, busca otro destino
             N.st+=dt;if(N.st>1.5){if(Math.hypot(N.x-N.lx,N.z-N.lz)<.6)pickTarget(N);N.st=0;N.lx=N.x;N.lz=N.z;}}}
-        collide(N,.8);
+        collide(N,.6);
         // los personajes son sólidos: no se atraviesan
         const px=S.x-N.x,pz=S.z-N.z,pd=Math.hypot(px,pz);if(pd<1.3&&pd>1e-3&&S.y-W.H(N.x,N.z)<2){S.x=N.x+px/pd*1.3;S.z=N.z+pz/pd*1.3;}
         N.y=W.H(N.x,N.z);if(W.water!=null)N.y=Math.max(N.y,W.water-.9);
@@ -2762,7 +2722,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       if(W.rect){o.x=clamp(o.x,-W.rect[0],W.rect[0]);o.z=clamp(o.z,-W.rect[1],W.rect[1]);}
       const half=L.size/2-8;o.x=clamp(o.x,-half,half);o.z=clamp(o.z,-half,half);}
     function inBox(x,y,z){for(const [bx,bz,hw,hd,ry,h] of W.boxes){const c=Math.cos(ry),sn=Math.sin(ry),dx=x-bx,dz=z-bz,lx=dx*c-dz*sn,lz=dx*sn+dz*c;if(Math.abs(lx)<hw+.4&&Math.abs(lz)<hd+.4&&y<W.H(bx,bz)+h*1.9)return true;}return false;}
-    function resolve(){collide(S,.95);}
+    function resolve(){collide(S,.8);}
     const wrapA=a=>{while(a>Math.PI)a-=6.283;while(a<-Math.PI)a+=6.283;return a;};
     // Cámara tipo Cinemachine "Third Person Follow": órbita con amortiguación y colisión
     const CAM={dist:14,minDist:4.5,height:1.6,damp:7,lookH:2.4};
