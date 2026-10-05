@@ -1930,7 +1930,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
           const wat=mesh(new T.PlaneGeometry(440,440),noOut(toon({color:0x47b6ea,transparent:true,opacity:.86},false)),0,W.water,0,g);wat.rotation.x=-Math.PI/2;wat.userData.noOutline=true;
           // puertas
           const FAM=["Tuk","Brandigamo","Bolger","Ciñatiesa","Hornblower","Boffin","Madriguera","Bracegirdle","Grubb","Chubb","Cavada","Hojaverde","Bolsón de Sacovilla","Gamyi"];
-          doors.forEach((d,i)=>{const s=d.big?1.6:1;W.solid.push([d.x-Math.sin(d.a)*5.6*s,d.z-Math.cos(d.a)*5.6*s,4.9*s]);
+          doors.forEach((d,i)=>{const s=d.big?1.6:1;W.solid.push([d.x-Math.sin(d.a)*5.6*s,d.z-Math.cos(d.a)*5.6*s,5.4*s]);
             W.enter.push({x:d.px,z:d.pz,a:d.a,kind:"hobbit",name:d.big?"Bolsón Cerrado":"Smial de los "+FAM[i%FAM.length],big:d.big});});
           doors.forEach(d=>{doorHole(g,d.x,d.y,d.z,d.a,d.col,d.big);const cx=d.x-Math.sin(d.a)*(d.big?7:4),cz=d.z-Math.cos(d.a)*(d.big?7:4);const cy=W.H(cx,cz);mesh(Cyl(.45,.45,2.2,8),M(0x9a5a42),cx,cy+1,cz,g);W.smokes.push([cx,cy+2.2,cz]);W.solid.push([d.x,d.z,2.2]);});
           // árbol sobre Bolsón Cerrado y Árbol de la Fiesta
@@ -2149,8 +2149,8 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     function makeChar(o={}){
       const g=new T.Group(),fc={},flat=c=>fc[c]||(fc[c]=new T.MeshBasicMaterial({color:c}));
       const skin=M(o.skin||0xffd9bd),hair=M(o.hair||0x7a4a26),shirt=M(o.shirt||0xfff6e4),pantsM=M(o.pants||0x8a643f);
-      const fem=!!o.female,tallK=!!o.tall,Tt=tallK?4.6:3.35,heads=tallK?7.3:5.2,h=Tt/heads;
-      const chinY=Tt-h,shY=Tt-1.35*h,chestY=Tt-2*h,waistY=Tt-2.85*h,hipY=Tt*(tallK?.49:.45),kneeY=Tt*(tallK?.27:.235),ankY=h*.12;
+      const fem=!!o.female,tallK=!!o.tall,Tt=tallK?3.9:2.85,heads=tallK?5:3.8,h=Tt/heads;
+      const chinY=Tt-h,shY=chinY-.35*h,hipY=Tt*(tallK?.43:.39),chestY=shY-(shY-hipY)*.3,waistY=shY-(shY-hipY)*.68,kneeY=Tt*(tallK?.22:.19),ankY=h*.1;
       const shW=h*(fem?.82:1.0)*(tallK?1:1.05),hipW=h*(fem?.8:.66),waistR=h*(fem?.46:.55),chestR=h*(fem?.66:.74),D=.62;
       const body=new T.Group();g.add(body);
       const torso=new T.Group();body.add(torso);
@@ -2158,8 +2158,8 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       const k=fem?.78:1,mu=(mat,x,y,z,a,b,c,p,rx=0,rz=0,ry=0)=>{const m=noOut(mesh(Sph(1,16,12),mat,x,y,z,p));m.scale.set(a,b,c);m.rotation.set(rx,ry,rz);return m;};
       const hipM=fem&&!o.pants?shirt:pantsM,vestM=o.vest!==null?M(o.vest||0x3f9a4a):null,chestM=vestM||shirt;
       // silueta base del torso (es la única con contorno negro)
-      mesh(latheG("tlo"+[hipY,waistY,hipW,waistR,h].map(v=>v.toFixed(3)),[[0,hipY-.2*h],[hipW*.82,hipY-.1*h],[hipW*.96,hipY+.18*h],[waistR*.94,waistY+.02]]),hipM,0,0,0,torso).scale.z=.66;
-      mesh(latheG("tup"+[waistY,chestY,shY,waistR,chestR,shW,h].map(v=>v.toFixed(3)),[[waistR*.9,waistY],[waistR*.95,waistY+.3*h],[chestR*.86,chestY],[shW*.78,shY-.14*h],[shW*.66,shY-.02*h],[shW*.45,shY+.12*h],[h*.2,shY+.2*h],[0,shY+.22*h]]),chestM,0,0,0,torso).scale.z=.56;
+      mesh(latheG("tlo"+[hipY,waistY,hipW,waistR,h].map(v=>v.toFixed(3)),[[0,hipY-.2*h],[hipW*.82,hipY-.1*h],[hipW*.96,hipY+.18*h],[waistR*.94,waistY+.06*h],[0,waistY+.1*h]]),hipM,0,0,0,torso).scale.z=.66;
+      mesh(latheG("tup"+[waistY,chestY,shY,waistR,chestR,shW,h].map(v=>v.toFixed(3)),[[0,waistY-.12*h],[waistR*.92,waistY-.06*h],[waistR*.95,waistY+.3*h],[chestR*.86,chestY],[shW*.78,shY-.14*h],[shW*.66,shY-.02*h],[shW*.45,shY+.12*h],[h*.2,shY+.2*h],[0,shY+.22*h]]),chestM,0,0,0,torso).scale.z=.56;
       mu(hipM,0,hipY+.14*h,0,hipW*1.02,.36*h,.36*h,torso);                                   // pelvis
       [-1,1].forEach(sd=>mu(hipM,sd*.2*h,hipY+.08*h,-.15*h,.26*h*(fem?1.12:1),.3*h,.23*h,torso));   // glúteos
       mu(chestM,0,waistY+.06*h,0,waistR,.44*h,.34*h,torso);                                     // cintura y oblicuos
@@ -2212,18 +2212,18 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       if(o.backpack){const bp=M(o.backpack);ell(h*.42,1,1.2,.6,bp,0,chestY-.1*h,-chestR*D-.18*h,torso);ell(h*.17,2.2,.75,.75,M(0xd9c9a0),0,chestY+.5*h,-chestR*D-.18*h,torso);[-1,1].forEach(sd=>ell(h*.05,1,7,.6,M(0x5a3a22),sd*h*.28,chestY,chestR*D*.92,torso));}
       if(o.brooch){const lf=mesh(Sph(h*.14,10,8),M(0x6fbf4a,0x2f7a2a,.4),-h*.28,shY-.05*h,chestR*D*.95,torso);lf.scale.set(.7,1.2,.35);mesh(Tor(h*.08,h*.02,6,16),M(0xf1c84a),-h*.28,shY-.05*h,chestR*D,torso);}
       // brazos: hombro -> codo (a la altura de la cintura) -> mano
-      const upL=shY-waistY-.05*h,foL=upL*.86,sleeve=M(o.sleeve||o.shirt||0xfff6e4);
-      const arms=[-1,1].map(sd=>{const a=new T.Group();a.position.set(sd*(shW*.76),shY-.1*h,0);a.rotation.z=sd*.08;body.add(a);
+      const upL=(shY-waistY)*.52,foL=(shY-waistY)*.42,sleeve=M(o.sleeve||o.shirt||0xfff6e4);
+      const arms=[-1,1].map(sd=>{const a=new T.Group();a.position.set(sd*(shW*.8),shY-.12*h,0);a.rotation.z=sd*.08;body.add(a);
         const fore=o.shortSleeve?skin:sleeve;
-        mu(sleeve,sd*.04*h,-.05*h,0,.25*h*k+.03*h,.3*h,.24*h,a);                                 // deltoides
-        const ak=tallK?1.18:1;mesh(limbG(upL,h*.15*ak,h*.12*ak),sleeve,0,0,0,a);
-        mu(sleeve,0,-upL*.5,.04*h,.15*h*k+.01*h,upL*.4,.15*h*k+.01*h,a);                        // bíceps
-        mu(sleeve,0,-upL*.42,-.04*h,.16*h*k+.01*h,upL*.45,.15*h*k+.01*h,a);                     // tríceps
+        mu(sleeve,sd*.04*h,-.05*h,0,(.25*h*k+.03*h)*1.15,.32*h,.27*h,a);                                 // deltoides
+        const ak=1.35;mesh(limbG(upL,h*.15*ak,h*.12*ak),sleeve,0,0,0,a);
+        mu(sleeve,0,-upL*.5,.05*h,(.15*h*k+.01*h)*ak,upL*.42,(.15*h*k+.01*h)*ak,a);                        // bíceps
+        mu(sleeve,0,-upL*.42,-.05*h,(.16*h*k+.01*h)*ak,upL*.46,(.15*h*k+.01*h)*ak,a);                     // tríceps
         const el=new T.Group();el.position.y=-upL;el.rotation.x=-.12;a.add(el);
-        mesh(Sph(h*.12,12,10),fore,0,0,0,el);                                                     // codo
+        mesh(Sph(h*.12*ak,12,10),fore,0,0,0,el);                                                     // codo
         mesh(limbG(foL,h*.13*ak,h*.085*ak),fore,0,0,0,el);
-        mu(fore,sd*.02*h,-foL*.28,.02*h,.125*h*k+.01*h,foL*.32,.115*h*k+.01*h,el);               // braquiorradial
-        mu(fore,-sd*.02*h,-foL*.42,-.02*h,.1*h,foL*.34,.095*h,el);                               // flexores
+        mu(fore,sd*.02*h,-foL*.3,.02*h,(.125*h*k+.01*h)*ak,foL*.34,(.115*h*k+.01*h)*ak,el);               // braquiorradial
+        mu(fore,-sd*.02*h,-foL*.42,-.02*h,.1*h*ak,foL*.36,.095*h*ak,el);                               // flexores
         const hd=new T.Group();hd.position.y=-foL-.04*h;el.add(hd);ell(h*.11,1,1.35,.6,skin,0,-h*.1,0,hd);ell(h*.05,1,1.6,1,skin,sd*-h*.07,-h*.04,h*.04,hd).rotation.z=sd*.6;
         const hand=new T.Object3D();hand.position.set(0,-h*.12,.04);hd.add(hand);a.userData.hand=hand;a.userData.elbow=el;return a;});
       if(o.staff){const st=mesh(Cyl(.06,.07,3.4,8),M(0x6e4a2c),0,-.2,.1,arms[1].userData.hand);mesh(Sph(.14,10,8),M(0xffffff,0xbfe6ff,.6),0,1.5,.1,arms[1].userData.hand);st.rotation.z=-.05;}
@@ -2232,7 +2232,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       const thL=hipY-kneeY-.05*h,shL=kneeY-ankY,legC=fem&&!o.pants?(o.legs?M(o.legs):skin):pantsM,boot=o.boots?M(o.boots):null;
       const legs=[],feet=[];
       if(!o.robe)[-1,1].forEach(sd=>{const lg=new T.Group();lg.position.set(sd*hipW*.5,hipY-.05*h,0);body.add(lg);legs.push(lg);
-        const lk=tallK?1.3:1;mesh(limbG(thL,h*.22*lk,h*.14*lk),legC,0,0,0,lg);
+        const lk=tallK?1.45:1.3;mesh(limbG(thL,h*.22*lk,h*.14*lk),legC,0,0,0,lg);
         mu(legC,0,-thL*.45,.07*h*lk,.21*h*lk*(fem?1.05:1),thL*.45,.18*h*lk,lg);                            // cuádriceps
         mu(legC,-sd*.08*h,-thL*.78,.06*h,.11*h,.16*h,.1*h,lg);                                    // vasto interno (gota sobre la rodilla)
         mu(legC,0,-thL*.5,-.07*h*lk,.19*h*lk,thL*.45,.16*h*lk,lg);                                         // isquiotibiales
@@ -2489,7 +2489,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
             else{N.x+=dx/d*N.spd*dt;N.z+=dz/d*N.spd*dt;N.yaw+=wrapA(Math.atan2(dx,dz)-N.yaw)*Math.min(1,dt*6);moving=true;}
             // si se traba contra algo, busca otro destino
             N.st+=dt;if(N.st>1.5){if(Math.hypot(N.x-N.lx,N.z-N.lz)<.6)pickTarget(N);N.st=0;N.lx=N.x;N.lz=N.z;}}}
-        collide(N,.5);
+        collide(N,.8);
         // los personajes son sólidos: no se atraviesan
         const px=S.x-N.x,pz=S.z-N.z,pd=Math.hypot(px,pz);if(pd<1.3&&pd>1e-3&&S.y-W.H(N.x,N.z)<2){S.x=N.x+px/pd*1.3;S.z=N.z+pz/pd*1.3;}
         N.y=W.H(N.x,N.z);if(W.water!=null)N.y=Math.max(N.y,W.water-.9);
@@ -2784,7 +2784,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       if(W.rect){o.x=clamp(o.x,-W.rect[0],W.rect[0]);o.z=clamp(o.z,-W.rect[1],W.rect[1]);}
       const half=L.size/2-8;o.x=clamp(o.x,-half,half);o.z=clamp(o.z,-half,half);}
     function inBox(x,y,z){for(const [bx,bz,hw,hd,ry,h] of W.boxes){const c=Math.cos(ry),sn=Math.sin(ry),dx=x-bx,dz=z-bz,lx=dx*c-dz*sn,lz=dx*sn+dz*c;if(Math.abs(lx)<hw+.4&&Math.abs(lz)<hd+.4&&y<W.H(bx,bz)+h*1.9)return true;}return false;}
-    function resolve(){collide(S,.6);}
+    function resolve(){collide(S,.95);}
     const wrapA=a=>{while(a>Math.PI)a-=6.283;while(a<-Math.PI)a+=6.283;return a;};
     // Cámara tipo Cinemachine "Third Person Follow": órbita con amortiguación y colisión
     const CAM={dist:14,minDist:4.5,height:1.6,damp:7,lookH:2.4};
