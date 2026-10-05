@@ -2785,7 +2785,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       if(!S.attackT)animArms(player,an.state,an.phase+simT*6,Math.min(1,dt*14));
       hd.rotation.z=an.state==="run"?Math.sin(an.phase)*.06:0;
       const sw=an.state==="run"?Math.sin(an.phase)*.32:an.state==="idle"?0:.15;
-      if(!(player.userData.legs&&player.userData.legs.length))ft[0].position.z=.12+sw;if(!(player.userData.legs&&player.userData.legs.length))ft[1].position.z=.12-(an.state==="jump"||an.state==="fall"?-.15:sw);
+      if(ft[0]&&!(player.userData.legs&&player.userData.legs.length))ft[0].position.z=.12+sw;if(ft[1]&&!(player.userData.legs&&player.userData.legs.length))ft[1].position.z=.12-(an.state==="jump"||an.state==="fall"?-.15:sw);
       player.position.set(S.x,S.y,S.z);player.rotation.y=S.yaw;
       if(S.inv>0){S.inv-=dt;player.visible=Math.floor(S.inv*12)%2===0;}else player.visible=true;
       shadow.position.set(S.x,gy+.08,S.z);const ss=Math.max(.35,1-(S.y-gy)*.12);shadow.scale.set(ss,ss,ss);
@@ -2930,7 +2930,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       // (antes el tiempo se cortaba en 0.05 s y en equipos lentos todo iba en cámara lenta)
       const real=Math.min(clock.getDelta(),.25);
       if(ov.hidden)return;
-      if(!paused&&running){acc+=real;let n=0;while(acc>=STEP&&n<4){update(STEP);acc-=STEP;n++;}if(n===4)acc=0;drawMini();drawSpeedLines(real);}
+      if(!paused&&running){acc+=real;let n=0;while(acc>=STEP&&n<4){try{update(STEP);}catch(err){if(!loop.err){loop.err=1;console.error(err);}}acc-=STEP;n++;}if(n===4)acc=0;drawMini();drawSpeedLines(real);}
       else if(W&&!pausedByMenu){acc=0;slA=0;drawSpeedLines(real);if(customOpen){previewCam(real);renderer.render(scene,camera);return;}const t=clock.elapsedTime*.08;const r=L.size*.32;camera.position.set(Math.cos(t)*r,55,Math.sin(t)*r);camera.up.set(0,1,0);camera.lookAt(0,5,0);sky.position.copy(camera.position);}
       renderer.render(scene,camera);
     }
