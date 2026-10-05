@@ -2138,16 +2138,22 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       const g=new T.Group(),fc={},flat=c=>fc[c]||(fc[c]=new T.MeshBasicMaterial({color:c}));
       const skin=M(o.skin||0xffd9bd),hair=M(o.hair||0x7a4a26),tall=o.tall?1.45:1,shirt=M(o.shirt||0xfff6e4);
       const body=new T.Group();g.add(body);
-      const torso=new T.Group();torso.scale.y=tall;body.add(torso);
+      // proporciones más realistas: piernas, cuello, cabeza más chica (pero ojos de anime)
+      const Lg=o.robe?0:(o.tall?.95:.62),ts=tall*1.12,pantsM=M(o.pants||0x8a643f);
+      const torso=new T.Group();torso.scale.y=ts;torso.position.y=Lg;body.add(torso);
       if(o.female){mesh(Cone(.6,.9,20),M(o.dress||0xff8fb1),0,.52,0,torso);mesh(Tor(.58,.05,8,32),M(0xffffff),0,.1,0,torso).rotation.x=Math.PI/2;}
-      else mesh(Cyl(.3,.36,.5,10),M(o.pants||0x8a643f),0,.5,0,torso);
-      mesh(Sph(.37,16,12),shirt,0,.98,0,torso).scale.set(1,.85,.92);
+      else ell(.34,1,.62,.9,pantsM,0,.5,0,torso);
+      mesh(Sph(.37,16,12),shirt,0,.98,0,torso).scale.set(.95,.95,.85);
+      mesh(Tor(.33,.045,8,28),M(0x4a3020),0,.68,0,torso).rotation.x=Math.PI/2;
       if(o.vest!==null)ell(.4,1,.62,.95,M(o.vest||0x3f9a4a),0,1.0,0,torso);
       if(o.scarf!==null)ell(.2,1.4,.5,.9,M(o.scarf||0xd9442b),0,1.3,.2,torso);
       if(o.robe)mesh(Cone(.66,1.55,16),M(o.robe),0,.78,0,torso);
       if(o.apron)ell(.3,1,1.1,.25,M(o.apron),0,.82,.3,torso);
-      const head=new T.Group();head.position.y=.24+1.58*tall;body.add(head);
-      const R=.56;mesh(Sph(R,16,12),skin,0,0,0,head).scale.set(1,.96,.95);
+      ell(.13,1,1.5,1,skin,0,Lg+1.34*ts+.06,0,body);
+      const head=new T.Group();head.position.y=Lg+1.34*ts+.48;head.scale.setScalar(.82);body.add(head);
+      const R=.56;mesh(Sph(R,16,12),skin,0,0,0,head).scale.set(.94,1,.95);
+      noOut(ell(.055,1,.9,1.3,skin,0,-.13,R*.95,head));
+      [-1,1].forEach(sd=>{const er=o.elf?ell(.09,.45,1.9,.45,skin,sd*R*.93,.06,-.04,head):ell(.1,.5,.95,.55,skin,sd*R*.95,-.04,-.02,head);if(o.elf)er.rotation.z=-sd*.55;});
       const hw=o.headwear;if(hw==="wizard")o=Object.assign({},o,{hat:o.hatColor||0x8a9098});if(hw==="helmet")o=Object.assign({},o,{helmet:0x9aa0aa});if(hw==="flowers")o=Object.assign({},o,{flower:o.flower||0xff8fb1,crown:true});
       buildHair(head,R,o,hair);
       {const hc=M(o.hatColor||0xc4442f);
@@ -2176,16 +2182,19 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       if(o.backpack){const bp=M(o.backpack);ell(.36,1,1.15,.62,bp,0,1.02,-.44,torso);ell(.16,1.9,.7,.7,M(0xd9c9a0),0,1.44,-.47,torso);ell(.14,1.3,.8,.5,bp,0,.82,-.66,torso);[-1,1].forEach(sd=>ell(.05,1,5,.6,M(0x5a3a22),sd*.19,1.02,.33,torso));}
       if(o.brooch){const lf=mesh(Sph(.17,10,8),M(0x6fbf4a,0x2f7a2a,.4),0,1.38,.36,torso);lf.scale.set(.7,1.2,.35);mesh(Tor(.09,.025,6,16),M(0xf1c84a),0,1.38,.38,torso);}
       // brazos: grupo con pivote en el hombro (se animan al correr, saltar y atacar)
-      const arms=[-1,1].map(sd=>{const a=new T.Group();a.position.set(sd*.4,1.25*tall,0);a.rotation.z=sd*.14;body.add(a);
-        ell(.14,1,2.3,1,M(o.sleeve||o.shirt||0xfff6e4),0,-.28,0,a);mesh(Sph(.13,12,10),skin,0,-.62,0,a);
-        const hand=new T.Object3D();hand.position.set(0,-.66,.04);a.add(hand);a.userData.hand=hand;return a;});
+      const arms=[-1,1].map(sd=>{const a=new T.Group();a.position.set(sd*.42,Lg+1.24*ts,0);a.rotation.z=sd*.14;body.add(a);
+        mesh(Sph(.15,12,10),M(o.sleeve||o.shirt||0xfff6e4),0,0,0,a);ell(.12,1,3.1,1,M(o.sleeve||o.shirt||0xfff6e4),0,-.38,0,a);mesh(Sph(.12,12,10),skin,0,-.8,0,a);
+        const hand=new T.Object3D();hand.position.set(0,-.84,.04);a.add(hand);a.userData.hand=hand;return a;});
       if(o.staff){const st=mesh(Cyl(.06,.07,3.4,8),M(0x6e4a2c),0,-.2,.1,arms[1].userData.hand);mesh(Sph(.14,10,8),M(0xffffff,0xbfe6ff,.6),0,1.5,.1,arms[1].userData.hand);st.rotation.z=-.05;}
       if(o.spear){mesh(Cyl(.05,.05,3.6,8),M(0x6e4a2c),0,0,.1,arms[1].userData.hand);mesh(Cone(.12,.5,10),M(0xc9ccd6),0,2,.1,arms[1].userData.hand);}
-      const feet=o.robe?[]:[-.17,.17].map(x=>{const f=mesh(Sph(.2,10,6),M(o.boots||0xf0c29a),x,.12,.12,body);f.scale.set(1,.6,1.6);return f;});
+      const legs=[],feet=o.robe?[]:[-.17,.17].map(x=>{const lgG=new T.Group();lgG.position.set(x,Lg+.08,0);body.add(lgG);legs.push(lgG);
+        ell(.15,1,(Lg*.5+.04)/.15,1,o.female?M(o.legs||0xfff6ee):pantsM,0,-Lg/2,0,lgG);
+        const f=mesh(Sph(.2,10,6),M(o.boots||0xf0c29a),0,-Lg+.04,.12,lgG);f.scale.set(1,.6,1.6);return f;});
       let ring=null;if(o.ring){ring=mesh(Tor(.12,.035,6,16),M(0xffd24a,0xffb000,.8),.4,.95,.1,torso);ring.rotation.y=1.2;}
-      mergeStatic(torso,ring?[ring]:null);mergeStatic(head);arms.forEach(a=>mergeStatic(a));
-      g.userData={body,head,feet,torso,arms,ring};g.scale.setScalar(o.scale||1.3);outline(g);return g;}
+      mergeStatic(torso,ring?[ring]:null);mergeStatic(head);arms.forEach(a=>mergeStatic(a));legs.forEach(l=>mergeStatic(l,feet));
+      g.userData={body,head,feet,torso,arms,ring,legs};g.scale.setScalar(o.scale||1.3);outline(g);return g;}
     function animArms(m,state,ph,k){const A=m.userData.arms;if(!A)return;
+      (m.userData.legs||[]).forEach((l,i)=>{const t=state==="run"?Math.sin(ph)*.75*(i?-1:1):state==="jump"?(i?.35:-.15):state==="fall"?(i?-.2:.25):state==="dive"?-.45:0;l.rotation.x+=(t-l.rotation.x)*k;});
       A.forEach((a,i)=>{const sd=i?1:-1;let rx=0,rz=sd*.14;
         if(state==="run"){rx=Math.sin(ph)*.9*(i?1:-1);rz=sd*.22;}
         else if(state==="idle"){rx=Math.sin(ph*.8+i)*.06;}
@@ -2455,7 +2464,12 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       else if(P.type==="exit")exitHouse();
       else if(P.type==="cake"){S.eaten[W.key]=true;if(W.cakeM)W.cakeM.visible=false;const was=S.hearts;S.hearts=Math.min(PROG.maxHearts,S.hearts+1);hud();burst(W.cake.x,1.6,W.cake.z,0xffc2d4,16);
         beep(660,.1,"triangle",.05);setTimeout(()=>beep(880,.15,"triangle",.05),100);msg(S.hearts>was?"¡Riquísima! +1 ♥":"¡Riquísima!",1300);}}
-    function fade(cb){S.fading=true;fadeEl.classList.add("on");setTimeout(()=>{cb();setTimeout(()=>{fadeEl.classList.remove("on");S.fading=false;},60);},280);}
+    function fade(cb){S.fading=true;fadeEl.classList.add("on");setTimeout(()=>{try{cb();}catch(err){console.error(err);recoverOutside();}finally{setTimeout(()=>{fadeEl.classList.remove("on");S.fading=false;},60);}},280);}
+    // plan B: si un interior falla al armarse, se limpia todo y quedás en la puerta, afuera
+    function recoverOutside(){try{if(interior){scene.remove(interior);interior=null;}}catch(e){}
+      if(S.saved&&S.saved.H){W=S.saved;}world.visible=true;sky.visible=true;scene.background=null;roomLight.intensity=0;mini.style.visibility="";
+      scene.fog=new T.Fog(L.fog[0],L.fog[1],L.fog[2]);hemi.intensity=L.dark?.35:.62;sun.intensity=L.dark?.45:.95;
+      const E=S.inside;S.inside=null;S.inNpcs=[];if(E){S.x=E.x+Math.sin(E.a)*1.4;S.z=E.z+Math.cos(E.a)*1.4;S.y=groundAt(S.x,S.z);}paused=false;hud();msg("No se pudo entrar acá, probá de nuevo",1800);}
     let interior=null;const roomLight=new T.PointLight(0xffa860,0,40,1.4);scene.add(roomLight);
     function enterHouse(E){beep(330,.12,"triangle",.04);fade(()=>{
       S.saved=W;world.visible=false;sky.visible=false;closeTalk();
@@ -2549,7 +2563,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         const th=new T.Group();th.position.set(0,0,-12.4);g.add(th);mesh(Box(4,.6,2.4),M(0x8a5a32),0,.3,0,th);mesh(Box(1.8,1,1.4),M(0xf1c84a),0,1.1,0,th);mesh(Box(1.8,3,.3),M(0xf1c84a),0,2.5,-.6,th);W2.boxes.push([0,-12.4,2,1.2,0,3]);
         [[-6,-12],[6,-12]].forEach(([x,z])=>{mesh(Cyl(.6,.4,1.4,16),M(0x5a5a5a),x,.7,z,g);W2.fire=(W2.fire||[]).concat([noOut(mesh(Blob(.45),new T.MeshBasicMaterial({color:0xffa030}),x,1.7,z,g))]);W2.solid.push([x,z,.8]);});
         const stand=new T.Group();stand.position.set(0,0,-8.4);g.add(stand);mesh(Cyl(.6,.8,1.1,24),M(0x8a5a32),0,.55,0,stand);
-        const sw=new T.Group();sw.position.y=2;sw.rotation.z=Math.PI;stand.add(sw);E(.12,1,7.5,.3,M(0xdfe6f2,0x6a7a9a,.4),0,1.05,0,sw);E(.14,3.2,.7,.9,M(0xf1c84a),0,.12,0,sw);E(.09,1,2.6,1,M(0x6e4a2c),0,-.2,0,sw);
+        const sw=new T.Group();sw.position.y=2;sw.rotation.z=Math.PI;stand.add(sw);ell(.12,1,7.5,.3,M(0xdfe6f2,0x6a7a9a,.4),0,1.05,0,sw);ell(.14,3.2,.7,.9,M(0xf1c84a),0,.12,0,sw);ell(.09,1,2.6,1,M(0x6e4a2c),0,-.2,0,sw);
         noOut(mesh(Cyl(.5,.5,6,16,1,true),new T.MeshBasicMaterial({color:0xfff0a0,transparent:true,opacity:.22,depthWrite:false,side:T.DoubleSide}),0,3,0,stand));
         stand.visible=!!S.swordGranted&&!PROG.sword;W2.swordStand=stand;W2.solid.push([0,-8.4,.9]);
         W2.treasure={x:0,z:-8.4,key:"sword",cond:()=>S.swordGranted&&!PROG.sword,label:"Tomar a Herugrim, la espada del rey",take:()=>{PROG.sword=true;stand.visible=false;equipSword();S.pendingBoss=true;S.phase="boss";hud();
@@ -2938,9 +2952,9 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       ["Bilbo",{hairStyle:"balding",hair:0xeeeeee,eye:0x6b3d1f,vest:0xb03a2e,shirt:0xfff6e4,pants:0x6e5236,scarf:0xf1c84a,headwear:"straw",hatColor:0x8a5a32}],
       ["Rosita",{female:true,hairStyle:"curlyLong",hair:0xe8c060,eye:0x2f6fd8,dress:0xffa3c4,shirt:0xfff6ee,vest:null,scarf:null,flower:0xff8fb1,headwear:"flowers"}],
       ["Éowyn",{female:true,tall:true,hairStyle:"longWavy",hair:0xf0c860,eye:0x3f7fbf,dress:0xf4f0e6,shirt:0xf4f0e6,vest:null,scarf:null,cloak:0x6f8a5a,boots:0x4a3424,scale:1.22}],
-      ["Arwen",{female:true,tall:true,hairStyle:"longStraight",hair:0x1e1410,eye:0x6fa0ff,dress:0x5a4aa8,shirt:0x7a6ac8,vest:null,scarf:null,boots:0x3a2a4a,scale:1.22}],
+      ["Arwen",{elf:true,female:true,tall:true,hairStyle:"longStraight",hair:0x1e1410,eye:0x6fa0ff,dress:0x5a4aa8,shirt:0x7a6ac8,vest:null,scarf:null,boots:0x3a2a4a,scale:1.22}],
       ["Aragorn",{tall:true,hairStyle:"longWavy",hair:0x3a2a1e,beard:0x3a2a1e,eye:0x6b8aa0,vest:0x3a3a32,shirt:0x5a5040,pants:0x3a3028,cloak:0x4a4a3a,scarf:null,boots:0x3a2a1a,scale:1.24}],
-      ["Legolas",{tall:true,hairStyle:"longStraight",hair:0xf3e3a0,eye:0x3b86ff,vest:0x5f7a4a,shirt:0x8aa06a,pants:0x4a4a3a,cloak:0x6b7d64,scarf:null,boots:0x5a4a32,backpack:0x8a5a32,scale:1.26}],
+      ["Legolas",{elf:true,tall:true,hairStyle:"longStraight",hair:0xf3e3a0,eye:0x3b86ff,vest:0x5f7a4a,shirt:0x8aa06a,pants:0x4a4a3a,cloak:0x6b7d64,scarf:null,boots:0x5a4a32,backpack:0x8a5a32,scale:1.26}],
       ["Gimli",{hairStyle:"braid",hair:0xc0502a,beard:0xc0502a,eye:0x6b3d1f,vest:0x6a3a2a,shirt:0x8a7a6a,pants:0x4a3a2a,scarf:null,boots:0x3a2a1a,headwear:"helmet",bow:0xf1c84a,scale:1.32}],
       ["Gandalf",{tall:true,robe:0x9aa0a8,shirt:0x9aa0a8,vest:null,scarf:null,hair:0xdedede,hairStyle:"longStraight",beard:0xeeeeee,headwear:"wizard",hatColor:0x8a9098,staff:true,eye:0x3a5a8a,scale:1.3}]];
     const HAIRS=[["mop","Rulos"],["wavy","Ondulado corto"],["swept","Flequillo al costado"],["shaggy","Desmechado"],["bob","Melena corta"],["longStraight","Largo lacio"],["longWavy","Largo ondulado"],["curlyLong","Rulos largos"],["pony","Cola de caballo"],["braid","Trenza"],["bun","Rodete"],["balding","Pelado"]];
