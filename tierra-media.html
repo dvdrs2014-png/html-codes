@@ -269,7 +269,8 @@ button{font:inherit;color:inherit}
 .gtalk{position:absolute;left:50%;bottom:calc(28px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);width:min(680px,calc(100% - 32px));
   background:#fff;color:var(--g-ink);border:4px solid var(--g-ink);border-radius:20px;padding:22px 22px 16px;box-shadow:0 7px 0 var(--g-ink);font-weight:500;font-size:18px;line-height:1.45;pointer-events:none}
 .gtalk b{position:absolute;left:18px;top:-18px;background:var(--g-pink);color:#fff;border:3px solid var(--g-ink);border-radius:99px;padding:2px 14px;font-weight:800;font-size:15px}
-.gtalk.pop{animation:gcardin .35s cubic-bezier(.2,1.6,.4,1)}
+.gtalk.pop{animation:gtalkin .35s cubic-bezier(.2,1.6,.4,1)}
+@keyframes gtalkin{0%{transform:translateX(-50%) scale(.7);opacity:0}100%{transform:translateX(-50%);opacity:1}}
 @media (pointer:coarse){.gprompt{bottom:calc(180px + env(safe-area-inset-bottom,0px))}}
 @media (max-width:700px){.gmini{width:104px;height:104px}.glevel{font-size:21px}}
 @media (prefers-reduced-motion:reduce){.gmsg.on,.gcard-in{animation:none;opacity:1}.gflash.go{animation:none;opacity:0}}
@@ -2005,8 +2006,16 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       setup(W){W.H=(x,z)=>3*Math.sin(x*.05)*Math.cos(z*.04)+smooth(40,130,Math.abs(x))*38*(0.8+.2*Math.sin(z*.1));
         W.color=(x,z,y)=>new C(0x3a2d44).lerp(new C(0x5a4a60),clamp(y/40,0,1));
         W.after=(g)=>{const sp=new Inst(Cone(2,14,5),M(0x241c2c));for(let i=0;i<260;i++){const x=rnd(-150,150),z=rnd(-150,150);if(Math.abs(x)<30&&rnd()<.8)continue;sp.add(x,W.H(x,z)+5,z,rnd(.6,1.8),rnd(0,6));if(Math.abs(x)<60)W.solid.push([x,z,1.6]);}sp.build(g);
-          const wm=new T.LineBasicMaterial({color:0xe8e4ff,transparent:true,opacity:.55});
-          for(let i=0;i<40;i++){const x=rnd(-60,60),z=rnd(-140,140),y=W.H(x,z);const w=new T.Group();w.position.set(x,y,z);w.rotation.y=rnd(0,6);g.add(w);for(let k=0;k<8;k++){const a=k/8*6.28;w.add(new T.Line(new T.BufferGeometry().setFromPoints([new V3(0,6,0),new V3(Math.cos(a)*6,rnd(0,10),Math.sin(a)*6)]),wm));}for(let r=1.5;r<6;r+=1.5){const pts=[];for(let k=0;k<=16;k++){const a=k/16*6.28;pts.push(new V3(Math.cos(a)*r,6-r*.2,Math.sin(a)*r));}w.add(new T.Line(new T.BufferGeometry().setFromPoints(pts),wm));}}
+          // telarañas: textura dibujada (rayos + espiral) con brillo, colgadas entre las rocas y tendidas en el suelo
+          const webTex=(()=>{const c=document.createElement("canvas");c.width=c.height=512;const x=c.getContext("2d");x.translate(256,256);x.strokeStyle="rgba(240,236,255,.95)";x.shadowColor="rgba(200,190,255,.9)";x.shadowBlur=6;
+            const sp=14;x.lineWidth=2.2;for(let k=0;k<sp;k++){const a=k/sp*Math.PI*2+Math.sin(k)*.08;x.beginPath();x.moveTo(0,0);x.lineTo(Math.cos(a)*250,Math.sin(a)*250);x.stroke();}
+            x.lineWidth=1.6;x.beginPath();for(let t=0;t<=sp*11;t++){const a=t/sp*Math.PI*2,r=10+t*1.55,sag=Math.sin(t/sp*Math.PI*2*sp/2)*0;const rr=Math.min(r,245)*(.96+.04*Math.cos(t*Math.PI));const px=Math.cos(a)*rr,py=Math.sin(a)*rr;t?x.lineTo(px,py):x.moveTo(px,py);}x.stroke();
+            for(let k=0;k<40;k++){const a=Math.random()*6.28,r=Math.random()*230;x.fillStyle="rgba(255,255,255,.9)";x.beginPath();x.arc(Math.cos(a)*r,Math.sin(a)*r,1.6,0,7);x.fill();} // gotitas de rocío
+            const t=new T.CanvasTexture(c);t.userData={keep:true};return t;})();
+          const webM=new T.MeshBasicMaterial({map:webTex,transparent:true,side:T.DoubleSide,depthWrite:false,opacity:.9,fog:true});webM.userData.keep=true;
+          for(let i=0;i<46;i++){const x=rnd(-62,62),z=rnd(-140,140),y=W.H(x,z),sz=rnd(7,15);const w=noOut(new T.Mesh(new T.PlaneGeometry(sz,sz),webM));
+            if(i%5===0){w.position.set(x,y+.15,z);w.rotation.x=-Math.PI/2;}else{w.position.set(x,y+sz*.55+rnd(0,3),z);w.rotation.set(rnd(-.25,.25),rnd(0,6.28),rnd(-.3,.3));}
+            g.add(w);if(i%3===0){const th=noOut(mesh(Cyl(.03,.03,8,4),new T.MeshBasicMaterial({color:0xe8e4ff,transparent:true,opacity:.6}),x,y+sz+4,z,g));}}
           [[0,-60],[0,60]].forEach(([x,z])=>{const l=new T.PointLight(0xb9a0ff,1,140);l.position.set(x,14,z);g.add(l);});};
         W.items=[[-30,-100],[30,-40],[-20,20],[25,80],[0,-140]];}});
     // 5) MORDOR
@@ -2643,19 +2652,23 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       outline(world);}
     /* ---------- Interiores secretos ---------- */
     function caveRoom(g,E,o){const Rr=o.r||9,hh=o.h||6;const W2=baseRoom(g,{key:E.name,light:o.light||[0,4,0],lightI:o.lightI||1.6,bg:o.bg||0x07060c,fog:o.fog||0x0b0a14,npcs:o.npcs});
-      floorMesh(g,Circ(Rr,48),o.floor||0x4a4852);
+      if(o.hole){const fl=noOut(mesh(new T.RingGeometry(o.hole[2],Rr,48,1),toon({color:o.floor||0x4a4852},false),o.hole[0],.01,o.hole[1],g));fl.rotation.x=-Math.PI/2;fl.position.set(0,.01,0);fl.geometry.translate(o.hole[0],-o.hole[1],0);}else floorMesh(g,Circ(Rr,48),o.floor||0x4a4852);
       noOut(mesh(Cyl(Rr,Rr*1.05,hh,40,4,true),toon({color:o.wall||0x3a3f4a,side:T.BackSide},false),0,hh/2,0,g));
       const dome=noOut(mesh(Sph(Rr,28,14,0,Math.PI*2,0,Math.PI/2),toon({color:o.wall||0x3a3f4a,side:T.BackSide},false),0,hh,0,g));dome.scale.y=.45;
       for(let i=0;i<14;i++){const a=i/14*6.283;mesh(Blob(1+Math.random()),M(o.rock||0x4a4e5a),Math.sin(a)*(Rr-.6),.4,Math.cos(a)*(Rr-.6),g);}
       const door=faceIn(new T.Mesh(Circ(1.6,32),new T.MeshBasicMaterial({color:0xfff4d0})),0,1.6,Rr-.08);g.add(door);
       W2.round=Rr-1.6;W2.ceil=hh+1.4;W2.exit={x:0,z:Rr-1.6};W2.spawn=[0,Rr-3];return W2;}
     Object.assign(ROOMS,{
-      doom(g,E){// Sammath Naur: la grieta de fuego dentro del Monte del Destino
-        const W2=caveRoom(g,E,{r:11,h:9,wall:0x3a1a12,floor:0x2a1410,rock:0x4a2a20,light:[0,3,-3],lightI:3,bg:0x1a0604,fog:0x3a1208});
-        const lava=noOut(mesh(Circ(4.2,40),new T.MeshBasicMaterial({color:0xff5a1a}),0,.05,-3.5,g));lava.rotation.x=-Math.PI/2;
-        W2.fire=[0,1,2,3,4].map(i=>noOut(mesh(Blob(.8),new T.MeshBasicMaterial({color:[0xffb040,0xff7a1a,0xffe080][i%3]}),Math.cos(i*1.3)*2.4,.6,-3.5+Math.sin(i*1.3)*2,g)));
-        mesh(Box(3,.4,2.2),M(0x3a2a24),0,.2,1.6,g);W2.solid.push([0,-3.5,4.4]);
-        W2.ringSpot={x:0,z:1.4};W2.volcano={x:0,z:-3.5};W2.ringTarget=new V3(0,.6,-3.5);W2.spawn=[0,7.5];
+      doom(g,E){// Sammath Naur: el piso termina en una grieta; muy abajo burbujea un charquito de lava
+        const hx=0,hz=-3.5,hr=4.6;
+        const W2=caveRoom(g,E,{r:11,h:9,wall:0x3a1a12,floor:0x2a1410,rock:0x4a2a20,light:[0,-4,-3.5],lightI:4,bg:0x1a0604,fog:0x3a1208,hole:[hx,hz,hr]});
+        noOut(mesh(Cyl(hr,hr*.7,16,40,6,true),toon({color:0x3a1810,side:T.BackSide},false),hx,-8,hz,g));                 // paredes de la caída
+        for(let i=0;i<12;i++){const a=i/12*6.283;mesh(Blob(.45+Math.random()*.3),M(0x4a2418),hx+Math.cos(a)*(hr+.3),0,hz+Math.sin(a)*(hr+.3),g);}  // borde de rocas
+        const lava=noOut(mesh(Circ(hr*.65,36),new T.MeshBasicMaterial({color:0xff5a1a}),hx,-15.8,hz,g));lava.rotation.x=-Math.PI/2;   // charquito de lava al fondo
+        W2.fire=[0,1,2,3,4,5].map(i=>noOut(mesh(Blob(.7),new T.MeshBasicMaterial({color:[0xffb040,0xff7a1a,0xffe080][i%3]}),hx+Math.cos(i*1.1)*1.8,-15.4,hz+Math.sin(i*1.1)*1.6,g)));
+        noOut(mesh(Cyl(hr*.95,hr*.6,15,30,1,true),new T.MeshBasicMaterial({color:0xff6a1a,transparent:true,opacity:.18,side:T.DoubleSide,depthWrite:false}),hx,-8.5,hz,g)); // resplandor que sube
+        mesh(Box(2.6,.35,2),M(0x3a2a24),0,.18,1.9,g);
+        W2.solid.push([hx,hz,hr+.6]);W2.ringSpot={x:0,z:1.6};W2.volcano={x:hx,z:hz};W2.ringTarget=new V3(hx,-15.4,hz);W2.spawn=[0,7.5];
         setTimeout(()=>say("Sam","¡Ahí está la grieta, señor Frodo! Acercate al borde y tirá el Anillo.",null),900);return W2;},
       gollum(g,E){const W2=caveRoom(g,E,{light:[0,3,-2],lightI:1.3,npcs:[{name:"Gollum",still:true,home:[1.8,-2.4],
           look:{skin:0xd9d2b4,hair:0xcfc8a8,hairStyle:"strands",shirt:0xd9d2b4,vest:null,scarf:null,pants:0x5a5040,eye:0x9fd8ff,scale:1.05},onTalk:N=>gollumRiddles(N),lines:["¡Mi tesoro!"]}]});
@@ -2707,26 +2720,30 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         say(N.name,"¡Los estandartes de Rohan! Tomá a Herugrim, la espada de los reyes. Está frente al trono.",N);burst(0,1.6,-8.4,0xfff0a0,20);return;}
       say(N.name,N.lines[N.li%N.lines.length],N);N.li++;}
     /* ---------- Escena final: Frodo saca el Anillo y lo tira al Monte del Destino ---------- */
-    function startRingScene(){S.phase="done";S.cut={t:0,step:0};clearInput();S.vx=S.vz=S.kx=S.kz=0;const V=W.volcano;S.yaw=Math.atan2(V.x-S.x,V.z-S.z);
+    function startRingScene(){S.prompt=null;lastPrompt="";promptEl.hidden=true;$("gAct").hidden=true;S.phase="done";S.cut={t:0,step:0};clearInput();S.vx=S.vz=S.kx=S.kz=0;const V=W.volcano;S.yaw=Math.atan2(V.x-S.x,V.z-S.z);
       S.meteors.forEach(m=>{world.remove(m.m);world.remove(m.ring);});S.meteors=[];closeTalk();}
-    function updateCut(dt){const c=S.cut;c.t+=dt;const u=player.userData,R=u.arms[1],L2=u.arms[0],hand=R.userData.hand,V=W.volcano;
-      const ease=(a,b,k)=>a+(b-a)*Math.min(1,k);
+    function updateCut(dt){const c=S.cut;c.t+=dt;const u=player.userData,R=u.arms[1],L2=u.arms[0],hand=R.userData.hand,V=W.volcano,par=S.inside&&interior?interior:world;
+      const ease=(a,b,k)=>a+(b-a)*Math.min(1,k);c.trail=c.trail||[];
       player.position.set(S.x,S.y,S.z);player.rotation.y=S.yaw;u.body.rotation.x*=.9;
-      if(c.t<.9){R.rotation.x=ease(R.rotation.x,-1.4,dt*6);L2.rotation.x=ease(L2.rotation.x,-1.1,dt*6);}
-      if(c.step===0&&c.t>.6){c.step=1;hand.add(u.ring);u.ring.position.set(0,-.08,.12);u.ring.scale.setScalar(1.6);beep(880,.2,"triangle",.04);say("Frodo","El Anillo… pesa tanto. No. ¡Esto se termina acá!",null);}
-      if(c.t>.9&&c.t<2.1){R.rotation.x=ease(R.rotation.x,-2.95,dt*5);R.rotation.z=ease(R.rotation.z,.35,dt*5);L2.rotation.x=ease(L2.rotation.x,0,dt*4);u.ring.rotation.y+=dt*4;
+      if(c.t<1.2){R.rotation.x=ease(R.rotation.x,-1.4,dt*5);L2.rotation.x=ease(L2.rotation.x,-1.1,dt*5);}
+      if(c.step===0&&c.t>.7){c.step=1;hand.add(u.ring);u.ring.position.set(0,-.08,.12);u.ring.scale.setScalar(1.6);beep(880,.2,"triangle",.04);say("Frodo","El Anillo… pesa tanto. No. ¡Esto se termina acá!",null);S.talk.t=99;}
+      if(c.t>1.2&&c.t<3.7){R.rotation.x=ease(R.rotation.x,-2.95,dt*4);R.rotation.z=ease(R.rotation.z,.35,dt*4);L2.rotation.x=ease(L2.rotation.x,0,dt*3);u.ring.rotation.y+=dt*4;
         if(Math.random()<dt*8){const wp=new V3();hand.getWorldPosition(wp);burst(wp.x,wp.y,wp.z,0xffe27a,2);}}
-      if(c.t>=2.1&&c.t<2.45){R.rotation.x=ease(R.rotation.x,-.5,dt*18);R.rotation.z=ease(R.rotation.z,-.2,dt*18);}
-      if(c.step===1&&c.t>=2.3){c.step=2;const wp=new V3();hand.getWorldPosition(wp);u.ring.visible=false;
-        c.fly=noOut(mesh(Tor(.45,.12,10,28),M(0xffd24a,0xffb000,1),wp.x,wp.y,wp.z,world));c.from=wp.clone();
-        c.to=W.ringTarget?W.ringTarget.clone():new V3(V.x,W.H(V.x,V.z)+2,V.z-9);say("Frodo","¡No quiero verte nunca más!",null);beep(500,.3,"triangle",.05,.4);}
-      if(c.step===2){const k=Math.min(1,(c.t-2.3)/1.5),p=c.from.clone().lerp(c.to,k);p.y+=Math.sin(k*Math.PI)*9;c.fly.position.copy(p);c.fly.rotation.x+=dt*9;c.fly.rotation.y+=dt*6;
-        if(Math.random()<dt*20)burst(p.x,p.y,p.z,0xffe27a,1);
-        if(k>=1){c.step=3;world.remove(c.fly);impact(1.6,.14);S.shake=1.8;burst(c.to.x,c.to.y,c.to.z,0xff7a1a,44);beep(90,1,"sawtooth",.08,.3);msg("¡El Anillo cae al fuego!",2800,true);}}
-      if(c.step===3&&c.t>5.4){c.step=4;S.cut=null;u.ring.visible=true;u.ring.scale.setScalar(1);winLevel();}
-      // cámara de costado, como en una película
+      if(c.t>=3.7&&c.t<4.1){R.rotation.x=ease(R.rotation.x,-.5,dt*16);R.rotation.z=ease(R.rotation.z,-.2,dt*16);}
+      if(c.step===1&&c.t>=3.9){c.step=2;const wp=new V3();hand.getWorldPosition(wp);u.ring.visible=false;c.t2=c.t;
+        c.fly=noOut(mesh(Tor(.45,.12,10,28),M(0xffd24a,0xffb000,1),wp.x,wp.y,wp.z,par));c.from=wp.clone();
+        c.to=W.ringTarget?W.ringTarget.clone():new V3(V.x,W.H(V.x,V.z)+2,V.z-9);say("Frodo","¡No quiero verte nunca más!",null);S.talk.t=99;beep(500,.3,"triangle",.05,.4);}
+      if(c.step===2){const k=Math.min(1,(c.t-c.t2)/2.2),p=c.from.clone().lerp(c.to,k);p.y+=Math.sin(Math.min(1,k*1.6)*Math.PI)*4*(1-k);c.fly.position.copy(p);c.fly.rotation.x+=dt*9;c.fly.rotation.y+=dt*6;
+        // estela amarilla: bolitas brillantes que quedan atrás y se apagan
+        const t1=noOut(new T.Mesh(sparkGeo,sparkM(0xffd24a)));t1.position.copy(p);t1.scale.setScalar(1.3);par.add(t1);c.trail.push({m:t1,l:.9});
+        if(k>=1){c.step=3;par.remove(c.fly);impact(1.6,.14);S.shake=1.8;burst(c.to.x,c.to.y,c.to.z,0xff7a1a,44);beep(90,1,"sawtooth",.08,.3);msg("¡El Anillo cae al fuego!",4200,true);c.t3=c.t;}}
+      c.trail=c.trail.filter(q=>{q.l-=dt;q.m.scale.setScalar(Math.max(.01,q.l*1.4));if(q.l<=0){par.remove(q.m);return false;}return true;});
+      if(c.step===3&&c.t>c.t3+3.4){c.step=4;S.cut=null;closeTalk();u.ring.visible=true;u.ring.scale.setScalar(1);c.trail.forEach(q=>par.remove(q.m));winLevel();}
+      // cámara de costado, como en una película; al tirar, mira hacia abajo a la grieta
       const fx=Math.sin(S.yaw),fz=Math.cos(S.yaw),rx=fz,rz=-fx,focus=c.step>=2&&c.fly?c.fly.position:new V3(S.x,S.y+2.4,S.z);
-      const goal=new V3(S.x+rx*7-fx*3.5,S.y+3.4,S.z+rz*7-fz*3.5);if(c.step>=2)goal.lerp(new V3(S.x-fx*6+rx*4,S.y+7,S.z-fz*6+rz*4),.6);
+      const goal=new V3(S.x+rx*6-fx*3.5,S.y+3.4,S.z+rz*6-fz*3.5);
+      // adentro de la montaña: la cámara se asoma sobre la grieta y sigue al Anillo hacia abajo
+      if(c.step>=2&&W.ringTarget)goal.set(c.to.x+rx*1.2,S.y+7.5,c.to.z+fz*-1.2+1.5);else if(c.step>=2)goal.lerp(new V3(S.x-fx*4+rx*3,S.y+6,S.z-fz*4+rz*3),.7);
       camera.position.lerp(goal,1-Math.exp(-dt*3));camera.lookAt(focus);sky.position.copy(camera.position);}
     /* ---------- bucle ---------- */
     const clock=new T.Clock();S.kx=S.kz=0;S.shake=0;
@@ -2825,7 +2842,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       // (ahora se entra a la montaña y el Anillo se arroja con E desde el borde de la lava)
       W.spin.forEach(w=>w.rotation.z-=dt*.8);
       S.puffs.forEach(p=>{p.t+=dt*.18;if(p.t>1)p.t-=1;const k=p.t;p.m.position.set(p.sp[0]+k*3,p.sp[1]+k*9,p.sp[2]+k*1.5);p.m.scale.setScalar(1+k*4);p.m.material.opacity=.55*(1-k);});
-      S.parts=S.parts.filter(q=>{q.life-=dt;q.v.y-=20*dt;q.m.position.addScaledVector(q.v,dt);q.m.scale.setScalar(Math.max(.01,q.life/q.max)*q.s);if(q.life<=0){world.remove(q.m);return false;}return true;});
+      S.parts=S.parts.filter(q=>{q.life-=dt;q.v.y-=20*dt;q.m.position.addScaledVector(q.v,dt);q.m.scale.setScalar(Math.max(.01,q.life/q.max)*q.s);if(q.life<=0){if(q.m.parent)q.m.parent.remove(q.m);return false;}return true;});
       updateNPCs(dt,t);updatePrompt(dt);
       if(W.fire){W.fire.forEach((f,i)=>f.scale.setScalar(1+Math.sin(t*9+i*2)*.15+Math.sin(t*23+i)*.08));roomLight.intensity=W.lightI*(1+Math.sin(t*11)*.08+Math.sin(t*27)*.05);}
       // la cámara se recentra detrás del jugador cuando avanza
@@ -2856,7 +2873,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     // chispas al recoger objetos, golpear y en los impactos
     const sparkGeo=Sph(.25,8,6);
     const sparkMat={};const sparkM=c=>sparkMat[c]||(sparkMat[c]=Object.assign(new T.MeshBasicMaterial({color:c}),{userData:{keep:true}}));
-    function burst(x,y,z,col,n=14){for(let i=0;i<n;i++){const m=noOut(new T.Mesh(sparkGeo,sparkM(col)));m.position.set(x,y,z);world.add(m);
+    function burst(x,y,z,col,n=14){const par=S.inside&&interior?interior:world;for(let i=0;i<n;i++){const m=noOut(new T.Mesh(sparkGeo,sparkM(col)));m.position.set(x,y,z);par.add(m);
       const a=Math.random()*6.283,u=Math.random()*.8+.3,sp=6+Math.random()*7;S.parts.push({m,v:new V3(Math.cos(a)*sp*u,6+Math.random()*7,Math.sin(a)*sp*u),life:.6+Math.random()*.4,max:1,s:1+Math.random()});}}
     function bossY(B){return W.H(B.x,B.z);}
     function updateBoss(dt,t,B){B.swordInv=Math.max(0,(B.swordInv||0)-dt);
