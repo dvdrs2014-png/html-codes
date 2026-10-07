@@ -408,6 +408,19 @@ button{font:inherit;color:inherit}
   .sw{width:44px;height:44px}
   .gc-foot .sgb{min-height:52px}
 }
+
+/* ---------- celular: vestuario al costado (panel a la derecha, personaje a la izquierda, "¡A jugar!" siempre visible) ---------- */
+@media (max-width:760px){
+  .gcustom{align-items:stretch!important;justify-content:flex-end!important;padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px))!important}
+  .gc-panel{width:min(58vw,340px)!important;height:100%!important;max-height:100%}
+  .gc-panel h2{font-size:18px!important;padding:8px 12px 6px!important}
+  .gc-tabs{padding:8px 8px 4px;gap:6px}.gc-tabs .sgb{padding:7px 9px;font-size:12px}
+  .gc-body{padding:4px 8px 8px}
+  .gc-row.grid{grid-template-columns:1fr!important}
+  .gc-foot{flex-direction:column;gap:8px;padding:8px}
+  .gc-foot .sgb{min-height:46px;font-size:16px}
+  #gcPlay{order:-1}
+}
 </style>
 </head>
 <body class="t-dusk">
@@ -3056,7 +3069,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       player.position.set(S.x,S.y,S.z);player.rotation.y=S.yaw+Math.sin(t*.5)*.9;player.visible=true;
       animArms(player,"idle",t*2,.2);u.body.rotation.x=0;u.body.scale.set(1,1+Math.sin(t*1.6)*.012,1);
       // centro del espacio que deja libre el panel: a la izquierda en compu, arriba en el celular
-      const pr=$("gCustom").querySelector(".gc-panel").getBoundingClientRect(),narrow=innerWidth<760;
+      const pr=$("gCustom").querySelector(".gc-panel").getBoundingClientRect(),narrow=false; // el panel siempre queda al costado
       const cx=narrow?.5:Math.max(.25,(pr.left/2)/innerWidth),cy=narrow?Math.max(.18,(pr.top/2)/innerHeight):.5,frac=narrow?Math.max(.3,pr.top/innerHeight)*.88:.86;
       const tanH=Math.tan(camera.fov*Math.PI/360),d=Hh*1.08/(2*tanH*frac),fx=Math.sin(S.yaw),fz=Math.cos(S.yaw),rx=fz,rz=-fx;
       const midY=S.y+Hh*.5,nx=cx*2-1,ny=1-cy*2,offX=-nx*tanH*camera.aspect*d,offY=-ny*tanH*d;
