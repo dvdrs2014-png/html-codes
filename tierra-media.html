@@ -421,6 +421,24 @@ button{font:inherit;color:inherit}
   .gc-foot .sgb{min-height:46px;font-size:16px}
   #gcPlay{order:-1}
 }
+
+/* ---------- pantallas bajas (celular acostado): panel compacto para que la lista de personajes se vea y se pueda tocar ---------- */
+@media (max-height:560px){
+  .gcustom{padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px))!important;align-items:stretch!important;justify-content:flex-end!important}
+  .gc-panel{height:100%!important;width:min(48vw,400px)!important;border-width:4px}
+  .gc-panel h2{font-size:17px!important;padding:6px 12px 5px!important;border-bottom-width:4px}
+  .gc-tabs{flex-wrap:nowrap;overflow-x:auto;padding:6px 8px 4px;gap:6px;touch-action:pan-x!important}
+  .gc-tabs .sgb{flex:none;padding:6px 10px;font-size:12px}
+  .gc-path{display:none}
+  .gc-body{padding:2px 8px 6px;min-height:0}
+  .gc-body h3{font-size:12px;margin:0 0 5px}
+  .gc-body section{margin-top:6px}
+  .gc-row.grid{grid-template-columns:repeat(2,1fr)!important;gap:6px}
+  .sgb.char{font-size:13px;padding:8px 8px;min-height:40px}
+  .sw{width:36px;height:36px}
+  .gc-foot{flex-direction:row!important;gap:6px;padding:6px 8px;border-top-width:3px}
+  .gc-foot .sgb{min-height:40px!important;font-size:15px!important;padding:6px 8px}
+}
 </style>
 </head>
 <body class="t-dusk">
