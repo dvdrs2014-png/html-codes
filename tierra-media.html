@@ -373,6 +373,18 @@ button{font:inherit;color:inherit}
 #game[data-mode="touch"] .gprompt{display:none!important}
 #game:not([data-mode="touch"]) .gpause{display:none}
 #game.customizing .gact{visibility:hidden}
+.glvrow{display:flex;align-items:center;gap:8px}
+.gavhud{width:46px;height:46px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 3px var(--g-ink);object-fit:cover;background:#fff}
+.gavhud[hidden]{display:none}
+.gavatar{position:absolute;inset:0;z-index:40;display:grid;place-items:center;padding:16px;background:rgba(20,10,40,.6);touch-action:pan-y}
+.gavatar[hidden]{display:none}
+.gav-in{background:#fff;color:var(--btn-ink);border:5px solid var(--btn-ink);border-radius:26px;box-shadow:0 9px 0 var(--btn-ink);padding:14px 18px 16px;width:min(360px,100%);text-align:center;animation:gcardin .4s cubic-bezier(.2,1.6,.4,1)}
+.gav-in h2{margin:0 0 10px;font:400 26px var(--btn-font);text-transform:uppercase}
+.gav-in img{width:min(220px,60vw);aspect-ratio:1;border-radius:50%;border:5px solid var(--btn-ink);box-shadow:0 6px 0 var(--btn-ink);display:block;margin:0 auto}
+.gav-bg{display:flex;justify-content:center;gap:8px;margin:12px 0 6px;flex-wrap:wrap}
+.gav-tip{margin:4px 0 10px;font-size:13px;color:#5a5070}
+.gav-btns{display:flex;gap:8px}.gav-btns .sgb{flex:1;font-size:15px;padding:10px 8px}
+@media (max-height:560px){.gav-in img{width:min(150px,40vh)}.gav-in h2{font-size:18px;margin-bottom:6px}}
 @keyframes sgidle{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
 .enter span{display:inline-block;transition:transform .2s}.enter:hover span{transform:translateX(5px)}
 .tod{background:rgba(27,24,64,.55)!important;border:3px solid var(--btn-ink)!important;border-radius:22px!important;padding:6px 8px 10px!important;gap:6px}
@@ -700,6 +712,15 @@ button{font:inherit;color:inherit}
   <canvas class="gspeed" id="gSpeed" aria-hidden="true"></canvas>
   <div class="gflash" id="gFlash" aria-hidden="true"></div>
   <div class="gfade" id="gFade" aria-hidden="true"></div>
+  <div class="gavatar" id="gAvatarBox" hidden>
+    <div class="gav-in">
+      <h2>Tu avatar</h2>
+      <img id="gAvImg" alt="Retrato de tu personaje">
+      <div class="gav-bg" id="gAvBg"></div>
+      <p class="gav-tip">Elegí el fondo. En el celular, mantené apretada la foto para guardarla.</p>
+      <div class="gav-btns"><button type="button" class="sgb go" id="gAvUse">Usar en el juego</button><button type="button" class="sgb" id="gAvClose">Cerrar</button></div>
+    </div>
+  </div>
   <div class="gsplash" id="gSplash" hidden>
     <div class="gs-rays" aria-hidden="true"></div>
     <div class="gs-logo" id="gsLogo"><span>TU LOGO</span></div>
@@ -720,14 +741,14 @@ button{font:inherit;color:inherit}
       <h2>¿Quién querés ser?</h2>
       <div class="gc-tabs" id="gcTabs"></div>
       <div class="gc-body" id="gcBody"></div>
-      <div class="gc-foot"><button type="button" class="sgb" id="gcRandom">🎲 Aleatorio</button><button type="button" class="sgb go" id="gcPlay">¡A jugar!</button></div>
+      <div class="gc-foot"><button type="button" class="sgb" id="gcRandom">🎲 Aleatorio</button><button type="button" class="sgb" id="gcAvatar">📸 Avatar</button><button type="button" class="sgb go" id="gcPlay">¡A jugar!</button></div>
     </div>
   </div>
   <button type="button" class="gprompt" id="gPrompt" hidden><kbd>E</kbd><b></b></button>
   <div class="gtalk" id="gTalk" hidden role="status" aria-live="polite"><b></b><span></span></div>
   <div class="ghud">
     <div class="gleft">
-      <p class="glevel" id="gLevel">La Comarca</p>
+      <div class="glvrow"><img class="gavhud" id="gAvHud" alt="Tu avatar" hidden><p class="glevel" id="gLevel">La Comarca</p></div>
       <p class="ghearts" id="gHearts" aria-label="Vidas"></p>
       <p class="gitems" id="gItems"></p>
       <p class="gfps" id="gFps" title="Cuadros por segundo (F para ocultar)">— FPS</p>
@@ -2215,12 +2236,13 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         [[0,.95,2.2],[.5,.9,2.1],[-.5,.9,2.1],[1.0,.7,1.9],[-1.0,.7,1.9],[2.2,.8,1.5],[-2.2,.8,1.5],[Math.PI,.75,1.3],[2.7,.5,1.2],[-2.7,.5,1.2]].forEach(([a,e,t],i)=>lock(head,hair,R,a,e,.62+(i%3)*.08,.26,{tilt:t,curve:-.25,sway:(i%2?.1:-.1)}));
         fringe(5,.45,1.2,{vary:true});ahoge();}
       if(st==="ahoge")ahoge();
-      if(st==="emo"){// emo de anime: flequillo enorme y sólido barrido de costado que tapa un ojo entero
+      if(st==="emo"||st==="emoR"){// emo de anime: el mechón nace de un costado de la cabeza y cruza en diagonal tapando el ojo del lado contrario
+        const sd=st==="emo"?1:-1; // emo: nace del lado izquierdo (+x) y tapa el ojo derecho (-x); emoR al revés
         cap(.56);back(1.0);
-        lock(head,hair,R,.32,.78,.95,.46,{tilt:.3,curve:.42,sway:-.06});                                           // la "cortina" que tapa el ojo derecho
-        lock(head,hair,R,.12,.86,.82,.34,{tilt:.42,curve:.38,sway:-.18,roll:.25});                                  // capa de atrás del flequillo
-        [[-.12,.9,.5],[-.35,.86,.4],[-.6,.8,.34]].forEach(([a,e,len])=>lock(head,hair,R,a,e,len,.2,{tilt:1.05,curve:.15,sway:-.3,roll:.5}));   // flequillo corto sobre la otra frente (el otro ojo se ve)
-        sides(.75,2,{out:.04});
+        lock(head,hair,R,sd*.75,.85,.38,.26,{tilt:.9,curve:.3,sway:0});                                            // raíz del mechón
+        const cur=ell(.3,1,1.75,.22,hair,-sd*.06,.08,R*1.03,head);cur.rotation.z=-sd*.62;                              // la cortina diagonal que cruza la cara
+        ell(.16,1,1.4,.25,hair,-sd*.3,-.17,R*.95,head).rotation.z=-sd*.3;                                            // la punta sobre el ojo tapado
+        [[sd*.45,.95,.36],[sd*.2,.98,.3]].forEach(([a,e,len])=>lock(head,hair,R,a,e,len,.18,{tilt:1.15,curve:.2,sway:-sd*.2}));
         for(let i=0;i<8;i++){const a=Math.PI+(i/7-.5)*2.3;lock(head,hair,R,a,.45+(i%2)*.35,.5+(i%3)*.08,.2,{tilt:.95,curve:-.3,sway:(i%2?.12:-.12)});}   // nuca desmechada
         for(let i=0;i<3;i++)lock(head,hair,R,Math.PI+(i-1)*.5,1.1,.42,.2,{tilt:2.2,curve:-.2,sway:(i-1)*.1});}
       if(o.flower){const ring=o.crown?7:1;for(let f=0;f<ring;f++){const fl=new T.Group(),a=o.crown?(f/(ring-1)-.5)*2.6:.9;fl.position.set(Math.sin(a)*R*.95,.42-Math.abs(a)*.08,Math.cos(a)*R*.62);head.add(fl);
@@ -3068,7 +3090,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       ["Legolas",{elf:true,tall:true,hairStyle:"longStraight",hair:0xf3e3a0,eye:0x3b86ff,vest:0x5f7a4a,shirt:0x8aa06a,pants:0x4a4a3a,cloak:0x6b7d64,scarf:null,boots:0x5a4a32,backpack:0x8a5a32,scale:1.26}],
       ["Gimli",{hairStyle:"braid",hair:0xc0502a,beard:0xc0502a,eye:0x6b3d1f,vest:0x6a3a2a,shirt:0x8a7a6a,pants:0x4a3a2a,scarf:null,boots:0x3a2a1a,headwear:"helmet",bow:0xf1c84a,scale:1.32}],
       ["Gandalf",{tall:true,robe:0x9aa0a8,shirt:0x9aa0a8,vest:null,scarf:null,hair:0xdedede,hairStyle:"longStraight",beard:0xeeeeee,headwear:"wizard",hatColor:0x8a9098,staff:true,eye:0x3a5a8a,scale:1.3}]];
-    const HAIRS=[["emo","Emo (flequillo al costado)"],["buzz","Rapado"],["undercut","Undercut"],["pompadour","Pompadour (jopo)"],["mohawk","Mohicano"],["dreads","Rastas"],["manBun","Rodete alto (man bun)"],["spaceBuns","Dos rodetes (space buns)"],["hime","Corte hime"],["animeSpikes","Puntas anime"],["mop","Rulos"],["curlyShort","Rulos cortos"],["afro","Rulos grandes (afro)"],["wavy","Ondulado corto"],["swept","Flequillo al costado"],["shaggy","Desmechado"],["bob","Melena corta"],["longStraight","Largo lacio"],["longWavy","Largo ondulado"],["curlyLong","Rulos largos"],["pony","Cola de caballo"],["braid","Trenza"],["bun","Rodete"],["balding","Pelado"]];
+    const HAIRS=[["emo","Emo (tapa el ojo derecho)"],["emoR","Emo (tapa el ojo izquierdo)"],["buzz","Rapado"],["undercut","Undercut"],["pompadour","Pompadour (jopo)"],["mohawk","Mohicano"],["dreads","Rastas"],["manBun","Rodete alto (man bun)"],["spaceBuns","Dos rodetes (space buns)"],["hime","Corte hime"],["animeSpikes","Puntas anime"],["mop","Rulos"],["curlyShort","Rulos cortos"],["afro","Rulos grandes (afro)"],["wavy","Ondulado corto"],["swept","Flequillo al costado"],["shaggy","Desmechado"],["bob","Melena corta"],["longStraight","Largo lacio"],["longWavy","Largo ondulado"],["curlyLong","Rulos largos"],["pony","Cola de caballo"],["braid","Trenza"],["bun","Rodete"],["balding","Pelado"]];
     const HEADS=[[null,"Nada"],["cap","Gorra"],["beanie","Gorro de lana"],["straw","Sombrero de paja"],["explorer","Sombrero de explorador"],["wizard","Sombrero de mago"],["helmet","Casco"],["flowers","Corona de flores"]];
     const clone=o=>JSON.parse(JSON.stringify(o));
     let LOOK=clone(PRESETS[0][1]),customOpen=false,customTab="chars",customDone=null;
@@ -3110,6 +3132,26 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       if(d)d();else if(changed)startIntro();else{paused=false;}}
     function startIntro(){const c=CAMP[0];card(c.kick,c.name,PATH.desc+" "+c.text,"Jugar",null);}
     $("gcPlay").onclick=()=>{beep(660,.1,"triangle",.05);setTimeout(()=>beep(990,.15,"triangle",.05),90);closeCustomizer();};
+    /* ---- foto de avatar (retrato del personaje sobre fondo de color, como Bitmoji o el avatar de WhatsApp) ---- */
+    const AV_BG=["#8fe3ff","#ffd60a","#ff8fc8","#b6ff7a","#c9a8ff","#ffb38a","#ffffff"];let avBg=AV_BG[0],avUrl=null;
+    function snapAvatar(){const u=player.userData,hd=new V3();u.head.getWorldPosition(hd);
+      const prev={pos:camera.position.clone(),q:camera.quaternion.clone(),fov:camera.fov,asp:camera.aspect,bg:scene.background,fog:scene.fog,w:world&&world.visible,i:interior&&interior.visible,sk:sky.visible};
+      if(world)world.visible=false;if(interior)interior.visible=false;sky.visible=false;scene.fog=null;scene.background=new C(avBg);shadow.visible=false;
+      const fx=Math.sin(player.rotation.y),fz=Math.cos(player.rotation.y),d=2.6*player.scale.y;
+      camera.fov=30;camera.aspect=1;camera.updateProjectionMatrix();camera.position.set(hd.x+fx*d+fz*.25,hd.y+.05,hd.z+fz*d-fx*.25);camera.lookAt(hd.x,hd.y-.38*player.scale.y,hd.z);
+      const sz=new T.Vector2();renderer.getSize(sz);const s2=Math.min(sz.x,sz.y);renderer.setViewport((sz.x-s2)/2,(sz.y-s2)/2,s2,s2);renderer.setScissor((sz.x-s2)/2,(sz.y-s2)/2,s2,s2);renderer.setScissorTest(true);
+      renderer.render(scene,camera);
+      const src=renderer.domElement,c=document.createElement("canvas");c.width=c.height=512;const x=c.getContext("2d");
+      const pr2=renderer.getPixelRatio(),sx=(src.width-s2*pr2)/2,sy=(src.height-s2*pr2)/2;x.drawImage(src,sx,sy,s2*pr2,s2*pr2,0,0,512,512);
+      renderer.setScissorTest(false);renderer.setViewport(0,0,sz.x,sz.y);
+      camera.fov=prev.fov;camera.aspect=prev.asp;camera.updateProjectionMatrix();camera.position.copy(prev.pos);camera.quaternion.copy(prev.q);
+      scene.background=prev.bg;scene.fog=prev.fog;if(world)world.visible=prev.w;if(interior)interior.visible=prev.i;sky.visible=prev.sk;shadow.visible=true;
+      avUrl=c.toDataURL("image/png");$("gAvImg").src=avUrl;}
+    function renderAvBg(){const r=$("gAvBg");r.innerHTML="";AV_BG.forEach(c=>{const b=document.createElement("button");b.type="button";b.className="sw"+(c===avBg?" on":"");b.style.background=c;b.setAttribute("aria-label","Fondo "+c);
+      b.onclick=()=>{avBg=c;renderAvBg();snapAvatar();};r.appendChild(b);});}
+    $("gcAvatar").onclick=()=>{renderAvBg();snapAvatar();$("gAvatarBox").hidden=false;beep(990,.08,"triangle",.04);};
+    $("gAvClose").onclick=()=>{$("gAvatarBox").hidden=true;};
+    $("gAvUse").onclick=()=>{if(avUrl){$("gAvHud").src=avUrl;$("gAvHud").hidden=false;}$("gAvatarBox").hidden=true;msg("¡Avatar listo!",1200);};
     $("gcRandom").onclick=()=>{const pick=a=>a[Math.floor(Math.random()*a.length)];const fem=Math.random()<.5;
       LOOK={female:fem||undefined,hairStyle:pick(HAIRS)[0],hair:pick(C_HAIR),skin:pick(C_SKIN),eye:pick(C_EYE),shirt:pick(C_CLOTH),vest:fem?null:pick([null,...C_CLOTH]),pants:pick(C_CLOTH),dress:pick(C_CLOTH),
         cloak:pick([null,0x6b7d64,...C_CLOTH]),scarf:pick([null,null,...C_CLOTH]),headwear:pick(HEADS)[0]||undefined,hatColor:pick(C_CLOTH),backpack:pick([null,null,0x8a5a32,0x2f6fd8,0xd9442b]),glasses:Math.random()<.2||undefined,brooch:Math.random()<.5||undefined};
