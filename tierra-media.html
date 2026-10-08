@@ -2215,6 +2215,13 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         [[0,.95,2.2],[.5,.9,2.1],[-.5,.9,2.1],[1.0,.7,1.9],[-1.0,.7,1.9],[2.2,.8,1.5],[-2.2,.8,1.5],[Math.PI,.75,1.3],[2.7,.5,1.2],[-2.7,.5,1.2]].forEach(([a,e,t],i)=>lock(head,hair,R,a,e,.62+(i%3)*.08,.26,{tilt:t,curve:-.25,sway:(i%2?.1:-.1)}));
         fringe(5,.45,1.2,{vary:true});ahoge();}
       if(st==="ahoge")ahoge();
+      if(st==="emo"){// flequillo largo barrido de costado que tapa un ojo, costados largos y nuca desmechada en capas
+        cap(.56);back(1.0);
+        [[.55,.9,.8],[.35,.88,.86],[.15,.84,.9],[-.05,.8,.84],[-.25,.78,.72]].forEach(([a,e,len],i)=>lock(head,hair,R,a,e,len,.24,{tilt:.85,curve:.12,sway:-.42,roll:.55}));
+        lock(head,hair,R,.3,.55,.62,.3,{tilt:.35,curve:.18,sway:-.12});                                            // mechón que tapa el ojo
+        sides(.72,2,{out:.05});
+        for(let i=0;i<8;i++){const a=Math.PI+(i/7-.5)*2.3;lock(head,hair,R,a,.45+(i%2)*.35,.5+(i%3)*.08,.2,{tilt:.95,curve:-.3,sway:(i%2?.12:-.12)});}
+        for(let i=0;i<3;i++)lock(head,hair,R,Math.PI+(i-1)*.5,1.1,.42,.2,{tilt:2.2,curve:-.2,sway:(i-1)*.1});}
       if(o.flower){const ring=o.crown?7:1;for(let f=0;f<ring;f++){const fl=new T.Group(),a=o.crown?(f/(ring-1)-.5)*2.6:.9;fl.position.set(Math.sin(a)*R*.95,.42-Math.abs(a)*.08,Math.cos(a)*R*.62);head.add(fl);
         for(let k=0;k<5;k++){const b=k/5*6.283;mesh(Sph(.065,8,6),M(f%2&&o.crown?0xffffff:o.flower),Math.cos(b)*.08,Math.sin(b)*.08,0,fl);}mesh(Sph(.045,8,6),M(0xffe066),0,0,.03,fl);}}}
     function makeChar(o={}){
@@ -2255,7 +2262,10 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       if(o.beard){ell(.42,1,1.35,.7,M(o.beard),0,-.42,.2,head);ell(.28,1,1.4,.8,M(o.beard),0,-.85,.25,head);}
       if(o.hat){mesh(Cyl(.95,.95,.06,24),M(o.hat),0,.46,0,head);const c=mesh(Cone(.52,1.7,16),M(o.hat),0,1.25,-.15,head);c.rotation.x=-.22;}
       if(o.helmet)mesh(Sph(R*1.12,16,10,0,Math.PI*2,0,Math.PI*.5),M(o.helmet),0,.06,0,head);
-      if(o.cloak)mesh(Cone(.55,1.3,10,1,true),toon({color:o.cloak,side:T.DoubleSide}),0,1.0,-.14,torso);
+      if(o.cloak){const cg=geo("capa2",()=>{const pr=[[.5,.46],[.47,.7],[.43,.95],[.41,1.15],[.36,1.3],[.26,1.38]];
+          const g=new T.LatheGeometry(pr.map(([r,y])=>new T.Vector2(r,y)),18,Math.PI*.62,Math.PI*.76);g.computeVertexNormals();return g;});
+        const cm=toon({color:o.cloak,side:T.DoubleSide});const ck=mesh(cg,cm,0,0,-.05,torso);ck.scale.set(1.08,1,.82);   // capa en la espalda
+        mesh(Tor(.27,.06,8,24),cm,0,1.33,-.02,torso).rotation.x=Math.PI/2;}                                             // cuello de la capa
       if(o.backpack){const bp=M(o.backpack);ell(.36,1,1.15,.62,bp,0,1.02,-.44,torso);ell(.16,1.9,.7,.7,M(0xd9c9a0),0,1.44,-.47,torso);ell(.14,1.3,.8,.5,bp,0,.82,-.66,torso);[-1,1].forEach(sd=>ell(.05,1,5,.6,M(0x5a3a22),sd*.19,1.02,.33,torso));}
       if(o.brooch){const lf=mesh(Sph(.17,10,8),M(0x6fbf4a,0x2f7a2a,.4),0,1.38,.36,torso);lf.scale.set(.7,1.2,.35);mesh(Tor(.09,.025,6,16),M(0xf1c84a),0,1.38,.38,torso);}
       // brazos: grupo con pivote en el hombro (se animan al correr, saltar y atacar)
@@ -3040,7 +3050,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       renderer.render(scene,camera);
     }
     /* ---------- Vestuario: elegí quién querés ser ---------- */
-    const C_HAIR=[0x1e1410,0x3a2414,0x6b3f1f,0x9a5a2a,0xb5532a,0xb98a4e,0xe8c060,0xf3e3a0,0xeeeeee,0x8a8a8a,0x2a3a8a,0xff8fc8];
+    const C_HAIR=[0x0d0d12,0x5a1a8a,0xb3122e,0x1e1410,0x3a2414,0x6b3f1f,0x9a5a2a,0xb5532a,0xb98a4e,0xe8c060,0xf3e3a0,0xeeeeee,0x8a8a8a,0x2a3a8a,0xff8fc8];
     const C_SKIN=[0xffe4cc,0xffd9bd,0xf2c39a,0xd9a070,0xb27a4e,0x8a5a3a,0x5e3a24];
     const C_EYE=[0x3b86ff,0x2f6fd8,0x6b3d1f,0x3f9a5a,0x8a5a2a,0x7a5acd,0x9fd8ff,0x1e1410];
     const C_CLOTH=[0xfff6e4,0xefe2c4,0xd9442b,0xff8fb1,0xf1c84a,0x5fdc3a,0x3f9a4a,0x6b7d64,0x2fb4ff,0x2f6fd8,0x7a5acd,0x8a5a32,0x7a5a3a,0x5a4a32,0x3a3a42,0x14111a];
@@ -3057,7 +3067,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       ["Legolas",{elf:true,tall:true,hairStyle:"longStraight",hair:0xf3e3a0,eye:0x3b86ff,vest:0x5f7a4a,shirt:0x8aa06a,pants:0x4a4a3a,cloak:0x6b7d64,scarf:null,boots:0x5a4a32,backpack:0x8a5a32,scale:1.26}],
       ["Gimli",{hairStyle:"braid",hair:0xc0502a,beard:0xc0502a,eye:0x6b3d1f,vest:0x6a3a2a,shirt:0x8a7a6a,pants:0x4a3a2a,scarf:null,boots:0x3a2a1a,headwear:"helmet",bow:0xf1c84a,scale:1.32}],
       ["Gandalf",{tall:true,robe:0x9aa0a8,shirt:0x9aa0a8,vest:null,scarf:null,hair:0xdedede,hairStyle:"longStraight",beard:0xeeeeee,headwear:"wizard",hatColor:0x8a9098,staff:true,eye:0x3a5a8a,scale:1.3}]];
-    const HAIRS=[["buzz","Rapado"],["undercut","Undercut"],["pompadour","Pompadour (jopo)"],["mohawk","Mohicano"],["dreads","Rastas"],["manBun","Rodete alto (man bun)"],["spaceBuns","Dos rodetes (space buns)"],["hime","Corte hime"],["animeSpikes","Puntas anime"],["mop","Rulos"],["curlyShort","Rulos cortos"],["afro","Rulos grandes (afro)"],["wavy","Ondulado corto"],["swept","Flequillo al costado"],["shaggy","Desmechado"],["bob","Melena corta"],["longStraight","Largo lacio"],["longWavy","Largo ondulado"],["curlyLong","Rulos largos"],["pony","Cola de caballo"],["braid","Trenza"],["bun","Rodete"],["balding","Pelado"]];
+    const HAIRS=[["emo","Emo (flequillo al costado)"],["buzz","Rapado"],["undercut","Undercut"],["pompadour","Pompadour (jopo)"],["mohawk","Mohicano"],["dreads","Rastas"],["manBun","Rodete alto (man bun)"],["spaceBuns","Dos rodetes (space buns)"],["hime","Corte hime"],["animeSpikes","Puntas anime"],["mop","Rulos"],["curlyShort","Rulos cortos"],["afro","Rulos grandes (afro)"],["wavy","Ondulado corto"],["swept","Flequillo al costado"],["shaggy","Desmechado"],["bob","Melena corta"],["longStraight","Largo lacio"],["longWavy","Largo ondulado"],["curlyLong","Rulos largos"],["pony","Cola de caballo"],["braid","Trenza"],["bun","Rodete"],["balding","Pelado"]];
     const HEADS=[[null,"Nada"],["cap","Gorra"],["beanie","Gorro de lana"],["straw","Sombrero de paja"],["explorer","Sombrero de explorador"],["wizard","Sombrero de mago"],["helmet","Casco"],["flowers","Corona de flores"]];
     const clone=o=>JSON.parse(JSON.stringify(o));
     let LOOK=clone(PRESETS[0][1]),customOpen=false,customTab="chars",customDone=null;
