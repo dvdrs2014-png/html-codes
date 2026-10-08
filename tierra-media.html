@@ -2149,7 +2149,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       m.rotation.order="YXZ";m.rotation.y=a;m.rotation.x=-(o.tilt==null?.35:o.tilt);m.rotation.z=o.roll||0;head.add(m);return m;}
     const HAIRSTYLE_ALIAS={curly:"mop",spiky:"shaggy",bald:"balding",long:"longStraight",braids:"braid",pigtails:"pony"};
     function buildHair(head,R,o,hair){let st=o.hairStyle||(o.female?"longWavy":"mop");st=HAIRSTYLE_ALIAS[st]||st;
-      const cap=(len=.56)=>mesh(Sph(R*1.07,18,14,0,Math.PI*2,0,Math.PI*len),hair,0,.04,-.04,head);
+      const cap=(len=.56)=>{const m=mesh(Sph(R*1.07,18,14,0,Math.PI*2,0,Math.PI*len),hair,0,.06,-.06,head);m.rotation.x=-.34;return m;};
       const back=(sy=1,y=-.05)=>{const b=mesh(Sph(R*1.02,18,14),hair,0,y,-.14,head);b.scale.set(1.03,sy,.92);return b;};
       const fringe=(n,len,spread=1.1,o2={})=>{for(let i=0;i<n;i++){const k=n>1?i/(n-1)-.5:0;lock(head,hair,R,k*spread,.62-Math.abs(k)*.25,len*(1-Math.abs(k)*.25)*(o2.vary?(.85+((i*37)%10)/40):1),.2,{tilt:o2.tilt==null?.95:o2.tilt,curve:.15,sway:(o2.sway||0)+k*.25,roll:(o2.roll||0)-k*.3});}};
       const sides=(len,n=2,o2={})=>[-1,1].forEach(sd=>{for(let k=0;k<n;k++)lock(head,hair,R,sd*(1.35+k*.32),.25-k*.08,len*(1-k*.12),.22,{tilt:.25,curve:o2.curve==null?-.05:o2.curve,sway:sd*(o2.out||.04),roll:-sd*.12});});
@@ -2196,7 +2196,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       if(st==="strands"){// unos pocos pelos finitos (Gollum)
         for(let i=0;i<6;i++){const a=(i/5-.5)*3.4;lock(head,hair,R,a,.95-Math.abs(a)*.12,.7,.07,{tilt:.5,curve:.2,sway:(i%2?.15:-.15)});}}
       // ---- peinados nuevos (técnica de mechones sólidos + silueta primero) ----
-      const scalp=(sc=1.02,len=.6)=>mesh(Sph(R*sc,18,14,0,Math.PI*2,0,Math.PI*len),hair,0,.03,-.03,head);   // pelo rapado pegado al cráneo
+      const scalp=(sc=1.02,len=.6)=>{const m=mesh(Sph(R*sc,18,14,0,Math.PI*2,0,Math.PI*len),hair,0,.05,-.05,head);m.rotation.x=-.34;return m;};   // pelo rapado pegado al cráneo
       const ahoge=()=>{lock(head,hair,R,.15,1.35,.55,.08,{tilt:2.6,curve:.6,sway:.15});};                      // pelito rebelde arriba
       if(st==="buzz"){scalp(1.015,.58);}
       if(st==="undercut"){scalp(1.012,.6);mesh(Sph(R*1.08,18,12,0,Math.PI*2,0,Math.PI*.3),hair,0,.12,-.02,head);
@@ -2215,12 +2215,13 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         [[0,.95,2.2],[.5,.9,2.1],[-.5,.9,2.1],[1.0,.7,1.9],[-1.0,.7,1.9],[2.2,.8,1.5],[-2.2,.8,1.5],[Math.PI,.75,1.3],[2.7,.5,1.2],[-2.7,.5,1.2]].forEach(([a,e,t],i)=>lock(head,hair,R,a,e,.62+(i%3)*.08,.26,{tilt:t,curve:-.25,sway:(i%2?.1:-.1)}));
         fringe(5,.45,1.2,{vary:true});ahoge();}
       if(st==="ahoge")ahoge();
-      if(st==="emo"){// flequillo largo barrido de costado que tapa un ojo, costados largos y nuca desmechada en capas
+      if(st==="emo"){// emo de anime: flequillo enorme y sólido barrido de costado que tapa un ojo entero
         cap(.56);back(1.0);
-        [[.55,.9,.8],[.35,.88,.86],[.15,.84,.9],[-.05,.8,.84],[-.25,.78,.72]].forEach(([a,e,len],i)=>lock(head,hair,R,a,e,len,.24,{tilt:.85,curve:.12,sway:-.42,roll:.55}));
-        lock(head,hair,R,.3,.55,.62,.3,{tilt:.35,curve:.18,sway:-.12});                                            // mechón que tapa el ojo
-        sides(.72,2,{out:.05});
-        for(let i=0;i<8;i++){const a=Math.PI+(i/7-.5)*2.3;lock(head,hair,R,a,.45+(i%2)*.35,.5+(i%3)*.08,.2,{tilt:.95,curve:-.3,sway:(i%2?.12:-.12)});}
+        lock(head,hair,R,.32,.78,.95,.46,{tilt:.3,curve:.42,sway:-.06});                                           // la "cortina" que tapa el ojo derecho
+        lock(head,hair,R,.12,.86,.82,.34,{tilt:.42,curve:.38,sway:-.18,roll:.25});                                  // capa de atrás del flequillo
+        [[-.12,.9,.5],[-.35,.86,.4],[-.6,.8,.34]].forEach(([a,e,len])=>lock(head,hair,R,a,e,len,.2,{tilt:1.05,curve:.15,sway:-.3,roll:.5}));   // flequillo corto sobre la otra frente (el otro ojo se ve)
+        sides(.75,2,{out:.04});
+        for(let i=0;i<8;i++){const a=Math.PI+(i/7-.5)*2.3;lock(head,hair,R,a,.45+(i%2)*.35,.5+(i%3)*.08,.2,{tilt:.95,curve:-.3,sway:(i%2?.12:-.12)});}   // nuca desmechada
         for(let i=0;i<3;i++)lock(head,hair,R,Math.PI+(i-1)*.5,1.1,.42,.2,{tilt:2.2,curve:-.2,sway:(i-1)*.1});}
       if(o.flower){const ring=o.crown?7:1;for(let f=0;f<ring;f++){const fl=new T.Group(),a=o.crown?(f/(ring-1)-.5)*2.6:.9;fl.position.set(Math.sin(a)*R*.95,.42-Math.abs(a)*.08,Math.cos(a)*R*.62);head.add(fl);
         for(let k=0;k<5;k++){const b=k/5*6.283;mesh(Sph(.065,8,6),M(f%2&&o.crown?0xffffff:o.flower),Math.cos(b)*.08,Math.sin(b)*.08,0,fl);}mesh(Sph(.045,8,6),M(0xffe066),0,0,.03,fl);}}}
