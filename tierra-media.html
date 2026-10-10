@@ -2390,7 +2390,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         b.onclick=()=>{$("gCard").hidden=true;b.remove();pausedByMenu=false;$("gSplash").hidden=false;$("gsTap").hidden=true;$("gsModes").hidden=false;splashCbs.push(()=>{paused=false;});};
         $("gCard").querySelector(".gbtns").appendChild(b);}
       pausedByMenu=true;}
-    function card(kick,title,text,btn,cb,btn2,cb2){$("gCard").querySelectorAll("[data-tmp]").forEach(x=>x.remove());paused=true;pausedByMenu=false;clearInput();$("gCard").hidden=false;$("gcKick").textContent=kick;$("gcTitle").textContent=title;$("gcText").textContent=text;
+    function card(kick,title,text,btn,cb,btn2,cb2){$("gCard").querySelectorAll("[data-tmp]").forEach(x=>x.remove());$("gcBtn").hidden=false;$("gcKeys").hidden=false;if(riddleN){riddleN.riddling=false;riddleN=null;}paused=true;pausedByMenu=false;clearInput();$("gCard").hidden=false;$("gcKick").textContent=kick;$("gcTitle").textContent=title;$("gcText").textContent=text;
       $("gcBtn").textContent=btn;$("gcBtn").onclick=()=>{$("gCard").hidden=true;paused=false;pausedByMenu=false;iniciarAudio();cb&&cb();};
       const b2=$("gcBtn2");b2.hidden=!btn2;if(btn2){b2.textContent=btn2;b2.onclick=()=>{cb2&&cb2();};}
       setTimeout(()=>$("gcBtn").focus(),50);}
@@ -2694,25 +2694,27 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     const PROG={maxHearts:3,mithril:false,phial:false,riders:false,riddles:false,found:{}};
     /* ---------- Elecciones (acertijos): tarjeta con varias respuestas ---------- */
     function choice(kick,title,text,opts,cb){paused=true;pausedByMenu=false;clearInput();const Cd=$("gCard");Cd.hidden=false;$("gcKick").textContent=kick;$("gcTitle").textContent=title;$("gcText").textContent=text;
-      $("gcKeys").hidden=true;$("gcBtn").hidden=true;$("gcBtn2").hidden=true;const box=Cd.querySelector(".gbtns");
-      const bs=opts.map((o,i)=>{const b=document.createElement("button");b.type="button";b.className="gbtn"+(i%2?" ghost":"");b.textContent=o;
+      $("gcKeys").hidden=true;$("gcBtn").hidden=true;$("gcBtn2").hidden=true;const box=Cd.querySelector(".gbtns");Cd.querySelectorAll("[data-tmp]").forEach(x=>x.remove());
+      const bs=opts.map((o,i)=>{const b=document.createElement("button");b.type="button";b.dataset.tmp="1";b.className="gbtn"+(i%2?" ghost":"");b.textContent=o;
         b.onclick=()=>{bs.forEach(x=>x.remove());$("gcBtn").hidden=false;$("gcKeys").hidden=false;Cd.hidden=true;paused=false;cb(i);};box.appendChild(b);return b;});
       setTimeout(()=>bs[0]&&bs[0].focus(),50);}
+    let riddleN=null;
     const RIDDLES=[
-      {q:"«Tiene raíces que nadie ve, es más alta que los árboles, sube y sube y sin embargo nunca crece.»",o:["Una montaña","Un roble","Una nube"],a:0},
-      {q:"«Una caja sin bisagras, sin llave ni tapa; pero adentro hay escondido un tesoro dorado.»",o:["Un cofre","Un huevo","Una nuez"],a:1},
-      {q:"«Devora todas las cosas: aves, bestias, árboles, flores; roe el hierro, muerde el acero y reduce a polvo la piedra.»",o:["El fuego","Un dragón","El tiempo"],a:2},
-      {q:"«Vivo sin aliento, frío como la muerte; nunca sediento, siempre bebiendo.»",o:["Un pez","El hielo","Un río"],a:0},
-      {q:"«Treinta caballos blancos en una colina roja: primero mastican, después golpean, y después se quedan quietos.»",o:["Los dientes","Las piedras","Las ovejas"],a:0}];
+      {q:"«Cuanto más le sacás, más grande se hace.»",o:["Un pozo","Una piedra","Una vela"],a:0},
+      {q:"«Tengo ciudades sin casas, ríos sin agua y bosques sin árboles.»",o:["Un sueño","Un mapa","Un libro"],a:1},
+      {q:"«Corre sin patas, ruge sin boca y nunca se cansa de bajar la montaña.»",o:["Un lobo","El viento","Un río"],a:2},
+      {q:"«De día me sigue, de noche se esconde; si la pisás, no se queja.»",o:["La sombra","Una hormiga","El pasto"],a:0},
+      {q:"«Sube cuando llueve y se guarda cuando sale el sol.»",o:["Un paraguas","Una nube","Un pájaro"],a:0}];
     function gollumRiddles(N){
       if(PROG.riddles){say(N.name,"¡Nos ganó, nos ganó! Ya no jugamos más, mi tesoro… ¡gollum!",N);return;}
+      if(N.riddling)return;N.riddling=true;riddleN=N;
       const pool=RIDDLES.slice().sort(()=>Math.random()-.5).slice(0,3);let k=0;
       const ask=()=>{const R=pool[k];choice("Acertijo "+(k+1)+" de 3","Gollum pregunta…",R.q,R.o,i=>{
         if(i===R.a){k++;beep(880,.1,"triangle",.05);
           if(k===3){PROG.riddles=true;PROG.maxHearts=Math.min(5,PROG.maxHearts+1);S.hearts=PROG.maxHearts;hud();
-            say(N.name,"¡Ssss! Nos ganó… Tomá, tomá esta lembas élfica y andate de nuestra cueva.",N);msg("¡Corazón extra! Ahora tenés "+PROG.maxHearts+" ♥",2400,true);}
+            N.riddling=false;say(N.name,"¡Ssss! Nos ganó… Tomá, tomá esta lembas élfica y andate de nuestra cueva.",N);msg("¡Corazón extra! Ahora tenés "+PROG.maxHearts+" ♥",2400,true);}
           else{say(N.name,"Mmm… bien, bien. Otro más, mi tesoro.",N);setTimeout(ask,900);}}
-        else{say(N.name,"¡Nooo! ¡Mal, mal! ¡Nos lo comemos! ¡Gollum, gollum! (volvé a hablarle para intentar de nuevo)",N);hurt(null,null);}});};
+        else{N.riddling=false;say(N.name,"¡Nooo! ¡Mal, mal! ¡Nos lo comemos! ¡Gollum, gollum! (volvé a hablarle para intentar de nuevo)",N);hurt(null,null);}});};
       say(N.name,"¿Juguemos a los acertijos, mi tesoro? Si pierde, nos lo comemos. Si gana… le damos un regalo.",N);setTimeout(ask,1500);}
 
     /* ---------- Lugares secretos: cuevas que NO aparecen en el minimapa ---------- */
