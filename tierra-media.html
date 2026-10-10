@@ -1699,8 +1699,9 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
   function init(){
     const V3=T.Vector3, C=T.Color;
     $("gLoad").hidden=true;
-    const renderer=new T.WebGLRenderer({antialias:true});
-    renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));
+    // en pantallas retina el antialias cuesta mucho y casi no se nota: solo lo usamos en pantallas comunes
+    const renderer=new T.WebGLRenderer({antialias:devicePixelRatio<1.5,powerPreference:"high-performance"});
+    renderer.setPixelRatio(Math.min(devicePixelRatio,1.25));
     ov.querySelector(".gcanvas").appendChild(renderer.domElement);
     const scene=new T.Scene();
     const camera=new T.PerspectiveCamera(55,1,.3,2500);
@@ -3092,18 +3093,19 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     // contador de FPS (se actualiza cada medio segundo; F lo muestra u oculta)
     const fpsEl=$("gFps");let fpsN=0,fpsT=performance.now();
     addEventListener("keydown",e=>{if(!ov.hidden&&e.code==="KeyF"&&!e.repeat)fpsEl.hidden=!fpsEl.hidden;});
-    let pr=Math.min(devicePixelRatio,1.5),lowT=0,highT=0;
+    let pr=Math.min(devicePixelRatio,1.25),lowT=0,highT=0;
     /* Calidad: 2 = Alta (todo), 1 = Media (sin contorno en decoración, menos nubes), 0 = Baja (sin contornos ni nubes) */
-    let quality=2,autoQ=true;const QN=["Baja","Media","Alta"]; // en todas se mantiene el estilo anime (contornos en personajes, jefes y casas)
+    let quality=1,autoQ=true;   // arranca en Media y sube sola si sobran FPSconst QN=["Baja","Media","Alta"]; // en todas se mantiene el estilo anime (contornos en personajes, jefes y casas)
     function applyQuality(){const roots=[world,interior,player,sky].filter(Boolean);let ci=0;
       roots.forEach(r=>r.traverse(o=>{if(o.userData.hull)o.visible=quality===2||!o.isInstancedMesh;
         if(o.userData.cloud){o.visible=quality===2&&(MODE!=="touch"||ci%2===0);ci++;}}));
       if(S.boss&&S.boss.g)S.boss.g.traverse(o=>{if(o.userData.hull)o.visible=true;});}
     addEventListener("keydown",e=>{if(!ov.hidden&&e.code==="KeyG"&&!e.repeat){autoQ=false;quality=(quality+2)%3;applyQuality();msg("Calidad: "+QN[quality]+" (automática apagada)",1400);}});
     function adaptRes(f){if(paused)return;if(f<40){lowT++;highT=0;}else if(f>57){highT++;lowT=0;}else{lowT=highT=0;}
-      if(lowT>=3&&pr>(f<25?.5:.7)){pr=Math.max(f<25?.5:.7,pr-.2);renderer.setPixelRatio(pr);lowT=0;}
-      else if(lowT>=4&&autoQ&&quality>0){quality--;applyQuality();lowT=0;msg("Calidad automática: "+QN[quality],1200);}
-      if(highT>=8&&pr<Math.min(devicePixelRatio,1.5)){pr=Math.min(Math.min(devicePixelRatio,1.5),pr+.1);renderer.setPixelRatio(pr);highT=0;}}
+      if(lowT>=2&&pr>(f<25?.5:.7)){pr=Math.max(f<25?.5:.7,pr-.2);renderer.setPixelRatio(pr);lowT=0;}
+      else if(lowT>=3&&autoQ&&quality>0){quality--;applyQuality();lowT=0;msg("Calidad automática: "+QN[quality],1200);}
+      if(highT>=8&&pr<Math.min(devicePixelRatio,1.25)){pr=Math.min(Math.min(devicePixelRatio,1.25),pr+.1);renderer.setPixelRatio(pr);highT=0;}
+      else if(highT>=12&&autoQ&&quality<2&&MODE!=="touch"){quality++;applyQuality();highT=0;}}
     function countFps(){fpsN++;const now=performance.now();if(now-fpsT>=500){const f=Math.round(fpsN*1000/(now-fpsT));adaptRes(f);fpsEl.textContent=f+" FPS · "+QN[quality];fpsEl.className="gfps"+(f<30?" low":f<50?" mid":"");fpsN=0;fpsT=now;}}
     function loop(){
       requestAnimationFrame(loop);
