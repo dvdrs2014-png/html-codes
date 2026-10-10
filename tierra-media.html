@@ -3095,7 +3095,8 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     addEventListener("keydown",e=>{if(!ov.hidden&&e.code==="KeyF"&&!e.repeat)fpsEl.hidden=!fpsEl.hidden;});
     let pr=Math.min(devicePixelRatio,1.25),lowT=0,highT=0;
     /* Calidad: 2 = Alta (todo), 1 = Media (sin contorno en decoración, menos nubes), 0 = Baja (sin contornos ni nubes) */
-    let quality=1,autoQ=true;   // arranca en Media y sube sola si sobran FPSconst QN=["Baja","Media","Alta"]; // en todas se mantiene el estilo anime (contornos en personajes, jefes y casas)
+    let quality=1,autoQ=true;   // arranca en Media y sube sola si sobran FPS
+    const QN=["Baja","Media","Alta"]; // en todas se mantiene el estilo anime (contornos en personajes, jefes y casas)
     function applyQuality(){const roots=[world,interior,player,sky].filter(Boolean);let ci=0;
       roots.forEach(r=>r.traverse(o=>{if(o.userData.hull)o.visible=quality===2||!o.isInstancedMesh;
         if(o.userData.cloud){o.visible=quality===2&&(MODE!=="touch"||ci%2===0);ci++;}}));
