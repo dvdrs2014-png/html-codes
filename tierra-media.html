@@ -2625,12 +2625,29 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       hud();
       if(S.hearts<=0)card(L.kick,"Te quedaste sin corazones","El camino es largo, pero no termina acá. Probá de nuevo este nivel.","Reintentar",()=>build(lvl));
     }
+    /* ---------- Ingresos (CrazyGames): 2 caminos gratis, el resto se desbloquea mirando un anuncio con premio ----------
+       Fuera de CrazyGames no hay anuncios: se desbloquea igual (modo prueba) para poder probar el juego. */
+    const CG={sdk:null};
+    (function(){const h=location.hostname+" "+document.referrer;if(!/crazygames/i.test(h))return;const sc=document.createElement("script");sc.src="https://sdk.crazygames.com/crazygames-sdk-v3.js";
+      sc.onload=async()=>{try{await window.CrazyGames.SDK.init();CG.sdk=window.CrazyGames.SDK;}catch(e){CG.sdk=null;}};document.head.appendChild(sc);})();
+    const UNL=(()=>{try{return JSON.parse(localStorage.getItem("tm_caminos"))||{free:[],paid:[]};}catch(e){return {free:[],paid:[]};}})();
+    const saveUnl=()=>{try{localStorage.setItem("tm_caminos",JSON.stringify(UNL));}catch(e){}};
+    const pathOpen=p=>!!p&&(UNL.free.includes(p.id)||UNL.paid.includes(p.id)||UNL.free.length<2);
+    function claimPath(p){if(!UNL.free.includes(p.id)&&!UNL.paid.includes(p.id)&&UNL.free.length<2){UNL.free.push(p.id);saveUnl();}}
+    function adBreak(kind,ok,fail){if(CG.sdk){try{CG.sdk.game.gameplayStop();}catch(e){}
+        CG.sdk.ad.requestAd(kind,{adStarted:()=>{},adFinished:()=>{try{CG.sdk.game.gameplayStart();}catch(e){}ok&&ok();},adError:()=>{try{CG.sdk.game.gameplayStart();}catch(e){}(fail||ok)&&(fail||ok)();}});}
+      else (kind==="rewarded"?(ok&&ok()):(ok&&ok()));}
+    function showLock(p,after){$("gCustom").hidden=true;
+      card("Camino bloqueado",p.name,"Ya elegiste tus 2 caminos gratis. Mirá un anuncio corto para desbloquear «"+p.name+"» para siempre.","▶ Ver anuncio y desbloquear",()=>{
+        adBreak("rewarded",()=>{UNL.paid.push(p.id);saveUnl();msg("¡Camino desbloqueado!",1800,true);if(!CG.sdk)msg("(modo prueba: los anuncios aparecen cuando el juego está en CrazyGames)",2600);after&&after();},
+          ()=>{msg("El anuncio no se pudo ver. Probá de nuevo en un rato.",2200);$("gCustom").hidden=false;});},
+        "Elegir otro camino",()=>{$("gCard").hidden=true;$("gCustom").hidden=false;});}
     function winLevel(){
-      if(lvl>=CAMP.length-1){beep(523,.2,"triangle",.07);setTimeout(()=>beep(659,.2,"triangle",.07),180);setTimeout(()=>beep(784,.5,"triangle",.07),360);
+      if(lvl>=CAMP.length-1){PROG.sword=false;if(swordG){swordG.parent&&swordG.parent.remove(swordG);swordG=null;}beep(523,.2,"triangle",.07);setTimeout(()=>beep(659,.2,"triangle",.07),180);setTimeout(()=>beep(784,.5,"triangle",.07),360);
         card("Fin del camino · "+PATH.name,PATH.ending[0],PATH.ending[1]+" ¡Completaste este camino!","Volver a jugar",()=>build(0),"Elegir otro personaje",()=>{$("gCard").hidden=true;openCustomizer(()=>startIntro());});return;}
       if(false){beep(523,.2,"triangle",.07);setTimeout(()=>beep(659,.2,"triangle",.07),180);setTimeout(()=>beep(784,.5,"triangle",.07),360);
         card("Fin del viaje","El Anillo cayó al fuego","La Torre Oscura se derrumbó y Mordor fue vencido. Los hobbits vuelven a casa y la Comarca vuelve a estar en paz. Ganaste el juego.","Volver a jugar",()=>build(0),"Ver el mapa",()=>{closeGame();document.getElementById("mapa").scrollIntoView();});return;}
-      const n=CAMP[lvl+1];card(n.kick,n.name,n.text,"Viajar al siguiente mundo",()=>build(lvl+1));
+      const n=CAMP[lvl+1];card(n.kick,n.name,n.text,"Viajar al siguiente mundo",()=>{paused=true;adBreak("midgame",()=>{paused=false;build(lvl+1);});});
     }
 
     /* ---------- Habitantes del mapa ---------- */
@@ -3332,7 +3349,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       const sws=(row,list,key,none)=>{if(none){const b=document.createElement("button");b.type="button";b.className="sw none"+(LOOK[key]==null?" on":"");b.title="Nada";b.textContent="✕";b.onclick=()=>set(key,null);row.appendChild(b);}
         list.forEach(c=>{const b=document.createElement("button");b.type="button";b.className="sw"+(LOOK[key]===c?" on":"");b.style.background=hex(c);b.setAttribute("aria-label","Color "+hex(c));b.onclick=()=>set(key,c);row.appendChild(b);});};
       if(customTab==="chars"){const r=sec("Personajes principales: tocá uno y sos vos");r.classList.add("grid");
-        PRESETS.forEach(([n,lk])=>{const b=document.createElement("button");b.type="button";b.className="sgb char";b.innerHTML=`<i style="background:${hex(lk.hair)}"></i>${n}`;b.onclick=()=>{LOOK=clone(lk);PATH=pathFor(n)||PATH;rebuildPlayer();renderCustom();msg("¡Ahora sos "+n+"! Camino: "+PATH.name,1600);beep(880,.08,"triangle",.04);};r.appendChild(b);});}
+        PRESETS.forEach(([n,lk])=>{const b=document.createElement("button");b.type="button";b.className="sgb char";b.innerHTML=`<i style="background:${hex(lk.hair)}"></i>${pathOpen(pathFor(n))?"":"🔒 "}${n}`;b.onclick=()=>{LOOK=clone(lk);PATH=pathFor(n)||PATH;rebuildPlayer();renderCustom();msg("¡Ahora sos "+n+"! Camino: "+PATH.name,1600);beep(880,.08,"triangle",.04);};r.appendChild(b);});}
       if(customTab==="chars"){const info=document.createElement("p");info.className="gc-path";info.innerHTML="<b>Tu historia:</b> "+PATH.name+" — "+PATH.desc+" (cada personaje principal tiene la suya)";body.insertBefore(info,body.firstChild);}
       if(customTab==="path"){const r=sec("Cada personaje tiene su historia, sus mapas y su objetivo");r.classList.add("col");
         PATHS.forEach(P=>{const b=document.createElement("button");b.type="button";b.className="sgb pathb"+(P===PATH?" on":"");b.innerHTML=`<b>${P.name}</b><small>${P.who.join(", ")} · ${P.levels.length} mundos</small><span>${P.desc}</span>`;
@@ -3356,7 +3373,8 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       const changed=!CAMP||CAMP.pathId!==PATH.id;if(changed){CAMP=makeCamp(PATH);build(0);}
       if(d)d();else if(changed)startIntro();else{paused=false;}}
     function startIntro(){const c=CAMP[0];card(c.kick,c.name,PATH.desc+" "+c.text,"Jugar",null);}
-    $("gcPlay").onclick=()=>{beep(660,.1,"triangle",.05);setTimeout(()=>beep(990,.15,"triangle",.05),90);closeCustomizer();};
+    $("gcPlay").onclick=()=>{beep(660,.1,"triangle",.05);setTimeout(()=>beep(990,.15,"triangle",.05),90);
+      if(!pathOpen(PATH)){showLock(PATH,()=>{$("gCard").hidden=true;closeCustomizer();});return;}claimPath(PATH);closeCustomizer();};
     /* ---- foto de avatar (retrato del personaje sobre fondo de color, como Bitmoji o el avatar de WhatsApp) ---- */
     const AV_BG=["#8fe3ff","#ffd60a","#ff8fc8","#b6ff7a","#c9a8ff","#ffb38a","#ffffff"];let avBg=AV_BG[0],avUrl=null;
     function snapAvatar(){const u=player.userData,hd=new V3();u.head.getWorldPosition(hd);
