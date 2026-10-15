@@ -1909,21 +1909,22 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         for(let i=0;i<7;i++){const a=(i/7-.5)*2.4;const st=mesh(Box(.32,1.4,.06),cl,Math.sin(a)*.95,-.3,-Math.cos(a)*.9,rd);st.rotation.y=a;}
         mesh(Box(.1,2.2,.05),M(0x9aa0aa),.9,2.1,.6,rd).rotation.z=-.4;
         return {g,h:6.2,r:2.2};},
-      demon(){// demonio de fuego de diseño propio: gigante de roca carbón con placas, grietas de lava rojas, cuernos hacia atrás y melena de fuego
-        const g=new T.Group(),d=M(0x231a1e),d2=M(0x34262a),plate=M(0x463438),lava=M(0xff4a14,0xff2a00,1.2),ember=M(0xff7a1a,0xff4a00,1.2);
-        E(2.3,1.05,.95,.9,d,0,3.5,0,g);                                          // cuerpo de roca
-        [[0,4.3,1.75,1.3,.5],[-1.1,3,1.6,.9,.4],[1.1,3,1.6,.9,.4],[0,2.4,1.85,1,.35]].forEach(([x,y,z,w,h])=>E(.9,w,h,.35,plate,x,y,z,g));   // placas de roca en el pecho
-        for(let i=0;i<9;i++){const a2=i/9*6.283;E(.14,1,2.4,.3,lava,Math.cos(a2)*2.05,3.4+Math.sin(a2*3)*.4,Math.sin(a2)*1.95,g,0,-a2,.25);}   // grietas de lava
-        E(.5,1,1,.4,lava,0,3.6,2.02,g);                                          // brasa chica en el centro
-        E(1.5,1.05,.9,.95,d,0,6.4,.2,g);E(1.15,1.15,.5,.8,d2,0,5.75,.85,g);     // cabeza y mandíbula
-        angryEyes(g,0,6.6,1.5,.8,0xff5a1a,true);E(.6,1.3,.25,.4,lava,0,5.7,1.55,g);
-        [-1,1].forEach(sd=>{const hn=mesh(Cone(.45,3,10),d2,sd*1.05,7.4,-.4,g);hn.rotation.set(-1.15,0,sd*-.45);   // cuernos largos hacia atrás
-          const tip=mesh(Cone(.18,.9,8),lava,sd*1.45,7.9,-2.05,g);tip.rotation.set(-1.4,0,sd*-.3);
-          E(.75,1,.6,.9,plate,sd*2.1,5.2,.1,g);                                  // hombreras de roca
-          E(.62,1,1.9,1,d,sd*2.5,4,.25,g,0,0,sd*.55);E(.72,1.1,1,1.1,d2,sd*3,2.8,.55,g);E(.26,1,1,1,ember,sd*3.1,2.55,1.15,g);   // brazos y puños
-          E(.68,1,.75,1.25,d,sd*1,.55,.35,g);E(.24,1,.5,1,lava,sd*1,.35,1.42,g);});   // patas
-        for(let i=0;i<13;i++){const a2=(i/12-.5)*3.2;E(.48,1,2.1-Math.abs(a2)*.3,1,M([0xff3a10,0xff6a1a,0xd12a10][i%3],0xff2a00,1.2),Math.sin(a2)*1.3,7.3+Math.cos(a2)*.4,-.6-Math.cos(a2)*.4,g,-.7,0,-a2*.55);}   // melena de fuego hacia atrás
-        for(let i=0;i<8;i++)E(.42,1,1.9,1,M([0xff3a10,0xff6a1a][i%2],0xff2a00,1.2),(i%2?.5:-.5),5.4-i*.45,-1.9-i*.12,g,-1.2,0,0);   // fuego por la espalda
+      demon(){// dragón de fuego chibi de diseño propio: escamas rojo oscuro, panza de placas, hocico largo, cuernos, alas y cola con llama
+        const g=new T.Group(),sc=M(0x8a1a14),sc2=M(0x5a0e0c),belly=M(0xf0a040),horn=M(0x2a1a1a),fire=M(0xffb030,0xff6a00,1.3),wingM=toon({color:0x6a1210,side:T.DoubleSide});
+        E(2.2,1,.95,1.15,sc,0,3.2,0,g);E(1.5,.9,1.05,.5,belly,0,3.1,1.45,g);
+        for(let i=0;i<4;i++)E(1.2-i*.12,1,.16,.4,M(0xd88a30),0,2.2+i*.6,2.05,g);
+        E(1,1,1.4,1,sc,0,5.2,1,g,.6);
+        E(1.25,1,.95,1.25,sc,0,6.4,1.6,g);E(.85,.9,.6,1.3,sc2,0,6,2.9,g);
+        mesh(Sph(.16,8,6),fire,-.32,6.15,3.95,g);mesh(Sph(.16,8,6),fire,.32,6.15,3.95,g);
+        angryEyes(g,0,6.75,2.55,.75,0xffe14a,true);
+        for(let k=0;k<3;k++)mesh(Cone(.18,.6,6),horn,0,7.2-k*.9,.4-k*.9,g).rotation.x=-.6;
+        [-1,1].forEach(sd=>{const hn=mesh(Cone(.32,2.2,10),horn,sd*.75,7.5,.9,g);hn.rotation.set(-1,0,sd*-.35);
+          const w=E(2.4,1.6,1,.1,wingM,sd*2.9,5.2,-1.2,g,0,sd*.6,sd*.7);w.userData.noOutline=false;
+          mesh(Cyl(.12,.12,3.2,6),sc2,sd*2.2,5.6,-1,g).rotation.z=sd*-1.1;
+          E(.62,1,1.6,1,sc,sd*2.25,3.6,.5,g,0,0,sd*.6);mesh(Cone(.16,.5,6),horn,sd*2.9,2.5,1.1,g).rotation.x=1.6;
+          E(.75,1.1,.8,1.3,sc,sd*1.15,.7,.3,g);[-1,0,1].forEach(k=>mesh(Cone(.13,.45,6),horn,sd*1.15+k*.28,.25,1.55,g).rotation.x=1.6);});
+        for(let i=0;i<9;i++)mesh(Sph(.75-i*.06,10,8),sc,0,1.4+i*.12,-2.1-i*.62,g);
+        const tip=mesh(Cone(.55,1.6,10),fire,0,2.6,-7.8,g);tip.rotation.x=-1.9;E(.4,1,1.3,1,M(0xff5a10,0xff3a00,1.3),0,2.9,-7.5,g,-1.6);
         mergeStatic(g);return {g,h:9,r:2.8};},
       uruk(){// Jefe Orco: gordito, casco con la Mano Blanca, colmillos y escudo
         const g=new T.Group(),sk=M(0x4f5a3c),ar=M(0x3b3e48),dk=M(0x2a2a30);
@@ -2058,8 +2059,8 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     // 2) MORIA
     LEVELS.push({name:"Moria",kick:"Nivel 2 de 5 · La Comunidad del Anillo",size:320,sky:[0x05060d,0x141630],fog:[0x141630,30,180],sun:0x8aa0ff,dark:true,
       text:"En Rivendel nació la Comunidad del Anillo: nueve contra los Nueve. La nieve cerró el paso de Caradhras y Gandalf los llevó por las minas de Moria. Juntá 5 trozos de mithril… los enanos cavaron demasiado hondo y algo despertó.",
-      bossLine:["Gandalf","¡Un Balrog! Es un demonio de fuego más viejo que las montañas. ¡Al puente, rápido!"],winLine:["Gandalf","¡Este puente lo cuido yo! Volvé al fondo de la montaña, criatura de fuego."],
-      item:"gem",itemName:"Mithril",boss:"demon",bossName:"El Balrog de Moria",speed:7,shoot:2,shotColor:0xff6a1a,start:[0,120],bossStart:[0,-120],
+      bossLine:["Gandalf","¡Un dragón de fuego! Es más viejo que las montañas. ¡Al puente, rápido!"],winLine:["Gandalf","¡Este puente lo cuido yo! Volvé al fondo de la montaña, criatura de fuego."],
+      item:"gem",itemName:"Mithril",boss:"demon",bossName:"El Dragón de Fuego de Moria",speed:7,shoot:2,shotColor:0xff6a1a,start:[0,120],bossStart:[0,-120],
       setup(W){const pitIn=(x,z)=>Math.abs(x)>2.4&&Math.abs(x)<29.4&&Math.abs(z)<25.6;W.pitIn=pitIn;
         W.H=(x,z)=>pitIn(x,z)?-40:.6*Math.sin(x*.08)*Math.cos(z*.07)+Math.max(0,Math.max(Math.abs(x),Math.abs(z))-140)*1.5;W.color=(x,z)=>{const n=.5+.5*Math.sin(x*.3)*Math.cos(z*.27);return new C(0x3a3850).lerp(new C(0x4d4a66),n);};
         W.after=(g)=>{const pil=new Inst(Cyl(2.4,3,60,8),M(0x4a4760)),cap=new Inst(Box(7,2,7),M(0x3b394e));for(let x=-132;x<=132;x+=33)for(let z=-132;z<=132;z+=33){if(Math.abs(x)<34&&Math.abs(z)<40)continue;pil.add(x,30,z);cap.add(x,4,z);W.solid.push([x,z,3.2]);}pil.build(g);cap.build(g);
@@ -2611,7 +2612,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         msg("Jefe final: el Ojo de Sauron",2800,true);
       } else {msg(`¡Apareció ${L.bossName}!`,2400,true);beep(160,.5,"sawtooth",.06,.5);}
       if(L.bossLine)setTimeout(()=>say(L.bossLine[0],L.bossLine[1],null),300);const later=L.bossLine?3600:0;
-      if(L.boss==="demon"){spawnRunes();setTimeout(()=>{say("Gandalf","¡Es un Balrog! No podés saltarle encima: activá mis 3 runas azules (E) y esquivá su fuego.",null);hud();},1500+later);}
+      if(L.boss==="demon"){spawnRunes();setTimeout(()=>{say("Gandalf","¡Es un dragón de fuego! No podés saltarle encima: activá mis 3 runas azules (E) y esquivá su fuego.",null);hud();},1500+later);}
       if(L.boss!=="demon"&&!L.final)setTimeout(()=>say("Gandalf",PROG.sword?"¡Hacé clic para atacar con Herugrim! También podés saltarle encima cuando se canse.":"Esquivalo hasta que se canse. Cuando aparezca la flecha dorada, ¡saltale encima!",null),1500+later);
       if(L.base===2&&PROG.riders){S.boss.hp=2;msg("¡Los Rohirrim ya debilitaron al capitán!",2000);}
       outline(g);applyQuality();
@@ -2681,7 +2682,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         lines:["Conozco cada piedra de este paso. Seguí las luces.","Arriba, en la oscuridad, teje alguien muy grande… no hagas ruido.","Cinco destellos y vas a ver el camino."]}];
     LEVELS[4].npcs=[{name:"Tomillo, el jardinero",look:hob(7,{hairStyle:"mop",hair:0x6a4a2a,vest:0x4a7a3a,scarf:0xe0b040,scale:1.2,backpack:0x7a5a3a}),home:[6,26],roam:5,
         lines:["¿Se acuerda de la Comarca? Pronto vuelven a florecer los manzanos.","Cuando volvamos a casa le hago un guiso con papas, se lo prometo.","¡Mire! La montaña de fuego está ahí nomás."]}];
-    function makeNPC(n,parent){const m=makeChar(n.look);parent.add(m);const N=Object.assign({li:0,m,x:n.home[0],z:n.home[1],yaw:Math.random()*6.28,wait:Math.random()*3,phase:0,spd:2.2+Math.random()*1.4,roam:n.roam||10,lx:0,lz:0,st:0},n);
+    function makeNPC(n,parent){const m=n.model?n.model():makeChar(n.look);parent.add(m);const N=Object.assign({li:0,m,x:n.home[0],z:n.home[1],yaw:Math.random()*6.28,wait:Math.random()*3,phase:0,spd:2.2+Math.random()*1.4,roam:n.roam||10,lx:0,lz:0,st:0},n);
       N.tx=N.x;N.tz=N.z;collide(N,.5);N.y=W.H(N.x,N.z);m.position.set(N.x,N.y,N.z);return N;}
     function spawnNPCs(){S.npcs=[];const me=(PATH.who||[]).map(w=>w.toLowerCase());(L.npcs||[]).forEach(n=>{if(PATH.who&&PATH.who.length===1&&me.includes(n.name.split(/[ ,]/)[0].toLowerCase()))return;S.npcs.push(makeNPC(n,world));});
       // vecinos que pasean entre las puertas
@@ -2869,16 +2870,16 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       {q:"«De día me sigue, de noche se esconde; si la pisás, no se queja.»",o:["La sombra","Una hormiga","El pasto"],a:0},
       {q:"«Sube cuando llueve y se guarda cuando sale el sol.»",o:["Un paraguas","Una nube","Un pájaro"],a:0}];
     function gollumRiddles(N){
-      if(PROG.riddles){say(N.name,"¡Nos ganó, nos ganó! Ya no jugamos más, mi tesoro… ¡gollum!",N);return;}
+      if(PROG.riddles){say(N.name,"¡Nos ganó, nos ganó! Ya no jugamos más, mi brillante… ¡ji ji!",N);return;}
       if(N.riddling)return;N.riddling=true;riddleN=N;
       const pool=RIDDLES.slice().sort(()=>Math.random()-.5).slice(0,3);let k=0;
       const ask=()=>{const R=pool[k];choice("Acertijo "+(k+1)+" de 3","Gollum pregunta…",R.q,R.o,i=>{
         if(i===R.a){k++;beep(880,.1,"triangle",.05);
           if(k===3){PROG.riddles=true;PROG.maxHearts=Math.min(5,PROG.maxHearts+1);S.hearts=PROG.maxHearts;hud();
             N.riddling=false;say(N.name,"¡Ssss! Nos ganó… Tomá, tomá esta lembas élfica y andate de nuestra cueva.",N);msg("¡Corazón extra! Ahora tenés "+PROG.maxHearts+" ♥",2400,true);}
-          else{say(N.name,"Mmm… bien, bien. Otro más, mi tesoro.",N);setTimeout(ask,900);}}
-        else{N.riddling=false;say(N.name,"¡Nooo! ¡Mal, mal! ¡Nos lo comemos! ¡Gollum, gollum! (volvé a hablarle para intentar de nuevo)",N);hurt(null,null);}});};
-      say(N.name,"¿Juguemos a los acertijos, mi tesoro? Si pierde, nos lo comemos. Si gana… le damos un regalo.",N);setTimeout(ask,1500);}
+          else{say(N.name,"Mmm… bien, bien. Otro más, mi brillante.",N);setTimeout(ask,900);}}
+        else{N.riddling=false;say(N.name,"¡Nooo! ¡Mal, mal! ¡Nos lo comemos! ¡Ji ji ji! (volvé a hablarle para intentar de nuevo)",N);hurt(null,null);}});};
+      say(N.name,"¿Juguemos a los acertijos, mi brillante? Si pierde, nos lo comemos. Si gana… le damos un regalo.",N);setTimeout(ask,1500);}
 
     /* ---------- Lugares secretos: cuevas que NO aparecen en el minimapa ---------- */
     function caveMouth(x,z,name,kind){const a=Math.atan2(-x,-z),y=W.H(x,z),g=new T.Group();g.position.set(x,y-.5,z);g.rotation.y=a;world.add(g);
@@ -2929,18 +2930,20 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       W2.round=Rr-1.6;W2.ceil=hh+1.4;W2.exit={x:0,z:Rr-1.6};W2.spawn=[0,Rr-3];return W2;}
     Object.assign(ROOMS,{
       doom(g,E){// Sammath Naur: el piso termina en una grieta; muy abajo burbujea un charquito de lava
-        const hx=0,hz=-3.5,hr=4.6;
-        const W2=caveRoom(g,E,{r:11,h:9,wall:0x3a1a12,floor:0x2a1410,rock:0x4a2a20,light:[0,-4,-3.5],lightI:4,bg:0x1a0604,fog:0x3a1208,hole:[hx,hz,hr]});
+        const hx=0,hz=-3.5,hr=5.5;
+        const W2=caveRoom(g,E,{r:16,h:10,wall:0x3a1a12,floor:0x2a1410,rock:0x4a2a20,light:[0,-4,-3.5],lightI:4,bg:0x1a0604,fog:0x3a1208,hole:[hx,hz,hr]});
         noOut(mesh(Cyl(hr,hr*.7,16,40,6,true),toon({color:0x3a1810,side:T.BackSide},false),hx,-8,hz,g));                 // paredes de la caída
         for(let i=0;i<12;i++){const a=i/12*6.283;mesh(Blob(.45+Math.random()*.3),M(0x4a2418),hx+Math.cos(a)*(hr+.3),0,hz+Math.sin(a)*(hr+.3),g);}  // borde de rocas
         const lava=noOut(mesh(Circ(hr*.65,36),new T.MeshBasicMaterial({color:0xff5a1a}),hx,-15.8,hz,g));lava.rotation.x=-Math.PI/2;   // charquito de lava al fondo
         W2.fire=[0,1,2,3,4,5].map(i=>noOut(mesh(Blob(.7),new T.MeshBasicMaterial({color:[0xffb040,0xff7a1a,0xffe080][i%3]}),hx+Math.cos(i*1.1)*1.8,-15.4,hz+Math.sin(i*1.1)*1.6,g)));
         noOut(mesh(Cyl(hr*.95,hr*.6,15,30,1,true),new T.MeshBasicMaterial({color:0xff6a1a,transparent:true,opacity:.18,side:T.DoubleSide,depthWrite:false}),hx,-8.5,hz,g)); // resplandor que sube
-        mesh(Box(2.6,.35,2),M(0x3a2a24),0,.18,1.9,g);
-        W2.solid.push([hx,hz,hr+.6]);W2.ringSpot={x:0,z:1.6};W2.volcano={x:hx,z:hz};W2.ringTarget=new V3(hx,-15.4,hz);W2.spawn=[0,7.5];
+        mesh(Box(2.6,.35,2),M(0x3a2a24),0,.18,3.3,g);
+        // puente de piedra angosto que cruza la grieta (para perseguir al ladrón)
+        mesh(Box(hr*2+3,.5,2.4),M(0x4a2a20),hx,-.25,hz,g);[-1,1].forEach(sd=>{for(let k=-5;k<=5;k++)mesh(Cyl(.12,.14,.8,6),M(0x5a3a2a),hx+k*1.1,.4,hz+sd*1.1,g);});
+        W2.pit={x:hx,z:hz,r:hr+.6,bw:1};W2.ringSpot={x:0,z:3.4};W2.volcano={x:hx,z:hz};W2.ringTarget=new V3(hx,-15.4,hz);W2.spawn=[0,11];
         setTimeout(()=>say("Sam","¡Ahí está la grieta, señor Frodo! Acercate al borde y tirá el Anillo.",null),900);return W2;},
-      gollum(g,E){const W2=caveRoom(g,E,{light:[0,3,-2],lightI:1.3,npcs:[{name:"Gollum",still:true,home:[1.8,-2.4],
-          look:{skin:0xd9d2b4,hair:0xcfc8a8,hairStyle:"strands",shirt:0xd9d2b4,vest:null,scarf:null,pants:0x5a5040,eye:0x9fd8ff,scale:1.05},onTalk:N=>gollumRiddles(N),lines:["¡Mi tesoro!"]}]});
+      gollum(g,E){const W2=caveRoom(g,E,{light:[0,3,-2],lightI:1.3,npcs:[{name:"Grisp, el ladrón de las cuevas",still:true,home:[1.8,-2.4],model:()=>thiefModel(),
+          onTalk:N=>gollumRiddles(N),lines:["¡Lo brillante me encanta!"]}]});
         const pool=noOut(mesh(Circ(3.4,40),new T.MeshBasicMaterial({color:0x2a6a9a}),-1.5,.04,-1.5,g));pool.rotation.x=-Math.PI/2;W2.solid.push([-1.5,-1.5,3.2]);
         mesh(Blob(1.1),M(0x55524a),-1.5,.4,-1.5,g);
         for(let i=0;i<9;i++){const a=Math.random()*6.283,r=4+Math.random()*3;mesh(Cyl(.06,.08,.5,6),M(0xe9e2d0),Math.sin(a)*r,.25,Math.cos(a)*r,g);mesh(Sph(.22,10,6,0,Math.PI*2,0,Math.PI/2),M(0x7fe0c0,0x3fbf9f,.9),Math.sin(a)*r,.5,Math.cos(a)*r,g);}
@@ -3034,41 +3037,49 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       const g=thiefModel();interior.add(g);outline(g);const c={g,x:-6.5,z:5,th:0,bit:false};g.position.set(c.x,0,c.z);
       S.snatch={step:0,t:0,c,vy:0};}
     function updateSnatch(dt){const N=S.snatch,c=N.c,g=c.g,u=player.userData;N.t+=dt;const hx=0,hz=-3.5;
-      const cam=(px,py,pz,lx,ly,lz)=>{const d=Math.hypot(px,pz),m=6.2;if(d>m){px*=m/d;pz*=m/d;}py=Math.min(py,4.6);camera.position.lerp(new V3(px,py,pz),1-Math.exp(-dt*3));camera.lookAt(lx,ly,lz);};   // la cámara nunca sale de la cueva
+      const cam=(px,py,pz,lx,ly,lz)=>{const d=Math.hypot(px,pz),m=12.5;if(d>m){px*=m/d;pz*=m/d;}py=Math.min(py,7);camera.position.lerp(new V3(px,py,pz),1-Math.exp(-dt*3));camera.lookAt(lx,ly,lz);};   // la cámara nunca sale de la cueva
       if(N.step===0){const tx=S.x+1.3,tz=S.z+.6,dx=tx-c.x,dz=tz-c.z,d=Math.hypot(dx,dz);
         if(d>.3){c.x+=dx/d*Math.min(d,dt*11);c.z+=dz/d*Math.min(d,dt*11);}g.position.set(c.x,Math.abs(Math.sin(N.t*16))*.3,c.z);g.rotation.y=Math.atan2(dx,dz);
-        if(N.t>.3&&!N.said){N.said=true;say("???","¡Brilla, brilla! ¡Eso es mío!",null);}
+        if(N.t>.3&&!N.said){N.said=true;say("Grisp, el ladrón de las cuevas","¡Brilla, brilla! ¡Eso es mío!",null);}
         if(N.t>1.3&&!N.grab){N.grab=true;if(u.ring){g.userData.hand.add(u.ring);u.ring.position.set(0,0,0);u.ring.scale.setScalar(1.4);}burst(c.x,2,c.z,0xffd24a,16);beep(880,.1,"square",.05,1.5);S.shake=.4;}
-        if(N.t>2.1){N.step=1;N.t1=N.t;say("Frodo","¡Devolvé el Anillo! ¡Atrapalo!",null);msg("¡Atrapá al ladrón!",1800,true);c.th=Math.atan2(S.x-hx,S.z-hz)+Math.PI;}
+        if(N.t>2.1){N.step=1;N.t1=N.t;say("Frodo","¡Devolvé el Anillo, Grisp! ¡Atrapalo!",null);msg("¡Atrapá a Grisp! Corre por el puente",2200,true);c.th=Math.atan2(S.x-hx,S.z-hz)+Math.PI;}
         player.position.set(S.x,S.y,S.z);cam(S.x-4.5,4.4,S.z+3.2,(S.x+c.x)/2,1.6,(S.z+c.z)/2);sky.position.copy(camera.position);return true;}
-      if(N.step===1){// el ladrón corre alrededor de la grieta, siempre alejándose
-        const pa=Math.atan2(S.x-hx,S.z-hz);let diff=wrapA(c.th-pa);const dir=Math.sign(diff)||1;const pd=Math.hypot(S.x-c.x,S.z-c.z);
-        const lead=N.t-N.t1<.8;if(pd<10||lead)c.th+=dir*dt*(lead?2.4:pd<4?1.25:1.05);const r=6.4;c.x=hx+Math.sin(c.th)*r;c.z=hz+Math.cos(c.th)*r;collide(c,.6);
-        g.position.set(c.x,Math.abs(Math.sin(N.t*15))*.3,c.z);g.rotation.y=c.th+dir*Math.PI/2;
-        if(Math.random()<dt*.6)say("???",["¡No me alcanzás!","¡Mío, mío, mío!","¡Hi hi hi!"][Math.floor(Math.random()*3)],null);
+      if(N.step===1){// Grisp huye: prueba 12 direcciones y elige la que más lo aleja (puede cruzar el puente)
+        const pd=Math.hypot(S.x-c.x,S.z-c.z);const lead=N.t-N.t1<.8;const sp=lead?12:(pd<5?10.5:8.5);
+        if(!c.dirT||N.t>c.dirT){c.dirT=N.t+.25;let best=-1e9;for(let k=0;k<12;k++){const a2=k/12*6.283,tx=c.x+Math.sin(a2)*3,tz=c.z+Math.cos(a2)*3;const o={x:tx,z:tz};collide(o,.6);
+            const moved=Math.hypot(o.x-c.x,o.z-c.z),sc=Math.hypot(o.x-S.x,o.z-S.z)+moved*.6-Math.hypot(o.x,o.z)*.05;if(sc>best){best=sc;c.ang=a2;}}}
+        c.x+=Math.sin(c.ang)*sp*dt;c.z+=Math.cos(c.ang)*sp*dt;collide(c,.6);
+        g.position.set(c.x,Math.abs(Math.sin(N.t*15))*.3,c.z);g.rotation.y=c.ang;
+        if(Math.random()<dt*.5)say("Grisp",["¡No me alcanzás!","¡Mío, mío, mío!","¡Hi hi hi!"][Math.floor(Math.random()*3)],null);
         if(pd<1.9&&!lead){N.step=2;N.t2=N.t;clearInput();S.vx=S.vz=0;S.yaw=Math.atan2(c.x-S.x,c.z-S.z);}
         return false;}
       if(N.step===2){const e=N.t-N.t2;
         if(e>.15&&!c.bit){c.bit=true;burst(S.x+Math.sin(S.yaw)*.8,2,S.z+Math.cos(S.yaw)*.8,0xffffff,18);S.shake=.6;impact(.8,.08);beep(220,.2,"square",.06,.5);say("Frodo","¡Aaay! ¡Me mordió la mano!",null);}
         if(e>.9&&!N.push){N.push=true;beep(140,.3,"sawtooth",.06,.5);burst(c.x,1.6,c.z,0xffd24a,20);say("Frodo","¡Soltalo!",null);
-          const dx=hx-c.x,dz=hz-c.z,d=Math.hypot(dx,dz)||1;N.px=dx/d;N.pz=dz/d;}
-        if(N.push){if(Math.hypot(c.x-hx,c.z-hz)>3){c.x+=N.px*dt*9;c.z+=N.pz*dt*9;}else{N.vy-=dt*24;}const gy=Math.min(0,(g.position.y||0)+N.vy*dt);
-          g.position.set(c.x,gy,c.z);g.rotation.x+=dt*(N.vy<0?3:0);if(N.vy<0&&!N.cry){N.cry=true;say("???","¡Nooo, mi brillante!",null);}
+          const dx=hx-c.x,dz=hz-c.z,d=Math.hypot(dx,dz)||1;N.onB=Math.abs(c.z-hz)<1.6&&Math.abs(c.x-hx)<W.pit.r;if(N.onB){N.px=0;N.pz=Math.sign(c.z-hz)||1;}else{N.px=dx/d;N.pz=dz/d;}}
+        if(N.push){const over=N.onB?Math.abs(c.z-hz)>1.6:Math.hypot(c.x-hx,c.z-hz)<W.pit.r-1.5;if(!over){c.x+=N.px*dt*9;c.z+=N.pz*dt*9;}else{N.vy-=dt*24;}const gy=Math.min(0,(g.position.y||0)+N.vy*dt);
+          g.position.set(c.x,gy,c.z);g.rotation.x+=dt*(N.vy<0?3:0);if(N.vy<0&&!N.cry){N.cry=true;say("Grisp","¡Nooo, mi brillante!",null);}
           if(N.vy<0&&Math.random()<.5)burst(c.x,gy+2,c.z,0xffd24a,2);
           if(gy<-14&&!N.boom){N.boom=true;g.visible=false;burst(hx,-14,hz,0xff8a2b,40);burst(hx,-12,hz,0xffd24a,24);S.shake=1.2;impact(1.2,.12);beep(70,.9,"sawtooth",.08,.3);msg("¡El Anillo se derritió en el fuego!",3200,true);}}
-        // te resbalás hacia la grieta y Tomillo te agarra
-        if(e>2.6&&!N.slip){N.slip=true;N.sx=S.x;N.sz=S.z;say("Frodo","¡Me resbalo…!",null);}
-        if(N.slip&&!N.saved){const k=Math.min(1,(e-2.6)/.6),dx=S.x-hx,dz=S.z-hz,d=Math.hypot(dx,dz)||1;const tx=hx+dx/d*5.4,tz=hz+dz/d*5.4;
-          player.position.set(N.sx+(tx-N.sx)*k,-1.6*k,N.sz+(tz-N.sz)*k);player.rotation.x=-.6*k;}
-        if(e>3.3&&!N.helper){const tl=LEVELS[3].npcs&&LEVELS[3].npcs[0]?LEVELS[3].npcs[0].look:hob(7);N.helper=makeChar(tl);interior.add(N.helper);outline(N.helper);
-          const dx=player.position.x-hx,dz=player.position.z-hz,d=Math.hypot(dx,dz)||1;N.helper.position.set(hx+dx/d*7,0,hz+dz/d*7);N.helper.rotation.y=Math.atan2(-dx,-dz);
-          say("Tomillo","¡Agarrá mi mano! ¡No te suelto!",null);beep(520,.15,"triangle",.05);}
-        if(e>4.2&&!N.saved){N.saved=true;N.pull=0;}
-        if(N.saved&&N.pull<1){N.pull=Math.min(1,N.pull+dt*1.1);const p0=player.position,hp=N.helper.position;const tx=hx+(hp.x-hx)*.83,tz=hz+(hp.z-hz)*.83;
-          player.position.set(p0.x+(tx-p0.x)*dt*3,p0.y+(0-p0.y)*dt*4,p0.z+(tz-p0.z)*dt*3);player.rotation.x*=.9;if(N.pull>=1){S.x=player.position.x;S.z=player.position.z;S.y=0;player.rotation.x=0;}}
+        // te resbalás hacia la grieta, quedás colgando del borde con los brazos arriba y Tomillo te agarra la mano
+        const u2=player.userData,P=W.pit;
+        if(e>2.6&&!N.slip){N.slip=true;N.sx=S.x;N.sz=S.z;const dx=S.x-P.x,dz=S.z-P.z,d=Math.hypot(dx,dz)||1;N.ex=P.x+dx/d*(P.r-.4);N.ez=P.z+dz/d*(P.r-.4);N.ox=dx/d;N.oz=dz/d;
+          S.yaw=Math.atan2(N.ox,N.oz);say("Frodo","¡Me resbalo…! ¡Ayuda!",null);beep(300,.4,"sawtooth",.05,.5);}
+        if(N.slip&&!N.saved){const k=Math.min(1,(e-2.6)/.5);player.position.set(N.sx+(N.ex-N.sx)*k,-2.3*k,N.sz+(N.ez-N.sz)*k);player.rotation.y=S.yaw;
+          if(u2.arms)u2.arms.forEach((A,i)=>{A.rotation.x=-2.9*k;A.rotation.z=(i?-1:1)*.25*k;});player.position.y+=Math.sin(e*9)*.06*k;}
+        if(e>3.2&&!N.helper){const tl=LEVELS[3].npcs&&LEVELS[3].npcs[0]?LEVELS[3].npcs[0].look:hob(7);N.helper=makeChar(tl);interior.add(N.helper);outline(N.helper);
+          N.hx0=N.ex+N.ox*7;N.hz0=N.ez+N.oz*7;N.helper.position.set(N.hx0,0,N.hz0);N.helper.rotation.y=Math.atan2(-N.ox,-N.oz);say("Tomillo","¡Aguantá! ¡Ya voy!",null);}
+        if(N.helper&&!N.saved){const k=Math.min(1,(e-3.2)/.9);const hx2=N.hx0+(N.ex+N.ox*1.3-N.hx0)*k,hz2=N.hz0+(N.ez+N.oz*1.3-N.hz0)*k;
+          N.helper.position.set(hx2,Math.abs(Math.sin(e*14))*.25*(1-k)-(k>=1?.5:0),hz2);N.helper.rotation.x=k>=1?.75:0;const ha=N.helper.userData.arms;
+          if(ha&&k>=1){ha.forEach(A=>A.rotation.x=-1.4);if(!N.grabbed){N.grabbed=true;say("Tomillo","¡Agarrá mi mano! ¡No te suelto!",null);beep(520,.15,"triangle",.05);burst(N.ex+N.ox*.6,.3,N.ez+N.oz*.6,0xffffff,10);}}}
+        if(e>5.4&&!N.saved){N.saved=true;N.pull=0;}
+        if(N.saved&&N.pull<1){N.pull=Math.min(1,N.pull+dt*.8);const k=N.pull,tx=N.ex+N.ox*2.4,tz=N.ez+N.oz*2.4;
+          player.position.set(N.ex+(tx-N.ex)*k,-2.3*(1-k)+Math.sin(k*Math.PI)*.8,N.ez+(tz-N.ez)*k);if(u2.arms)u2.arms.forEach(A=>A.rotation.x=-2.9*(1-k));
+          N.helper.rotation.x=.75*(1-k);N.helper.position.y=-.5*(1-k);if(k>=1){S.x=player.position.x;S.z=player.position.z;S.y=0;if(N.helper.userData.arms)N.helper.userData.arms.forEach(A=>A.rotation.x=0);}}
         if(e>6&&!N.end){N.end=true;say("Tomillo","Se terminó, amigo. Ahora sí… volvamos a casa.",null);}
         if(e>8.4){S.snatch=null;S.snatchDone=true;closeTalk();player.rotation.x=0;winLevel();return true;}
-        const fy=N.push&&!N.boom?Math.max(-12,g.position.y):-2;cam(hx+4.5,4.4,hz+8,hx,N.boom||!N.push?(N.slip?-1:1):fy,hz);sky.position.copy(camera.position);return true;}
+        if(N.slip){const W3=W.pit;cam(W3.x+N.ox*(W3.r-5)+N.oz*3,2.5,W3.z+N.oz*(W3.r-5)-N.ox*3,N.ex,-.8,N.ez);sky.position.copy(camera.position);return true;}
+        const fy=N.push&&!N.boom?Math.max(-12,g.position.y):-2;cam(hx+6,6,hz+11,hx,N.boom||!N.push?1:fy,hz);sky.position.copy(camera.position);return true;}
       return false;}
     function startRingScene(){if(L.ringScene&&!S.snatchDone&&interior){startSnatch();return;}S.prompt=null;lastPrompt="";promptEl.hidden=true;$("gAct").hidden=true;S.phase="done";S.cut={t:0,step:0};clearInput();S.vx=S.vz=S.kx=S.kz=0;const V=W.volcano;S.yaw=Math.atan2(V.x-S.x,V.z-S.z);
       S.meteors.forEach(m=>{world.remove(m.m);world.remove(m.ring);});S.meteors=[];closeTalk();}
@@ -3104,6 +3115,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       for(const [ox,oz,r] of W.solid){const dx=o.x-ox,dz=o.z-oz,d=Math.hypot(dx,dz);if(d<r+R&&d>1e-4){o.x=ox+dx/d*(r+R);o.z=oz+dz/d*(r+R);}}
       for(const [bx,bz,hw,hd,ry] of W.boxes){const c=Math.cos(ry),sn=Math.sin(ry),dx=o.x-bx,dz=o.z-bz;let lx=dx*c-dz*sn,lz=dx*sn+dz*c;
         if(Math.abs(lx)<hw+R&&Math.abs(lz)<hd+R){if(hw+R-Math.abs(lx)<hd+R-Math.abs(lz))lx=Math.sign(lx||1)*(hw+R);else lz=Math.sign(lz||1)*(hd+R);o.x=bx+lx*c+lz*sn;o.z=bz-lx*sn+lz*c;}}
+      if(W.pit&&!o.falling){const P=W.pit,dx=o.x-P.x,dz=o.z-P.z,d=Math.hypot(dx,dz);if(d<P.r+R&&Math.abs(dz)>P.bw-.1){if(Math.abs(dz)<P.bw+.9&&d<P.r+R-1)o.z=P.z+Math.sign(dz)*(P.bw-.1);else if(d>1e-3){o.x=P.x+dx/d*(P.r+R);o.z=P.z+dz/d*(P.r+R);}}}
       if(W.round){const d=Math.hypot(o.x,o.z);if(d>W.round){o.x*=W.round/d;o.z*=W.round/d;}}
       if(W.rect){o.x=clamp(o.x,-W.rect[0],W.rect[0]);o.z=clamp(o.z,-W.rect[1],W.rect[1]);}
       const half=L.size/2-8;o.x=clamp(o.x,-half,half);o.z=clamp(o.z,-half,half);}
