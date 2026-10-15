@@ -2642,7 +2642,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         adBreak("rewarded",()=>{UNL.paid.push(p.id);saveUnl();msg("¡Camino desbloqueado!",1800,true);if(!CG.sdk)msg("(modo prueba: los anuncios aparecen cuando el juego está en CrazyGames)",2600);after&&after();},
           ()=>{msg("El anuncio no se pudo ver. Probá de nuevo en un rato.",2200);$("gCustom").hidden=false;});},
         "Elegir otro camino",()=>{$("gCard").hidden=true;$("gCustom").hidden=false;});}
-    function winLevel(){
+    function winLevel(){setTimeout(()=>{try{saveGame();}catch(e){}},0);
       if(lvl>=CAMP.length-1){PROG.sword=false;if(swordG){swordG.parent&&swordG.parent.remove(swordG);swordG=null;}beep(523,.2,"triangle",.07);setTimeout(()=>beep(659,.2,"triangle",.07),180);setTimeout(()=>beep(784,.5,"triangle",.07),360);
         card("Fin del camino · "+PATH.name,PATH.ending[0],PATH.ending[1]+" ¡Completaste este camino!","Volver a jugar",()=>build(0),"Elegir otro personaje",()=>{$("gCard").hidden=true;openCustomizer(()=>startIntro());});return;}
       if(false){beep(523,.2,"triangle",.07);setTimeout(()=>beep(659,.2,"triangle",.07),180);setTimeout(()=>beep(784,.5,"triangle",.07),360);
@@ -2846,6 +2846,15 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     };
     /* ---------- Progreso entre mundos: recompensas de secretos y puzzles ---------- */
     const PROG={maxHearts:3,mithril:false,phial:false,riders:false,riddles:false,found:{}};
+    // partida guardada: progreso, personaje, camino y mundo (en el navegador; en CrazyGames también en su nube)
+    const SAVE_KEY="tm_partida";let SAVED=null;
+    try{SAVED=JSON.parse(localStorage.getItem(SAVE_KEY));}catch(e){SAVED=null;}
+    if(SAVED&&SAVED.prog)Object.assign(PROG,SAVED.prog);
+    function saveGame(){const data={prog:PROG,look:typeof LOOK!=="undefined"?LOOK:null,path:PATH&&PATH.id,lvl:typeof lvl==="number"?lvl:0,t:Date.now()};
+      const txt=JSON.stringify(data);try{localStorage.setItem(SAVE_KEY,txt);}catch(e){}
+      try{if(CG.sdk&&CG.sdk.data)CG.sdk.data.setItem(SAVE_KEY,txt);}catch(e){}}
+    setInterval(()=>{try{if(W&&!S.inside)saveGame();}catch(e){}},5000);
+    addEventListener("pagehide",()=>{try{saveGame();}catch(e){}});
     /* ---------- Elecciones (acertijos): tarjeta con varias respuestas ---------- */
     function choice(kick,title,text,opts,cb){paused=true;pausedByMenu=false;clearInput();const Cd=$("gCard");Cd.hidden=false;$("gcKick").textContent=kick;$("gcTitle").textContent=title;$("gcText").textContent=text;
       $("gcKeys").hidden=true;$("gcBtn").hidden=true;$("gcBtn2").hidden=true;const box=Cd.querySelector(".gbtns");Cd.querySelectorAll("[data-tmp]").forEach(x=>x.remove());
@@ -3335,7 +3344,8 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     const HAIRS=[["mop","Rulos"],["curlyShort","Rulos cortos"],["afro","Rulos grandes (afro)"],["wavy","Ondulado corto"],["swept","Flequillo al costado"],["shaggy","Desmechado"],["bob","Melena corta"],["longStraight","Largo lacio"],["longWavy","Largo ondulado"],["curlyLong","Rulos largos"],["pony","Cola de caballo"],["braid","Trenza"],["bun","Rodete"],["balding","Pelado"]];
     const HEADS=[[null,"Nada"],["cap","Gorra"],["beanie","Gorro de lana"],["straw","Sombrero de paja"],["explorer","Sombrero de explorador"],["wizard","Sombrero de mago"],["helmet","Casco"],["flowers","Corona de flores"]];
     const clone=o=>JSON.parse(JSON.stringify(o));
-    let LOOK=clone(PRESETS[0][1]),customOpen=false,customTab="chars",customDone=null;
+    let LOOK=(SAVED&&SAVED.look)?SAVED.look:clone(PRESETS[0][1]),customOpen=false,customTab="chars",customDone=null;
+    if(SAVED&&SAVED.path){const sp=PATHS.find(q=>q.id===SAVED.path);if(sp)PATH=sp;}
     function rebuildPlayer(){const c=makeChar(Object.assign({},LOOK,{ring:true}));
       [...player.children].forEach(ch=>player.remove(ch));[...c.children].forEach(ch=>player.add(ch));
       player.userData=c.userData;player.scale.copy(c.scale);swordG=null;trail=null;if(PROG.sword)equipSword();applyQualitySafe();}
@@ -3370,7 +3380,9 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     function openCustomizer(done){if(customOpen)return;customOpen=true;customDone=done||null;paused=true;pausedByMenu=false;clearInput();closeTalk();
       $("gCard").hidden=true;$("gCustom").hidden=false;ov.classList.add("customizing");renderCustom();}
     function closeCustomizer(){customOpen=false;$("gCustom").hidden=true;ov.classList.remove("customizing");const d=customDone;customDone=null;
-      const changed=!CAMP||CAMP.pathId!==PATH.id;if(changed){CAMP=makeCamp(PATH);build(0);}
+      const changed=!CAMP||CAMP.pathId!==PATH.id;let resume=0;if(!CAMP&&SAVED&&SAVED.path===PATH.id&&SAVED.lvl>0)resume=Math.min(SAVED.lvl,makeCamp(PATH).length-1);
+      if(changed){CAMP=makeCamp(PATH);build(resume);saveGame();}
+      if(resume&&!d){const c=CAMP[resume];card(c.kick,"Partida guardada · "+c.name,c.text,"Seguir jugando",null);return;}
       if(d)d();else if(changed)startIntro();else{paused=false;}}
     function startIntro(){const c=CAMP[0];card(c.kick,c.name,PATH.desc+" "+c.text,"Jugar",null);}
     $("gcPlay").onclick=()=>{beep(660,.1,"triangle",.05);setTimeout(()=>beep(990,.15,"triangle",.05),90);
