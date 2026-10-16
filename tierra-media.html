@@ -1707,7 +1707,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
     function resize(){renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();OUT.res.value.set(innerWidth,innerHeight);}
 
 
-    const hemi=new T.HemisphereLight(0xf4f8ff,0x9a8a6a,.62); scene.add(hemi);
+    const hemi=new T.HemisphereLight(0xffffff,0x8a9ab0,.62); scene.add(hemi);
     const sun=new T.DirectionalLight(0xfff4e0,.95); sun.position.set(-120,160,80); scene.add(sun);
     scene.add(sun.target);
     // Rampa de cel-shading estilo anime: dos tonos nítidos (sombra / luz) y un brillo leve
@@ -1805,9 +1805,9 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     Inst.prototype.buildOld=function(parent){if(!this.m.length)return;const im=new T.InstancedMesh(this.geo,this.mat,this.m.length);im.frustumCulled=false;if(this.noOutline)im.userData.noOutline=true;this.m.forEach((mm,i)=>im.setMatrixAt(i,mm));parent.add(im);return im;};
 
     // Cielo
-    const skyMat=new T.ShaderMaterial({side:T.BackSide,depthWrite:false,uniforms:{top:{value:new C(0x4f9ae0)},hor:{value:new C(0xdff1ff)},sunI:{value:1}},
+    const skyMat=new T.ShaderMaterial({side:T.BackSide,depthWrite:false,uniforms:{top:{value:new C(0x4f9ae0)},hor:{value:new C(0xdff1ff)}},
       vertexShader:"varying vec3 p;void main(){p=normalize(position);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}",
-      fragmentShader:"uniform vec3 top;uniform vec3 hor;uniform float sunI;varying vec3 p;void main(){float t=smoothstep(-.05,.55,p.y);vec3 c=mix(hor,top,t);vec3 sd=normalize(vec3(.45,.32,-.83));float d=max(dot(normalize(p),sd),0.);c+=vec3(1.,.9,.7)*(pow(d,180.)*1.6+pow(d,12.)*.28)*sunI;c=mix(c,hor*1.06,(1.-smoothstep(-.02,.18,p.y))*.35);gl_FragColor=vec4(c,1.);}"});
+      fragmentShader:"uniform vec3 top;uniform vec3 hor;varying vec3 p;void main(){float t=smoothstep(-.05,.55,p.y);gl_FragColor=vec4(mix(hor,top,t),1.);}"});
     const sky=new T.Mesh(Sph(200,32,16),skyMat); // radio chico: siempre dentro del alcance de la cámara (sigue a la cámara)
     scene.add(sky);
     // Humo
@@ -2492,22 +2492,22 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       sky.visible=true;scene.background=null;roomLight.intensity=0;mini.style.visibility="";closeTalk();
       sky.children.slice().forEach(c=>{if(c.userData.cloud){sky.remove(c);c.material.dispose();}});
       W={solid:[],boxes:[],enter:[],smokes:[],spin:[],water:null};L.setup(W);
-      skyMat.uniforms.top.value.set(L.sky[0]);skyMat.uniforms.hor.value.set(L.sky[1]);skyMat.uniforms.sunI.value=L.dark?.15:1;
+      skyMat.uniforms.top.value.set(L.sky[0]);skyMat.uniforms.hor.value.set(L.sky[1]);
       scene.fog=new T.Fog(L.fog[0],L.fog[1],L.fog[2]);camera.far=L.fog[2]+60;camera.updateProjectionMatrix();sun.color.set(L.sun);hemi.intensity=L.dark?.35:.55;sun.intensity=L.dark?.45:1;
       // terreno
       const seg=Math.round(L.size/2.2);const geo=new T.PlaneGeometry(L.size,L.size,seg,seg);geo.rotateX(-Math.PI/2);
       const pos=geo.attributes.position,col=new Float32Array(pos.count*3);
-      for(let k=0;k<pos.count;k++){const x=pos.getX(k),z=pos.getZ(k);const y=W.H(x,z);pos.setY(k,y);const c=W.color(x,z,y);const nv=.93+.1*(.5+.5*Math.sin(x*.71+z*.53)*Math.cos(x*.29-z*.83));col[k*3]=c.r*nv;col[k*3+1]=c.g*nv;col[k*3+2]=c.b*nv;}
+      for(let k=0;k<pos.count;k++){const x=pos.getX(k),z=pos.getZ(k);const y=W.H(x,z);pos.setY(k,y);const c=W.color(x,z,y);col[k*3]=c.r;col[k*3+1]=c.g;col[k*3+2]=c.b;}
       geo.setAttribute("color",new T.BufferAttribute(col,3));geo.computeVertexNormals();
       world.add(noOut(new T.Mesh(geo,toon({vertexColors:true},false))));
       const ti=makeTreeInst(W.treeCols||[0x3f8a33,0x57a33c,0x6db84a]);
-      const n0=world.children.length;W.after&&W.after(world,ti);if(L.base===0)bakeStatic(world,n0);buildTreeInst(ti,world);
+      W.after&&W.after(world,ti);buildTreeInst(ti,world);
       // nubes
       // nubes de anime: cúmulos dibujados (sprites), no poliedros
       if(!L.dark){for(let c=0;c<8;c++){const a=rnd(0,6.283),r=rnd(420,900);const sp=new T.Sprite(new T.SpriteMaterial({map:cloudTex[c%cloudTex.length],color:L.clouds||0xffffff,fog:false,depthWrite:false,transparent:true}));
         const kc=.2,sz=rnd(90,170)*kc;sp.scale.set(sz,sz*.5,1);sp.position.set(Math.cos(a)*r*kc,(rnd(90,230)+r*.06)*kc,Math.sin(a)*r*kc);sp.userData.cloud=true;sky.add(sp);}}
       // humo
-      S.puffs=[];W.smokes.forEach((sp,k)=>{for(let j=0;j<3;j++){const m=new T.Sprite(new T.SpriteMaterial({map:smokeTex,color:0xf2f2f2,transparent:true,opacity:.5,depthWrite:false}));world.add(m);S.puffs.push({m,sp,t:j/3+Math.random()*.2});}});
+      S.puffs=[];W.smokes.forEach((sp,k)=>{for(let j=0;j<5;j++){const m=new T.Sprite(new T.SpriteMaterial({map:smokeTex,color:0xf2f2f2,transparent:true,opacity:.5,depthWrite:false}));world.add(m);S.puffs.push({m,sp,t:j/5+Math.random()*.2});}});
       // estado
       Object.assign(S,{x:L.start[0],z:L.start[1],y:W.H(L.start[0],L.start[1]),vx:0,vz:0,vy:0,kx:0,kz:0,ground:true,coyote:0,jumpBuf:0,jumping:false,hitStop:0,shake:0,
         yaw:Math.PI,camYaw:Math.PI,camPitch:.2,manual:0,hearts:PROG.maxHearts,shield:PROG.mithril?1:0,inv:0,items:[],got:0,boss:null,goal:null,swordGranted:false,shots:[],meteors:[],crystals:[],star:null,parts:[],speedLines:0,
@@ -3319,7 +3319,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     /* Calidad: 2 = Alta (todo), 1 = Media (sin contorno en decoración, menos nubes), 0 = Baja (sin contornos ni nubes) */
     let quality=2,autoQ=true;const QN=["Baja","Media","Alta"]; // en todas se mantiene el estilo anime (contornos en personajes, jefes y casas)
     function applyQuality(){const roots=[world,interior,player,sky].filter(Boolean);let ci=0;
-      roots.forEach(r=>r.traverse(o=>{if(o.userData.hull)o.visible=(quality===2&&!(L&&(L.base===2||L.base===0)&&!S.inside))||!o.isInstancedMesh;
+      roots.forEach(r=>r.traverse(o=>{if(o.userData.hull)o.visible=(quality===2&&!(L&&L.base===2&&!S.inside))||!o.isInstancedMesh;
         if(o.userData.cloud){o.visible=quality===2&&(MODE!=="touch"||ci%2===0);ci++;}}));
       if(S.boss&&S.boss.g)S.boss.g.traverse(o=>{if(o.userData.hull)o.visible=true;});}
     addEventListener("keydown",e=>{if(!ov.hidden&&e.code==="KeyG"&&!e.repeat){autoQ=false;quality=(quality+2)%3;applyQuality();msg("Calidad: "+QN[quality]+" (automática apagada)",1400);}});
