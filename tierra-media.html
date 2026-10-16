@@ -1659,7 +1659,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
 
   /* ---------- Entrada (estilo Marvel Rivals): logo, "tocá para empezar" y elegir plataforma ---------- */
   // Para poner tu logo: escribí acá la ruta o el enlace de la imagen (por ejemplo "logo.png").
-  const LOGO_SRC="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3Crect%20width%3D%22512%22%20height%3D%22512%22%20rx%3D%2272%22%20fill%3D%22%230b1a3a%22/%3E%3Ctext%20x%3D%22262%22%20y%3D%22268%22%20text-anchor%3D%22middle%22%20dominant-baseline%3D%22middle%22%20font-family%3D%22Georgia%2CTimes%20New%20Roman%2Cserif%22%20font-style%3D%22italic%22%20font-weight%3D%22700%22%20font-size%3D%22340%22%20fill%3D%22%23e01b24%22%3ED%3C/text%3E%3Cline%20x1%3D%2270%22%20y1%3D%22256%22%20x2%3D%22442%22%20y2%3D%22256%22%20stroke%3D%22%23e01b24%22%20stroke-width%3D%2230%22%20stroke-linecap%3D%22round%22/%3E%3C/svg%3E";   // logo: fondo azul oscuro, D roja y una línea roja que la cruza
+  const LOGO_SRC="";
   let MODE=null,splashCbs=[];
   try{MODE=localStorage.getItem("tm-mode");}catch(e){}
   const MODE_KEYS={pc:"Mover: WASD o flechas · Correr: Shift · Saltar: espacio (otra vez en el aire: zambullida) · Cámara: mouse arrastrando o Q/E · Entrar y hablar: E · Atacar: clic o J · Pausa: P o Esc · Reiniciar: R · FPS: F · Calidad: G",
@@ -1899,7 +1899,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         mesh(Cyl(.32,.5,1.6,12),k,0,3.2,1.45,horse).rotation.x=.7;
         mesh(Sph(.42,12,10),k,0,3.85,2.1,horse).scale.set(.8,.8,1.6);
         [-1,1].forEach(sd=>{mesh(Cone(.12,.4,8),k,sd*.18,4.25,1.85,horse);mesh(Sph(.07,8,6),new T.MeshBasicMaterial({color:0xff3a2a}),sd*.26,3.95,2.45,horse);});
-        const legs=[];[[-.4,1.05,0],[.4,1.05,Math.PI],[-.4,-1.05,Math.PI],[.4,-1.05,0]].forEach(([x,z,ph])=>{const lg=new T.Group();lg.position.set(x,1.9,z);horse.add(lg);mesh(Cyl(.15,.11,1.9,10),k,0,-.95,0,lg);mesh(Sph(.17,8,6),cl,0,-1.82,0,lg);legs.push({g:lg,ph,amp:.7});});
+        [[-.4,1.05],[.4,1.05],[-.4,-1.05],[.4,-1.05]].forEach(([x,z])=>{mesh(Cyl(.15,.11,1.9,10),k,x,.95,z,horse);mesh(Sph(.17,8,6),cl,x,.08,z,horse);});
         mesh(Cone(.25,1.4,10),cl,0,2.3,-1.9,horse).rotation.x=-2.3;
         for(let i=0;i<5;i++)mesh(Cone(.12,.6,8),cl,0,3.3+i*.12,1.1+i*.22,horse).rotation.x=-1.2;
         const rd=new T.Group();rd.position.set(0,3.1,-.1);g.add(rd);
@@ -1908,43 +1908,36 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         [-1,1].forEach(sd=>mesh(Sph(.05,8,6),new T.MeshBasicMaterial({color:0xbfe0ff}),sd*.12,2.7,.5,rd));
         for(let i=0;i<7;i++){const a=(i/7-.5)*2.4;const st=mesh(Box(.32,1.4,.06),cl,Math.sin(a)*.95,-.3,-Math.cos(a)*.9,rd);st.rotation.y=a;}
         mesh(Box(.1,2.2,.05),M(0x9aa0aa),.9,2.1,.6,rd).rotation.z=-.4;
-        return {g,h:6.2,r:2.2,legs};},
-      demon(){// dragón de fuego chibi de diseño propio: escamas rojo oscuro, panza de placas, hocico largo, cuernos, alas y cola con llama
-        const legs=[],g=new T.Group(),sc=M(0x8a1a14),sc2=M(0x5a0e0c),belly=M(0xf0a040),horn=M(0x2a1a1a),fire=M(0xffb030,0xff6a00,1.3),wingM=toon({color:0x6a1210,side:T.DoubleSide});
-        E(2.2,1,.95,1.15,sc,0,3.2,0,g);E(1.5,.9,1.05,.5,belly,0,3.1,1.45,g);
-        for(let i=0;i<4;i++)E(1.2-i*.12,1,.16,.4,M(0xd88a30),0,2.2+i*.6,2.05,g);
-        E(1,1,1.4,1,sc,0,5.2,1,g,.6);
-        E(1.25,1,.95,1.25,sc,0,6.4,1.6,g);E(.85,.9,.6,1.3,sc2,0,6,2.9,g);
-        mesh(Sph(.16,8,6),fire,-.32,6.15,3.95,g);mesh(Sph(.16,8,6),fire,.32,6.15,3.95,g);
-        angryEyes(g,0,6.75,2.55,.75,0xffe14a,true);
-        for(let k=0;k<3;k++)mesh(Cone(.18,.6,6),horn,0,7.2-k*.9,.4-k*.9,g).rotation.x=-.6;
-        [-1,1].forEach(sd=>{const hn=mesh(Cone(.32,2.2,10),horn,sd*.75,7.5,.9,g);hn.rotation.set(-1,0,sd*-.35);
-          const w=E(2.4,1.6,1,.1,wingM,sd*2.9,5.2,-1.2,g,0,sd*.6,sd*.7);w.userData.noOutline=false;
-          mesh(Cyl(.12,.12,3.2,6),sc2,sd*2.2,5.6,-1,g).rotation.z=sd*-1.1;
-          const ar=new T.Group();ar.position.set(sd*2,4.4,.4);g.add(ar);E(.62,1,1.6,1,sc,sd*.25,-.8,.1,ar,0,0,sd*.6);mesh(Cone(.16,.5,6),horn,sd*.9,-1.9,.7,ar).rotation.x=1.6;legs.push({g:ar,ph:sd>0?Math.PI:0,amp:.45});
-          const lg=new T.Group();lg.position.set(sd*1.15,1.5,.3);g.add(lg);E(.75,1.1,.8,1.3,sc,0,-.8,0,lg);[-1,0,1].forEach(k=>mesh(Cone(.13,.45,6),horn,k*.28,-1.25,1.25,lg).rotation.x=1.6);legs.push({g:lg,ph:sd>0?0:Math.PI,amp:.6});});
-        for(let i=0;i<9;i++)mesh(Sph(.75-i*.06,10,8),sc,0,1.4+i*.12,-2.1-i*.62,g);
-        const tip=mesh(Cone(.55,1.6,10),fire,0,2.6,-7.8,g);tip.rotation.x=-1.9;E(.4,1,1.3,1,M(0xff5a10,0xff3a00,1.3),0,2.9,-7.5,g,-1.6);
-        const tl=new T.Group();g.add(tl);legs.push({g:tl,ph:0,amp:.25,ax:"y"});g.children.filter(m=>m.isMesh&&m.position.z<-2).forEach(m=>{tl.attach(m);});
-        mergeStatic(g);[...legs.map(l=>l.g)].forEach(q=>mergeStatic(q));return {g,h:9,r:2.8,legs};},
+        return {g,h:6.2,r:2.2};},
+      demon(){// Balrog chibi: cuerpo redondo, melena de fuego, cuernos curvos y alas
+        const g=new T.Group(),d=M(0x2e1612),f=M(0xff6a1a,0xff4a00,1),wingM=toon({color:0x4a1a14,side:T.DoubleSide});
+        E(2.2,1,.95,.9,d,0,3.4,0,g);E(1.3,1,.8,.4,f,0,3.4,1.6,g);E(1.5,1,.95,.95,d,0,6.3,.3,g);
+        angryEyes(g,0,6.4,1.65,.9,0xffe14a,true);E(.4,1.6,.3,.4,M(0xff8a2b,0xff5a00,1),0,5.6,1.62,g);
+        [-1,1].forEach(sd=>{E(.3,1,2.6,1,M(0x3a2a20),sd*1.1,7.8,.2,g,0,0,sd*-.7);E(.22,1,2,1,M(0x3a2a20),sd*1.7,8.6,.2,g,0,0,sd*-1.4);
+          E(.55,1,2.4,1,d,sd*2.3,3.9,.3,g,0,0,sd*.8);E(.6,1.1,1,1.1,d,sd*2.9,2.6,.6,g);
+          const w=E(2.2,1.6,1,.12,wingM,sd*3.2,6.4,-1.4,g,0,sd*.5,sd*.5);w.userData.noOutline=false;
+          E(.5,1,.7,1.3,d,sd*.9,.5,.4,g);});
+        for(let i=0;i<9;i++){const a=(i/9-.5)*2.6;E(.55,1,1.6,1,M([0xff8a2b,0xffb040,0xff5a1a][i%3],0xff5a00,1),Math.sin(a)*1.2,7.4+Math.cos(a)*.5,-.2-Math.cos(a)*.4,g,-.3,0,-a*.6);}
+        for(let i=0;i<12;i++)mesh(Sph(.2-i*.008,10,8),M(0xff7a1a,0xff4a00,1),3+i*.28,2.4-i*.15+Math.sin(i*.9)*.35,1+i*.16,g);
+        mergeStatic(g);return {g,h:9,r:2.8};},
       uruk(){// Jefe Orco: gordito, casco con la Mano Blanca, colmillos y escudo
-        const legs=[],g=new T.Group(),sk=M(0x4f5a3c),ar=M(0x3b3e48),dk=M(0x2a2a30);
+        const g=new T.Group(),sk=M(0x4f5a3c),ar=M(0x3b3e48),dk=M(0x2a2a30);
         E(1.8,1,1,.85,ar,0,3.2,0,g);E(1.3,1,.7,.8,M(0x5a4a3a),0,1.9,.1,g);
         E(1.25,1,.95,.95,sk,0,5.3,.2,g);mesh(Sph(1.32,20,12,0,Math.PI*2,0,Math.PI*.5),dk,0,5.45,.15,g);
         mesh(Circ(.32,24),new T.MeshBasicMaterial({color:0xf2f0ea}),0,6.25,1.05,g).rotation.x=-.6;
         angryEyes(g,0,5.25,1.32,.65,0xff3a2a,true);
         [-1,1].forEach(sd=>{E(.11,1,2.2,.8,M(0xf3ead2),sd*.32,4.62,1.25,g,.2,0,sd*.2);
-          E(.5,1,2.4,1,sk,sd*2,3.2,.2,g,0,0,sd*.5);const lg=new T.Group();lg.position.set(sd*.75,1.6,.2);g.add(lg);E(.55,1,1.4,1,ar,0,-.8,0,lg);E(.5,1.2,.6,1.4,dk,0,-1.4,.2,lg);legs.push({g:lg,ph:sd>0?0:Math.PI,amp:.6});});
+          E(.5,1,2.4,1,sk,sd*2,3.2,.2,g,0,0,sd*.5);E(.55,1,1.4,1,ar,sd*.75,.8,.2,g);E(.5,1.2,.6,1.4,dk,sd*.75,.2,.4,g);});
         E(1.2,1,1,.18,M(0x5a3a22),-2.6,3,.8,g,0,.5,0);mesh(Sph(.3,12,10),M(0xc9ccd6),-2.75,3,1,g);
         E(.5,.3,2.6,1.5,M(0xc9ccd6),2.8,3.6,1,g,0,0,-.3);
-        mergeStatic(g);legs.forEach(l=>mergeStatic(l.g));return {g,h:6.6,r:2.3,legs};},
+        mergeStatic(g);return {g,h:6.6,r:2.3};},
       spider(){// Ella-Laraña chibi: peluda, ocho patas articuladas y ojos brillantes
         const g=new T.Group(),k=M(0x2e2240),hi=M(0x4a3a60);
         E(2.6,1,.9,1.1,k,0,3,-1.8,g);E(1.6,1,.7,.9,hi,0,3.4,-2.2,g);E(1.5,1,.9,1,k,0,2.6,1.2,g);
         angryEyes(g,0,2.9,2.55,.75,0xb6ff7a,true);[-1,1].forEach(sd=>mesh(Sph(.14,10,8),M(0xb6ff7a,0x9fe06a,.9),sd*.65,3.6,2.3,g));
         [-1,1].forEach(sd=>E(.16,.8,1,1.6,M(0x1a1424),sd*.3,1.8,2.45,g,.4));
-        const legs=[];for(let i=0;i<4;i++)[-1,1].forEach(sd=>{const z=-.9+i*.7;const lg=new T.Group();lg.position.set(sd*1.2,4.2,z);g.add(lg);E(.22,1,3.4,1,k,sd*1,-.6,0,lg,0,0,sd*-1.05);E(.18,1,3.4,1,k,sd*2.55,-2.5,0,lg,0,0,sd*.35);mesh(Sph(.2,10,8),hi,sd*3,-4,0,lg);legs.push({g:lg,ph:i*1.6+(sd>0?Math.PI:0),amp:.35});});
-        mergeStatic(g);legs.forEach(l=>mergeStatic(l.g));return {g,h:5.6,r:3.2,legs};},
+        for(let i=0;i<4;i++)[-1,1].forEach(sd=>{const z=-.9+i*.7;E(.22,1,3.4,1,k,sd*2.2,3.6,z,g,0,0,sd*-1.05);E(.18,1,3.4,1,k,sd*3.75,1.7,z,g,0,0,sd*.35);mesh(Sph(.2,10,8),hi,sd*4.2,.2,z,g);});
+        mergeStatic(g);return {g,h:5.6,r:3.2};},
       tower(){// Barad-dûr redondeada + el Ojo de Sauron
         const g=new T.Group(),k=M(0x1a161e);
         mesh(lathe([[8.5,0],[7.6,4],[6.2,9],[5.6,14],[4.4,20],[4.1,26],[3.2,31],[3.6,33],[0,33.5]],32),k,0,0,0,g);
@@ -2041,12 +2034,12 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
           // árboles
           for(let i=0;i<420;i++){const x=rnd(-205,205),z=rnd(-205,205);const y=W.H(x,z);if(y<W.water+.8)continue;let near=false;for(const d of doors)if(Math.hypot(x-d.x,z-d.z)<9)near=true;if(near||Math.hypot(x-party.x,z-party.z)<30||inField(x,z))continue;let pd=1e9;for(const P of paths){pd=Math.min(pd,segDist(x,z,P));}if(pd<5)continue;const edgeD=Math.max(Math.abs(x),Math.abs(z));if(edgeD<150&&rnd()<.55)continue;tree(ti,x,y,z,rnd(.8,1.5),i);if(edgeD<170)W.solid.push([x,z,.8]);}
           // setos y cercos alrededor de los campos
-          const hedge=new Inst(Box(3.1,1.6,1.2),M(0x3f7a2e));
-          fields.forEach(f=>{const c=Math.cos(f[4]),s=Math.sin(f[4]);for(const side of [[1,0],[-1,0],[0,1],[0,-1]]){const L=side[0]?f[3]:f[2];for(let t=-L/2;t<=L/2;t+=2.9){let lx=side[0]?side[0]*f[2]/2:t,lz=side[0]?t:side[1]*f[3]/2;const x=f[0]+lx*c+lz*s,z=f[1]-lx*s+lz*c;hedge.add(x,W.H(x,z)+.6,z,1,(side[0]?Math.PI/2:0)-f[4]);}}});
+          const hedge=new Inst(Box(2.2,1.6,1.2),M(0x3f7a2e));
+          fields.forEach(f=>{const c=Math.cos(f[4]),s=Math.sin(f[4]);for(const side of [[1,0],[-1,0],[0,1],[0,-1]]){const L=side[0]?f[3]:f[2];for(let t=-L/2;t<=L/2;t+=2){let lx=side[0]?side[0]*f[2]/2:t,lz=side[0]?t:side[1]*f[3]/2;const x=f[0]+lx*c+lz*s,z=f[1]-lx*s+lz*c;hedge.add(x,W.H(x,z)+.6,z,1,(side[0]?Math.PI/2:0)-f[4]);}}});
           hedge.build(g);
           // flores
           const fl=[0xff8fb1,0xffe066,0xb18cff,0xffffff,0xff9f43].map(c=>{const f=new Inst(Sph(.22,6,4),M(c));f.noOutline=true;return f;});
-          for(let i=0;i<1100;i++){const d=doors[i%doors.length];let x,z;if(i<650){const a=rnd(0,6.28),r=rnd(2,8);x=d.px+Math.cos(a)*r;z=d.pz+Math.sin(a)*r;}else{x=rnd(-180,180);z=rnd(-180,180);}const y=W.H(x,z);if(y<W.water+.5||inField(x,z))continue;fl[i%5].add(x,y+.25,z,rnd(.8,1.3));}
+          for(let i=0;i<1600;i++){const d=doors[i%doors.length];let x,z;if(i<900){const a=rnd(0,6.28),r=rnd(2,8);x=d.px+Math.cos(a)*r;z=d.pz+Math.sin(a)*r;}else{x=rnd(-180,180);z=rnd(-180,180);}const y=W.H(x,z);if(y<W.water+.5||inField(x,z))continue;fl[i%5].add(x,y+.25,z,rnd(.8,1.3));}
           fl.forEach(f=>f.build(g));
           // ovejas
           for(let i=0;i<14;i++){const f=fields[[0,3,6][i%3]];const x=f[0]+rnd(-12,12)+40*(i%2?1:-1)*0,z=f[1]+rnd(-10,10)+34;const y=W.H(x,z);const sh=new T.Group();sh.position.set(x,y,z);sh.rotation.y=rnd(0,6);g.add(sh);mesh(Sph(1,10,8),M(0xf6f3ea),0,1.3,0,sh).scale.set(1.2,.9,1.5);mesh(Sph(.45,8,6),M(0x2b2522),0,1.6,1.5,sh);[[-.5,.7],[.5,.7],[-.5,-.7],[.5,-.7]].forEach(([a,b])=>mesh(Cyl(.12,.12,.8,5),M(0x2b2522),a,.4,b,sh));}
@@ -2060,33 +2053,26 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     // 2) MORIA
     LEVELS.push({name:"Moria",kick:"Nivel 2 de 5 · La Comunidad del Anillo",size:320,sky:[0x05060d,0x141630],fog:[0x141630,30,180],sun:0x8aa0ff,dark:true,
       text:"En Rivendel nació la Comunidad del Anillo: nueve contra los Nueve. La nieve cerró el paso de Caradhras y Gandalf los llevó por las minas de Moria. Juntá 5 trozos de mithril… los enanos cavaron demasiado hondo y algo despertó.",
-      bossLine:["Gandalf","¡Un dragón de fuego! Es más viejo que las montañas. ¡Al puente, rápido!"],winLine:["Gandalf","¡Este puente lo cuido yo! Volvé al fondo de la montaña, criatura de fuego."],
-      item:"gem",itemName:"Mithril",boss:"demon",bossName:"El Dragón de Fuego de Moria",speed:7,shoot:2,shotColor:0xff6a1a,start:[0,120],bossStart:[0,-120],
-      setup(W){const pitIn=(x,z)=>Math.abs(x)>2.4&&Math.abs(x)<29.4&&Math.abs(z)<25.6;W.pitIn=pitIn;
-        W.H=(x,z)=>pitIn(x,z)?-40:.6*Math.sin(x*.08)*Math.cos(z*.07)+Math.max(0,Math.max(Math.abs(x),Math.abs(z))-140)*1.5;W.color=(x,z)=>{const n=.5+.5*Math.sin(x*.3)*Math.cos(z*.27);return new C(0x3a3850).lerp(new C(0x4d4a66),n);};
+      bossLine:["Gandalf","¡Un Balrog! Es un demonio de fuego más viejo que las montañas. ¡Al puente, rápido!"],winLine:["Gandalf","¡Este puente lo cuido yo! Volvé al fondo de la montaña, criatura de fuego."],
+      item:"gem",itemName:"Mithril",boss:"demon",bossName:"El Balrog de Moria",speed:7,shoot:2,shotColor:0xff6a1a,start:[0,120],bossStart:[0,-120],
+      setup(W){W.H=(x,z)=>.6*Math.sin(x*.08)*Math.cos(z*.07)+Math.max(0,Math.max(Math.abs(x),Math.abs(z))-140)*1.5;W.color=(x,z)=>{const n=.5+.5*Math.sin(x*.3)*Math.cos(z*.27);return new C(0x3a3850).lerp(new C(0x4d4a66),n);};
         W.after=(g)=>{const pil=new Inst(Cyl(2.4,3,60,8),M(0x4a4760)),cap=new Inst(Box(7,2,7),M(0x3b394e));for(let x=-132;x<=132;x+=33)for(let z=-132;z<=132;z+=33){if(Math.abs(x)<34&&Math.abs(z)<40)continue;pil.add(x,30,z);cap.add(x,4,z);W.solid.push([x,z,3.2]);}pil.build(g);cap.build(g);
           const ceil=mesh(new T.PlaneGeometry(340,340),M(0x0d0c16),0,58,0,g);ceil.rotation.x=Math.PI/2;
-          const cr=new Inst(Gem(1,0),M(0x6fd3ff,0x3fb0ff,.8));cr.noOutline=true;for(let i=0;i<160;i++){const x=rnd(-140,140),z=rnd(-140,140);if(Math.abs(x)<32&&Math.abs(z)<28)continue;cr.add(x,1,z,rnd(.6,1.6),rnd(0,6),rnd(1.5,3));}cr.build(g);
+          const cr=new Inst(Gem(1,0),M(0x6fd3ff,0x3fb0ff,.8));cr.noOutline=true;for(let i=0;i<160;i++){const x=rnd(-140,140),z=rnd(-140,140);cr.add(x,1,z,rnd(.6,1.6),rnd(0,6),rnd(1.5,3));}cr.build(g);
           [[-60,-60],[60,60],[60,-60],[-60,60]].forEach(([x,z])=>{const l=new T.PointLight(0x7fc8ff,1.3,120);l.position.set(x,12,z);g.add(l);});
-          // abismo hondo a los dos lados del puente (como la grieta del Monte del Destino): paredes de roca y lava al fondo
-          const glowM=M(0xff6a1a,0xff3d00,1.3),wallM=M(0x2a2836);
-          [-1,1].forEach(sd=>{const cx=sd*15.9;
-            const lv=mesh(new T.PlaneGeometry(27,51.2),M(0xff5a1f,0xff3d00,1.2),cx,-39.6,0,g);lv.rotation.x=-Math.PI/2;noOut(lv);
-            for(let k=0;k<10;k++){const l=mesh(Blob(.8,0),M(0xffb040,0xff8a00,1.3),cx+rnd(-11,11),-39.3,rnd(-22,22),g);l.scale.set(rnd(1,2.6),.2,rnd(1,2.6));noOut(l);}
-            [[cx,25.6,27,.6],[cx,-25.6,27,.6],[sd*29.4,0,.6,51.2],[sd*2.4,0,.6,51.2]].forEach(([x,z,w,d])=>{const wl=mesh(Box(w,40,d),wallM,x,-20,z,g);noOut(wl);});
-            [[cx,26.2,27.6,.7],[cx,-26.2,27.6,.7],[sd*29.9,0,.7,52.8]].forEach(([x,z,w,d])=>mesh(Box(w,.6,d),M(0x34324a),x,.3,z,g));
-            for(let k=0;k<5;k++){const r=mesh(Blob(1.2,0),M(0x3a3448),cx+rnd(-12,12),-10-rnd(0,22),sd>0?-25:25,g);r.scale.set(rnd(1,2),rnd(1,2.5),.6);}
-            W.boxes.push([sd*16.1,0,13.5,25.4,0,60]);});
-          [0,1,2].forEach(k=>{const fl=mesh(Cone(.9,2.4,8),glowM,(k-1)*18+(k===1?0:0),-38,(k-1)*14,g);noOut(fl);});
-          // arco de piedra debajo del puente
-          for(let z=-24;z<=24;z+=8){const a2=mesh(Box(3.6,3,1.2),M(0x3f3d52),0,-1.5,z,g);a2.scale.y=1;}
-          W.bridge={x:0,z:0,len:54};const br=new T.Group();g.add(br);mesh(Box(4.6,.9,54),M(0x4a4760),0,.45,0,br);
+          // abismo con puente de piedra angosto (diseño propio): a los costados no se puede pasar, hay que cruzar por el puente o rodear
+          const pit=new T.MeshBasicMaterial({color:0x1a0806});const glowM=M(0xff6a1a,0xff3d00,1.3);
+          [-1,1].forEach(sd=>{const cx=sd*16.5;const hole=mesh(new T.PlaneGeometry(26,52),pit,cx,.06,0,g);hole.rotation.x=-Math.PI/2;noOut(hole);
+            [[cx,26.2,26,.6],[cx,-26.2,26,.6],[sd*29.6,0,.6,52.8]].forEach(([x,z,w,d])=>mesh(Box(w,.5,d),M(0x34324a),x,.25,z,g));
+            W.boxes.push([cx,0,12.4,25.4,0,60]);
+            for(let k=0;k<6;k++){const l=mesh(Blob(.5,0),glowM,cx+rnd(-9,9),.1,rnd(-20,20),g);l.scale.set(rnd(1,2.4),.15,rnd(1,2.4));}});
+          const br=new T.Group();g.add(br);mesh(Box(4.6,.9,54),M(0x4a4760),0,.45,0,br);
           for(let z=-26;z<=26;z+=4){[-1,1].forEach(sd=>mesh(Cyl(.22,.26,1.2,8),M(0x5a5770),sd*2.1,1.4,z,br));}
           [-1,1].forEach(sd=>mesh(Box(.3,.3,54),M(0x5a5770),sd*2.1,2.05,0,br));
 };
         W.items=[[-116,-116],[110,-70],[-120,60],[90,110],[0,-40]];}});
     // 3) ROHAN
-    LEVELS.push({name:"Rohan",kick:"Nivel 3 de 5 · Las Dos Torres",size:400,sky:[0x3f8ee0,0xffe3bd],fog:[0xffe8cc,80,250],sun:0xffe0b0,
+    LEVELS.push({name:"Rohan",kick:"Nivel 3 de 5 · Las Dos Torres",size:400,sky:[0x3f8ee0,0xffe3bd],fog:[0xffe8cc,100,320],sun:0xffe0b0,
       text:"La Comunidad se rompió en Amon Hen. Aragorn, Legolas y Gimli corren tras los uruks de Saruman hasta Rohan. Gandalf volvió como el Blanco y liberó al rey Théoden. Juntá 5 estandartes, llevalos a Meduseld, recibí la espada Herugrim y enfrentá al capitán Uruk-hai.",
       bossLine:["Éowyn","¡Los uruks de Isengard! ¡Arriba, jinetes, por Rohan!"],winLine:["Théoden","¡Rohan resiste! Que suenen los cuernos: hoy ganamos todos juntos."],
       item:"banner",itemName:"Estandartes",boss:"uruk",bossName:"El capitán Uruk-hai",speed:11,shoot:0,start:[0,100],bossStart:[0,-150],
@@ -2098,7 +2084,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
           const gr=new Inst(geo("tuft",()=>{const parts=[[-.28,0,.38],[0,.12,0],[.28,0,-.38],[.05,-.2,.15]].map(([x,z,rz])=>{const c=new T.ConeGeometry(.11,1.25,5,1,true).toNonIndexed();c.translate(0,.62,0);c.rotateZ(rz);c.translate(x,0,z);return c;});
             const n=parts.reduce((a,c)=>a+c.attributes.position.count,0),P=new Float32Array(n*3),N=new Float32Array(n*3);let o=0;parts.forEach(c=>{P.set(c.attributes.position.array,o*3);N.set(c.attributes.normal.array,o*3);o+=c.attributes.position.count;});
             const m=new T.BufferGeometry();m.setAttribute("position",new T.BufferAttribute(P,3));m.setAttribute("normal",new T.BufferAttribute(N,3));return m;}),M(0xd2b956));gr.noOutline=true;
-          for(let i=0;i<1000;i++){const x=rnd(-190,190),z=rnd(-190,190);gr.add(x,W.H(x,z)-.1,z,rnd(.8,1.5),rnd(0,6));}gr.build(g);
+          for(let i=0;i<1800;i++){const x=rnd(-190,190),z=rnd(-190,190);gr.add(x,W.H(x,z)-.1,z,rnd(.8,1.5),rnd(0,6));}gr.build(g);
           for(let i=0;i<60;i++){const x=rnd(-180,180),z=rnd(-180,180);if(Math.hypot(x,z+30)<45)continue;tree(ti,x,W.H(x,z),z,rnd(.9,1.4),i);W.solid.push([x,z,.8]);}};
         W.treeCols=[0x7a9a3a,0x8aa847,0x6b8a33];W.items=[[-140,-120],[150,-100],[-150,90],[140,120],[0,-30+40]];}});
     // 4) CIRITH UNGOL
@@ -2140,69 +2126,36 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
 
     /* ---------- Caminos: cada personaje principal vive su propia historia ---------- */
     LEVELS.forEach((l,i)=>l.base=i);
-    const PARTY_C=[-78,30];
     const PATHS=[
       {id:"anillo",name:"La Comunidad del Anillo",who:["Frodo","Sam"],desc:"Llevá el Anillo desde la Comarca hasta el Monte del Destino.",
         levels:[{base:0},{base:1},{base:2},{base:3},{base:4,ringScene:true}],
         ending:["El Anillo cayó al fuego","La Torre Oscura se derrumbó y Mordor fue vencido. Los hobbits vuelven a casa y la Comarca vuelve a estar en paz."]},
-      {id:"gandalf",name:"El Peregrino Gris",who:["Gandalf"],desc:"Una fiesta llena de travesuras, un puente sobre el abismo y un amanecer en Rohan.",
-        levels:[{base:0,name:"La fiesta de Bilbo",item:null,boss:null,
-            text:"¡Es la gran fiesta de cumpleaños de Bilbo! Pero cinco hobbits traviesos te robaron los fuegos artificiales y los están tirando por todos lados. Atrapalos a todos en el campo de la fiesta antes de que la arruinen.",
-            goal:{type:"catch",n:5,c:PARTY_C,r:34,spd:10.2,noun:"Traviesos",win:"¡Fiesta salvada!",party:true,
-              caught:["¡Atrapado! Devolvé esos cohetes.","¡Otro más! Nada de cohetes sin permiso.","¡Te tengo! A la mesa de los postres.","¡Ya casi! Quedan pocos.","¡El último!"],
-              intro:["Bilbo","¡Gandalf, esos pillos tienen tus cohetes! Corré con Shift: son rápidos pero se cansan."],
-              winLine:["Bilbo","¡Qué fiesta! Ahora sí, Gandalf: el gran final con tus fuegos artificiales."]}},
-          {base:1,name:"El puente de Khazad-dûm",text:"Guiá a la Comunidad por Moria. Juntá 5 gemas de mithril y frená al demonio de fuego con tus runas sobre el puente."},
-          {base:2,name:"El amanecer en Rohan",item:null,noKing:true,boss:null,
-            text:"Volviste vestido de blanco justo al amanecer. Los orcos atacan la bandera de Edoras: frená a 12 antes de que lleguen. Saltales encima o atacalos.",
-            goal:{type:"defend",n:12,spot:[0,12],from:65,spd:4.6,every:2.2,flag:0x2f8a3a,noun:"Orcos frenados",win:"¡Edoras resistió!",
-              intro:["Éowyn","¡Llegaste con la primera luz! Que ningún orco toque la bandera."]}}],
-        ending:["El Blanco","Rohan está a salvo y el rey cabalga otra vez. La Comunidad sigue su camino hacia el este."]},
-      {id:"cazadores",name:"Los Tres Cazadores",who:["Aragorn","Legolas","Gimli"],desc:"Una carrera siguiendo huellas por Rohan, el reino de los enanos y la batalla frente a la Puerta Negra.",
-        levels:[{base:2,name:"La caza de los uruks",item:null,noKing:true,boss:null,
-            text:"Los uruks se llevaron a Merry y Pippin. Seguí sus huellas por las llanuras de Rohan: pasá por cada marca dorada antes de que se acabe el tiempo.",
-            goal:{type:"race",noun:"Huellas",limit:34,bonus:7,pts:[[0,60],[-50,20],[-110,-20],[-140,-90],[-80,-140],[0,-160],[80,-130],[130,-70]],
-              lose:"Se escaparon los uruks",win:"¡Los alcanzaste!",intro:["Legolas","Las huellas son frescas. ¡Si corremos sin parar, los alcanzamos!"]}},
-          {base:1,name:"El reino de Gimli",text:"Gimli quiere ver Moria. Encontrá 5 gemas de mithril y frená al demonio de fuego activando las runas de Gandalf."},
-          {base:4,name:"La Puerta Negra",item:null,boss:null,final:false,
-            text:"Frente a la Puerta Negra, los orcos salen sin parar. Aguantá: frená a 15 antes de que lleguen al estandarte, así el Ojo mira hacia ustedes y no hacia Frodo.",
-            goal:{type:"defend",n:15,spot:[0,30],from:60,spd:5,every:2,flag:0xf2f2f2,noun:"Orcos frenados",win:"¡Aguantaron!",
-              intro:["Gimli","¡Que vengan! Yo cuento cuántos tiro, ¿y vos?"]}}],
-        ending:["La Puerta Negra","Mientras el Ojo los miraba a ustedes, Frodo arrojó el Anillo al fuego. Aragorn será coronado rey."]},
-      {id:"eowyn",name:"La Dama de Rohan",who:["Éowyn"],desc:"Poné a salvo a la gente de Edoras y enfrentá al Rey Brujo en los campos del Pelennor.",
-        levels:[{base:2,name:"Edoras en peligro",item:null,noKing:true,boss:null,
-            text:"Se acercan los uruks. Buscá a las 5 personas que quedaron afuera y llevalas, una por una, a la puerta del Salón Dorado.",
-            goal:{type:"deliver",noun:"A salvo",fromName:"buscá a la persona marcada",toName:"llevala al Salón Dorado",people:true,
-              personLook:k=>man(k,{female:k%2===1,shirt:[0xe8dcc8,0xc9b8a0,0xd9c09a][k%3],dress:[0x8a5a3a,0x5a6a8a][k%2],vest:null}),
-              tasks:W=>{const h=W.enter.find(e=>e.kind==="hall")||{x:0,z:-18};return [[-70,40],[60,50],[95,-40],[-40,-95],[-120,-30]].map(f=>({from:f,to:[h.x,h.z+3],pick:"¡Vení conmigo, te llevo al salón!",give:"¡A salvo en el Salón Dorado!"}));},
-              win:"¡Toda la gente está a salvo!",intro:["Éowyn","Nadie se queda afuera. ¡Vamos a buscarlos!"]}},
+      {id:"gandalf",name:"El Peregrino Gris",who:["Gandalf"],desc:"De los fuegos artificiales de la Comarca al puente de Khazad-dûm, y de vuelta como el Blanco.",
+        levels:[{base:0,name:"La fiesta de Bilbo",item:"light",itemName:"Fuegos artificiales",text:"La fiesta terminó y tus fuegos artificiales quedaron desparramados por Hobbiton. Juntá los 5 antes de que llegue el Jinete Oscuro buscando el Anillo."},
+          {base:1,name:"El puente de Khazad-dûm",text:"Guiá a la Comunidad por Moria. Juntá 5 gemas de mithril y enfrentá al Balrog con tus runas: ¡no podés pasar!"},
+          {base:2,name:"Gandalf el Blanco",text:"Volviste como Gandalf el Blanco. Juntá 5 estandartes, despertá al rey Théoden y vencé al Jefe Orco."}],
+        ending:["Gandalf el Blanco","Rohan está libre y el rey cabalga otra vez. «Mirá al este al amanecer del quinto día.»"]},
+      {id:"cazadores",name:"Los Tres Cazadores",who:["Aragorn","Legolas","Gimli"],desc:"Persiguen a los uruks por Rohan, vuelven al reino de Gimli y desafían a la Puerta Negra.",
+        levels:[{base:2,name:"La caza de los uruks",text:"Los uruks se llevaron a Merry y Pippin. Juntá 5 estandartes, recibí la espada del rey y vencé al Jefe Orco."},
+          {base:1,name:"El reino de Gimli",text:"Gimli quiere ver Moria. Encontrá 5 gemas de mithril y vencé al Balrog activando las runas de Gandalf."},
+          {base:4,name:"La Puerta Negra",text:"Distraé al Ojo de Sauron: rompé los 3 cristales de la Torre Oscura para que Frodo pueda llegar al Monte del Destino."}],
+        ending:["La Puerta Negra cayó","Mientras el Ojo los miraba a ustedes, Frodo arrojó el Anillo al fuego. Aragorn será coronado rey de Gondor."]},
+      {id:"eowyn",name:"La Dama de Rohan",who:["Éowyn"],desc:"Defendé Edoras y enfrentá al Rey Brujo en los campos del Pelennor.",
+        levels:[{base:2,name:"Edoras en peligro",text:"Juntá 5 estandartes, recibí la espada del rey y vencé al Jefe Orco que ataca los campos."},
           {base:3,name:"Los campos del Pelennor",item:"light",itemName:"Antorchas",boss:"rider",bossName:"El Rey Brujo de Angmar",speed:10,shoot:0,sky:[0x2a0f12,0x7a3a2a],fog:[0x4a2a24,40,220],
-            text:"La noche cae sobre el Pelennor. Encendé 5 antorchas y enfrentá al Rey Brujo. Dicen que nadie puede vencerlo… pero nadie contaba con vos."}],
-        ending:["La Dama de Rohan","Éowyn venció al Rey Brujo. Rohan y Gondor cantan su nombre."]},
-      {id:"arwen",name:"La Estrella de la Tarde",who:["Arwen"],desc:"Una carrera a caballo hasta el río y la luz élfica en la oscuridad.",
-        levels:[{base:0,name:"La carrera al vado",item:null,boss:null,
-            text:"Frodo está herido y los Jinetes Oscuros vienen detrás. Cabalgá hasta el río pasando por cada aro dorado antes de que te alcancen.",
-            goal:{type:"race",noun:"Aros",limit:30,bonus:6,pts:[[0,-10],[45,-50],[95,-80],[140,-40],[165,20],[150,80],[110,120]],
-              lose:"Te alcanzaron los jinetes",win:"¡Llegaste al río!",intro:["Arwen","¡Agarrate fuerte, Frodo! No paramos hasta el agua."],
-              winLine:["Arwen","El río se levanta y se lleva a los jinetes. Frodo está a salvo."]}},
+            text:"La noche cae sobre el Pelennor. Encendé 5 antorchas y enfrentá al Rey Brujo: ningún hombre puede matarlo… pero vos no sos un hombre."}],
+        ending:["¡No soy ningún hombre!","Éowyn venció al Rey Brujo de Angmar. Rohan y Gondor cantan su nombre."]},
+      {id:"arwen",name:"La Estrella de la Tarde",who:["Arwen"],desc:"Salvá a Frodo de los Nazgûl y llevá la luz élfica a la oscuridad.",
+        levels:[{base:0,name:"El vado del Bruinen",item:"light",itemName:"Hojas de athelas",text:"Frodo está herido. Juntá 5 hojas de athelas para curarlo y enfrentá al Jinete Oscuro que lo persigue."},
           {base:3,name:"La luz de los elfos",text:"Llevá la luz élfica a Cirith Ungol: juntá 5 destellos y vencé a la araña gigante."}],
-        ending:["La Estrella de la Tarde","Gracias a Arwen, Frodo pudo seguir su viaje. La luz de los elfos todavía brilla."]},
-      {id:"traviesos",name:"Los Medianos Traviesos",who:["Merry","Pippin","Rosita"],desc:"Hongos robados, perros furiosos y un bosque que despierta.",
-        levels:[{base:0,name:"El atajo a los hongos",boss:null,
-            text:"¡Atajo a los hongos! Robale 5 hongos al granjero Maggot… pero cuidado: sus tres perros te van a perseguir por todo el campo.",
-            goal:{type:"escape",n:3,c:[118,-80],spd:9.6,win:"¡Escapaste con los hongos!",bite:"¡Guau! ¡Un perro de Maggot te mordió!",
-              intro:["Pippin","¡Corré, corré! ¡Los perros de Maggot!"],winLine:["Merry","¡Hongos para la cena! Maggot ni se enteró… bueno, un poco."]}},
+        ending:["La Estrella de la Tarde","Gracias a Arwen, Frodo pudo seguir su viaje. La luz de los elfos todavía brilla en la Tierra Media."]},
+      {id:"traviesos",name:"Los Medianos Traviesos",who:["Merry","Pippin","Rosita"],desc:"Robale hongos al granjero Maggot, escapá de los uruks y despertá a los Ents.",
+        levels:[{base:0,name:"El atajo a los hongos",text:"¡Atajo a los hongos! Robale 5 hongos al granjero Maggot… y escapá del Jinete Oscuro."},
           {base:2,name:"El bosque de Fangorn",noKing:true,itemName:"Ramas de Ent",bossName:"El Uruk de Isengard",text:"Escapaste de los uruks. Juntá 5 ramas para despertar a los Ents y vencé al Uruk de Isengard."}],
         ending:["La marcha de los Ents","Los Ents despertaron y marcharon sobre Isengard. ¡Nada mal para dos medianos traviesos!"]},
-      {id:"bilbo",name:"Historia de una ida y de una vuelta",who:["Bilbo"],desc:"Una cena con invitados sorpresa, la montaña de los enanos y el Bosque Negro.",
-        levels:[{base:0,name:"Una cena inesperada",item:null,boss:null,
-            text:"¡Llegaron enanos a cenar sin avisar! Llevá la comida del pabellón de la fiesta a cada invitado, una bandeja por vez.",
-            goal:{type:"deliver",noun:"Platos servidos",fromName:"buscá comida en el pabellón",toName:"llevala al invitado marcado",guests:true,color:0xd9a05a,
-              guestLook:k=>({hair:[0x6a3a1a,0x2a2a2a,0xc06a2a,0x8a8a8a,0x4a2a1a][k],beard:[0x6a3a1a,0x2a2a2a,0xc06a2a,0x8a8a8a,0x4a2a1a][k],vest:[0x2f6fd8,0x8a3a2a,0x3a7a3a,0x7a5a9a,0xb08a3a][k],shirt:0x9a8a7a,scarf:null,hat:[0x2f6fd8,0x8a3a2a,0x3a7a3a,0x7a5a9a,0xb08a3a][k],scale:1.22,eye:0x6b3d1f}),
-              tasks:[[-60,6],[-96,8],[-100,44],[-62,52],[-80,58]].map(t=>({from:[-62,32],to:t,pick:"¡Bandeja llena!",give:"¡Gracias! ¡Más, más!"})),
-              win:"¡Todos cenaron!",party:true,intro:["Bilbo","¿Cinco enanos en mi casa? ¡Y tienen hambre! Rápido, a servir."],
-              winLine:["Bilbo","Comieron todo… hasta los postres. Ahora quieren que vaya con ellos de aventura."]}},
-          {base:1,name:"Bajo la Montaña",itemName:"Joyas de los enanos",bossName:"El fuego de la montaña",text:"Bajo la montaña brillan las joyas de los enanos. Juntalas y frená al monstruo de fuego con las runas."},
+      {id:"bilbo",name:"Historia de una ida y de una vuelta",who:["Bilbo"],desc:"Bilbo revive su gran aventura: la fiesta, la montaña y el Bosque Negro.",
+        levels:[{base:0,name:"Una fiesta inesperada",text:"Trece enanos se comieron tu despensa. Juntá 5 hongos para reponerla antes de que llegue el Jinete Oscuro."},
+          {base:1,name:"Bajo la Montaña",itemName:"Joyas de los enanos",bossName:"El fuego de la montaña",text:"Bajo la montaña brillan las joyas de los enanos. Juntalas y vencé al monstruo de fuego con las runas."},
           {base:3,name:"El Bosque Negro",bossName:"La reina de las arañas",text:"Las arañas del Bosque Negro atraparon a los enanos. Juntá 5 destellos y vencé a su reina."}],
         ending:["Ida y vuelta","Bilbo volvió a Bolsón Cerrado con un cofre de oro… y un anillo muy especial en el bolsillo."]}];
     let PATH=PATHS[0],CAMP=null;
@@ -2210,14 +2163,6 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     const pathFor=name=>PATHS.find(p=>p.who.includes(name));
     /* ---------- jugador ---------- */
     /* ---------- Unir piezas fijas en una sola malla por material (menos dibujos por cuadro) ---------- */
-    // junta en pocos dibujos todas las piezas fijas (casas, cercos, faroles…) que tienen el mismo material
-    function bakeStatic(root,from){const keep=new Set();(W.spin||[]).forEach(o=>o.traverse(x=>keep.add(x)));
-      root.updateMatrixWorld(true);const cells=new Map();
-      root.children.slice(from).forEach(c=>{if(keep.has(c)||c.userData.keep||c.isInstancedMesh||c.isSprite||c.isLight)return;const list=[];
-        c.traverse(o=>{if(o.isMesh&&!o.isInstancedMesh&&!keep.has(o)&&!o.material.map&&!o.material.vertexColors&&!o.material.transparent&&!(o.parent&&keep.has(o.parent)))list.push(o);});
-        list.forEach(m=>{m.matrixWorld.decompose(m.position,m.quaternion,m.scale);const k=Math.floor(m.position.x/90)+","+Math.floor(m.position.z/90);
-          let cg=cells.get(k);if(!cg){cg=new T.Group();cells.set(k,cg);}cg.add(m);});});
-      cells.forEach(cg=>{root.add(cg);mergeStatic(cg);cg.children.forEach(m=>m.geometry.computeBoundingSphere());});}
     function mergeStatic(group,skip){
       const by=new Map();
       group.children.slice().forEach(m=>{if(!m.isMesh||(skip&&skip.includes(m)))return;m.updateMatrix();const k=m.material.uuid+"|"+(m.userData.noOutline?1:0);
@@ -2433,8 +2378,6 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     function hud(){$("gLevel").textContent=S.inside?S.inside.name:L.name;$("gHearts").textContent="♥".repeat(Math.max(0,S.hearts))+"♡".repeat(Math.max(0,PROG.maxHearts-Math.max(0,S.hearts)))+(S.shield>0?" 🛡":"");
       $("gItems").textContent=L.item?`${L.itemName} ${S.got}/5`:(S.phase==="volcano"?"Llevá el Anillo al volcán":`Cristales ${3-S.crystals.filter(c=>c.alive).length}/3`);
       if(S.phase==="king")$("gItems").textContent="Llevá los estandartes al rey (Meduseld)";
-      if(S.goal&&!S.goal.done&&S.goal.label)$("gItems").textContent=S.goal.label();
-      if(S.goal&&S.goal.done&&S.star)$("gItems").textContent="Tocá la estrella para seguir";
       if(S.runes&&S.runes.length&&S.boss&&S.boss.alive)$("gItems").textContent="Runas de Gandalf "+S.runes.filter(r=>r.used).length+"/3 · acercate y apretá E";
       if(S.boss&&S.boss.alive){$("gBoss").hidden=false;$("gBossName").textContent=(L.final?"Jefe final · ":"Jefe · ")+L.bossName;$("gBossBar").style.width=(S.boss.hp/3*100)+"%";}else $("gBoss").hidden=true;}
     function togglePause(force){
@@ -2469,11 +2412,6 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       W.enter.forEach(E=>{if(E.secret)return;const [a,b]=tp(E.x,E.z);mctx.fillStyle="#fff";mctx.strokeStyle="#2a1a2e";mctx.lineWidth=1.2;mctx.fillRect(a-2.5,b-2.5,5,5);mctx.strokeRect(a-2.5,b-2.5,5,5);});
       (S.npcs||[]).forEach(N=>{const [a,b]=tp(N.x,N.z);mctx.fillStyle="#7fe0ff";mctx.beginPath();mctx.arc(a,b,2.6,0,7);mctx.fill();});
       {const pu=5+Math.sin(performance.now()/180)*1.5;S.items.forEach(it=>{if(!it.alive)return;const [a,b]=tp(it.x,it.z);mctx.fillStyle="#ffd24a";mctx.strokeStyle="#fff";mctx.lineWidth=2;mctx.beginPath();mctx.arc(a,b,pu,0,7);mctx.fill();mctx.stroke();mctx.strokeStyle="#000";mctx.lineWidth=1;mctx.stroke();});}
-      if(S.goal&&!S.goal.done){const G=S.goal,dot=(x,z,c,r)=>{const [a,b]=tp(x,z);mctx.fillStyle=c;mctx.strokeStyle="#fff";mctx.lineWidth=1.5;mctx.beginPath();mctx.arc(a,b,r,0,7);mctx.fill();mctx.stroke();};
-        (G.list||[]).forEach(q=>{if(q.alive!==false)dot(q.x,q.z,G.type==="catch"?"#ff8fb1":"#ff4a3a",3.5);});
-        if(G.rings&&G.rings[G.i])dot(G.rings[G.i].x,G.rings[G.i].z,"#ffd24a",5.5);
-        if(G.tasks&&G.tasks[G.i]){const t=G.carry?G.tasks[G.i].to:G.tasks[G.i].from;dot(t[0],t[1],"#ffd24a",5.5);}
-        if(G.spot)dot(G.spot[0],G.spot[1],"#6fe07a",5);}
       const [px,pz]=tp(S.x,S.z);mctx.translate(px,pz);mctx.rotate(-S.yaw+Math.PI);mctx.fillStyle="#fff";mctx.strokeStyle="#000";mctx.lineWidth=1.2;mctx.beginPath();mctx.moveTo(0,-7);mctx.lineTo(5,5);mctx.lineTo(0,2.5);mctx.lineTo(-5,5);mctx.closePath();mctx.fill();mctx.stroke();
       mctx.restore();mctx.strokeStyle="rgba(255,246,223,.8)";mctx.lineWidth=2;mctx.beginPath();mctx.arc(N/2,N/2,N/2-2,0,7);mctx.stroke();}
 
@@ -2488,7 +2426,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       if(world){scene.remove(world);disposeTree(world);}
       world=new T.Group();scene.add(world);
       if(interior){scene.remove(interior);disposeTree(interior);interior=null;}
-      {const u=player.userData;S.cut=null;S.fall=null;S.snatch=null;S.snatchDone=false;player.visible=true;player.rotation.x=0;u.ring&&u.ring.scale.setScalar(1);if(u.ring&&u.ring.parent!==u.torso){u.torso.add(u.ring);u.ring.position.copy(u.ring.userData.home||new V3(.4,.95,.1));u.ring.rotation.set(0,1.2,0);u.ring.scale.setScalar(1);}if(u.ring)u.ring.visible=true;}
+      {const u=player.userData;S.cut=null;if(u.ring&&u.ring.parent!==u.torso){u.torso.add(u.ring);u.ring.position.copy(u.ring.userData.home||new V3(.4,.95,.1));u.ring.rotation.set(0,1.2,0);u.ring.scale.setScalar(1);}if(u.ring)u.ring.visible=true;}
       sky.visible=true;scene.background=null;roomLight.intensity=0;mini.style.visibility="";closeTalk();
       sky.children.slice().forEach(c=>{if(c.userData.cloud){sky.remove(c);c.material.dispose();}});
       W={solid:[],boxes:[],enter:[],smokes:[],spin:[],water:null};L.setup(W);
@@ -2501,16 +2439,16 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       geo.setAttribute("color",new T.BufferAttribute(col,3));geo.computeVertexNormals();
       world.add(noOut(new T.Mesh(geo,toon({vertexColors:true},false))));
       const ti=makeTreeInst(W.treeCols||[0x3f8a33,0x57a33c,0x6db84a]);
-      const n0=world.children.length;W.after&&W.after(world,ti);if(L.base===0)bakeStatic(world,n0);buildTreeInst(ti,world);
+      W.after&&W.after(world,ti);buildTreeInst(ti,world);
       // nubes
       // nubes de anime: cúmulos dibujados (sprites), no poliedros
       if(!L.dark){for(let c=0;c<8;c++){const a=rnd(0,6.283),r=rnd(420,900);const sp=new T.Sprite(new T.SpriteMaterial({map:cloudTex[c%cloudTex.length],color:L.clouds||0xffffff,fog:false,depthWrite:false,transparent:true}));
         const kc=.2,sz=rnd(90,170)*kc;sp.scale.set(sz,sz*.5,1);sp.position.set(Math.cos(a)*r*kc,(rnd(90,230)+r*.06)*kc,Math.sin(a)*r*kc);sp.userData.cloud=true;sky.add(sp);}}
       // humo
-      S.puffs=[];W.smokes.forEach((sp,k)=>{for(let j=0;j<3;j++){const m=new T.Sprite(new T.SpriteMaterial({map:smokeTex,color:0xf2f2f2,transparent:true,opacity:.5,depthWrite:false}));world.add(m);S.puffs.push({m,sp,t:j/3+Math.random()*.2});}});
+      S.puffs=[];W.smokes.forEach((sp,k)=>{for(let j=0;j<5;j++){const m=new T.Sprite(new T.SpriteMaterial({map:smokeTex,color:0xf2f2f2,transparent:true,opacity:.5,depthWrite:false}));world.add(m);S.puffs.push({m,sp,t:j/5+Math.random()*.2});}});
       // estado
       Object.assign(S,{x:L.start[0],z:L.start[1],y:W.H(L.start[0],L.start[1]),vx:0,vz:0,vy:0,kx:0,kz:0,ground:true,coyote:0,jumpBuf:0,jumping:false,hitStop:0,shake:0,
-        yaw:Math.PI,camYaw:Math.PI,camPitch:.2,manual:0,hearts:PROG.maxHearts,shield:PROG.mithril?1:0,inv:0,items:[],got:0,boss:null,goal:null,swordGranted:false,shots:[],meteors:[],crystals:[],star:null,parts:[],speedLines:0,
+        yaw:Math.PI,camYaw:Math.PI,camPitch:.2,manual:0,hearts:PROG.maxHearts,shield:PROG.mithril?1:0,inv:0,items:[],got:0,boss:null,shots:[],meteors:[],crystals:[],star:null,parts:[],speedLines:0,
         anim:{state:"idle",phase:0,squash:0,stretch:0},phase:L.item?"items":"boss",inside:null,npcs:[],inNpcs:[],prompt:null,talk:null,eaten:{}});
       camDist=CAM.dist;
       // cada objeto tiene su "modelo" aparte del haz de luz: así gira y flota entero
@@ -2519,89 +2457,12 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       if(L.item)W.items=W.items.map(([x,z])=>{const o={x,z};for(let k=0;k<3;k++){for(const [ox,oz,r] of W.solid){const dx=o.x-ox,dz=o.z-oz,d=Math.hypot(dx,dz)||1e-3;if(d<r+2.5){o.x=ox+dx/d*(r+2.5);o.z=oz+dz/d*(r+2.5);}}collide(o,2.5);}return [o.x,o.z];});
       if(L.item){W.items.forEach(([x,z])=>{const g=new T.Group(),model=ITEM[L.item]();g.add(model);g.position.set(x,W.H(x,z),z);world.add(g);
         mesh(Cyl(.5,.5,30,8,1,true),new T.MeshBasicMaterial({color:0xfff0a0,transparent:true,opacity:.18,depthWrite:false,side:T.DoubleSide}),0,15,0,g);S.items.push({g,model,x,z,alive:true});});}
-      if(L.goal)startGoal();else if(!L.item)spawnBoss();
+      else spawnBoss();
       outline(world);
       // cámara colocada desde el primer frame (sin el "viaje" desde el centro del mapa)
       updateCamera(1);camera.position.copy(new V3(S.x-Math.sin(S.camYaw)*CAM.dist,S.y+8,S.z-Math.cos(S.camYaw)*CAM.dist));
       spawnNPCs();addSecrets();buildMini();hud();if(typeof applyQuality==="function")applyQuality();
     }
-    /* ---------- Misiones distintas para cada camino (no todo es "juntá 5 y vencé al jefe") ----------
-       catch: atrapar a los que se escapan · escape: juntar cosas mientras te persiguen perros
-       race: pasar por los aros antes de que se acabe el tiempo · defend: frenar a los orcos antes de que lleguen
-       deliver: llevar cosas de un lugar a otro, una por vez */
-    function placeStar(x,z){const st=new T.Group();const inner=new T.Group();st.add(inner);inner.position.y=2.5;mesh(Gem(1.5,0),M(0xffe27a,0xffc400,1),0,0,0,inner).scale.set(1,1.4,.5);mesh(Gem(1,0),M(0xffffff,0xffffff,1),0,0,0,inner).scale.set(1.4,.5,.5);
-      mesh(Cyl(.6,.6,40,8,1,true),new T.MeshBasicMaterial({color:0xfff0a0,transparent:true,opacity:.2,depthWrite:false,side:T.DoubleSide}),0,20,0,st);
-      st.position.set(x,W.H(x,z),z);world.add(st);S.star=st;setTimeout(()=>msg("Tocá la estrella para seguir el viaje",2200),2500);hud();}
-    function dogModel(){const g=new T.Group(),f=M(0x8a5a32),w=M(0xf2e6d0),dk=M(0x2a1a12);
-      E(.9,1.5,.8,.8,f,0,1.1,0,g);E(.55,1,.95,1.1,f,0,1.75,1.05,g);E(.3,1,.8,1,w,0,1.6,1.55,g);mesh(Sph(.12,8,6),dk,0,1.75,1.82,g);
-      [-1,1].forEach(sd=>{E(.22,.6,1.3,.9,dk,sd*.42,2.05,.95,g,0,0,sd*.4);[-1,1].forEach(fz=>mesh(Cyl(.16,.16,.8,8),f,sd*.42,.4,fz*.6,g));
-        mesh(Sph(.1,8,6),new T.MeshBasicMaterial({color:0x1a1010}),sd*.2,1.95,1.5,g);});
-      mergeStatic(g);return g;}
-    function orcModel(){const g=new T.Group(),sk=M(0x6f7a4a),ar=M(0x4a4038),dk=M(0x2a2420);   // orquito chibi de diseño propio
-      E(.85,1,1,.9,ar,0,1.3,0,g);E(.75,1.05,.95,.95,sk,0,2.55,.05,g);
-      [-1,1].forEach(sd=>{E(.18,.5,1,1.6,sk,sd*.78,2.7,0,g,0,0,sd*-.9);mesh(Sph(.13,8,6),new T.MeshBasicMaterial({color:0xff3a2a}),sd*.25,2.65,.72,g);
-        mesh(Cyl(.18,.2,.7,8),dk,sd*.38,.35,0,g);});
-      mesh(Cyl(.06,.06,2.6,6),M(0x6e4a2c),.95,1.7,.2,g);mesh(Cone(.16,.5,6),M(0xb9bcc6),.95,3.1,.2,g);mergeStatic(g);return g;}
-    function startGoal(){const G=Object.assign({},L.goal);S.goal=G;S.phase="goal";
-      const fit=(x,z)=>{const o={x,z};collide(o,1.5);return o;};
-      if(G.type==="catch"){G.list=[];for(let i=0;i<G.n;i++){const a=i/G.n*6.283,r=rnd(6,G.r*.7);const o=fit(G.c[0]+Math.cos(a)*r,G.c[1]+Math.sin(a)*r);
-          const m=makeChar(hob(i+3,{scale:1.1}));world.add(m);outline(m);const rk=noOut(mesh(Cone(.18,.9,8),M(0xff5a3a,0xff3a00,.8),0,2.4,-.5,m));rk.rotation.x=-.4;
-          G.list.push({m,x:o.x,z:o.z,yaw:rnd(0,6),t:rnd(0,2),alive:true,pop:0});}
-        G.label=()=>`${G.noun} atrapados ${G.n-G.list.filter(a=>a.alive).length}/${G.n}`;}
-      if(G.type==="escape"){G.list=[];for(let i=0;i<G.n;i++){const o=fit(G.c[0]+rnd(-12,12),G.c[1]+rnd(-12,12));const m=dogModel();world.add(m);outline(m);G.list.push({m,x:o.x,z:o.z,yaw:0,t:0,cool:0});}}
-      if(G.type==="race"){G.i=0;G.time=G.limit;G.rings=G.pts.map(([x,z],k)=>{const o=fit(x,z);const g=new T.Group();g.position.set(o.x,W.H(o.x,o.z),o.z);world.add(g);
-          const ring=mesh(Tor(3,.38,10,32),M(0xffd24a,0xffb000,.9),0,3.6,0,g);noOut(mesh(Cyl(.5,.5,30,8,1,true),new T.MeshBasicMaterial({color:0xfff0a0,transparent:true,opacity:.16,depthWrite:false,side:T.DoubleSide}),0,15,0,g));
-          g.visible=k===0;return {g,ring,x:o.x,z:o.z};});
-        G.label=()=>`${G.noun} ${G.i}/${G.pts.length} · ⏱ ${Math.max(0,Math.ceil(G.time))} s`;}
-      if(G.type==="defend"){G.killed=0;G.spawned=0;G.list=[];G.t=1.5;const [x,z]=G.spot;const fl=new T.Group();fl.position.set(x,W.H(x,z),z);world.add(fl);
-          mesh(Cyl(.12,.12,5,8),M(0x6e4a2c),0,2.5,0,fl);const fg=mesh(Box(1.8,1.1,.08),M(G.flag||0x2f8a3a),.95,4.3,0,fl);G.flagM=fg;
-          G.label=()=>`${G.noun} ${G.killed}/${G.n} · saltales encima o atacá`;}
-      if(G.type==="deliver"){if(typeof G.tasks==="function")G.tasks=G.tasks(W);G.tasks=G.tasks.map(t=>{const a=fit(t.from[0],t.from[1]),b2=fit(t.to[0],t.to[1]);return Object.assign({},t,{from:[a.x,a.z],to:[b2.x,b2.z]});});G.models=[];
-          if(G.guests)G.tasks.forEach((t,k)=>{const m=makeChar(G.guestLook(k));m.position.set(t.to[0],W.H(t.to[0],t.to[1]),t.to[1]);m.rotation.y=Math.atan2(S.x-t.to[0],S.z-t.to[1]);world.add(m);outline(m);G.models.push(m);});
-          if(G.people)G.tasks.forEach((t,k)=>{const m=makeChar(G.personLook(k));m.position.set(t.from[0],W.H(t.from[0],t.from[1]),t.from[1]);world.add(m);outline(m);t.m=m;});
-          G.i=0;G.carry=false;G.mk=new T.Group();world.add(G.mk);mesh(Cone(.9,1.6,4),M(0xffd24a,0xffb000,1),0,0,0,G.mk).rotation.x=Math.PI;
-          G.load=new T.Group();G.load.position.y=4.3;player.add(G.load);mesh(Sph(.55,12,10),M(G.color||0xd9a05a),0,0,0,G.load).scale.y=.7;G.load.visible=false;
-          G.label=()=>`${G.noun} ${G.i}/${G.tasks.length} · ${G.carry?G.toName:G.fromName}`;}
-      if(G.intro)setTimeout(()=>say(G.intro[0],G.intro[1],null),900);hud();}
-    function finishGoal(){const G=S.goal;if(!G||G.done)return;G.done=true;
-      (G.list||[]).forEach(a=>world.remove(a.m));(G.rings||[]).forEach(r=>world.remove(r.g));if(G.mk)world.remove(G.mk);if(G.load){player.remove(G.load);}
-      msg(G.win||"¡Misión cumplida!",2600,true);beep(523,.2,"triangle",.07);setTimeout(()=>beep(784,.3,"triangle",.07),160);
-      if(G.party)for(let k=0;k<8;k++)setTimeout(()=>{const x=S.x+rnd(-14,14),z=S.z+rnd(-14,14);burst(x,W.H(x,z)+rnd(10,18),z,[0xff5a8a,0xffd24a,0x6fd3ff,0x9aff6a][k%4],30);beep(400+k*90,.12,"triangle",.04);},k*380);
-      if(G.winLine)setTimeout(()=>say(G.winLine[0],G.winLine[1],null),1200);
-      const o={x:S.x+Math.sin(S.yaw)*7,z:S.z+Math.cos(S.yaw)*7};collide(o,2);placeStar(o.x,o.z);S.phase="done";hud();}
-    function updateGoal(dt){const G=S.goal;if(!G||G.done||S.inside)return;
-      if(G.type==="catch"){for(const a of G.list){if(!a.alive){if(a.pop>0){a.pop-=dt;a.m.scale.setScalar(Math.max(.01,a.pop/.4));if(a.pop<=0)world.remove(a.m);}continue;}
-          const dx=a.x-S.x,dz=a.z-S.z,d=Math.hypot(dx,dz)||1e-3;a.t-=dt;let vx=0,vz=0;
-          if(d<1.9){a.alive=false;a.pop=.4;burst(a.x,W.H(a.x,a.z)+2,a.z,0xffd24a,20);beep(990,.1,"square",.05,1.5);msg(G.caught[(G.n-G.list.filter(q=>q.alive).length-1)%G.caught.length],1300);hud();
-            if(G.list.every(q=>!q.alive))finishGoal();continue;}
-          if(d<17){vx=dx/d;vz=dz/d;const cx=a.x-G.c[0],cz=a.z-G.c[1],cd=Math.hypot(cx,cz)||1;if(cd>G.r){vx-=cx/cd*1.3;vz-=cz/cd*1.3;}const l=Math.hypot(vx,vz)||1;vx/=l;vz/=l;
-            const sp=G.spd*(d<6?1.05:.9);a.x+=vx*sp*dt;a.z+=vz*sp*dt;}
-          else{if(a.t<0){a.t=rnd(1,2.5);a.yaw=rnd(0,6.283);}vx=Math.sin(a.yaw)*.35;vz=Math.cos(a.yaw)*.35;a.x+=vx*3*dt;a.z+=vz*3*dt;
-            const cx=a.x-G.c[0],cz=a.z-G.c[1],cd=Math.hypot(cx,cz)||1;if(cd>G.r){a.x-=cx/cd*3*dt;a.z-=cz/cd*3*dt;}
-            if(Math.random()<dt*.25)burst(a.x,W.H(a.x,a.z)+rnd(9,14),a.z,[0xff5a8a,0xffd24a,0x6fd3ff][Math.floor(rnd(0,3))],12);}
-          collide(a,.7);if(Math.hypot(vx,vz)>.01)a.m.rotation.y=Math.atan2(vx,vz);a.m.position.set(a.x,W.H(a.x,a.z)+Math.abs(Math.sin(performance.now()/90+a.t))*(d<17?.35:.1),a.z);}}
-      if(G.type==="escape"){for(const a of G.list){const dx=S.x-a.x,dz=S.z-a.z,d=Math.hypot(dx,dz)||1e-3;a.cool-=dt;
-          if(d<40&&a.cool<=0){const sp=G.spd;a.x+=dx/d*sp*dt;a.z+=dz/d*sp*dt;a.m.rotation.y=Math.atan2(dx,dz);}
-          collide(a,.9);a.m.position.set(a.x,W.H(a.x,a.z)+Math.abs(Math.sin(performance.now()/80+a.x))*.25,a.z);
-          if(d<1.8&&a.cool<=0&&S.inv<=0){hurt(a.x,a.z);a.cool=1.6;beep(300,.15,"square",.05,.6);msg(G.bite||"¡Guau! ¡Te mordió el tobillo!",1200);}}}
-      if(G.type==="race"){G.time-=dt;const r=G.rings[G.i];r.ring.rotation.y+=dt*1.5;
-          if(Math.hypot(r.x-S.x,r.z-S.z)<3.4){r.g.visible=false;G.i++;G.time+=G.bonus||0;burst(r.x,W.H(r.x,r.z)+3.6,r.z,0xffd24a,22);beep(660+G.i*60,.12,"triangle",.05);
-            if(G.i>=G.rings.length){finishGoal();return;}G.rings[G.i].g.visible=true;msg(`${G.noun} ${G.i}/${G.rings.length}`,900);}
-          if(G.time<=0){G.done=true;card(L.kick,G.lose||"Se acabó el tiempo","Probá de nuevo: corré con Shift y seguí el punto dorado del minimapa.","Reintentar",()=>build(lvl));return;}
-          if(Math.floor(G.time*2)!==G.lastT){G.lastT=Math.floor(G.time*2);hud();}}
-      if(G.type==="defend"){G.t-=dt;if(G.spawned<G.n&&G.t<=0){G.t=G.every||2.4;G.spawned++;const a=rnd(0,6.283),r=G.from||70;const o={x:G.spot[0]+Math.cos(a)*r,z:G.spot[1]+Math.sin(a)*r};collide(o,1);
-            const m=orcModel();world.add(m);outline(m);G.list.push({m,x:o.x,z:o.z,alive:true});}
-          G.flagM.rotation.y=Math.sin(performance.now()/300)*.3;
-          for(const a of G.list){if(!a.alive)continue;const dx=G.spot[0]-a.x,dz=G.spot[1]-a.z,d=Math.hypot(dx,dz)||1e-3;const sp=G.spd||4.5;a.x+=dx/d*sp*dt;a.z+=dz/d*sp*dt;collide(a,.8);
-            const y=W.H(a.x,a.z);a.m.position.set(a.x,y+Math.abs(Math.sin(performance.now()/110+a.x))*.2,a.z);a.m.rotation.y=Math.atan2(dx,dz);
-            const pd=Math.hypot(S.x-a.x,S.z-a.z);const swing=(S.attackT||0)>0&&pd<3.6;
-            if((pd<2.2&&S.vy<0&&S.y-y>1)||swing){a.alive=false;world.remove(a.m);G.killed++;burst(a.x,y+1.5,a.z,0xff5a3a,18);beep(700,.1,"square",.05,.4);if(!swing){S.vy=14;S.ground=false;}hud();
-              if(G.killed>=G.n){finishGoal();return;}continue;}
-            if(pd<1.6&&S.inv<=0)hurt(a.x,a.z);
-            if(d<2.5){a.alive=false;world.remove(a.m);G.killed++;hurt(null,null);msg(G.breach||"¡Uno llegó a la bandera!",1300);hud();if(G.killed>=G.n){finishGoal();return;}}}}
-      if(G.type==="deliver"){const T2=G.tasks[G.i],tgt=G.carry?T2.to:T2.from;G.mk.position.set(tgt[0],W.H(tgt[0],tgt[1])+5+Math.sin(performance.now()/200)*.4,tgt[1]);G.mk.rotation.y+=dt*2;
-          if(Math.hypot(tgt[0]-S.x,tgt[1]-S.z)<3){if(!G.carry){G.carry=true;G.load.visible=!T2.m;if(T2.m){G.load.visible=true;G.load.children.forEach(c=>c.visible=false);G.load.add(T2.m);T2.m.position.set(0,-.6,0);T2.m.rotation.set(0,0,0);T2.m.scale.setScalar(.5);}beep(660,.1,"triangle",.05);msg(T2.pick||"¡Lo tenés! Llevalo",1200);}
-            else{G.carry=false;G.load.visible=false;if(T2.m){world.add(T2.m);const ox=tgt[0]+rnd(-3,3),oz=tgt[1]+rnd(-3,3);T2.m.scale.setScalar(1);T2.m.position.set(ox,W.H(ox,oz),oz);G.load.children.forEach(c=>c.visible=true);}G.i++;burst(tgt[0],W.H(tgt[0],tgt[1])+2,tgt[1],0xffd24a,20);beep(880,.12,"triangle",.05);msg(T2.give||"¡Entregado!",1300);if(G.i>=G.tasks.length){finishGoal();return;}}hud();}}}
     function spawnBoss(){
       const make=BOSS[L.boss]();const g=new T.Group();g.add(make.g);world.add(g);
       const [bx,bz]=L.bossStart;
@@ -2613,7 +2474,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         msg("Jefe final: el Ojo de Sauron",2800,true);
       } else {msg(`¡Apareció ${L.bossName}!`,2400,true);beep(160,.5,"sawtooth",.06,.5);}
       if(L.bossLine)setTimeout(()=>say(L.bossLine[0],L.bossLine[1],null),300);const later=L.bossLine?3600:0;
-      if(L.boss==="demon"){spawnRunes();setTimeout(()=>{say("Gandalf","¡Es un dragón de fuego! No podés saltarle encima: activá mis 3 runas azules (E) y esquivá su fuego.",null);hud();},1500+later);}
+      if(L.boss==="demon"){spawnRunes();setTimeout(()=>{say("Gandalf","¡Es un Balrog! No podés saltarle encima: activá mis 3 runas azules (E) y esquivá su fuego.",null);hud();},1500+later);}
       if(L.boss!=="demon"&&!L.final)setTimeout(()=>say("Gandalf",PROG.sword?"¡Hacé clic para atacar con Herugrim! También podés saltarle encima cuando se canse.":"Esquivalo hasta que se canse. Cuando aparezca la flecha dorada, ¡saltale encima!",null),1500+later);
       if(L.base===2&&PROG.riders){S.boss.hp=2;msg("¡Los Rohirrim ya debilitaron al capitán!",2000);}
       outline(g);applyQuality();
@@ -2627,29 +2488,12 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       hud();
       if(S.hearts<=0)card(L.kick,"Te quedaste sin corazones","El camino es largo, pero no termina acá. Probá de nuevo este nivel.","Reintentar",()=>build(lvl));
     }
-    /* ---------- Ingresos (CrazyGames): 2 caminos gratis, el resto se desbloquea mirando un anuncio con premio ----------
-       Fuera de CrazyGames no hay anuncios: se desbloquea igual (modo prueba) para poder probar el juego. */
-    const CG={sdk:null};
-    (function(){const h=location.hostname+" "+document.referrer;if(!/crazygames/i.test(h))return;const sc=document.createElement("script");sc.src="https://sdk.crazygames.com/crazygames-sdk-v3.js";
-      sc.onload=async()=>{try{await window.CrazyGames.SDK.init();CG.sdk=window.CrazyGames.SDK;}catch(e){CG.sdk=null;}};document.head.appendChild(sc);})();
-    const UNL=(()=>{try{return JSON.parse(localStorage.getItem("tm_caminos"))||{free:[],paid:[]};}catch(e){return {free:[],paid:[]};}})();
-    const saveUnl=()=>{try{localStorage.setItem("tm_caminos",JSON.stringify(UNL));}catch(e){}};
-    const pathOpen=p=>!!p&&(UNL.free.includes(p.id)||UNL.paid.includes(p.id)||UNL.free.length<2);
-    function claimPath(p){if(!UNL.free.includes(p.id)&&!UNL.paid.includes(p.id)&&UNL.free.length<2){UNL.free.push(p.id);saveUnl();}}
-    function adBreak(kind,ok,fail){if(CG.sdk){try{CG.sdk.game.gameplayStop();}catch(e){}
-        CG.sdk.ad.requestAd(kind,{adStarted:()=>{},adFinished:()=>{try{CG.sdk.game.gameplayStart();}catch(e){}ok&&ok();},adError:()=>{try{CG.sdk.game.gameplayStart();}catch(e){}(fail||ok)&&(fail||ok)();}});}
-      else (kind==="rewarded"?(ok&&ok()):(ok&&ok()));}
-    function showLock(p,after){$("gCustom").hidden=true;
-      card("Camino bloqueado",p.name,"Ya elegiste tus 2 caminos gratis. Mirá un anuncio corto para desbloquear «"+p.name+"» para siempre.","▶ Ver anuncio y desbloquear",()=>{
-        adBreak("rewarded",()=>{UNL.paid.push(p.id);saveUnl();msg("¡Camino desbloqueado!",1800,true);if(!CG.sdk)msg("(modo prueba: los anuncios aparecen cuando el juego está en CrazyGames)",2600);after&&after();},
-          ()=>{msg("El anuncio no se pudo ver. Probá de nuevo en un rato.",2200);$("gCustom").hidden=false;});},
-        "Elegir otro camino",()=>{$("gCard").hidden=true;$("gCustom").hidden=false;});}
-    function winLevel(){setTimeout(()=>{try{saveGame();}catch(e){}},0);
-      if(lvl>=CAMP.length-1){PROG.sword=false;delete PROG.found["t:sword"];if(swordG){swordG.parent&&swordG.parent.remove(swordG);swordG=null;}beep(523,.2,"triangle",.07);setTimeout(()=>beep(659,.2,"triangle",.07),180);setTimeout(()=>beep(784,.5,"triangle",.07),360);
+    function winLevel(){
+      if(lvl>=CAMP.length-1){beep(523,.2,"triangle",.07);setTimeout(()=>beep(659,.2,"triangle",.07),180);setTimeout(()=>beep(784,.5,"triangle",.07),360);
         card("Fin del camino · "+PATH.name,PATH.ending[0],PATH.ending[1]+" ¡Completaste este camino!","Volver a jugar",()=>build(0),"Elegir otro personaje",()=>{$("gCard").hidden=true;openCustomizer(()=>startIntro());});return;}
       if(false){beep(523,.2,"triangle",.07);setTimeout(()=>beep(659,.2,"triangle",.07),180);setTimeout(()=>beep(784,.5,"triangle",.07),360);
         card("Fin del viaje","El Anillo cayó al fuego","La Torre Oscura se derrumbó y Mordor fue vencido. Los hobbits vuelven a casa y la Comarca vuelve a estar en paz. Ganaste el juego.","Volver a jugar",()=>build(0),"Ver el mapa",()=>{closeGame();document.getElementById("mapa").scrollIntoView();});return;}
-      const n=CAMP[lvl+1];card(n.kick,n.name,n.text,"Viajar al siguiente mundo",()=>{paused=true;adBreak("midgame",()=>{paused=false;build(lvl+1);});});
+      const n=CAMP[lvl+1];card(n.kick,n.name,n.text,"Viajar al siguiente mundo",()=>build(lvl+1));
     }
 
     /* ---------- Habitantes del mapa ---------- */
@@ -2683,9 +2527,9 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         lines:["Conozco cada piedra de este paso. Seguí las luces.","Arriba, en la oscuridad, teje alguien muy grande… no hagas ruido.","Cinco destellos y vas a ver el camino."]}];
     LEVELS[4].npcs=[{name:"Tomillo, el jardinero",look:hob(7,{hairStyle:"mop",hair:0x6a4a2a,vest:0x4a7a3a,scarf:0xe0b040,scale:1.2,backpack:0x7a5a3a}),home:[6,26],roam:5,
         lines:["¿Se acuerda de la Comarca? Pronto vuelven a florecer los manzanos.","Cuando volvamos a casa le hago un guiso con papas, se lo prometo.","¡Mire! La montaña de fuego está ahí nomás."]}];
-    function makeNPC(n,parent){const m=n.model?n.model():makeChar(n.look);parent.add(m);const N=Object.assign({li:0,m,x:n.home[0],z:n.home[1],yaw:Math.random()*6.28,wait:Math.random()*3,phase:0,spd:2.2+Math.random()*1.4,roam:n.roam||10,lx:0,lz:0,st:0},n);
+    function makeNPC(n,parent){const m=makeChar(n.look);parent.add(m);const N=Object.assign({li:0,m,x:n.home[0],z:n.home[1],yaw:Math.random()*6.28,wait:Math.random()*3,phase:0,spd:2.2+Math.random()*1.4,roam:n.roam||10,lx:0,lz:0,st:0},n);
       N.tx=N.x;N.tz=N.z;collide(N,.5);N.y=W.H(N.x,N.z);m.position.set(N.x,N.y,N.z);return N;}
-    function spawnNPCs(){S.npcs=[];const me=(PATH.who||[]).map(w=>w.toLowerCase());(L.npcs||[]).forEach(n=>{if(PATH.who&&PATH.who.length===1&&me.includes(n.name.split(/[ ,]/)[0].toLowerCase()))return;S.npcs.push(makeNPC(n,world));});
+    function spawnNPCs(){S.npcs=[];(L.npcs||[]).forEach(n=>S.npcs.push(makeNPC(n,world)));
       // vecinos que pasean entre las puertas
       if(L.base===0){const hs=W.enter.filter(E=>E.kind==="hobbit"&&!E.big);for(let i=0;i<9;i++){const E=hs[(i*5)%hs.length];if(!E)break;
         const Gn=GENERIC[i%GENERIC.length];S.npcs.push(makeNPC({name:Gn[0],look:(Gn[1]?fem:hob)(i+7,Gn[2]||{}),home:[E.x+Math.sin(E.a)*3,E.z+Math.cos(E.a)*3],roam:22,lines:CHAT[i%CHAT.length]},world));}}}
@@ -2696,7 +2540,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     function updateNPCs(dt){
       const list=S.inside?S.inNpcs:S.npcs;
       for(const N of list){let moving=false;const dPl=Math.hypot(S.x-N.x,S.z-N.z);
-        const far=quality<1?70:quality<2?90:110;N.m.visible=dPl<far;if(dPl>far&&!S.inside){N.wait=Math.max(N.wait,.5);continue;}
+        const far=quality<1?75:115;N.m.visible=dPl<far;if(dPl>far&&!S.inside){N.wait=Math.max(N.wait,.5);continue;}
         {const hv=dPl<45||S.inside;if(!N.hulls){N.hulls=[];N.m.traverse(h=>{if(h.userData.hull)N.hulls.push(h);});}N.hulls.forEach(h=>{if(h.visible!==hv)h.visible=hv;});}
         if((S.talk&&S.talk.N===N)||(N.still&&dPl<9)){N.yaw+=wrapA(Math.atan2(S.x-N.x,S.z-N.z)-N.yaw)*Math.min(1,dt*6);}
         else if(!N.still){
@@ -2720,7 +2564,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       else{const X=W.exit,d=Math.hypot(X.x-S.x,X.z-S.z);if(d<2.6){bd=d;best={type:"exit",label:"Salir"};}
         if(W.cake&&!S.eaten[W.key]){const d2=Math.hypot(W.cake.x-S.x,W.cake.z-S.z);if(d2<3.3&&d2<bd){bd=d2;best={type:"cake",label:S.hearts<PROG.maxHearts?"Comer torta (+1 ♥)":"Comer torta"};}}}
       if(S.inside&&W.ringSpot&&S.phase==="volcano"){const d=Math.hypot(W.ringSpot.x-S.x,W.ringSpot.z-S.z);if(d<3.8&&d<bd){bd=d;best={type:"ring",label:"Arrojar el Anillo al fuego"};}}
-      if(S.inside&&W.treasure&&(W.treasure.key==="sword"||!PROG.found["t:"+W.treasure.key])&&(!W.treasure.cond||W.treasure.cond())){const d=Math.hypot(W.treasure.x-S.x,W.treasure.z-S.z);if(d<3.2&&d<bd){bd=d;best={type:"treasure",label:W.treasure.label};}}
+      if(S.inside&&W.treasure&&!PROG.found["t:"+W.treasure.key]&&(!W.treasure.cond||W.treasure.cond())){const d=Math.hypot(W.treasure.x-S.x,W.treasure.z-S.z);if(d<3.2&&d<bd){bd=d;best={type:"treasure",label:W.treasure.label};}}
       if(!S.inside){for(const r of S.runes||[])if(!r.used&&S.boss&&S.boss.alive){const d=Math.hypot(r.x-S.x,r.z-S.z);if(d<3.6&&d<bd){bd=d;best={type:"rune",r,label:"Activar runa de Gandalf"};}}
         for(const b of S.beacons||[])if(!b.lit&&!PROG.riders){const d=Math.hypot(b.x-S.x,b.z-S.z);if(d<4.2&&d<bd){bd=d;best={type:"beacon",b,label:"Encender almenara"};}}}
       for(const N of (S.inside?S.inNpcs:S.npcs)){const d=Math.hypot(N.x-S.x,N.z-S.z);if(d<3.2&&d<bd){bd=d;best={type:"talk",N,label:(S.talk&&S.talk.N===N?"Seguir hablando con ":"Hablar con ")+N.name};}}
@@ -2848,15 +2692,6 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     };
     /* ---------- Progreso entre mundos: recompensas de secretos y puzzles ---------- */
     const PROG={maxHearts:3,mithril:false,phial:false,riders:false,riddles:false,found:{}};
-    // partida guardada: progreso, personaje, camino y mundo (en el navegador; en CrazyGames también en su nube)
-    const SAVE_KEY="tm_partida";let SAVED=null;
-    try{SAVED=JSON.parse(localStorage.getItem(SAVE_KEY));}catch(e){SAVED=null;}
-    if(SAVED&&SAVED.prog){Object.assign(PROG,SAVED.prog);if(PROG.found)delete PROG.found["t:sword"];PROG.sword=false;}   // la espada no se guarda: se gana en cada camino
-    function saveGame(){const data={prog:PROG,look:typeof LOOK!=="undefined"?LOOK:null,path:PATH&&PATH.id,lvl:typeof lvl==="number"?lvl:0,t:Date.now()};
-      const txt=JSON.stringify(data);try{localStorage.setItem(SAVE_KEY,txt);}catch(e){}
-      try{if(CG.sdk&&CG.sdk.data)CG.sdk.data.setItem(SAVE_KEY,txt);}catch(e){}}
-    setInterval(()=>{try{if(W&&!S.inside)saveGame();}catch(e){}},5000);
-    addEventListener("pagehide",()=>{try{saveGame();}catch(e){}});
     /* ---------- Elecciones (acertijos): tarjeta con varias respuestas ---------- */
     function choice(kick,title,text,opts,cb){paused=true;pausedByMenu=false;clearInput();const Cd=$("gCard");Cd.hidden=false;$("gcKick").textContent=kick;$("gcTitle").textContent=title;$("gcText").textContent=text;
       $("gcKeys").hidden=true;$("gcBtn").hidden=true;$("gcBtn2").hidden=true;const box=Cd.querySelector(".gbtns");Cd.querySelectorAll("[data-tmp]").forEach(x=>x.remove());
@@ -2871,16 +2706,16 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       {q:"«De día me sigue, de noche se esconde; si la pisás, no se queja.»",o:["La sombra","Una hormiga","El pasto"],a:0},
       {q:"«Sube cuando llueve y se guarda cuando sale el sol.»",o:["Un paraguas","Una nube","Un pájaro"],a:0}];
     function gollumRiddles(N){
-      if(PROG.riddles){say(N.name,"¡Nos ganó, nos ganó! Ya no jugamos más, mi brillante… ¡ji ji!",N);return;}
+      if(PROG.riddles){say(N.name,"¡Nos ganó, nos ganó! Ya no jugamos más, mi tesoro… ¡gollum!",N);return;}
       if(N.riddling)return;N.riddling=true;riddleN=N;
       const pool=RIDDLES.slice().sort(()=>Math.random()-.5).slice(0,3);let k=0;
       const ask=()=>{const R=pool[k];choice("Acertijo "+(k+1)+" de 3","Gollum pregunta…",R.q,R.o,i=>{
         if(i===R.a){k++;beep(880,.1,"triangle",.05);
           if(k===3){PROG.riddles=true;PROG.maxHearts=Math.min(5,PROG.maxHearts+1);S.hearts=PROG.maxHearts;hud();
             N.riddling=false;say(N.name,"¡Ssss! Nos ganó… Tomá, tomá esta lembas élfica y andate de nuestra cueva.",N);msg("¡Corazón extra! Ahora tenés "+PROG.maxHearts+" ♥",2400,true);}
-          else{say(N.name,"Mmm… bien, bien. Otro más, mi brillante.",N);setTimeout(ask,900);}}
-        else{N.riddling=false;say(N.name,"¡Nooo! ¡Mal, mal! ¡Nos lo comemos! ¡Ji ji ji! (volvé a hablarle para intentar de nuevo)",N);hurt(null,null);}});};
-      say(N.name,"¿Juguemos a los acertijos, mi brillante? Si pierde, nos lo comemos. Si gana… le damos un regalo.",N);setTimeout(ask,1500);}
+          else{say(N.name,"Mmm… bien, bien. Otro más, mi tesoro.",N);setTimeout(ask,900);}}
+        else{N.riddling=false;say(N.name,"¡Nooo! ¡Mal, mal! ¡Nos lo comemos! ¡Gollum, gollum! (volvé a hablarle para intentar de nuevo)",N);hurt(null,null);}});};
+      say(N.name,"¿Juguemos a los acertijos, mi tesoro? Si pierde, nos lo comemos. Si gana… le damos un regalo.",N);setTimeout(ask,1500);}
 
     /* ---------- Lugares secretos: cuevas que NO aparecen en el minimapa ---------- */
     function caveMouth(x,z,name,kind){const a=Math.atan2(-x,-z),y=W.H(x,z),g=new T.Group();g.position.set(x,y-.5,z);g.rotation.y=a;world.add(g);
@@ -2901,8 +2736,8 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       const bolt=noOut(mesh(Cyl(.45,.45,80,10),new T.MeshBasicMaterial({color:0xeaf6ff}),B.x,bossY(B)+40,B.z,world));setTimeout(()=>world.remove(bolt),380);
       impact(1.2,.12);S.shake=.8;burst(B.x,bossY(B)+5,B.z,0xbfe6ff,26);beep(1200,.08,"sawtooth",.06,.2);setTimeout(()=>beep(90,.5,"sawtooth",.08,.4),80);
       B.hp--;B.stun=2.2;hud();
-      if(B.hp<=0){B.alive=false;if(L.boss==="demon"&&W.bridge)startBridgeFall(B);else{say("Gandalf","¡Volvé a las sombras! …Bien hecho, Frodo.",null);defeat(B);}}
-      else{msg(B.hp===1?"¡Una runa más!":"¡Rayo de Gandalf!",1300,true);say("Gandalf",B.hp===2?"¡Eso lo frenó! Buscá las otras runas.":"¡Una más y queda atontado!",null);}}
+      if(B.hp<=0){B.alive=false;say("Gandalf","¡Volvé a las sombras! …Bien hecho, Frodo.",null);defeat(B);}
+      else{msg(B.hp===1?"¡Una runa más!":"¡Rayo de Gandalf!",1300,true);say("Gandalf",B.hp===2?"¡No podés pasar! Buscá las otras runas.":"¡Una más y el Balrog cae!",null);}}
     /* ---------- Almenaras de Rohan (puzzle de orden) ---------- */
     function spawnBeacons(){S.beacons=[[-140,158],[172,-30],[-30,-185]].map(([x,z])=>{const y=W.H(x,z),g=new T.Group();g.position.set(x,y,z);world.add(g);
       mesh(Cyl(2,2.3,1,22),M(0x8a8478),0,.5,0,g);for(let i=0;i<4;i++){const l=mesh(Cyl(.25,.25,3.4,10),M(0x6e4a2c),0,1.4+i*.5,0,g);l.rotation.set(Math.PI/2,i*Math.PI/4,0);}
@@ -2931,20 +2766,18 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       W2.round=Rr-1.6;W2.ceil=hh+1.4;W2.exit={x:0,z:Rr-1.6};W2.spawn=[0,Rr-3];return W2;}
     Object.assign(ROOMS,{
       doom(g,E){// Sammath Naur: el piso termina en una grieta; muy abajo burbujea un charquito de lava
-        const hx=0,hz=-3.5,hr=5.5;
-        const W2=caveRoom(g,E,{r:16,h:10,wall:0x3a1a12,floor:0x2a1410,rock:0x4a2a20,light:[0,-4,-3.5],lightI:4,bg:0x1a0604,fog:0x3a1208,hole:[hx,hz,hr]});
+        const hx=0,hz=-3.5,hr=4.6;
+        const W2=caveRoom(g,E,{r:11,h:9,wall:0x3a1a12,floor:0x2a1410,rock:0x4a2a20,light:[0,-4,-3.5],lightI:4,bg:0x1a0604,fog:0x3a1208,hole:[hx,hz,hr]});
         noOut(mesh(Cyl(hr,hr*.7,16,40,6,true),toon({color:0x3a1810,side:T.BackSide},false),hx,-8,hz,g));                 // paredes de la caída
         for(let i=0;i<12;i++){const a=i/12*6.283;mesh(Blob(.45+Math.random()*.3),M(0x4a2418),hx+Math.cos(a)*(hr+.3),0,hz+Math.sin(a)*(hr+.3),g);}  // borde de rocas
         const lava=noOut(mesh(Circ(hr*.65,36),new T.MeshBasicMaterial({color:0xff5a1a}),hx,-15.8,hz,g));lava.rotation.x=-Math.PI/2;   // charquito de lava al fondo
         W2.fire=[0,1,2,3,4,5].map(i=>noOut(mesh(Blob(.7),new T.MeshBasicMaterial({color:[0xffb040,0xff7a1a,0xffe080][i%3]}),hx+Math.cos(i*1.1)*1.8,-15.4,hz+Math.sin(i*1.1)*1.6,g)));
         noOut(mesh(Cyl(hr*.95,hr*.6,15,30,1,true),new T.MeshBasicMaterial({color:0xff6a1a,transparent:true,opacity:.18,side:T.DoubleSide,depthWrite:false}),hx,-8.5,hz,g)); // resplandor que sube
-        mesh(Box(2.6,.35,2),M(0x3a2a24),0,.18,3.3,g);
-        // puente de piedra angosto que cruza la grieta (para perseguir al ladrón)
-        mesh(Box(hr*2+3,.5,2.4),M(0x4a2a20),hx,-.25,hz,g);[-1,1].forEach(sd=>{for(let k=-5;k<=5;k++)mesh(Cyl(.12,.14,.8,6),M(0x5a3a2a),hx+k*1.1,.4,hz+sd*1.1,g);});
-        W2.pit={x:hx,z:hz,r:hr+.6,bw:1};W2.ringSpot={x:0,z:3.4};W2.volcano={x:hx,z:hz};W2.ringTarget=new V3(hx,-15.4,hz);W2.spawn=[0,11];
+        mesh(Box(2.6,.35,2),M(0x3a2a24),0,.18,1.9,g);
+        W2.solid.push([hx,hz,hr+.6]);W2.ringSpot={x:0,z:1.6};W2.volcano={x:hx,z:hz};W2.ringTarget=new V3(hx,-15.4,hz);W2.spawn=[0,7.5];
         setTimeout(()=>say("Sam","¡Ahí está la grieta, señor Frodo! Acercate al borde y tirá el Anillo.",null),900);return W2;},
-      gollum(g,E){const W2=caveRoom(g,E,{light:[0,3,-2],lightI:1.3,npcs:[{name:"Grisp, el ladrón de las cuevas",still:true,home:[1.8,-2.4],model:()=>thiefModel(),
-          onTalk:N=>gollumRiddles(N),lines:["¡Lo brillante me encanta!"]}]});
+      gollum(g,E){const W2=caveRoom(g,E,{light:[0,3,-2],lightI:1.3,npcs:[{name:"Gollum",still:true,home:[1.8,-2.4],
+          look:{skin:0xd9d2b4,hair:0xcfc8a8,hairStyle:"strands",shirt:0xd9d2b4,vest:null,scarf:null,pants:0x5a5040,eye:0x9fd8ff,scale:1.05},onTalk:N=>gollumRiddles(N),lines:["¡Mi tesoro!"]}]});
         const pool=noOut(mesh(Circ(3.4,40),new T.MeshBasicMaterial({color:0x2a6a9a}),-1.5,.04,-1.5,g));pool.rotation.x=-Math.PI/2;W2.solid.push([-1.5,-1.5,3.2]);
         mesh(Blob(1.1),M(0x55524a),-1.5,.4,-1.5,g);
         for(let i=0;i<9;i++){const a=Math.random()*6.283,r=4+Math.random()*3;mesh(Cyl(.06,.08,.5,6),M(0xe9e2d0),Math.sin(a)*r,.25,Math.cos(a)*r,g);mesh(Sph(.22,10,6,0,Math.PI*2,0,Math.PI/2),M(0x7fe0c0,0x3fbf9f,.9),Math.sin(a)*r,.5,Math.cos(a)*r,g);}
@@ -2973,7 +2806,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       trail=noOut(new T.Mesh(new T.RingGeometry(1.4,3.4,28,1,-1,2),new T.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:0,side:T.DoubleSide,depthWrite:false})));
       trail.position.set(0,(player.userData.height||3.35)*.5,.4);trail.rotation.y=Math.PI/2;player.add(trail);
       $("gAttack").hidden=false;}
-    function attack(){if(!PROG.sword||paused||S.inside||S.cut||S.fall||(S.attackT||0)>0)return;S.attackT=.4;S.hitDone=false;beep(260,.12,"triangle",.04,2.5);}
+    function attack(){if(!PROG.sword||paused||S.inside||S.cut||(S.attackT||0)>0)return;S.attackT=.4;S.hitDone=false;beep(260,.12,"triangle",.04,2.5);}
     function swordHit(){const B=S.boss;if(!B||!B.alive)return;const fx=Math.sin(S.yaw),fz=Math.cos(S.yaw);
       if(L.final){let best=null,bd=4.6;S.crystals.forEach(c=>{if(!c.alive)return;const d=Math.hypot(c.x-S.x,c.z-S.z);if(d<bd){bd=d;best=c;}});
         if(best){best.alive=false;world.remove(best.g);B.hp--;impact(1,.1);S.shake=.6;burst(best.x,W.H(best.x,best.z)+2.4,best.z,0xff5a3a,24);beep(700,.15,"square",.06,.4);hud();
@@ -2993,96 +2826,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         say(N.name,"¡Los estandartes de Rohan! Tomá a Herugrim, la espada de los reyes. Está frente al trono.",N);burst(0,1.6,-8.4,0xfff0a0,20);return;}
       say(N.name,N.lines[N.li%N.lines.length],N);N.li++;}
     /* ---------- Escena final: Frodo saca el Anillo y lo tira al Monte del Destino ---------- */
-    // escena del puente de Moria: el demonio queda atontado, Gandalf se tira de cabeza (como la zambullida), lo empuja al abismo y caen los dos
-    function startBridgeFall(B){S.prompt=null;lastPrompt="";promptEl.hidden=true;$("gAct").hidden=true;clearInput();S.vx=S.vz=S.kx=S.kz=S.vy=0;
-      S.shots.forEach(q=>world.remove(q.m));S.shots=[];closeTalk();
-      const gl=LEVELS[0].npcs.find(n=>n.name==="Gandalf");const gm=makeChar(gl?gl.look:{tall:true,robe:0x9aa0a8,hat:0x8a9098,beard:0xeeeeee,staff:true});outline(gm);
-      const hold=new T.Group();hold.add(gm);world.add(hold);hold.position.set(-1,0,6);hold.rotation.y=Math.PI;   // parado en el puente, mirando al demonio
-      Object.assign(S,{x:0,z:16,y:W.H(0,16),yaw:Math.PI,ground:true});
-      B.x=0;B.z=-6;B.g.position.set(0,0,-6);B.g.rotation.set(0,0,0);
-      const stars=new T.Group();B.g.add(stars);for(let i=0;i<5;i++){const st=noOut(mesh(Gem(.35,0),M(0xffe14a,0xffd000,1),Math.cos(i/5*6.283)*1.8,10,Math.sin(i/5*6.283)*1.8,stars));st.scale.set(1,1,.4);}
-      if(PATH.id==="gandalf")player.visible=false;   // si jugás con Gandalf, el de la escena sos vos
-      S.fall={t:0,step:0,B,gm,hold,stars,vy:0,gvy:0,bx:0,gx:.2};msg("¡El demonio quedó atontado!",2200,true);beep(300,.3,"triangle",.05,.6);}
-    function updateFall(dt){const f=S.fall;f.t+=dt;const B=f.B,bg=B.g,h=f.hold,gm=f.gm;
-      f.stars.rotation.y+=dt*3;if(f.step<2)bg.rotation.z=Math.sin(f.t*5)*.12;
-      if(f.step===0&&f.t>.5){f.step=1;f.t1=f.t;say("Gandalf","¡Dejá tranquilo a Frodo!",null);h.rotation.y=Math.atan2(1.2,-12);}
-      if(f.step===1){const e=f.t-f.t1;
-        if(e<.9){h.position.z=6-e*2.2;h.position.y=Math.abs(Math.sin(e*14))*.15;}                       // corre unos pasos
-        else{const k=Math.min(1,(e-.9)/.55);h.position.z=4-k*7.2;h.position.x=-1+k*1.2;h.position.y=Math.sin(k*Math.PI)*2.6+(1-k)*.1;
-          gm.rotation.x=k*1.25;}                                                                              // se tira de cabeza hacia adelante (zambullida)
-        if(e>=1.45){f.step=2;f.t2=f.t;S.shake=.7;impact(1,.09);beep(140,.4,"sawtooth",.07,.4);burst(0,5,-5,0xbfe6ff,24);f.stars.visible=false;}}
-      if(f.step===2){const e=f.t-f.t2;
-        f.bx=Math.min(f.bx+dt*9,9);bg.position.x=f.bx;bg.rotation.z=-Math.min(e*1.2,1.4);                 // el empujón lo saca del puente
-        if(f.bx>3){f.vy-=dt*22;bg.position.y+=f.vy*dt;bg.rotation.x+=dt*.8;}
-        h.rotation.y+=(Math.PI/2-h.rotation.y)*Math.min(1,dt*6);h.position.z+=(-5-h.position.z)*Math.min(1,dt*4);
-        f.gx=Math.min(f.gx+dt*7,6.5);h.position.x=f.gx;gm.rotation.x=1.25+Math.min(e,1)*.6;                 // Gandalf sigue de largo y cae también
-        if(f.gx>2.6){f.gvy-=dt*20;h.position.y+=f.gvy*dt;gm.rotation.z-=dt*1.4;}else h.position.y=Math.max(0,h.position.y-dt*4);
-        if(e>.5&&!f.cried){f.cried=true;say("Frodo","¡No, Gandalf!",null);}
-        if(bg.position.y<-38&&!f.splash){f.splash=true;burst(bg.position.x,-37,-6,0xff8a2b,30);S.shake=.8;beep(80,.6,"sawtooth",.07,.3);}
-        if(e>3.4){world.remove(bg);world.remove(h);S.fall=null;player.visible=true;closeTalk();msg("Gandalf cayó al abismo con el demonio…",3000,true);
-          setTimeout(()=>{if(L.boss==="demon")defeat(B,{x:0,z:32});},1800);return;}}
-      // cámara de costado, arriba del abismo, para ver la caída
-      const fallY=f.step===2?Math.max(-24,Math.min(bg.position.y,h.position.y)*.55):2;
-      const goal=f.step===2?new V3(-1.5,17,5):new V3(-10,9,10),look=f.step===2?new V3(9,fallY,-6):new V3(0,3,-4);camera.position.lerp(goal,1-Math.exp(-dt*3));camera.lookAt(look);sky.position.copy(camera.position);}
-    // escena final propia: un ladroncito de las cuevas (diseño propio) roba el Anillo al borde de la grieta, hay que atraparlo,
-    // te muerde la mano, lo empujás y cae con el Anillo; vos te resbalás y Tomillo te agarra de la mano
-    function thiefModel(){const g=new T.Group(),sk=M(0x9aa8b8),dk=M(0x5a6878),eyeW=new T.MeshBasicMaterial({color:0xfff4a0}),eyeK=new T.MeshBasicMaterial({color:0x1a1a22});
-      E(.6,1,1.1,.85,dk,0,1.35,0,g);E(.7,1.1,.95,1,sk,0,2.45,.05,g);                      // cuerpo flaquito y cabeza grande
-      [-1,1].forEach(sd=>{E(.22,2.4,.7,.4,sk,sd*.95,2.65,-.05,g,0,0,sd*.35);                 // orejas largas hacia los costados
-        mesh(Sph(.2,10,8),eyeW,sd*.28,2.55,.66,g);mesh(Sph(.1,8,6),eyeK,sd*.28,2.55,.84,g);
-        E(.16,1,2.6,1,dk,sd*.55,1.35,.1,g,0,0,sd*.25);E(.16,1,2,1,dk,sd*.28,.45,.1,g);});
-      E(.25,1.6,.4,.6,M(0x3a4a5a),0,3.3,-.1,g,.3);                                          // mechón en la cabeza
-      E(.3,1,.8,.5,M(0x6a4a3a),.45,1.2,-.5,g);                                               // bolsita
-      const hand=new T.Group();hand.position.set(.75,1.9,.45);g.add(hand);g.userData.hand=hand;return g;}
-    function startSnatch(){S.prompt=null;lastPrompt="";promptEl.hidden=true;$("gAct").hidden=true;clearInput();S.vx=S.vz=S.kx=S.kz=0;S.phase="snatch";closeTalk();
-      const g=thiefModel();interior.add(g);outline(g);const c={g,x:-6.5,z:5,th:0,bit:false};g.position.set(c.x,0,c.z);
-      S.snatch={step:0,t:0,c,vy:0};}
-    function updateSnatch(dt){const N=S.snatch,c=N.c,g=c.g,u=player.userData;N.t+=dt;const hx=0,hz=-3.5;
-      const cam=(px,py,pz,lx,ly,lz)=>{const d=Math.hypot(px,pz),m=12.5;if(d>m){px*=m/d;pz*=m/d;}py=Math.min(py,7);camera.position.lerp(new V3(px,py,pz),1-Math.exp(-dt*3));camera.lookAt(lx,ly,lz);};   // la cámara nunca sale de la cueva
-      if(N.step===0){const tx=S.x+1.3,tz=S.z+.6,dx=tx-c.x,dz=tz-c.z,d=Math.hypot(dx,dz);
-        if(d>.3){c.x+=dx/d*Math.min(d,dt*11);c.z+=dz/d*Math.min(d,dt*11);}g.position.set(c.x,Math.abs(Math.sin(N.t*16))*.3,c.z);g.rotation.y=Math.atan2(dx,dz);
-        if(N.t>.3&&!N.said){N.said=true;say("Grisp, el ladrón de las cuevas","¡Brilla, brilla! ¡Eso es mío!",null);}
-        if(N.t>1.3&&!N.grab){N.grab=true;if(u.ring){g.userData.hand.add(u.ring);u.ring.position.set(0,0,0);u.ring.scale.setScalar(1.4);}burst(c.x,2,c.z,0xffd24a,16);beep(880,.1,"square",.05,1.5);S.shake=.4;}
-        if(N.t>2.1){N.step=1;N.t1=N.t;say("Frodo","¡Devolvé el Anillo, Grisp! ¡Atrapalo!",null);msg("¡Atrapá a Grisp! Corre por el puente",2200,true);c.th=Math.atan2(S.x-hx,S.z-hz)+Math.PI;}
-        player.position.set(S.x,S.y,S.z);cam(S.x-4.5,4.4,S.z+3.2,(S.x+c.x)/2,1.6,(S.z+c.z)/2);sky.position.copy(camera.position);return true;}
-      if(N.step===1){// Grisp huye: prueba 12 direcciones y elige la que más lo aleja (puede cruzar el puente)
-        const pd=Math.hypot(S.x-c.x,S.z-c.z);const lead=N.t-N.t1<.8;const sp=lead?12:(pd<5?10.5:8.5);
-        if(!c.dirT||N.t>c.dirT){c.dirT=N.t+.25;let best=-1e9;for(let k=0;k<12;k++){const a2=k/12*6.283,tx=c.x+Math.sin(a2)*3,tz=c.z+Math.cos(a2)*3;const o={x:tx,z:tz};collide(o,.6);
-            const moved=Math.hypot(o.x-c.x,o.z-c.z),sc=Math.hypot(o.x-S.x,o.z-S.z)+moved*.6-Math.hypot(o.x,o.z)*.05;if(sc>best){best=sc;c.ang=a2;}}}
-        c.x+=Math.sin(c.ang)*sp*dt;c.z+=Math.cos(c.ang)*sp*dt;collide(c,.6);
-        g.position.set(c.x,Math.abs(Math.sin(N.t*15))*.3,c.z);g.rotation.y=c.ang;
-        if(Math.random()<dt*.5)say("Grisp",["¡No me alcanzás!","¡Mío, mío, mío!","¡Hi hi hi!"][Math.floor(Math.random()*3)],null);
-        if(pd<1.9&&!lead){N.step=2;N.t2=N.t;clearInput();S.vx=S.vz=0;S.yaw=Math.atan2(c.x-S.x,c.z-S.z);}
-        return false;}
-      if(N.step===2){const e=N.t-N.t2;
-        if(e>.15&&!c.bit){c.bit=true;burst(S.x+Math.sin(S.yaw)*.8,2,S.z+Math.cos(S.yaw)*.8,0xffffff,18);S.shake=.6;impact(.8,.08);beep(220,.2,"square",.06,.5);say("Frodo","¡Aaay! ¡Me mordió la mano!",null);}
-        if(e>.9&&!N.push){N.push=true;beep(140,.3,"sawtooth",.06,.5);burst(c.x,1.6,c.z,0xffd24a,20);say("Frodo","¡Soltalo!",null);
-          const dx=hx-c.x,dz=hz-c.z,d=Math.hypot(dx,dz)||1;N.onB=Math.abs(c.z-hz)<1.6&&Math.abs(c.x-hx)<W.pit.r;if(N.onB){N.px=0;N.pz=Math.sign(c.z-hz)||1;}else{N.px=dx/d;N.pz=dz/d;}}
-        if(N.push){const over=N.onB?Math.abs(c.z-hz)>1.6:Math.hypot(c.x-hx,c.z-hz)<W.pit.r-1.5;if(!over){c.x+=N.px*dt*9;c.z+=N.pz*dt*9;}else{N.vy-=dt*24;}const gy=Math.min(0,(g.position.y||0)+N.vy*dt);
-          g.position.set(c.x,gy,c.z);g.rotation.x+=dt*(N.vy<0?3:0);if(N.vy<0&&!N.cry){N.cry=true;say("Grisp","¡Nooo, mi brillante!",null);}
-          if(N.vy<0&&Math.random()<.5)burst(c.x,gy+2,c.z,0xffd24a,2);
-          if(gy<-14&&!N.boom){N.boom=true;g.visible=false;burst(hx,-14,hz,0xff8a2b,40);burst(hx,-12,hz,0xffd24a,24);S.shake=1.2;impact(1.2,.12);beep(70,.9,"sawtooth",.08,.3);msg("¡El Anillo se derritió en el fuego!",3200,true);}}
-        // te resbalás hacia la grieta, quedás colgando del borde con los brazos arriba y Tomillo te agarra la mano
-        const u2=player.userData,P=W.pit;
-        if(e>2.6&&!N.slip){N.slip=true;N.sx=S.x;N.sz=S.z;const dx=S.x-P.x,dz=S.z-P.z,d=Math.hypot(dx,dz)||1;N.ex=P.x+dx/d*(P.r-.4);N.ez=P.z+dz/d*(P.r-.4);N.ox=dx/d;N.oz=dz/d;
-          S.yaw=Math.atan2(N.ox,N.oz);say("Frodo","¡Me resbalo…! ¡Ayuda!",null);beep(300,.4,"sawtooth",.05,.5);}
-        if(N.slip&&!N.saved){const k=Math.min(1,(e-2.6)/.5);player.position.set(N.sx+(N.ex-N.sx)*k,-2.3*k,N.sz+(N.ez-N.sz)*k);player.rotation.y=S.yaw;
-          if(u2.arms)u2.arms.forEach((A,i)=>{A.rotation.x=-2.9*k;A.rotation.z=(i?-1:1)*.25*k;});player.position.y+=Math.sin(e*9)*.06*k;}
-        if(e>3.2&&!N.helper){const tl=LEVELS[3].npcs&&LEVELS[3].npcs[0]?LEVELS[3].npcs[0].look:hob(7);N.helper=makeChar(tl);interior.add(N.helper);outline(N.helper);
-          N.hx0=N.ex+N.ox*7;N.hz0=N.ez+N.oz*7;N.helper.position.set(N.hx0,0,N.hz0);N.helper.rotation.y=Math.atan2(-N.ox,-N.oz);say("Tomillo","¡Aguantá! ¡Ya voy!",null);}
-        if(N.helper&&!N.saved){const k=Math.min(1,(e-3.2)/.9);const hx2=N.hx0+(N.ex+N.ox*1.3-N.hx0)*k,hz2=N.hz0+(N.ez+N.oz*1.3-N.hz0)*k;
-          N.helper.position.set(hx2,Math.abs(Math.sin(e*14))*.25*(1-k)-(k>=1?.5:0),hz2);N.helper.rotation.x=k>=1?.75:0;const ha=N.helper.userData.arms;
-          if(ha&&k>=1){ha.forEach(A=>A.rotation.x=-1.4);if(!N.grabbed){N.grabbed=true;say("Tomillo","¡Agarrá mi mano! ¡No te suelto!",null);beep(520,.15,"triangle",.05);burst(N.ex+N.ox*.6,.3,N.ez+N.oz*.6,0xffffff,10);}}}
-        if(e>5.4&&!N.saved){N.saved=true;N.pull=0;}
-        if(N.saved&&N.pull<1){N.pull=Math.min(1,N.pull+dt*.8);const k=N.pull,tx=N.ex+N.ox*2.4,tz=N.ez+N.oz*2.4;
-          player.position.set(N.ex+(tx-N.ex)*k,-2.3*(1-k)+Math.sin(k*Math.PI)*.8,N.ez+(tz-N.ez)*k);if(u2.arms)u2.arms.forEach(A=>A.rotation.x=-2.9*(1-k));
-          N.helper.rotation.x=.75*(1-k);N.helper.position.y=-.5*(1-k);if(k>=1){S.x=player.position.x;S.z=player.position.z;S.y=0;if(N.helper.userData.arms)N.helper.userData.arms.forEach(A=>A.rotation.x=0);}}
-        if(e>6&&!N.end){N.end=true;say("Tomillo","Se terminó, amigo. Ahora sí… volvamos a casa.",null);}
-        if(e>8.4){S.snatch=null;S.snatchDone=true;closeTalk();player.rotation.x=0;winLevel();return true;}
-        if(N.slip){const W3=W.pit;cam(W3.x+N.ox*(W3.r-5)+N.oz*3,2.5,W3.z+N.oz*(W3.r-5)-N.ox*3,N.ex,-.8,N.ez);sky.position.copy(camera.position);return true;}
-        const fy=N.push&&!N.boom?Math.max(-12,g.position.y):-2;cam(hx+6,6,hz+11,hx,N.boom||!N.push?1:fy,hz);sky.position.copy(camera.position);return true;}
-      return false;}
-    function startRingScene(){if(L.ringScene&&!S.snatchDone&&interior){startSnatch();return;}S.prompt=null;lastPrompt="";promptEl.hidden=true;$("gAct").hidden=true;S.phase="done";S.cut={t:0,step:0};clearInput();S.vx=S.vz=S.kx=S.kz=0;const V=W.volcano;S.yaw=Math.atan2(V.x-S.x,V.z-S.z);
+    function startRingScene(){S.prompt=null;lastPrompt="";promptEl.hidden=true;$("gAct").hidden=true;S.phase="done";S.cut={t:0,step:0};clearInput();S.vx=S.vz=S.kx=S.kz=0;const V=W.volcano;S.yaw=Math.atan2(V.x-S.x,V.z-S.z);
       S.meteors.forEach(m=>{world.remove(m.m);world.remove(m.ring);});S.meteors=[];closeTalk();}
     function updateCut(dt){const c=S.cut;c.t+=dt;const u=player.userData,R=u.arms[1],L2=u.arms[0],hand=R.userData.hand,V=W.volcano,par=S.inside&&interior?interior:world;
       const ease=(a,b,k)=>a+(b-a)*Math.min(1,k);c.trail=c.trail||[];
@@ -3116,7 +2860,6 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       for(const [ox,oz,r] of W.solid){const dx=o.x-ox,dz=o.z-oz,d=Math.hypot(dx,dz);if(d<r+R&&d>1e-4){o.x=ox+dx/d*(r+R);o.z=oz+dz/d*(r+R);}}
       for(const [bx,bz,hw,hd,ry] of W.boxes){const c=Math.cos(ry),sn=Math.sin(ry),dx=o.x-bx,dz=o.z-bz;let lx=dx*c-dz*sn,lz=dx*sn+dz*c;
         if(Math.abs(lx)<hw+R&&Math.abs(lz)<hd+R){if(hw+R-Math.abs(lx)<hd+R-Math.abs(lz))lx=Math.sign(lx||1)*(hw+R);else lz=Math.sign(lz||1)*(hd+R);o.x=bx+lx*c+lz*sn;o.z=bz-lx*sn+lz*c;}}
-      if(W.pit&&!o.falling){const P=W.pit,dx=o.x-P.x,dz=o.z-P.z,d=Math.hypot(dx,dz);if(d<P.r+R&&Math.abs(dz)>P.bw-.1){if(Math.abs(dz)<P.bw+.9&&d<P.r+R-1)o.z=P.z+Math.sign(dz)*(P.bw-.1);else if(d>1e-3){o.x=P.x+dx/d*(P.r+R);o.z=P.z+dz/d*(P.r+R);}}}
       if(W.round){const d=Math.hypot(o.x,o.z);if(d>W.round){o.x*=W.round/d;o.z*=W.round/d;}}
       if(W.rect){o.x=clamp(o.x,-W.rect[0],W.rect[0]);o.z=clamp(o.z,-W.rect[1],W.rect[1]);}
       const half=L.size/2-8;o.x=clamp(o.x,-half,half);o.z=clamp(o.z,-half,half);}
@@ -3139,8 +2882,6 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       simT+=dt;const t=simT;
       readInput();
       if(S.cut){updateCut(dt);return;}
-      if(S.fall){updateFall(dt);return;}
-      if(S.snatch&&updateSnatch(dt))return;
       updateAttack(dt);
       if(S.hitStop>0){S.hitStop-=dt;updateCamera(dt);return;}
       S.camYaw+=A.lookX*dt*2.4;if(A.lookY)S.camPitch=clamp(S.camPitch+A.lookY*dt*1.6,-.15,.85);
@@ -3194,10 +2935,9 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       // lava de Mordor: ahora sí quema
       if(W.lava&&S.ground){let ld=1e9;for(const P of W.lava)ld=Math.min(ld,segDist(S.x,S.z,P));if(ld<1.6){if(S.inv<=0)msg("¡Cuidado, la lava quema!",1300);hurt(null,null);S.vy=14;S.ground=false;}}
       // objetos
-      if(S.goal)updateGoal(dt);
       S.items.forEach(it=>{if(!it.alive||S.inside)return;it.model.rotation.y+=dt*2;it.model.position.y=Math.sin(t*3+it.x)*.3+.3;
         if(Math.hypot(it.x-S.x,it.z-S.z)<2.4&&S.y-W.H(it.x,it.z)<3.2){it.alive=false;world.remove(it.g);S.got++;burst(it.x,W.H(it.x,it.z)+1.6,it.z,0xfff0a0);beep(880,.1,"square",.05,1.5);setTimeout(()=>beep(1320,.12,"square",.05),90);hud();
-          if(S.got===5){if(L.base===2&&!PROG.sword&&!L.noKing){S.phase="king";msg("¡Estandartes reunidos! Llevalos al rey",2600,true);setTimeout(()=>say("Éowyn","¡Los juntaste todos! Subí a Meduseld, el Salón Dorado: el rey Théoden quiere verte.",null),900);hud();}else if(L.goal){finishGoal();}else{msg("¡Los tenés todos!",1500,true);setTimeout(spawnBoss,1400);}}else msg(`${L.itemName}: ${S.got}/5`,1100);}});
+          if(S.got===5){if(L.base===2&&!PROG.sword&&!L.noKing){S.phase="king";msg("¡Estandartes reunidos! Llevalos al rey",2600,true);setTimeout(()=>say("Éowyn","¡Los juntaste todos! Subí a Meduseld, el Salón Dorado: el rey Théoden quiere verte.",null),900);hud();}else{msg("¡Los tenés todos!",1500,true);setTimeout(spawnBoss,1400);}}else msg(`${L.itemName}: ${S.got}/5`,1100);}});
       const B=S.boss;if(B&&B.alive&&!S.inside){if(L.final)updateFinal(dt,t,B);else updateBoss(dt,t,B);}
       if(!S.inside)S.shots=S.shots.filter(s=>{s.life-=dt;s.x+=s.vx*dt;s.z+=s.vz*dt;s.m.position.set(s.x,W.H(s.x,s.z)+1.6,s.z);s.m.rotation.x+=dt*5;
         if(Math.hypot(s.x-S.x,s.z-S.z)<1.4&&S.y-groundAt(S.x,S.z)<2){hurt(s.x,s.z);s.life=0;}
@@ -3242,14 +2982,11 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     function burst(x,y,z,col,n=14){const par=S.inside&&interior?interior:world;for(let i=0;i<n;i++){const m=noOut(new T.Mesh(sparkGeo,sparkM(col)));m.position.set(x,y,z);par.add(m);
       const a=Math.random()*6.283,u=Math.random()*.8+.3,sp=6+Math.random()*7;S.parts.push({m,v:new V3(Math.cos(a)*sp*u,6+Math.random()*7,Math.sin(a)*sp*u),life:.6+Math.random()*.4,max:1,s:1+Math.random()});}}
     function bossY(B){return W.H(B.x,B.z);}
-    function animBoss(B,dt,t){const sp=B.lx==null?0:Math.hypot(B.x-B.lx,B.z-B.lz)/Math.max(dt,1e-3);B.lx=B.x;B.lz=B.z;const mv=Math.min(1,sp/4);B.walk=(B.walk||0)+dt*(4+sp*.9);
-      (B.m.legs||[]).forEach(l=>{l.g.rotation[l.ax||"x"]=Math.sin(B.walk+l.ph)*(l.amp||.55)*(.15+mv);});
-      B.m.g.position.y=Math.abs(Math.sin(B.walk))*.3*mv;B.m.g.rotation.z=Math.sin(B.walk*.5)*.05*mv;}
     function updateBoss(dt,t,B){B.swordInv=Math.max(0,(B.swordInv||0)-dt);
       B.t+=dt;const dx=S.x-B.x,dz=S.z-B.z,dist=Math.hypot(dx,dz);
       B.stun=Math.max(0,(B.stun||0)-dt);
       if(B.state==="chase"){
-        const sp=(L.speed+(3-B.hp)*1.6)*(B.stun>0?.15:1)*(L.boss==="spider"&&PROG.phial?.7:1);if(dist>1){B.x+=dx/dist*sp*dt;B.z+=dz/dist*sp*dt;}if(W.pitIn)collide(B,2.5);
+        const sp=(L.speed+(3-B.hp)*1.6)*(B.stun>0?.15:1)*(L.boss==="spider"&&PROG.phial?.7:1);if(dist>1){B.x+=dx/dist*sp*dt;B.z+=dz/dist*sp*dt;}
         B.yaw=Math.atan2(dx,dz);B.m.g.position.y=Math.abs(Math.sin(t*6))*.35;B.squash+=(1-B.squash)*dt*6;
         if(L.shoot&&dist<90){B.shootT-=dt;if(B.shootT<=0){B.shootT=L.shoot;shoot(B,dx/dist,dz/dist);}}
         if(dist<B.m.r+.6&&S.y-bossY(B)<B.m.h*.8)hurt(B.x,B.z);
@@ -3262,7 +2999,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
           if(B.hp<=0){B.alive=false;defeat(B);}else msg(B.hp===1?"¡Un golpe más!":"¡Bien!",1200);}
         else if(B.t>3.6){B.state="chase";B.t=0;B.orb.visible=false;}
       }
-      B.m.g.scale.set(1,B.squash,1);B.g.position.set(B.x,bossY(B),B.z);B.g.rotation.y=B.yaw;animBoss(B,dt,t);
+      B.m.g.scale.set(1,B.squash,1);B.g.position.set(B.x,bossY(B),B.z);B.g.rotation.y=B.yaw;
     }
     function shoot(B,ux,uz){const m=mesh(Blob(.9,1),M(L.shotColor,L.shotColor,.9));world.add(m);S.shots.push({m,x:B.x+ux*3,z:B.z+uz*3,vx:ux*17,vz:uz*17,life:5});beep(220,.15,"sawtooth",.035,.6);}
     function updateFinal(dt,t,B){
@@ -3279,13 +3016,13 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       const m=mesh(Blob(1.3,0),M(0xff6a1a,0xff3d00,1));world.add(m);
       const ring=new T.Mesh(new T.RingGeometry(2.2,3,24),new T.MeshBasicMaterial({color:0xff3d00,transparent:true,opacity:.6,side:T.DoubleSide,depthWrite:false}));ring.rotation.x=-Math.PI/2;ring.position.set(x,gy+.15,z);world.add(ring);
       S.meteors.push({m,ring,x,z,gy,t:0,dur:1.35});}
-    function defeat(B,at){
+    function defeat(B){
       msg(`¡Venciste a ${L.bossName}!`,2400,true);if(L.winLine)setTimeout(()=>say(L.winLine[0],L.winLine[1],null),2200);beep(392,.2,"triangle",.06);setTimeout(()=>beep(523,.3,"triangle",.06),160);
       S.shots.forEach(s=>world.remove(s.m));S.shots=[];
-      if(!at){let k=0;const iv=setInterval(()=>{k++;B.g.scale.setScalar(Math.max(.01,1-k/20));B.g.rotation.y+=.3;if(k>=20){clearInterval(iv);world.remove(B.g);}},40);}
+      let k=0;const iv=setInterval(()=>{k++;B.g.scale.setScalar(Math.max(.01,1-k/20));B.g.rotation.y+=.3;if(k>=20){clearInterval(iv);world.remove(B.g);}},40);
       const st=new T.Group();const inner=new T.Group();st.add(inner);inner.position.y=2.5;mesh(Gem(1.5,0),M(0xffe27a,0xffc400,1),0,0,0,inner).scale.set(1,1.4,.5);mesh(Gem(1,0),M(0xffffff,0xffffff,1),0,0,0,inner).scale.set(1.4,.5,.5);
       mesh(Cyl(.6,.6,40,8,1,true),new T.MeshBasicMaterial({color:0xfff0a0,transparent:true,opacity:.2,depthWrite:false,side:T.DoubleSide}),0,20,0,st);
-      const sx=at?at.x:B.x,sz=at?at.z:B.z;st.position.set(sx,W.H(sx,sz),sz);world.add(st);S.star=st;setTimeout(()=>msg("Tocá la estrella para seguir el viaje",2200),2500);hud();
+      st.position.set(B.x,bossY(B),B.z);world.add(st);S.star=st;setTimeout(()=>msg("Tocá la estrella para seguir el viaje",2200),2500);hud();
     }
     function defeatFinal(B){
       S.meteors.forEach(m=>{world.remove(m.m);world.remove(m.ring);});S.meteors=[];
@@ -3319,13 +3056,13 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     /* Calidad: 2 = Alta (todo), 1 = Media (sin contorno en decoración, menos nubes), 0 = Baja (sin contornos ni nubes) */
     let quality=2,autoQ=true;const QN=["Baja","Media","Alta"]; // en todas se mantiene el estilo anime (contornos en personajes, jefes y casas)
     function applyQuality(){const roots=[world,interior,player,sky].filter(Boolean);let ci=0;
-      roots.forEach(r=>r.traverse(o=>{if(o.userData.hull)o.visible=!o.isInstancedMesh;   // contornos de árboles y cercos apagados: es lo que más pesa
+      roots.forEach(r=>r.traverse(o=>{if(o.userData.hull)o.visible=quality===2||!o.isInstancedMesh;
         if(o.userData.cloud){o.visible=quality===2&&(MODE!=="touch"||ci%2===0);ci++;}}));
       if(S.boss&&S.boss.g)S.boss.g.traverse(o=>{if(o.userData.hull)o.visible=true;});}
     addEventListener("keydown",e=>{if(!ov.hidden&&e.code==="KeyG"&&!e.repeat){autoQ=false;quality=(quality+2)%3;applyQuality();msg("Calidad: "+QN[quality]+" (automática apagada)",1400);}});
     function adaptRes(f){if(paused)return;if(f<40){lowT++;highT=0;}else if(f>57){highT++;lowT=0;}else{lowT=highT=0;}
-      if(lowT>=3&&pr>(f<25?.5:.7)){pr=Math.max(f<25?.5:.7,pr-.2);renderer.setPixelRatio(pr);lowT=0;}
-      else if(lowT>=2&&autoQ&&quality>0){quality--;applyQuality();lowT=0;msg("Calidad automática: "+QN[quality],1200);}
+      if(lowT>=3&&pr>.7){pr=Math.max(.7,pr-.2);renderer.setPixelRatio(pr);lowT=0;}
+      else if(lowT>=4&&autoQ&&quality>0){quality--;applyQuality();lowT=0;msg("Calidad automática: "+QN[quality],1200);}
       if(highT>=8&&pr<Math.min(devicePixelRatio,1.5)){pr=Math.min(Math.min(devicePixelRatio,1.5),pr+.1);renderer.setPixelRatio(pr);highT=0;}}
     function countFps(){fpsN++;const now=performance.now();if(now-fpsT>=500){const f=Math.round(fpsN*1000/(now-fpsT));adaptRes(f);fpsEl.textContent=f+" FPS · "+QN[quality];fpsEl.className="gfps"+(f<30?" low":f<50?" mid":"");fpsN=0;fpsT=now;}}
     function loop(){
@@ -3360,8 +3097,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     const HAIRS=[["mop","Rulos"],["curlyShort","Rulos cortos"],["afro","Rulos grandes (afro)"],["wavy","Ondulado corto"],["swept","Flequillo al costado"],["shaggy","Desmechado"],["bob","Melena corta"],["longStraight","Largo lacio"],["longWavy","Largo ondulado"],["curlyLong","Rulos largos"],["pony","Cola de caballo"],["braid","Trenza"],["bun","Rodete"],["balding","Pelado"]];
     const HEADS=[[null,"Nada"],["cap","Gorra"],["beanie","Gorro de lana"],["straw","Sombrero de paja"],["explorer","Sombrero de explorador"],["wizard","Sombrero de mago"],["helmet","Casco"],["flowers","Corona de flores"]];
     const clone=o=>JSON.parse(JSON.stringify(o));
-    let LOOK=(SAVED&&SAVED.look)?SAVED.look:clone(PRESETS[0][1]),customOpen=false,customTab="chars",customDone=null;
-    if(SAVED&&SAVED.path){const sp=PATHS.find(q=>q.id===SAVED.path);if(sp)PATH=sp;}
+    let LOOK=clone(PRESETS[0][1]),customOpen=false,customTab="chars",customDone=null;
     function rebuildPlayer(){const c=makeChar(Object.assign({},LOOK,{ring:true}));
       [...player.children].forEach(ch=>player.remove(ch));[...c.children].forEach(ch=>player.add(ch));
       player.userData=c.userData;player.scale.copy(c.scale);swordG=null;trail=null;if(PROG.sword)equipSword();applyQualitySafe();}
@@ -3375,7 +3111,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       const sws=(row,list,key,none)=>{if(none){const b=document.createElement("button");b.type="button";b.className="sw none"+(LOOK[key]==null?" on":"");b.title="Nada";b.textContent="✕";b.onclick=()=>set(key,null);row.appendChild(b);}
         list.forEach(c=>{const b=document.createElement("button");b.type="button";b.className="sw"+(LOOK[key]===c?" on":"");b.style.background=hex(c);b.setAttribute("aria-label","Color "+hex(c));b.onclick=()=>set(key,c);row.appendChild(b);});};
       if(customTab==="chars"){const r=sec("Personajes principales: tocá uno y sos vos");r.classList.add("grid");
-        PRESETS.forEach(([n,lk])=>{const b=document.createElement("button");b.type="button";b.className="sgb char";b.innerHTML=`<i style="background:${hex(lk.hair)}"></i>${pathOpen(pathFor(n))?"":"🔒 "}${n}`;b.onclick=()=>{LOOK=clone(lk);PATH=pathFor(n)||PATH;rebuildPlayer();renderCustom();msg("¡Ahora sos "+n+"! Camino: "+PATH.name,1600);beep(880,.08,"triangle",.04);};r.appendChild(b);});}
+        PRESETS.forEach(([n,lk])=>{const b=document.createElement("button");b.type="button";b.className="sgb char";b.innerHTML=`<i style="background:${hex(lk.hair)}"></i>${n}`;b.onclick=()=>{LOOK=clone(lk);PATH=pathFor(n)||PATH;rebuildPlayer();renderCustom();msg("¡Ahora sos "+n+"! Camino: "+PATH.name,1600);beep(880,.08,"triangle",.04);};r.appendChild(b);});}
       if(customTab==="chars"){const info=document.createElement("p");info.className="gc-path";info.innerHTML="<b>Tu historia:</b> "+PATH.name+" — "+PATH.desc+" (cada personaje principal tiene la suya)";body.insertBefore(info,body.firstChild);}
       if(customTab==="path"){const r=sec("Cada personaje tiene su historia, sus mapas y su objetivo");r.classList.add("col");
         PATHS.forEach(P=>{const b=document.createElement("button");b.type="button";b.className="sgb pathb"+(P===PATH?" on":"");b.innerHTML=`<b>${P.name}</b><small>${P.who.join(", ")} · ${P.levels.length} mundos</small><span>${P.desc}</span>`;
@@ -3396,13 +3132,10 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     function openCustomizer(done){if(customOpen)return;customOpen=true;customDone=done||null;paused=true;pausedByMenu=false;clearInput();closeTalk();
       $("gCard").hidden=true;$("gCustom").hidden=false;ov.classList.add("customizing");renderCustom();}
     function closeCustomizer(){customOpen=false;$("gCustom").hidden=true;ov.classList.remove("customizing");const d=customDone;customDone=null;
-      const changed=!CAMP||CAMP.pathId!==PATH.id;let resume=0;if(!CAMP&&SAVED&&SAVED.path===PATH.id&&SAVED.lvl>0)resume=Math.min(SAVED.lvl,makeCamp(PATH).length-1);
-      if(changed){CAMP=makeCamp(PATH);build(resume);saveGame();}
-      if(resume&&!d){const c=CAMP[resume];card(c.kick,"Partida guardada · "+c.name,c.text,"Seguir jugando",null);return;}
+      const changed=!CAMP||CAMP.pathId!==PATH.id;if(changed){CAMP=makeCamp(PATH);build(0);}
       if(d)d();else if(changed)startIntro();else{paused=false;}}
     function startIntro(){const c=CAMP[0];card(c.kick,c.name,PATH.desc+" "+c.text,"Jugar",null);}
-    $("gcPlay").onclick=()=>{beep(660,.1,"triangle",.05);setTimeout(()=>beep(990,.15,"triangle",.05),90);
-      if(!pathOpen(PATH)){showLock(PATH,()=>{$("gCard").hidden=true;closeCustomizer();});return;}claimPath(PATH);closeCustomizer();};
+    $("gcPlay").onclick=()=>{beep(660,.1,"triangle",.05);setTimeout(()=>beep(990,.15,"triangle",.05),90);closeCustomizer();};
     /* ---- foto de avatar (retrato del personaje sobre fondo de color, como Bitmoji o el avatar de WhatsApp) ---- */
     const AV_BG=["#8fe3ff","#ffd60a","#ff8fc8","#b6ff7a","#c9a8ff","#ffb38a","#ffffff"];let avBg=AV_BG[0],avUrl=null;
     function snapAvatar(){const u=player.userData,hd=new V3();u.head.getWorldPosition(hd);
@@ -3427,7 +3160,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       LOOK={female:fem||undefined,hairStyle:pick(HAIRS)[0],hair:pick(C_HAIR),skin:pick(C_SKIN),eye:pick(C_EYE),shirt:pick(C_CLOTH),vest:fem?null:pick([null,...C_CLOTH]),pants:pick(C_CLOTH),dress:pick(C_CLOTH),
         cloak:pick([null,0x6b7d64,...C_CLOTH]),scarf:pick([null,null,...C_CLOTH]),headwear:pick(HEADS)[0]||undefined,hatColor:pick(C_CLOTH),backpack:pick([null,null,0x8a5a32,0x2f6fd8,0xd9442b]),glasses:Math.random()<.2||undefined,brooch:Math.random()<.5||undefined};
       Object.keys(LOOK).forEach(k=>LOOK[k]===undefined&&delete LOOK[k]);rebuildPlayer();renderCustom();beep(500+Math.random()*400,.08,"triangle",.04);};
-    $("gWardrobe").onclick=()=>{if(paused||S.cut||S.fall)return;openCustomizer(null);};
+    $("gWardrobe").onclick=()=>{if(paused||S.cut)return;openCustomizer(null);};
     // vista previa: el personaje gira despacio frente a la cámara
     function previewCam(dt){const t=clock.elapsedTime,u=player.userData,Hh=(u.height||3.35)*player.scale.y;
       player.position.set(S.x,S.y,S.z);player.rotation.y=S.yaw+Math.sin(t*.5)*.9;player.visible=true;
