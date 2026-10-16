@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>La Comarca y la Tierra Media</title>
+<title>Tierra Anillos 3D</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=M+PLUS+Rounded+1c:wght@500;800&family=Lilita+One&display=swap">
@@ -32,7 +32,7 @@ button{font:inherit;color:inherit}
 .top nav a{text-decoration:none;opacity:.85}
 .top nav a:hover{opacity:1;text-decoration:underline;text-underline-offset:4px}
 
-/* ---------- Héroe: La Comarca ---------- */
+/* ---------- Héroe: Valle Trébol ---------- */
 .hero{position:relative;height:clamp(560px,90svh,940px);overflow:hidden;background:#1b2238;isolation:isolate}
 #shire{position:absolute;inset:0;width:100%;height:100%;display:block}
 .hero::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
@@ -456,19 +456,19 @@ button{font:inherit;color:inherit}
 <body class="t-dusk">
 
 <header class="top">
-  <a class="mark" href="#comarca" aria-label="Tierra Media, inicio">
+  <a class="mark" href="#comarca" aria-label="Tierra Anillos 3D, inicio">
     <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="none" stroke="#c9a14a" stroke-width="1.5"/><circle cx="16" cy="16" r="9.5" fill="none" stroke="#c9a14a" stroke-width=".8"/><path d="M16 5.5 L18 14 L26.5 16 L18 18 L16 26.5 L14 18 L5.5 16 L14 14 Z" fill="#e6c476"/></svg>
-    Tierra Media
+    Tierra Anillos 3D
   </a>
   <nav aria-label="Secciones">
-    <a href="#comarca">La Comarca</a>
+    <a href="#comarca">Valle Trébol</a>
     <a href="#mapa">El Mapa</a>
     <a href="#viaje">El Viaje</a>
   </nav>
 </header>
 
-<section class="hero" id="comarca" aria-label="La Comarca, ilustración">
-  <svg id="shire" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice" role="img" aria-label="Paisaje de Hobbiton: colinas con puertas redondas, un molino junto al río y un gran roble al atardecer">
+<section class="hero" id="comarca" aria-label="Valle Trébol, ilustración">
+  <svg id="shire" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice" role="img" aria-label="Paisaje de Villa Trébol: colinas con puertas redondas, un molino junto al río y un gran roble al atardecer">
     <defs>
       <linearGradient id="skyDay" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0" stop-color="#4f8fcb"/><stop offset=".45" stop-color="#8fc1e6"/><stop offset=".62" stop-color="#cfe6f2"/><stop offset=".75" stop-color="#f1efd9"/>
@@ -554,7 +554,7 @@ button{font:inherit;color:inherit}
       <path d="M1180,900 C1230,790 1330,714 1460,702 C1540,696 1620,702 1720,716 L1720,900 Z" fill="url(#hillShade)"/>
       <path d="M1180,900 C1230,790 1330,714 1460,702 C1540,696 1620,702 1720,716" fill="none" style="stroke:var(--rim);opacity:var(--rim-op)" stroke-width="2.5"/>
       <g id="partyTree"></g>
-      <!-- Colina de Bolsón Cerrado -->
+      <!-- Colina de Casa Colina -->
       <path id="hillM" d="M320,900 C380,790 520,670 700,634 C820,610 960,602 1070,640 C1170,674 1250,764 1300,900 Z" style="fill:var(--g4)"/>
       <path d="M320,900 C380,790 520,670 700,634 C820,610 960,602 1070,640 C1170,674 1250,764 1300,900" fill="none" style="stroke:var(--rim);opacity:var(--rim-op)" stroke-width="3"/>
       <path d="M320,900 C380,790 520,670 700,634 C820,610 960,602 1070,640 C1170,674 1250,764 1300,900 Z" fill="url(#hillShade)"/>
@@ -624,10 +624,10 @@ button{font:inherit;color:inherit}
   </svg>
 
   <div class="hero-copy">
-    <p class="eyebrow">El Señor de los Anillos · Concepto</p>
-    <h1>La Comarca</h1>
-    <p class="lede">Colinas verdes, puertas redondas y humo de chimenea. El rincón más tranquilo de la Tierra Media es también el punto de partida del viaje más largo.</p>
-    <a class="enter" href="#mapa" data-game>Entrar en la Comarca <span aria-hidden="true">→</span></a>
+    <p class="eyebrow">las leyendas · Concepto</p>
+    <h1>Valle Trébol</h1>
+    <p class="lede">Colinas verdes, puertas redondas y humo de chimenea. El rincón más tranquilo del mundo es también el punto de partida del viaje más largo.</p>
+    <a class="enter" href="#mapa" data-game>Entrar en Valle Trébol <span aria-hidden="true">→</span></a>
     <div class="tod" role="radiogroup" aria-label="Hora del día">
       <button type="button" role="radio" aria-checked="false" data-t="day">Mañana</button>
       <button type="button" role="radio" aria-checked="true" data-t="dusk">Atardecer</button>
@@ -642,8 +642,8 @@ button{font:inherit;color:inherit}
   <div class="map-head">
     <div>
       <p class="eyebrow">Tercera Edad del Sol</p>
-      <h2 id="mapTitle">Mapa de la <i>Tierra Media</i></h2>
-      <p>«Entrar en la Comarca» abre el juego 3D: cinco mundos, cinco jefes y Mordor al final. «Empezar la historia» te lleva por el mapa capítulo por capítulo. También podés tocar cualquier lugar, arrastrar para moverte y acercar con los botones, doble clic o pellizcando.</p>
+      <h2 id="mapTitle">Mapa de <i>Tierra Anillos 3D</i></h2>
+      <p>«Entrar en Valle Trébol» abre el juego 3D: cinco mundos, cinco jefes y Tierra de Ceniza al final. «Empezar la historia» te lleva por el mapa capítulo por capítulo. También podés tocar cualquier lugar, arrastrar para moverte y acercar con los botones, doble clic o pellizcando.</p>
     </div>
     <div class="legend" aria-label="Referencias">
       <span><i style="border-color:#9c2a17"></i>Ruta del Portador</span>
@@ -655,7 +655,7 @@ button{font:inherit;color:inherit}
   <div class="map-wrap">
     <div class="map-frame">
       <div class="map-box" id="mapBox">
-        <svg id="map" class="z1" viewBox="0 0 1200 900" role="application" aria-label="Mapa interactivo de la Tierra Media">
+        <svg id="map" class="z1" viewBox="0 0 1200 900" role="application" aria-label="Mapa interactivo del mundo">
           <image id="parch" x="0" y="0" width="1200" height="900" preserveAspectRatio="none"/>
           <g id="mBase"></g>
           <g id="mRoute">
@@ -676,7 +676,7 @@ button{font:inherit;color:inherit}
           </div>
         </div>
         <div class="chipbar">
-          <button type="button" class="chip" id="goShire">Entrar en la Comarca</button>
+          <button type="button" class="chip" id="goShire">Entrar en Valle Trébol</button>
           <button type="button" class="chip" id="togRoute" aria-pressed="true">Ruta</button>
           <button type="button" class="chip play" id="play"><span aria-hidden="true">▶</span> <span class="lbl-play">Empezar la historia</span></button>
         </div>
@@ -748,7 +748,7 @@ button{font:inherit;color:inherit}
   <div class="gtalk" id="gTalk" hidden role="status" aria-live="polite"><b></b><span></span></div>
   <div class="ghud">
     <div class="gleft">
-      <div class="glvrow"><img class="gavhud" id="gAvHud" alt="Tu avatar" hidden><p class="glevel" id="gLevel">La Comarca</p></div>
+      <div class="glvrow"><img class="gavhud" id="gAvHud" alt="Tu avatar" hidden><p class="glevel" id="gLevel">Valle Trébol</p></div>
       <p class="ghearts" id="gHearts" aria-label="Vidas"></p>
       <p class="gitems" id="gItems"></p>
       <p class="gfps" id="gFps" title="Cuadros por segundo (F para ocultar)">— FPS</p>
@@ -764,7 +764,7 @@ button{font:inherit;color:inherit}
   <div class="gcard" id="gCard">
     <div class="gcard-in">
       <p class="gkick" id="gcKick">Nivel 1 de 5</p>
-      <h2 id="gcTitle">La Comarca</h2>
+      <h2 id="gcTitle">Valle Trébol</h2>
       <p id="gcText"></p>
       <p class="gkeys" id="gcKeys">Mover: WASD o flechas · Correr: Shift · Saltar: espacio (mantené para saltar más alto; otra vez en el aire para zambullirte) · Atacar con la espada: clic o J · Cámara: Q/E o arrastrando · Entrar a casas y hablar: E · Pausa: P o Esc · Reiniciar nivel: R · Mostrar/ocultar FPS: F · Calidad: G · También con mando (stick, A para saltar, B para correr) o en el celular con joystick y botón. Los objetos brillan con un haz de luz y aparecen en el minimapa.</p>
       <div class="gbtns"><button type="button" class="gbtn" id="gcBtn">Jugar</button><button type="button" class="gbtn ghost" id="gcBtn2" hidden>Ver el mapa</button></div>
@@ -949,7 +949,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
     return acc;
   }
 
-  /* ----- smial (agujero hobbit) pequeño ----- */
+  /* ----- smial (agujero mediano) pequeño ----- */
   const doorCols = ["#2f6d3b","#c9a13a","#a3432f","#2f5582","#6b3f7a"];
   function smial(g, x, y, s, ridgeY, col){
     el("circle",{cx:x+s*2.4, cy:y-s*.2, r:s*3.2, fill:"url(#warm)", style:"opacity:var(--glow)"}, g);
@@ -1128,7 +1128,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
     }
     el("path",{d:tuft, fill:"none", style:"stroke:var(--hedge)", "stroke-width":"1.2", opacity:".22"}, $("hillTex"));
   }
-  // humo de Bolsón Cerrado
+  // humo de Casa Colina
   smokeAt(963, 578, 9, 7);
   smokeAt(760, 596, 6, 6);
 
@@ -1239,11 +1239,11 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
 
   /* ===== puntos de interés ===== */
   const spots = [
-    {layer:"L4", x:820, y:662, t:"Bolsón Cerrado", d:"La casa de Bilbo y después de Frodo, cavada en la Colina de Hobbiton: puerta redonda y verde, con el pomo justo en el centro."},
-    {layer:"L3", x:489, y:590, t:"El molino", d:"El molino de Hobbiton, junto al Agua. Su rueda mueve la piedra que muele el grano de toda la aldea."},
-    {layer:"L3", x:300, y:731, t:"El Agua", d:"El arroyo que cruza Hobbiton y Delagua y sigue hacia el este hasta unirse al Brandivino."},
-    {layer:"L4", x:1430, y:520, t:"El Árbol de la Fiesta", d:"En el Campo de la Fiesta, bajo este árbol, Bilbo celebró sus ciento once años antes de desaparecer ante todos."},
-    {layer:"L2", x:872, y:R2(872)+22, t:"Smials", d:"Así se llaman las casas-cueva hobbit. Las mejores tienen todas las habitaciones en un mismo piso y ventanas redondas hacia el jardín."}
+    {layer:"L4", x:820, y:662, t:"Casa Colina", d:"La casa de Teo y después de Lino, cavada en la Colina de Villa Trébol: puerta redonda y verde, con el pomo justo en el centro."},
+    {layer:"L3", x:489, y:590, t:"El molino", d:"El molino de Villa Trébol, junto al Agua. Su rueda mueve la piedra que muele el grano de toda la aldea."},
+    {layer:"L3", x:300, y:731, t:"El Agua", d:"El arroyo que cruza Villa Trébol y Delagua y sigue hacia el este hasta unirse al Brandivino."},
+    {layer:"L4", x:1430, y:520, t:"El Árbol de la Fiesta", d:"En el Campo de la Fiesta, bajo este árbol, Teo celebró sus ciento once años antes de desaparecer ante todos."},
+    {layer:"L2", x:872, y:R2(872)+22, t:"Smials", d:"Así se llaman las casas-cueva mediano. Las mejores tienen todas las habitaciones en un mismo piso y ventanas redondas hacia el jardín."}
   ];
   const tip = $("tip"), hero = svg.parentNode;
   spots.forEach(s=>{
@@ -1446,14 +1446,14 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
       el("path",{d:hat,class:"hatch"},base);
     }));
   });
-  // Monte del Destino, Barad-dûr, Erebor
+  // Monte del Destino, la Torre Oscura, Erebor
   el("circle",{cx:948,cy:664,r:26,fill:"#c8401e",opacity:".35",class:"doomglow"},base);
   el("path",{d:"M934,670 L944,652 L948,655 L952,652 L962,670 Z",fill:"#6b2a1a",class:"pk"},base);
   el("path",{d:"M997,640 L997,622 L995,619 L998,616 L1000,610 L1002,616 L1005,619 L1003,622 L1003,640 Z",fill:"#2b1d10"},base);
   el("circle",{cx:1000,cy:612,r:2.2,fill:"#e0501f",class:"doomglow"},base);
   el("path",{d:"M896,172 L912,146 L928,172 Z",fill:"#ecdcb4",class:"pk"},base);
   el("path",{d:"M916,152 L922,172 M919,158 L926,172",class:"hatch"},base);
-  // frontera de la Comarca
+  // frontera de Valle Trébol
   el("path",{d:pd([[198,300],[204,282],[222,268],[246,262],[270,266],[279,272],[284,295],[286,318],[285,345],[262,354],[236,352],[212,346],[198,334]],true),class:"border"},base);
   // rosa de los vientos y marco
   const cr=el("g",{transform:"translate(110,705)"},base);
@@ -1481,32 +1481,32 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
   /* ---------- Lugares ---------- */
   const P={
     puertos:[156,313,"Puertos Grises","Mithlond","Lindon","Puerto de los elfos en el Golfo de Lhûn. Desde acá zarpan los barcos hacia el Oeste.",1,"city",-9,4,"end"],
-    hobbiton:[240,305,"Hobbiton","Bolsón Cerrado","La Comarca","Aldea hobbit de colinas cavadas y puertas redondas. En Bolsón Cerrado viven Bilbo y después Frodo.",1,"town",0,16,"middle"],
+    hobbiton:[240,305,"Villa Trébol","Casa Colina","Valle Trébol","Aldea mediano de colinas cavadas y puertas redondas. En Casa Colina viven Teo y después Lino.",1,"town",0,16,"middle"],
     bosque:[320,336,"Bosque Viejo","","Eriador","Bosque antiguo y hostil al este de Los Gamos.",2,"area",0,16,"middle"],
-    bree:[360,312,"Bree","","Eriador","Pueblo de hombres y hobbits, cruce del Camino del Este y el Camino Verde.",1,"town",0,17,"middle"],
+    bree:[360,312,"Bree","","Eriador","Pueblo de hombres y medianos, cruce del Camino del Este y el Camino Verde.",1,"town",0,17,"middle"],
     cima:[432,306,"Cima de los Vientos","Amon Sûl","Eriador","Ruinas de una antigua torre de vigía sobre las Colinas de los Vientos.",1,"ruin",0,-11,"middle"],
-    rivendel:[588,296,"Rivendel","Imladris","Eriador","Refugio de Elrond en un valle escondido al pie de las Montañas Nubladas.",1,"city",-9,-6,"end"],
-    moria:[604,418,"Moria","Khazad-dûm","Montañas Nubladas","Antiguo reino enano excavado bajo las montañas.",1,"fort",-9,4,"end"],
-    lorien:[668,443,"Lothlórien","Caras Galadhon","Valle del Anduin","El Bosque Dorado de los mallorn, gobernado por Galadriel y Celeborn.",1,"city",9,4,"start"],
-    amonhen:[763,566,"Amon Hen","La Colina del Ojo","Nen Hithoel","Colina junto al lago Nen Hithoel, sobre las cataratas de Rauros.",1,"ruin",-9,4,"end"],
-    fangorn:[628,516,"Fangorn","","Rohan","Bosque antiguo de los ents.",1,"area",0,16,"middle"],
-    edoras:[632,618,"Edoras","Meduseld","Rohan","Capital de Rohan. En Meduseld, el salón dorado, reina Théoden.",1,"city",7,12,"start"],
-    helm:[590,610,"Abismo de Helm","Cuernavilla","Rohan","Fortaleza de Rohan en un valle de las Montañas Blancas.",1,"fort",-9,6,"end"],
-    isengard:[582,549,"Isengard","Orthanc","Rohan","Anillo de piedra con la torre de Orthanc, fortaleza de Saruman.",1,"fort",-9,0,"end"],
+    rivendel:[588,296,"el Valle Élfico","Imladris","Eriador","Refugio de el sabio Elian en un valle escondido al pie de las Montañas Nubladas.",1,"city",-9,-6,"end"],
+    moria:[604,418,"las Minas de Cristal","Kaz Dorin","Montañas Nubladas","Antiguo reino enano excavado bajo las montañas.",1,"fort",-9,4,"end"],
+    lorien:[668,443,"el Bosque Dorado","Caras Galadhon","Valle del Anduin","El Bosque Dorado de los mallorn, gobernado por la Dama del Bosque y Celeborn.",1,"city",9,4,"start"],
+    amonhen:[763,566,"la Colina del Vigía","La Colina del Ojo","Nen Hithoel","Colina junto al lago Nen Hithoel, sobre las cataratas de Rauros.",1,"ruin",-9,4,"end"],
+    fangorn:[628,516,"el Bosque Antiguo","","las Praderas Doradas","Bosque antiguo de los ents.",1,"area",0,16,"middle"],
+    edoras:[632,618,"Villadorada","el Salón Dorado","las Praderas Doradas","Capital de las Praderas Doradas. En el Salón Dorado, el salón dorado, reina Aldric.",1,"city",7,12,"start"],
+    helm:[590,610,"Abismo de Hielo","Cuernavilla","las Praderas Doradas","Fortaleza de las Praderas Doradas en un valle de las Montañas Blancas.",1,"fort",-9,6,"end"],
+    isengard:[582,549,"la Torre Gris","Orthanc","las Praderas Doradas","Anillo de piedra con la torre de Orthanc, fortaleza de Malvar.",1,"fort",-9,0,"end"],
     emynmuil:[792,552,"Emyn Muil","","Rhovanion","Laberinto de colinas de roca al este del Anduin.",2,"area",9,-6,"start"],
     cienagas:[858,586,"Ciénagas de los Muertos","","Dagorlad","Pantanos sobre un antiguo campo de batalla.",2,"area",-9,4,"end"],
-    morannon:[905,598,"Morannon","La Puerta Negra","Mordor","La entrada norte de Mordor.",1,"fort",0,-11,"middle"],
-    ithilien:[846,640,"Ithilien","Henneth Annûn","Gondor","Tierra boscosa entre el Anduin y las Montañas de la Sombra.",2,"area",9,0,"start"],
-    cirith:[874,678,"Cirith Ungol","El Paso de la Araña","Ephel Dúath","Paso alto sobre Minas Morgul, custodiado por una torre de orcos.",2,"ruin",9,-2,"start"],
-    minastirith:[798,684,"Minas Tirith","Mundburgo","Gondor","La Ciudad Blanca, capital de Gondor, en siete niveles contra el monte Mindolluin.",1,"city",-9,4,"end"],
-    osgiliath:[822,681,"Osgiliath","","Gondor","Antigua capital de Gondor a ambas orillas del Anduin, hoy en ruinas.",2,"ruin",0,-9,"middle"],
-    minasmorgul:[858,692,"Minas Morgul","Minas Ithil","Ephel Dúath","Antigua ciudad de Gondor, hoy de los Nazgûl.",1,"fort",4,16,"middle"],
-    pelargir:[840,758,"Pelargir","","Gondor","Puerto de Gondor sobre el Anduin.",2,"town",9,4,"start"],
-    doom:[948,666,"Monte del Destino","Orodruin","Mordor","El volcán donde Sauron forjó el Anillo Único. Es el único lugar donde puede destruirse.",1,"doom",0,18,"middle"],
-    baraddur:[1000,634,"Barad-dûr","La Torre Oscura","Mordor","Fortaleza de Sauron.",1,"dark",9,4,"start"],
+    morannon:[905,598,"Morannon","La Puerta Negra","Tierra de Ceniza","La entrada norte de Tierra de Ceniza.",1,"fort",0,-11,"middle"],
+    ithilien:[846,640,"Ithilien","Henneth Annûn","el Reino Blanco","Tierra boscosa entre el Anduin y las Montañas de la Sombra.",2,"area",9,0,"start"],
+    cirith:[874,678,"el Paso de las Telarañas","El Paso de la Araña","Ephel Dúath","Paso alto sobre Minas Morgul, custodiado por una torre de orcos.",2,"ruin",9,-2,"start"],
+    minastirith:[798,684,"la Ciudad Blanca","Mundburgo","el Reino Blanco","La Ciudad Blanca, capital de el Reino Blanco, en siete niveles contra el monte Mindolluin.",1,"city",-9,4,"end"],
+    osgiliath:[822,681,"Osgiliath","","el Reino Blanco","Antigua capital de el Reino Blanco a ambas orillas del Anduin, hoy en ruinas.",2,"ruin",0,-9,"middle"],
+    minasmorgul:[858,692,"Minas Morgul","Minas Ithil","Ephel Dúath","Antigua ciudad de el Reino Blanco, hoy de los Espectros.",1,"fort",4,16,"middle"],
+    pelargir:[840,758,"Pelargir","","el Reino Blanco","Puerto de el Reino Blanco sobre el Anduin.",2,"town",9,4,"start"],
+    doom:[948,666,"Monte del Destino","Orodruin","Tierra de Ceniza","El volcán donde Umbra forjó el Anillo Maldito. Es el único lugar donde puede destruirse.",1,"doom",0,18,"middle"],
+    baraddur:[1000,634,"la Torre Oscura","La Torre Oscura","Tierra de Ceniza","Fortaleza de Umbra.",1,"dark",9,4,"start"],
     erebor:[912,162,"Erebor","La Montaña Solitaria","Rhovanion","Reino enano recuperado tras la muerte del dragón Smaug.",1,"area",12,4,"start"],
     dolguldur:[768,432,"Dol Guldur","","Bosque Negro","Fortaleza en el sur del Bosque Negro.",1,"dark",9,4,"start"],
-    dolamroth:[668,802,"Dol Amroth","","Gondor","Ciudad costera del príncipe Imrahil.",2,"town",0,16,"middle"]
+    dolamroth:[668,802,"Dol Amroth","","el Reino Blanco","Ciudad costera del príncipe Imrahil.",2,"town",0,16,"middle"]
   };
   const marker={city:'<circle r="4.3" fill="#2b1d10"/><circle r="1.8" fill="#eadcb8"/>',town:'<circle r="3.3" fill="#2b1d10"/>',ruin:'<circle r="3.6" fill="#eadcb8" stroke="#2b1d10" stroke-width="1.4"/>',fort:'<rect x="-3.4" y="-3.4" width="6.8" height="6.8" transform="rotate(45)" fill="#2b1d10"/>',area:'<circle r="2.8" fill="none" stroke="#2b1d10" stroke-width="1.3"/>',doom:'<circle r="3.6" fill="#a8321f" stroke="#2b1d10"/>',dark:'<rect x="-3" y="-3" width="6" height="6" fill="#5a1a10"/>'};
   const placeEls={};
@@ -1521,28 +1521,28 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
 
   /* ---------- La historia ---------- */
   const STORY=[
-    ["hobbiton","La Comunidad del Anillo","La fiesta","Bilbo celebra sus ciento once años, se pone el Anillo y desaparece frente a todos. Deja el Anillo a Frodo. Años después, Gandalf confirma que es el Anillo Único de Sauron."],
-    ["hobbiton","La Comunidad del Anillo","La partida","Frodo deja Bolsón Cerrado con Sam y Pippin; Merry los espera en Los Gamos. Los Jinetes Negros ya los buscan por los caminos de la Comarca."],
-    ["bosque","La Comunidad del Anillo","El Bosque Viejo","El Viejo Hombre-Sauce atrapa a los hobbits y Tom Bombadil los rescata. En las Quebradas de los Túmulos vuelve a salvarlos de un tumulario."],
-    ["bree","La Comunidad del Anillo","El Poney Pisador","En la posada de Bree conocen a Trancos, un montaraz que en verdad es Aragorn, heredero de los reyes de Gondor."],
-    ["cima","La Comunidad del Anillo","Cima de los Vientos","Cinco Jinetes Negros los atacan de noche. El Rey Brujo hiere a Frodo con un puñal de Morgul."],
-    ["rivendel","La Comunidad del Anillo","El Concilio de Elrond","Frodo cruza el Vado del Bruinen y llega a Rivendel. En el Concilio se decide destruir el Anillo y nace la Comunidad: cuatro hobbits, Gandalf, Aragorn, Boromir, Legolas y Gimli."],
-    ["moria","La Comunidad del Anillo","Las minas de Moria","Cruzan bajo las montañas. En el puente de Khazad-dûm, Gandalf enfrenta al Balrog y cae con él al abismo."],
-    ["lorien","La Comunidad del Anillo","Lothlórien","Descansan en el Bosque Dorado. Galadriel muestra su espejo a Frodo y a Sam, y rechaza el Anillo cuando Frodo se lo ofrece."],
-    ["amonhen","La Comunidad del Anillo","La Comunidad se rompe","Boromir intenta quitarle el Anillo a Frodo y luego muere defendiendo a Merry y Pippin, que son capturados por orcos. Frodo y Sam siguen solos hacia Mordor."],
-    ["fangorn","Las Dos Torres","Fangorn","Merry y Pippin escapan al bosque y conocen a Bárbol. Aragorn, Legolas y Gimli, que los rastreaban, encuentran a Gandalf, vuelto como el Blanco."],
-    ["edoras","Las Dos Torres","Edoras","Gandalf libera al rey Théoden del influjo de Saruman y de su consejero Gríma. Rohan se prepara para la guerra."],
-    ["helm","Las Dos Torres","El Abismo de Helm","El ejército de Saruman asedia la fortaleza durante la noche. Al amanecer llegan Gandalf y Erkenbrand, y un bosque de ucornos cierra la retirada de los orcos."],
-    ["isengard","Las Dos Torres","La caída de Isengard","Los ents, furiosos, destruyen Isengard y la inundan. Saruman queda encerrado en Orthanc."],
-    ["emynmuil","Las Dos Torres","Gollum","Frodo y Sam capturan a Gollum en las Emyn Muil. Lo obligan a guiarlos, y los lleva a través de las Ciénagas de los Muertos."],
-    ["ithilien","Las Dos Torres","Ithilien","La Puerta Negra está cerrada, así que buscan otro camino hacia el sur. Faramir, hermano de Boromir, los encuentra y los deja seguir."],
-    ["cirith","Las Dos Torres","Cirith Ungol","Gollum los lleva a la guarida de Ella-Laraña. Frodo cae picado; Sam lo cree muerto, toma el Anillo y lo rescata después de la torre de los orcos."],
-    ["minastirith","El Retorno del Rey","El asedio de Minas Tirith","Mordor ataca la Ciudad Blanca. Llegan los jinetes de Rohan; Éowyn y Merry derriban al Rey Brujo; Aragorn llega en las naves tomadas en Pelargir."],
-    ["morannon","El Retorno del Rey","La Puerta Negra","Aragorn lleva un ejército pequeño hasta el Morannon para distraer a Sauron y darle tiempo a Frodo."],
-    ["doom","El Retorno del Rey","El Monte del Destino","Frodo ya no puede soltar el Anillo. Gollum se lo arranca con un mordisco y cae al fuego con él. Barad-dûr se derrumba y Sauron es vencido."],
-    ["minastirith","El Retorno del Rey","El Rey","Aragorn es coronado rey de Gondor y de Arnor, y se casa con Arwen. Los hobbits son honrados en los Campos de Cormallen."],
-    ["hobbiton","El Retorno del Rey","El Saneamiento de la Comarca","Al volver, encuentran la Comarca tomada por los hombres de Saruman. Los hobbits se levantan y la liberan."],
-    ["puertos","El Retorno del Rey","Los Puertos Grises","Frodo no se cura de sus heridas. Parte hacia el Oeste con Bilbo, Gandalf y los últimos portadores de los Anillos élficos. Sam vuelve a casa."]
+    ["hobbiton","La Hermandad del Anillo","La fiesta","Teo celebra sus ciento once años, se pone el Anillo y desaparece frente a todos. Deja el Anillo a Lino. Años después, Brumo confirma que es el Anillo Maldito de Umbra."],
+    ["hobbiton","La Hermandad del Anillo","La partida","Lino deja Casa Colina con Tomillo y Pimienta; Nuez los espera en Los Gamos. Los Jinetes Negros ya los buscan por los caminos de Valle Trébol."],
+    ["bosque","La Hermandad del Anillo","El Bosque Viejo","El Viejo Hombre-Sauce atrapa a los medianos y Tom Bombadil los rescata. En las Quebradas de los Túmulos vuelve a salvarlos de un tumulario."],
+    ["bree","La Hermandad del Anillo","El Poney Pisador","En la posada de Bree conocen a Trancos, un montaraz que en verdad es Darién, heredero de los reyes de el Reino Blanco."],
+    ["cima","La Hermandad del Anillo","Cima de los Vientos","Cinco Jinetes Negros los atacan de noche. El Rey Espectro hiere a Lino con un puñal de Morgul."],
+    ["rivendel","La Hermandad del Anillo","El Concilio de el sabio Elian","Lino cruza el Vado del del río y llega a el Valle Élfico. En el Concilio se decide destruir el Anillo y nace la Hermandad: cuatro medianos, Brumo, Darién, Bruno, Elarion y Borin."],
+    ["moria","La Hermandad del Anillo","Las minas de las Minas de Cristal","Cruzan bajo las montañas. En el puente de Kaz Dorin, Brumo enfrenta al dragón de fuego y cae con él al abismo."],
+    ["lorien","La Hermandad del Anillo","el Bosque Dorado","Descansan en el Bosque Dorado. la Dama del Bosque muestra su espejo a Lino y a Tomillo, y rechaza el Anillo cuando Lino se lo ofrece."],
+    ["amonhen","La Hermandad del Anillo","La Hermandad se rompe","Bruno intenta quitarle el Anillo a Lino y luego muere defendiendo a Nuez y Pimienta, que son capturados por orcos. Lino y Tomillo siguen solos hacia Tierra de Ceniza."],
+    ["fangorn","La Gran Pradera","el Bosque Antiguo","Nuez y Pimienta escapan al bosque y conocen a Barbarroble. Darién, Elarion y Borin, que los rastreaban, encuentran a Brumo, vuelto como el Blanco."],
+    ["edoras","La Gran Pradera","Villadorada","Brumo libera al rey Aldric del influjo de Malvar y de su consejero el consejero. las Praderas Doradas se prepara para la guerra."],
+    ["helm","La Gran Pradera","El Abismo de Hielo","El ejército de Malvar asedia la fortaleza durante la noche. Al amanecer llegan Brumo y Erkenbrand, y un bosque de ucornos cierra la retirada de los orcos."],
+    ["isengard","La Gran Pradera","La caída de la Torre Gris","Los ents, furiosos, destruyen la Torre Gris y la inundan. Malvar queda encerrado en Orthanc."],
+    ["emynmuil","La Gran Pradera","Grisp","Lino y Tomillo capturan a Grisp en las Emyn Muil. Lo obligan a guiarlos, y los lleva a través de las Ciénagas de los Muertos."],
+    ["ithilien","La Gran Pradera","Ithilien","La Puerta Negra está cerrada, así que buscan otro camino hacia el sur. Fabián, hermano de Bruno, los encuentra y los deja seguir."],
+    ["cirith","La Gran Pradera","el Paso de las Telarañas","Grisp los lleva a la guarida de Ella, la Araña. Lino cae picado; Tomillo lo cree muerto, toma el Anillo y lo rescata después de la torre de los orcos."],
+    ["minastirith","El Regreso a Casa","El asedio de la Ciudad Blanca","Tierra de Ceniza ataca la Ciudad Blanca. Llegan los jinetes de las Praderas Doradas; Lía y Nuez derriban al Rey Espectro; Darién llega en las naves tomadas en Pelargir."],
+    ["morannon","El Regreso a Casa","La Puerta Negra","Darién lleva un ejército pequeño hasta el Morannon para distraer a Umbra y darle tiempo a Lino."],
+    ["doom","El Regreso a Casa","El Monte del Destino","Lino ya no puede soltar el Anillo. Grisp se lo arranca con un mordisco y cae al fuego con él. la Torre Oscura se derrumba y Umbra es vencido."],
+    ["minastirith","El Regreso a Casa","El Rey","Darién es coronado rey de el Reino Blanco y de Arnor, y se casa con Selene. Los medianos son honrados en los Campos de Cormallen."],
+    ["hobbiton","El Regreso a Casa","El Saneamiento de Valle Trébol","Al volver, encuentran Valle Trébol tomada por los hombres de Malvar. Los medianos se levantan y la liberan."],
+    ["puertos","El Regreso a Casa","Los Puertos Grises","Lino no se cura de sus heridas. Parte hacia el Oeste con Teo, Brumo y los últimos portadores de los Anillos élficos. Tomillo vuelve a casa."]
   ];
   const ROUTE=[[240,305],[266,324],[286,331],[299,320],[320,336],[346,331],[360,312],[395,309],[432,306],[470,301],[520,301],[570,300],[588,296],[586,330],[590,385],[604,418],[630,428],[668,443],[703,462],[728,505],[758,545],[763,566],[778,560],[792,552],[835,578],[858,586],[905,598],[868,622],[846,640],[862,672],[874,678],[910,675],[948,666]];
   const rp=smooth(ROUTE,6);const rd=pd(rp);
@@ -1644,7 +1644,7 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
 
   /* ---------- Inicio ---------- */
   function init(){size();V=bw<600?{x:420-240,y:380-300,w:480}:{x:0,y:0,w:W};render();setProg(TOT);
-    cur=-1;const p=P.hobbiton;$("cKick").textContent="La historia completa · 22 capítulos";$("cName").textContent="Todo empieza en la Comarca";$("cAlt").textContent="Hobbiton · Bolsón Cerrado";$("cDesc").textContent="Tocá «Entrar en la Comarca» y el mapa te lleva por la historia completa de El Señor de los Anillos: de la fiesta de Bilbo a los Puertos Grises. También podés tocar cualquier lugar o capítulo.";$("prevStep").disabled=true;$("cStepTxt").textContent="Capítulo 1 de 22";setPlayUI();}
+    cur=-1;const p=P.hobbiton;$("cKick").textContent="La historia completa · 22 capítulos";$("cName").textContent="Todo empieza en Valle Trébol";$("cAlt").textContent="Villa Trébol · Casa Colina";$("cDesc").textContent="Tocá «Entrar en Valle Trébol» y el mapa te lleva por la historia completa de las leyendas: de la fiesta de Teo a los Puertos Grises. También podés tocar cualquier lugar o capítulo.";$("prevStep").disabled=true;$("cStepTxt").textContent="Capítulo 1 de 22";setPlayUI();}
   init();
   let rt;window.addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>{const c=cen(),w0=V.w;size();V={x:c[0]-w0/2,y:c[1]-w0*bh/bw/2,w:w0};render();},120);});
 })();
@@ -1938,14 +1938,14 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         E(1.2,1,1,.18,M(0x5a3a22),-2.6,3,.8,g,0,.5,0);mesh(Sph(.3,12,10),M(0xc9ccd6),-2.75,3,1,g);
         E(.5,.3,2.6,1.5,M(0xc9ccd6),2.8,3.6,1,g,0,0,-.3);
         mergeStatic(g);legs.forEach(l=>mergeStatic(l.g));return {g,h:6.6,r:2.3,legs};},
-      spider(){// Ella-Laraña chibi: peluda, ocho patas articuladas y ojos brillantes
+      spider(){// Ella, la Araña chibi: peluda, ocho patas articuladas y ojos brillantes
         const g=new T.Group(),k=M(0x2e2240),hi=M(0x4a3a60);
         E(2.6,1,.9,1.1,k,0,3,-1.8,g);E(1.6,1,.7,.9,hi,0,3.4,-2.2,g);E(1.5,1,.9,1,k,0,2.6,1.2,g);
         angryEyes(g,0,2.9,2.55,.75,0xb6ff7a,true);[-1,1].forEach(sd=>mesh(Sph(.14,10,8),M(0xb6ff7a,0x9fe06a,.9),sd*.65,3.6,2.3,g));
         [-1,1].forEach(sd=>E(.16,.8,1,1.6,M(0x1a1424),sd*.3,1.8,2.45,g,.4));
         const legs=[];for(let i=0;i<4;i++)[-1,1].forEach(sd=>{const z=-.9+i*.7;const lg=new T.Group();lg.position.set(sd*1.2,4.2,z);g.add(lg);E(.22,1,3.4,1,k,sd*1,-.6,0,lg,0,0,sd*-1.05);E(.18,1,3.4,1,k,sd*2.55,-2.5,0,lg,0,0,sd*.35);mesh(Sph(.2,10,8),hi,sd*3,-4,0,lg);legs.push({g:lg,ph:i*1.6+(sd>0?Math.PI:0),amp:.35});});
         mergeStatic(g);legs.forEach(l=>mergeStatic(l.g));return {g,h:5.6,r:3.2,legs};},
-      tower(){// Barad-dûr redondeada + el Ojo de Sauron
+      tower(){// la Torre Oscura redondeada + el Ojo de Umbra
         const g=new T.Group(),k=M(0x1a161e);
         mesh(lathe([[8.5,0],[7.6,4],[6.2,9],[5.6,14],[4.4,20],[4.1,26],[3.2,31],[3.6,33],[0,33.5]],32),k,0,0,0,g);
         for(let i=0;i<6;i++){const a=i/6*6.283;E(.7,1,4,1,k,Math.cos(a)*3.2,35,Math.sin(a)*3.2,g,0,0,Math.cos(a)*.35);}
@@ -1960,10 +1960,10 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     /* ---------- NIVELES ---------- */
     const LEVELS=[];
     // 1) LA COMARCA
-    LEVELS.push({name:"La Comarca",kick:"Nivel 1 de 5 · La Comunidad del Anillo",size:440,
+    LEVELS.push({name:"Valle Trébol",kick:"Nivel 1 de 5 · La Hermandad del Anillo",size:440,
       sky:[0x2a7de1,0xd4f0ff],fog:[0xd8eefa,120,360],sun:0xfff0d0,
-      text:"Bilbo desapareció en su fiesta de cumpleaños número 111 y te dejó el Anillo. Gandalf dice que es el Anillo Único de Sauron y que hay que llevarlo lejos. Juntá los 5 hongos del granjero Maggot para el viaje… ¡pero cuidado: un Jinete Oscuro busca al Portador!",
-      bossLine:["Frodo","¡Viene un jinete! ¡Escondámonos entre los árboles!"],winLine:["Gandalf","Los Nueve no descansarán. Seguí hacia Rivendel, allí Elrond decidirá qué hacer con el Anillo."],
+      text:"Teo desapareció en su fiesta de cumpleaños número 111 y te dejó el Anillo. Brumo dice que es el Anillo Maldito de Umbra y que hay que llevarlo lejos. Juntá los 5 hongos del granjero Rábano para el viaje… ¡pero cuidado: un Jinete Oscuro busca al Portador!",
+      bossLine:["Lino","¡Viene un jinete! ¡Escondámonos entre los árboles!"],winLine:["Brumo","Los Nueve no descansarán. Seguí hacia el Valle Élfico, allí el sabio Elian decidirá qué hacer con el Anillo."],
       item:"mushroom",itemName:"Hongos",boss:"rider",bossName:"El Jinete Oscuro",speed:9,shoot:0,start:[0,20],bossStart:[190,95],
       setup(W){
         const river=[[-230,58],[-160,66],[-100,58],[-40,62],[10,54],[40,56],[80,68],[112,80]];
@@ -2007,11 +2007,11 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
           // agua
           const wat=mesh(new T.PlaneGeometry(440,440),noOut(toon({color:0x47b6ea,transparent:true,opacity:.86},false)),0,W.water,0,g);wat.rotation.x=-Math.PI/2;wat.userData.noOutline=true;
           // puertas
-          const FAM=["Tuk","Brandigamo","Bolger","Ciñatiesa","Hornblower","Boffin","Madriguera","Bracegirdle","Grubb","Chubb","Cavada","Hojaverde","Bolsón de Sacovilla","Gamyi"];
+          const FAM=["Tuk","Brandigamo","Bolger","Ciñatiesa","Hornblower","Boffin","Madriguera","Bracegirdle","Grubb","Chubb","Cavada","Hojaverde","Sacoverde","Trébol"];
           doors.forEach((d,i)=>{const s=d.big?1.6:1;W.solid.push([d.x-Math.sin(d.a)*5.6*s,d.z-Math.cos(d.a)*5.6*s,5.4*s]);
-            W.enter.push({x:d.px,z:d.pz,a:d.a,kind:"hobbit",name:d.big?"Bolsón Cerrado":"Smial de los "+FAM[i%FAM.length],big:d.big});});
+            W.enter.push({x:d.px,z:d.pz,a:d.a,kind:"hobbit",name:d.big?"Casa Colina":"Smial de los "+FAM[i%FAM.length],big:d.big});});
           doors.forEach(d=>{doorHole(g,d.x,d.y,d.z,d.a,d.col,d.big);const cx=d.x-Math.sin(d.a)*(d.big?7:4),cz=d.z-Math.cos(d.a)*(d.big?7:4);const cy=W.H(cx,cz);mesh(Cyl(.45,.45,2.2,8),M(0x9a5a42),cx,cy+1,cz,g);W.smokes.push([cx,cy+2.2,cz]);W.solid.push([d.x,d.z,2.2]);});
-          // árbol sobre Bolsón Cerrado y Árbol de la Fiesta
+          // árbol sobre Casa Colina y Árbol de la Fiesta
           bigTree(g,0,W.H(0,-44)-1,-44,1.25);W.solid.push([0,-44,2.4]);
           bigTree(g,party.x,party.y-.5,party.z,1.5);W.solid.push([party.x,party.z,2.8]);
           // pabellón de la fiesta
@@ -2037,7 +2037,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
           // posada El Dragón Verde
           thatched(g,62,W.H(62,82),82,-.4,12,9,6,0xefe1c4,0xb5884a,true,"El Dragón Verde","inn");
           thatched(g,90,W.H(90,104),104,.3,7,6,4.5,undefined,undefined,false,"Casa de los Redondo");
-          thatched(g,-26,W.H(-26,88),88,.1,7,6,4.5,undefined,undefined,false,"Casa del granjero Coto");
+          thatched(g,-26,W.H(-26,88),88,.1,7,6,4.5,undefined,undefined,false,"Casa del granjero Trigal");
           // árboles
           for(let i=0;i<420;i++){const x=rnd(-205,205),z=rnd(-205,205);const y=W.H(x,z);if(y<W.water+.8)continue;let near=false;for(const d of doors)if(Math.hypot(x-d.x,z-d.z)<9)near=true;if(near||Math.hypot(x-party.x,z-party.z)<30||inField(x,z))continue;let pd=1e9;for(const P of paths){pd=Math.min(pd,segDist(x,z,P));}if(pd<5)continue;const edgeD=Math.max(Math.abs(x),Math.abs(z));if(edgeD<150&&rnd()<.55)continue;tree(ti,x,y,z,rnd(.8,1.5),i);if(edgeD<170)W.solid.push([x,z,.8]);}
           // setos y cercos alrededor de los campos
@@ -2058,10 +2058,10 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         W.mini={river,pond};
       }});
     // 2) MORIA
-    LEVELS.push({name:"Moria",kick:"Nivel 2 de 5 · La Comunidad del Anillo",size:320,sky:[0x05060d,0x141630],fog:[0x141630,30,180],sun:0x8aa0ff,dark:true,
-      text:"En Rivendel nació la Comunidad del Anillo: nueve contra los Nueve. La nieve cerró el paso de Caradhras y Gandalf los llevó por las minas de Moria. Juntá 5 trozos de mithril… los enanos cavaron demasiado hondo y algo despertó.",
-      bossLine:["Gandalf","¡Un dragón de fuego! Es más viejo que las montañas. ¡Al puente, rápido!"],winLine:["Gandalf","¡Este puente lo cuido yo! Volvé al fondo de la montaña, criatura de fuego."],
-      item:"gem",itemName:"Mithril",boss:"demon",bossName:"El Dragón de Fuego de Moria",speed:7,shoot:2,shotColor:0xff6a1a,start:[0,120],bossStart:[0,-120],
+    LEVELS.push({name:"las Minas de Cristal",kick:"Nivel 2 de 5 · La Hermandad del Anillo",size:320,sky:[0x05060d,0x141630],fog:[0x141630,30,180],sun:0x8aa0ff,dark:true,
+      text:"En el Valle Élfico nació la Hermandad del Anillo: nueve contra los Nueve. La nieve cerró el paso de la Montaña Nevada y Brumo los llevó por las minas de las Minas de Cristal. Juntá 5 trozos de lunarita… los enanos cavaron demasiado hondo y algo despertó.",
+      bossLine:["Brumo","¡Un dragón de fuego! Es más viejo que las montañas. ¡Al puente, rápido!"],winLine:["Brumo","¡Este puente lo cuido yo! Volvé al fondo de la montaña, criatura de fuego."],
+      item:"gem",itemName:"Lunarita",boss:"demon",bossName:"El Dragón de Fuego de las Minas de Cristal",speed:7,shoot:2,shotColor:0xff6a1a,start:[0,120],bossStart:[0,-120],
       setup(W){const pitIn=(x,z)=>Math.abs(x)>2.4&&Math.abs(x)<29.4&&Math.abs(z)<25.6;W.pitIn=pitIn;
         W.H=(x,z)=>pitIn(x,z)?-40:.6*Math.sin(x*.08)*Math.cos(z*.07)+Math.max(0,Math.max(Math.abs(x),Math.abs(z))-140)*1.5;W.color=(x,z)=>{const n=.5+.5*Math.sin(x*.3)*Math.cos(z*.27);return new C(0x3a3850).lerp(new C(0x4d4a66),n);};
         W.after=(g)=>{const pil=new Inst(Cyl(2.4,3,60,8),M(0x4a4760)),cap=new Inst(Box(7,2,7),M(0x3b394e));for(let x=-132;x<=132;x+=33)for(let z=-132;z<=132;z+=33){if(Math.abs(x)<34&&Math.abs(z)<40)continue;pil.add(x,30,z);cap.add(x,4,z);W.solid.push([x,z,3.2]);}pil.build(g);cap.build(g);
@@ -2086,15 +2086,15 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
 };
         W.items=[[-116,-116],[110,-70],[-120,60],[90,110],[0,-40]];}});
     // 3) ROHAN
-    LEVELS.push({name:"Rohan",kick:"Nivel 3 de 5 · Las Dos Torres",size:400,sky:[0x3f8ee0,0xffe3bd],fog:[0xffe8cc,80,250],sun:0xffe0b0,
-      text:"La Comunidad se rompió en Amon Hen. Aragorn, Legolas y Gimli corren tras los uruks de Saruman hasta Rohan. Gandalf volvió como el Blanco y liberó al rey Théoden. Juntá 5 estandartes, llevalos a Meduseld, recibí la espada Herugrim y enfrentá al capitán Uruk-hai.",
-      bossLine:["Éowyn","¡Los uruks de Isengard! ¡Arriba, jinetes, por Rohan!"],winLine:["Théoden","¡Rohan resiste! Que suenen los cuernos: hoy ganamos todos juntos."],
-      item:"banner",itemName:"Estandartes",boss:"uruk",bossName:"El capitán Uruk-hai",speed:11,shoot:0,start:[0,100],bossStart:[0,-150],
+    LEVELS.push({name:"las Praderas Doradas",kick:"Nivel 3 de 5 · La Gran Pradera",size:400,sky:[0x3f8ee0,0xffe3bd],fog:[0xffe8cc,80,250],sun:0xffe0b0,
+      text:"La Hermandad se rompió en la Colina del Vigía. Darién, Elarion y Borin corren tras los orcos de Malvar hasta las Praderas Doradas. Brumo volvió como el Blanco y liberó al rey Aldric. Juntá 5 estandartes, llevalos a el Salón Dorado, recibí la espada Filoclaro y enfrentá al capitán orcos gigantes.",
+      bossLine:["Lía","¡Los orcos de la Torre Gris! ¡Arriba, jinetes, por las Praderas Doradas!"],winLine:["Aldric","¡las Praderas Doradas resiste! Que suenen los cuernos: hoy ganamos todos juntos."],
+      item:"banner",itemName:"Estandartes",boss:"uruk",bossName:"El capitán orcos gigantes",speed:11,shoot:0,start:[0,100],bossStart:[0,-150],
       setup(W){const hill=(x,z)=>22*Math.exp(-(x*x+(z+30)*(z+30))/(2*30*30));W.H=(x,z)=>4*Math.sin(x*.015)*Math.cos(z*.018)+2*Math.sin(x*.04+z*.03)+hill(x,z)+smooth(150,195,Math.max(Math.abs(x),Math.abs(z)))*40;
         W.color=(x,z,y)=>{const n=.5+.5*Math.sin(x*.09)*Math.cos(z*.08);return new C(0xa8963e).lerp(new C(0x7f8a38),n);};
-        W.after=(g,ti)=>{const top=W.H(0,-30);const hall=thatched(g,0,top,-30,0,18,10,7,0x8a6a44,0xd9b24a,false,"Meduseld, el Salón Dorado","hall");
+        W.after=(g,ti)=>{const top=W.H(0,-30);const hall=thatched(g,0,top,-30,0,18,10,7,0x8a6a44,0xd9b24a,false,"el Salón Dorado","hall");
           const pal=new Inst(Cyl(.35,.35,4,5),M(0x6e4a2c));pal.noOutline=true;for(let i=0;i<120;i++){const a=i/120*6.28;const x=Math.cos(a)*34,z=-30+Math.sin(a)*34;pal.add(x,W.H(x,z)+2,z);}pal.build(g);
-          for(let i=0;i<8;i++){const a=i/8*6.28+.3;const x=Math.cos(a)*22,z=-30+Math.sin(a)*22;thatched(g,x,W.H(x,z),z,-a+Math.PI/2,6,5,3.6,0x9a7a52,0xd9b24a,false,"Casa de Rohan","rohan");}
+          for(let i=0;i<8;i++){const a=i/8*6.28+.3;const x=Math.cos(a)*22,z=-30+Math.sin(a)*22;thatched(g,x,W.H(x,z),z,-a+Math.PI/2,6,5,3.6,0x9a7a52,0xd9b24a,false,"Casa de las Praderas Doradas","rohan");}
           const gr=new Inst(geo("tuft",()=>{const parts=[[-.28,0,.38],[0,.12,0],[.28,0,-.38],[.05,-.2,.15]].map(([x,z,rz])=>{const c=new T.ConeGeometry(.11,1.25,5,1,true).toNonIndexed();c.translate(0,.62,0);c.rotateZ(rz);c.translate(x,0,z);return c;});
             const n=parts.reduce((a,c)=>a+c.attributes.position.count,0),P=new Float32Array(n*3),N=new Float32Array(n*3);let o=0;parts.forEach(c=>{P.set(c.attributes.position.array,o*3);N.set(c.attributes.normal.array,o*3);o+=c.attributes.position.count;});
             const m=new T.BufferGeometry();m.setAttribute("position",new T.BufferAttribute(P,3));m.setAttribute("normal",new T.BufferAttribute(N,3));return m;}),M(0xd2b956));gr.noOutline=true;
@@ -2102,10 +2102,10 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
           for(let i=0;i<60;i++){const x=rnd(-180,180),z=rnd(-180,180);if(Math.hypot(x,z+30)<45)continue;tree(ti,x,W.H(x,z),z,rnd(.9,1.4),i);W.solid.push([x,z,.8]);}};
         W.treeCols=[0x7a9a3a,0x8aa847,0x6b8a33];W.items=[[-140,-120],[150,-100],[-150,90],[140,120],[0,-30+40]];}});
     // 4) CIRITH UNGOL
-    LEVELS.push({name:"Cirith Ungol",kick:"Nivel 4 de 5 · Las Dos Torres",size:320,sky:[0x0b0612,0x2c1a3e],fog:[0x2c1a3e,40,220],sun:0xb09aff,dark:true,
-      text:"Gollum prometió guiarlos a Mordor por la escalera secreta de Cirith Ungol… pero los llevó a la guarida de Ella-Laraña. Juntá 5 destellos: la luz del frasco de Galadriel ilumina los lugares oscuros.",
+    LEVELS.push({name:"el Paso de las Telarañas",kick:"Nivel 4 de 5 · La Gran Pradera",size:320,sky:[0x0b0612,0x2c1a3e],fog:[0x2c1a3e,40,220],sun:0xb09aff,dark:true,
+      text:"Grisp prometió guiarlos a Tierra de Ceniza por la escalera secreta de el Paso de las Telarañas… pero los llevó a la guarida de Ella, la Araña. Juntá 5 destellos: la luz del frasco de la Dama del Bosque ilumina los lugares oscuros.",
       bossLine:["Lucerna","¡Ahí baja! Es ella, la tejedora de la oscuridad. ¡Usá la luz!"],winLine:["Tomillo","¡Fuera de acá, araña! Yo no te dejo solo. Ni ahora ni nunca."],
-      item:"light",itemName:"Destellos",boss:"spider",bossName:"Ella-Laraña",speed:8,shoot:1.7,shotColor:0xe8e4ff,start:[0,130],bossStart:[0,-120],
+      item:"light",itemName:"Destellos",boss:"spider",bossName:"Ella, la Araña",speed:8,shoot:1.7,shotColor:0xe8e4ff,start:[0,130],bossStart:[0,-120],
       setup(W){W.H=(x,z)=>3*Math.sin(x*.05)*Math.cos(z*.04)+smooth(40,130,Math.abs(x))*38*(0.8+.2*Math.sin(z*.1));
         W.color=(x,z,y)=>new C(0x3a2d44).lerp(new C(0x5a4a60),clamp(y/40,0,1));
         W.after=(g)=>{const sp=new Inst(Cone(2,14,5),M(0x241c2c));for(let i=0;i<260;i++){const x=rnd(-150,150),z=rnd(-150,150);if(Math.abs(x)<30&&rnd()<.8)continue;sp.add(x,W.H(x,z)+5,z,rnd(.6,1.8),rnd(0,6));if(Math.abs(x)<60)W.solid.push([x,z,1.6]);}sp.build(g);
@@ -2122,10 +2122,10 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
           [[0,-60],[0,60]].forEach(([x,z])=>{const l=new T.PointLight(0xb9a0ff,1,140);l.position.set(x,14,z);g.add(l);});};
         W.items=[[-30,-100],[30,-40],[-20,20],[25,80],[0,-140]];}});
     // 5) MORDOR
-    LEVELS.push({name:"Mordor",kick:"Nivel final · El Retorno del Rey",size:420,sky:[0x1a0503,0x6a2410],fog:[0x4a1a0c,60,330],sun:0xff8a50,final:true,clouds:0x3a2624,
-      text:"El jefe final: Mordor. Aragorn distrae al Ojo frente a la Puerta Negra para que vos llegues al Monte del Destino. Cruzá la llanura de ceniza, esquivá la lluvia de fuego, saltá sobre los 3 cristales que alimentan Barad-dûr y arrojá el Anillo al fuego donde fue forjado.",
-      bossLine:["Tomillo","Acá no crece ni una flor… pero falta poco. Vamos juntos."],winLine:["Gandalf","¡Lo lograste, pequeño amigo! Toda la Tierra Media te lo agradece."],
-      item:null,boss:"tower",bossName:"El Ojo de Sauron",start:[0,20],bossStart:[0,140],
+    LEVELS.push({name:"Tierra de Ceniza",kick:"Nivel final · El Regreso a Casa",size:420,sky:[0x1a0503,0x6a2410],fog:[0x4a1a0c,60,330],sun:0xff8a50,final:true,clouds:0x3a2624,
+      text:"El jefe final: Tierra de Ceniza. Darién distrae al Ojo frente a la Puerta Negra para que vos llegues al Monte del Destino. Cruzá la llanura de ceniza, esquivá la lluvia de fuego, saltá sobre los 3 cristales que alimentan la Torre Oscura y arrojá el Anillo al fuego donde fue forjado.",
+      bossLine:["Tomillo","Acá no crece ni una flor… pero falta poco. Vamos juntos."],winLine:["Brumo","¡Lo lograste, pequeño amigo! Todo el mundo te lo agradece."],
+      item:null,boss:"tower",bossName:"El Ojo de Umbra",start:[0,20],bossStart:[0,140],
       setup(W){const doom=(x,z)=>{const d=Math.hypot(x,z+130);return Math.max(0,60-d*1.05)+ (d<14?-8*(1-d/14):0);};
         const lava=[[[-200,-20],[-120,0],[-60,-30],[0,-10],[60,-40],[140,-20],[200,-50]],[[-180,80],[-100,60],[-40,90],[40,70],[120,100],[190,80]]];
         W.H=(x,z)=>2*Math.sin(x*.03)*Math.cos(z*.025)+doom(x,z)+smooth(170,210,Math.max(Math.abs(x),Math.abs(z)))*45;
@@ -2142,69 +2142,69 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     LEVELS.forEach((l,i)=>l.base=i);
     const PARTY_C=[-78,30];
     const PATHS=[
-      {id:"anillo",name:"La Comunidad del Anillo",who:["Frodo","Sam"],desc:"Llevá el Anillo desde la Comarca hasta el Monte del Destino.",
+      {id:"anillo",name:"La Hermandad del Anillo",who:["Lino","Tomillo"],desc:"Llevá el Anillo desde Valle Trébol hasta el Monte del Destino.",
         levels:[{base:0},{base:1},{base:2},{base:3},{base:4,ringScene:true}],
-        ending:["El Anillo cayó al fuego","La Torre Oscura se derrumbó y Mordor fue vencido. Los hobbits vuelven a casa y la Comarca vuelve a estar en paz."]},
-      {id:"gandalf",name:"El Peregrino Gris",who:["Gandalf"],desc:"Una fiesta llena de travesuras, un puente sobre el abismo y un amanecer en Rohan.",
-        levels:[{base:0,name:"La fiesta de Bilbo",item:null,boss:null,
-            text:"¡Es la gran fiesta de cumpleaños de Bilbo! Pero cinco hobbits traviesos te robaron los fuegos artificiales y los están tirando por todos lados. Atrapalos a todos en el campo de la fiesta antes de que la arruinen.",
+        ending:["El Anillo cayó al fuego","La Torre Oscura se derrumbó y Tierra de Ceniza fue vencido. Los medianos vuelven a casa y Valle Trébol vuelve a estar en paz."]},
+      {id:"gandalf",name:"El Mago de la Bruma",who:["Brumo"],desc:"Una fiesta llena de travesuras, un puente sobre el abismo y un amanecer en las Praderas Doradas.",
+        levels:[{base:0,name:"La fiesta de Teo",item:null,boss:null,
+            text:"¡Es la gran fiesta de cumpleaños de Teo! Pero cinco medianos traviesos te robaron los fuegos artificiales y los están tirando por todos lados. Atrapalos a todos en el campo de la fiesta antes de que la arruinen.",
             goal:{type:"catch",n:5,c:PARTY_C,r:34,spd:10.2,noun:"Traviesos",win:"¡Fiesta salvada!",party:true,
               caught:["¡Atrapado! Devolvé esos cohetes.","¡Otro más! Nada de cohetes sin permiso.","¡Te tengo! A la mesa de los postres.","¡Ya casi! Quedan pocos.","¡El último!"],
-              intro:["Bilbo","¡Gandalf, esos pillos tienen tus cohetes! Corré con Shift: son rápidos pero se cansan."],
-              winLine:["Bilbo","¡Qué fiesta! Ahora sí, Gandalf: el gran final con tus fuegos artificiales."]}},
-          {base:1,name:"El puente de Khazad-dûm",text:"Guiá a la Comunidad por Moria. Juntá 5 gemas de mithril y frená al demonio de fuego con tus runas sobre el puente."},
-          {base:2,name:"El amanecer en Rohan",item:null,noKing:true,boss:null,
-            text:"Volviste vestido de blanco justo al amanecer. Los orcos atacan la bandera de Edoras: frená a 12 antes de que lleguen. Saltales encima o atacalos.",
-            goal:{type:"defend",n:12,spot:[0,12],from:65,spd:4.6,every:2.2,flag:0x2f8a3a,noun:"Orcos frenados",win:"¡Edoras resistió!",
-              intro:["Éowyn","¡Llegaste con la primera luz! Que ningún orco toque la bandera."]}}],
-        ending:["El Blanco","Rohan está a salvo y el rey cabalga otra vez. La Comunidad sigue su camino hacia el este."]},
-      {id:"cazadores",name:"Los Tres Cazadores",who:["Aragorn","Legolas","Gimli"],desc:"Una carrera siguiendo huellas por Rohan, el reino de los enanos y la batalla frente a la Puerta Negra.",
-        levels:[{base:2,name:"La caza de los uruks",item:null,noKing:true,boss:null,
-            text:"Los uruks se llevaron a Merry y Pippin. Seguí sus huellas por las llanuras de Rohan: pasá por cada marca dorada antes de que se acabe el tiempo.",
+              intro:["Teo","¡Brumo, esos pillos tienen tus cohetes! Corré con Shift: son rápidos pero se cansan."],
+              winLine:["Teo","¡Qué fiesta! Ahora sí, Brumo: el gran final con tus fuegos artificiales."]}},
+          {base:1,name:"El puente de Kaz Dorin",text:"Guiá a la Hermandad por las Minas de Cristal. Juntá 5 gemas de lunarita y frená al demonio de fuego con tus runas sobre el puente."},
+          {base:2,name:"El amanecer en las Praderas Doradas",item:null,noKing:true,boss:null,
+            text:"Volviste vestido de blanco justo al amanecer. Los orcos atacan la bandera de Villadorada: frená a 12 antes de que lleguen. Saltales encima o atacalos.",
+            goal:{type:"defend",n:12,spot:[0,12],from:65,spd:4.6,every:2.2,flag:0x2f8a3a,noun:"Orcos frenados",win:"¡Villadorada resistió!",
+              intro:["Lía","¡Llegaste con la primera luz! Que ningún orco toque la bandera."]}}],
+        ending:["El Blanco","las Praderas Doradas está a salvo y el rey cabalga otra vez. La Hermandad sigue su camino hacia el este."]},
+      {id:"cazadores",name:"Los Tres Cazadores",who:["Darién","Elarion","Borin"],desc:"Una carrera siguiendo huellas por las Praderas Doradas, el reino de los enanos y la batalla frente a la Puerta Negra.",
+        levels:[{base:2,name:"La caza de los orcos",item:null,noKing:true,boss:null,
+            text:"Los orcos se llevaron a Nuez y Pimienta. Seguí sus huellas por las llanuras de las Praderas Doradas: pasá por cada marca dorada antes de que se acabe el tiempo.",
             goal:{type:"race",noun:"Huellas",limit:34,bonus:7,pts:[[0,60],[-50,20],[-110,-20],[-140,-90],[-80,-140],[0,-160],[80,-130],[130,-70]],
-              lose:"Se escaparon los uruks",win:"¡Los alcanzaste!",intro:["Legolas","Las huellas son frescas. ¡Si corremos sin parar, los alcanzamos!"]}},
-          {base:1,name:"El reino de Gimli",text:"Gimli quiere ver Moria. Encontrá 5 gemas de mithril y frená al demonio de fuego activando las runas de Gandalf."},
+              lose:"Se escaparon los orcos",win:"¡Los alcanzaste!",intro:["Elarion","Las huellas son frescas. ¡Si corremos sin parar, los alcanzamos!"]}},
+          {base:1,name:"El reino de Borin",text:"Borin quiere ver las Minas de Cristal. Encontrá 5 gemas de lunarita y frená al demonio de fuego activando las runas de Brumo."},
           {base:4,name:"La Puerta Negra",item:null,boss:null,final:false,
-            text:"Frente a la Puerta Negra, los orcos salen sin parar. Aguantá: frená a 15 antes de que lleguen al estandarte, así el Ojo mira hacia ustedes y no hacia Frodo.",
+            text:"Frente a la Puerta Negra, los orcos salen sin parar. Aguantá: frená a 15 antes de que lleguen al estandarte, así el Ojo mira hacia ustedes y no hacia Lino.",
             goal:{type:"defend",n:15,spot:[0,30],from:60,spd:5,every:2,flag:0xf2f2f2,noun:"Orcos frenados",win:"¡Aguantaron!",
-              intro:["Gimli","¡Que vengan! Yo cuento cuántos tiro, ¿y vos?"]}}],
-        ending:["La Puerta Negra","Mientras el Ojo los miraba a ustedes, Frodo arrojó el Anillo al fuego. Aragorn será coronado rey."]},
-      {id:"eowyn",name:"La Dama de Rohan",who:["Éowyn"],desc:"Poné a salvo a la gente de Edoras y enfrentá al Rey Brujo en los campos del Pelennor.",
-        levels:[{base:2,name:"Edoras en peligro",item:null,noKing:true,boss:null,
-            text:"Se acercan los uruks. Buscá a las 5 personas que quedaron afuera y llevalas, una por una, a la puerta del Salón Dorado.",
+              intro:["Borin","¡Que vengan! Yo cuento cuántos tiro, ¿y vos?"]}}],
+        ending:["La Puerta Negra","Mientras el Ojo los miraba a ustedes, Lino arrojó el Anillo al fuego. Darién será coronado rey."]},
+      {id:"eowyn",name:"La Dama de las Praderas Doradas",who:["Lía"],desc:"Poné a salvo a la gente de Villadorada y enfrentá al Rey Espectro en los campos del los Campos del Río.",
+        levels:[{base:2,name:"Villadorada en peligro",item:null,noKing:true,boss:null,
+            text:"Se acercan los orcos. Buscá a las 5 personas que quedaron afuera y llevalas, una por una, a la puerta del Salón Dorado.",
             goal:{type:"deliver",noun:"A salvo",fromName:"buscá a la persona marcada",toName:"llevala al Salón Dorado",people:true,
               personLook:k=>man(k,{female:k%2===1,shirt:[0xe8dcc8,0xc9b8a0,0xd9c09a][k%3],dress:[0x8a5a3a,0x5a6a8a][k%2],vest:null}),
               tasks:W=>{const h=W.enter.find(e=>e.kind==="hall")||{x:0,z:-18};return [[-70,40],[60,50],[95,-40],[-40,-95],[-120,-30]].map(f=>({from:f,to:[h.x,h.z+3],pick:"¡Vení conmigo, te llevo al salón!",give:"¡A salvo en el Salón Dorado!"}));},
-              win:"¡Toda la gente está a salvo!",intro:["Éowyn","Nadie se queda afuera. ¡Vamos a buscarlos!"]}},
-          {base:3,name:"Los campos del Pelennor",item:"light",itemName:"Antorchas",boss:"rider",bossName:"El Rey Brujo de Angmar",speed:10,shoot:0,sky:[0x2a0f12,0x7a3a2a],fog:[0x4a2a24,40,220],
-            text:"La noche cae sobre el Pelennor. Encendé 5 antorchas y enfrentá al Rey Brujo. Dicen que nadie puede vencerlo… pero nadie contaba con vos."}],
-        ending:["La Dama de Rohan","Éowyn venció al Rey Brujo. Rohan y Gondor cantan su nombre."]},
-      {id:"arwen",name:"La Estrella de la Tarde",who:["Arwen"],desc:"Una carrera a caballo hasta el río y la luz élfica en la oscuridad.",
+              win:"¡Toda la gente está a salvo!",intro:["Lía","Nadie se queda afuera. ¡Vamos a buscarlos!"]}},
+          {base:3,name:"Los campos del los Campos del Río",item:"light",itemName:"Antorchas",boss:"rider",bossName:"El Rey Espectro",speed:10,shoot:0,sky:[0x2a0f12,0x7a3a2a],fog:[0x4a2a24,40,220],
+            text:"La noche cae sobre el los Campos del Río. Encendé 5 antorchas y enfrentá al Rey Espectro. Dicen que nadie puede vencerlo… pero nadie contaba con vos."}],
+        ending:["La Dama de las Praderas Doradas","Lía venció al Rey Espectro. las Praderas Doradas y el Reino Blanco cantan su nombre."]},
+      {id:"arwen",name:"La Estrella de la Tarde",who:["Selene"],desc:"Una carrera a caballo hasta el río y la luz élfica en la oscuridad.",
         levels:[{base:0,name:"La carrera al vado",item:null,boss:null,
-            text:"Frodo está herido y los Jinetes Oscuros vienen detrás. Cabalgá hasta el río pasando por cada aro dorado antes de que te alcancen.",
+            text:"Lino está herido y los Jinetes Oscuros vienen detrás. Cabalgá hasta el río pasando por cada aro dorado antes de que te alcancen.",
             goal:{type:"race",noun:"Aros",limit:30,bonus:6,pts:[[0,-10],[45,-50],[95,-80],[140,-40],[165,20],[150,80],[110,120]],
-              lose:"Te alcanzaron los jinetes",win:"¡Llegaste al río!",intro:["Arwen","¡Agarrate fuerte, Frodo! No paramos hasta el agua."],
-              winLine:["Arwen","El río se levanta y se lleva a los jinetes. Frodo está a salvo."]}},
-          {base:3,name:"La luz de los elfos",text:"Llevá la luz élfica a Cirith Ungol: juntá 5 destellos y vencé a la araña gigante."}],
-        ending:["La Estrella de la Tarde","Gracias a Arwen, Frodo pudo seguir su viaje. La luz de los elfos todavía brilla."]},
-      {id:"traviesos",name:"Los Medianos Traviesos",who:["Merry","Pippin","Rosita"],desc:"Hongos robados, perros furiosos y un bosque que despierta.",
+              lose:"Te alcanzaron los jinetes",win:"¡Llegaste al río!",intro:["Selene","¡Agarrate fuerte, Lino! No paramos hasta el agua."],
+              winLine:["Selene","El río se levanta y se lleva a los jinetes. Lino está a salvo."]}},
+          {base:3,name:"La luz de los elfos",text:"Llevá la luz élfica a el Paso de las Telarañas: juntá 5 destellos y vencé a la araña gigante."}],
+        ending:["La Estrella de la Tarde","Gracias a Selene, Lino pudo seguir su viaje. La luz de los elfos todavía brilla."]},
+      {id:"traviesos",name:"Los Medianos Traviesos",who:["Nuez","Pimienta","Amapola"],desc:"Hongos robados, perros furiosos y un bosque que despierta.",
         levels:[{base:0,name:"El atajo a los hongos",boss:null,
-            text:"¡Atajo a los hongos! Robale 5 hongos al granjero Maggot… pero cuidado: sus tres perros te van a perseguir por todo el campo.",
-            goal:{type:"escape",n:3,c:[118,-80],spd:9.6,win:"¡Escapaste con los hongos!",bite:"¡Guau! ¡Un perro de Maggot te mordió!",
-              intro:["Pippin","¡Corré, corré! ¡Los perros de Maggot!"],winLine:["Merry","¡Hongos para la cena! Maggot ni se enteró… bueno, un poco."]}},
-          {base:2,name:"El bosque de Fangorn",noKing:true,itemName:"Ramas de Ent",bossName:"El Uruk de Isengard",text:"Escapaste de los uruks. Juntá 5 ramas para despertar a los Ents y vencé al Uruk de Isengard."}],
-        ending:["La marcha de los Ents","Los Ents despertaron y marcharon sobre Isengard. ¡Nada mal para dos medianos traviesos!"]},
-      {id:"bilbo",name:"Historia de una ida y de una vuelta",who:["Bilbo"],desc:"Una cena con invitados sorpresa, la montaña de los enanos y el Bosque Negro.",
+            text:"¡Atajo a los hongos! Robale 5 hongos al granjero Rábano… pero cuidado: sus tres perros te van a perseguir por todo el campo.",
+            goal:{type:"escape",n:3,c:[118,-80],spd:9.6,win:"¡Escapaste con los hongos!",bite:"¡Guau! ¡Un perro de Rábano te mordió!",
+              intro:["Pimienta","¡Corré, corré! ¡Los perros de Rábano!"],winLine:["Nuez","¡Hongos para la cena! Rábano ni se enteró… bueno, un poco."]}},
+          {base:2,name:"El bosque de el Bosque Antiguo",noKing:true,itemName:"Ramas de Árbol Vivo",bossName:"El Orco de la Torre Gris",text:"Escapaste de los orcos. Juntá 5 ramas para despertar a los Árboles Vivos y vencé al Orco de la Torre Gris."}],
+        ending:["La marcha de los Árboles Vivos","Los Árboles Vivos despertaron y marcharon sobre la Torre Gris. ¡Nada mal para dos medianos traviesos!"]},
+      {id:"bilbo",name:"La gran aventura de Teo",who:["Teo"],desc:"Una cena con invitados sorpresa, la montaña de los enanos y el Bosque Negro.",
         levels:[{base:0,name:"Una cena inesperada",item:null,boss:null,
             text:"¡Llegaron enanos a cenar sin avisar! Llevá la comida del pabellón de la fiesta a cada invitado, una bandeja por vez.",
             goal:{type:"deliver",noun:"Platos servidos",fromName:"buscá comida en el pabellón",toName:"llevala al invitado marcado",guests:true,color:0xd9a05a,
               guestLook:k=>({hair:[0x6a3a1a,0x2a2a2a,0xc06a2a,0x8a8a8a,0x4a2a1a][k],beard:[0x6a3a1a,0x2a2a2a,0xc06a2a,0x8a8a8a,0x4a2a1a][k],vest:[0x2f6fd8,0x8a3a2a,0x3a7a3a,0x7a5a9a,0xb08a3a][k],shirt:0x9a8a7a,scarf:null,hat:[0x2f6fd8,0x8a3a2a,0x3a7a3a,0x7a5a9a,0xb08a3a][k],scale:1.22,eye:0x6b3d1f}),
               tasks:[[-60,6],[-96,8],[-100,44],[-62,52],[-80,58]].map(t=>({from:[-62,32],to:t,pick:"¡Bandeja llena!",give:"¡Gracias! ¡Más, más!"})),
-              win:"¡Todos cenaron!",party:true,intro:["Bilbo","¿Cinco enanos en mi casa? ¡Y tienen hambre! Rápido, a servir."],
-              winLine:["Bilbo","Comieron todo… hasta los postres. Ahora quieren que vaya con ellos de aventura."]}},
+              win:"¡Todos cenaron!",party:true,intro:["Teo","¿Cinco enanos en mi casa? ¡Y tienen hambre! Rápido, a servir."],
+              winLine:["Teo","Comieron todo… hasta los postres. Ahora quieren que vaya con ellos de aventura."]}},
           {base:1,name:"Bajo la Montaña",itemName:"Joyas de los enanos",bossName:"El fuego de la montaña",text:"Bajo la montaña brillan las joyas de los enanos. Juntalas y frená al monstruo de fuego con las runas."},
           {base:3,name:"El Bosque Negro",bossName:"La reina de las arañas",text:"Las arañas del Bosque Negro atraparon a los enanos. Juntá 5 destellos y vencé a su reina."}],
-        ending:["Ida y vuelta","Bilbo volvió a Bolsón Cerrado con un cofre de oro… y un anillo muy especial en el bolsillo."]}];
+        ending:["Ida y vuelta","Teo volvió a Casa Colina con un cofre de oro… y un anillo muy especial en el bolsillo."]}];
     let PATH=PATHS[0],CAMP=null;
     function makeCamp(p){const c=p.levels.map((ov,i)=>Object.assign({},LEVELS[ov.base],ov,{kick:`Nivel ${i+1} de ${p.levels.length} · ${p.name}`}));c.pathId=p.id;return c;}
     const pathFor=name=>PATHS.find(p=>p.who.includes(name));
@@ -2229,7 +2229,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         const geo=new T.BufferGeometry();geo.setAttribute("position",new T.BufferAttribute(P,3));geo.setAttribute("normal",new T.BufferAttribute(N,3));geo.userData.own=true;
         parts.forEach(m=>group.remove(m));const mm=new T.Mesh(geo,mat);if(no)mm.userData.noOutline=true;group.add(mm);});}
     /* ---------- Personajes estilo anime (jugador y habitantes) ----------
-       Peinados hobbit (rulos, trenzas, rodete, cola, coletas, largo), mujeres con vestido y pestañas,
+       Peinados mediano (rulos, trenzas, rodete, cola, coletas, largo), mujeres con vestido y pestañas,
        brazos con hombro articulado y los pies de siempre. */
     /* ---------- Peinados anime basados en peinados reales ----------
        Cada mechón es una forma suave y afinada en la punta (como en el anime), no bolitas.
@@ -2261,17 +2261,17 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       if(st==="mop"){cap();back(.98);curlCover(1.1,1,.78,-.1);for(let k=0;k<7;k++)curl((k/6-.5)*1.6,.82+((k%2)*.08),1.05,1.12);}
       if(st==="curlyShort"){cap(.52);curlCover(1.05,.85,.86,.25);}
       if(st==="afro"){mesh(Sph(R*1.32,18,14),hair,0,.12,-.06,head);curlCover(1.36,1.25,.62,-.35);}
-      if(st==="wavy"){// corto ondulado con raya al costado (Sam, Sean Astin)
+      if(st==="wavy"){// corto ondulado con raya al costado (Tomillo, Sean Astin)
         cap(.54);back(.92);fringe(5,.36,1.0,{sway:.12,roll:-.25});sides(.38,2,{out:.06});nape(.32,5,{wave:true});lock(head,hair,R,-.3,1.15,.3,.24,{tilt:1.9,curve:.35,sway:-.2});}
-      if(st==="swept"){// flequillo largo barrido a un lado (Merry, Dominic Monaghan)
+      if(st==="swept"){// flequillo largo barrido a un lado (Nuez, Dominic Monaghan)
         cap();back(.96);fringe(5,.62,1.1,{sway:.38,roll:-.55,tilt:1.05});sides(.55,2,{out:.08});nape(.45,5,{wave:true});}
-      if(st==="shaggy"){// desmechado corto, puntas hacia afuera (Pippin, Billy Boyd)
+      if(st==="shaggy"){// desmechado corto, puntas hacia afuera (Pimienta, Billy Boyd)
         cap();back(.95);fringe(7,.42,1.3,{vary:true});sides(.42,3,{out:.18,curve:.15});
         for(let i=0;i<8;i++){const a=Math.PI+(i/7-.5)*2.4;lock(head,hair,R,a,.35+(i%2)*.25,.4,.2,{tilt:.6,curve:-.3,sway:(i%2?.18:-.18)});}}
-      if(st==="longStraight"){// largo y lacio con raya al medio (Gandalf, Théoden)
+      if(st==="longStraight"){// largo y lacio con raya al medio (Brumo, Aldric)
         cap(.54);back(1.05);[-1,1].forEach(sd=>{lock(head,hair,R,sd*.42,.75,.55,.24,{tilt:1.0,sway:sd*.32,roll:-sd*.5});lock(head,hair,R,sd*1.25,.2,1.5,.28,{tilt:.12,curve:.05,sway:sd*.05});});
         nape(1.6,6,{curve:-.08});}
-      if(st==="longWavy"||st==="curlyLong"){// largo ondulado (Éowyn) o rulos largos con flores (Rosita)
+      if(st==="longWavy"||st==="curlyLong"){// largo ondulado (Lía) o rulos largos con flores (Amapola)
         const c=st==="curlyLong";cap(.54);back(1.05);
         if(c){curlCover(1.1,.95,.8,.2);for(let k=0;k<26;k++){const sd=k%2?1:-1,y=-.25-((k>>1)%7)*.17,xx=sd*(R*.85+((k>>1)%3)*.05);const t=new T.Mesh(curlG(1.1),hair);t.position.set(xx,y,-.18-((k>>3)%2)*.25);t.rotation.set(k,k*1.7,k*.9);head.add(t);}}
         [-1,1].forEach(sd=>{lock(head,hair,R,sd*.38,.78,.5,.24,{tilt:1.05,sway:sd*.3,roll:-sd*.55});
@@ -2288,10 +2288,10 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       if(st==="braid"){// trenza al costado (estilo vikingo/enano)
         cap(.58);back(.96);fringe(5,.4,1.1,{sway:.1});sides(.5,2);
         for(let k=0;k<6;k++)ell(.15-k*.01,1,1.25,.9,hair,R*.82+k*.02,-.35-k*.24,.12+k*.04,head);mesh(Sph(.09,10,8),M(o.bow||0xff5f8f),R*.92,-1.8,.36,head);}
-      if(st==="balding"){// pelado arriba, pelo a los costados y atrás (Bilbo mayor, granjero Maggot)
+      if(st==="balding"){// pelado arriba, pelo a los costados y atrás (Teo mayor, granjero Rábano)
         [-1,1].forEach(sd=>{for(let k=0;k<3;k++)lock(head,hair,R,sd*(1.2+k*.35),.15+k*.05,.3,.2,{tilt:.3,curve:.12,sway:sd*.12});});nape(.32,5,{wave:true});
         lock(head,hair,R,-.2,1.25,.25,.14,{tilt:1.6,curve:.3,sway:.1});}
-      if(st==="strands"){// unos pocos pelos finitos (Gollum)
+      if(st==="strands"){// unos pocos pelos finitos (Grisp)
         for(let i=0;i<6;i++){const a=(i/5-.5)*3.4;lock(head,hair,R,a,.95-Math.abs(a)*.12,.7,.07,{tilt:.5,curve:.2,sway:(i%2?.15:-.15)});}}
       if(o.flower){const ring=o.crown?7:1;for(let f=0;f<ring;f++){const fl=new T.Group(),a=o.crown?(f/(ring-1)-.5)*2.6:.9;fl.position.set(Math.sin(a)*R*.95,.42-Math.abs(a)*.08,Math.cos(a)*R*.62);head.add(fl);
         for(let k=0;k<5;k++){const b=k/5*6.283;mesh(Sph(.065,8,6),M(f%2&&o.crown?0xffffff:o.flower),Math.cos(b)*.08,Math.sin(b)*.08,0,fl);}mesh(Sph(.045,8,6),M(0xffe066),0,0,.03,fl);}}}
@@ -2361,7 +2361,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         else if(state==="fall"){rz=sd*(1.7+Math.sin(ph*5+i)*.45);}
         else if(state==="dive"){rx=-2.9;rz=sd*.25;}
         a.rotation.x+=(rx-a.rotation.x)*k;a.rotation.z+=(rz-a.rotation.z)*k;});}
-    // Frodo: rulos castaño oscuro tapando las orejas (como Elijah Wood), ojos muy azules, capa élfica
+    // Lino: rulos castaño oscuro tapando las orejas (como Elijah Wood), ojos muy azules, capa élfica
     const player=new T.Group(); // se arma desde el vestuario (rebuildPlayer)
     const shadow=new T.Mesh(Circ(.8,20),new T.MeshBasicMaterial({color:0x000000,transparent:true,opacity:.3,depthWrite:false}));shadow.rotation.x=-Math.PI/2;
     outline(player);
@@ -2385,7 +2385,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       if(e.code==="KeyE"&&!paused&&S.prompt){e.preventDefault();if(!e.repeat)doAction();return;}
       keys[e.code]=true;if(e.code==="Space"){e.preventDefault();if(!e.repeat)jump();}if(e.code.startsWith("Arrow"))e.preventDefault();});
     addEventListener("keyup",e=>{keys[e.code]=false;});
-    // si la ventana pierde el foco, soltamos todo (antes el hobbit seguía caminando solo)
+    // si la ventana pierde el foco, soltamos todo (antes el mediano seguía caminando solo)
     addEventListener("blur",()=>clearInput());
     document.addEventListener("visibilitychange",()=>{if(document.hidden){clearInput();if(!ov.hidden&&!paused)togglePause(true);}});
     const joy={x:0,y:0};
@@ -2432,10 +2432,10 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     function impact(strength=1,stop=.07){flashEl.style.opacity=String(.55*strength);flashEl.classList.remove("go");void flashEl.offsetWidth;flashEl.classList.add("go");S.hitStop=Math.max(S.hitStop||0,stop);}
     function hud(){$("gLevel").textContent=S.inside?S.inside.name:L.name;$("gHearts").textContent="♥".repeat(Math.max(0,S.hearts))+"♡".repeat(Math.max(0,PROG.maxHearts-Math.max(0,S.hearts)))+(S.shield>0?" 🛡":"");
       $("gItems").textContent=L.item?`${L.itemName} ${S.got}/5`:(S.phase==="volcano"?"Llevá el Anillo al volcán":`Cristales ${3-S.crystals.filter(c=>c.alive).length}/3`);
-      if(S.phase==="king")$("gItems").textContent="Llevá los estandartes al rey (Meduseld)";
+      if(S.phase==="king")$("gItems").textContent="Llevá los estandartes al rey (el Salón Dorado)";
       if(S.goal&&!S.goal.done&&S.goal.label)$("gItems").textContent=S.goal.label();
       if(S.goal&&S.goal.done&&S.star)$("gItems").textContent="Tocá la estrella para seguir";
-      if(S.runes&&S.runes.length&&S.boss&&S.boss.alive)$("gItems").textContent="Runas de Gandalf "+S.runes.filter(r=>r.used).length+"/3 · acercate y apretá E";
+      if(S.runes&&S.runes.length&&S.boss&&S.boss.alive)$("gItems").textContent="Runas de Brumo "+S.runes.filter(r=>r.used).length+"/3 · acercate y apretá E";
       if(S.boss&&S.boss.alive){$("gBoss").hidden=false;$("gBossName").textContent=(L.final?"Jefe final · ":"Jefe · ")+L.bossName;$("gBossBar").style.width=(S.boss.hp/3*100)+"%";}else $("gBoss").hidden=true;}
     function togglePause(force){
       if(ov.hidden||!W)return;
@@ -2510,7 +2510,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       S.puffs=[];W.smokes.forEach((sp,k)=>{for(let j=0;j<3;j++){const m=new T.Sprite(new T.SpriteMaterial({map:smokeTex,color:0xf2f2f2,transparent:true,opacity:.5,depthWrite:false}));world.add(m);S.puffs.push({m,sp,t:j/3+Math.random()*.2});}});
       // estado
       Object.assign(S,{x:L.start[0],z:L.start[1],y:W.H(L.start[0],L.start[1]),vx:0,vz:0,vy:0,kx:0,kz:0,ground:true,coyote:0,jumpBuf:0,jumping:false,hitStop:0,shake:0,
-        yaw:Math.PI,camYaw:Math.PI,camPitch:.2,manual:0,hearts:PROG.maxHearts,shield:PROG.mithril?1:0,inv:0,items:[],got:0,boss:null,goal:null,swordGranted:false,shots:[],meteors:[],crystals:[],star:null,parts:[],speedLines:0,
+        yaw:Math.PI,camYaw:Math.PI,camPitch:.2,manual:0,hearts:PROG.maxHearts,shield:PROG.lunarita?1:0,inv:0,items:[],got:0,boss:null,goal:null,swordGranted:false,shots:[],meteors:[],crystals:[],star:null,parts:[],speedLines:0,
         anim:{state:"idle",phase:0,squash:0,stretch:0},phase:L.item?"items":"boss",inside:null,npcs:[],inNpcs:[],prompt:null,talk:null,eaten:{}});
       camDist=CAM.dist;
       // cada objeto tiene su "modelo" aparte del haz de luz: así gira y flota entero
@@ -2610,18 +2610,18 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       g.position.set(bx,W.H(bx,bz),bz);
       if(L.final){
         [0,1,2].forEach(k=>{const a=k/3*Math.PI*2+.5;const x=bx+Math.cos(a)*26,z=bz+Math.sin(a)*26;const c=new T.Group();c.position.set(x,W.H(x,z),z);mesh(Gem(1.6,0),M(0xff2a1a,0xff2a1a,1),0,2.4,0,c).scale.y=1.8;mesh(Cyl(1.8,2.1,.7,8),M(0x2a2020),0,.35,0,c);world.add(c);S.crystals.push({g:c,x,z,alive:true});});
-        msg("Jefe final: el Ojo de Sauron",2800,true);
+        msg("Jefe final: el Ojo de Umbra",2800,true);
       } else {msg(`¡Apareció ${L.bossName}!`,2400,true);beep(160,.5,"sawtooth",.06,.5);}
       if(L.bossLine)setTimeout(()=>say(L.bossLine[0],L.bossLine[1],null),300);const later=L.bossLine?3600:0;
-      if(L.boss==="demon"){spawnRunes();setTimeout(()=>{say("Gandalf","¡Es un dragón de fuego! No podés saltarle encima: activá mis 3 runas azules (E) y esquivá su fuego.",null);hud();},1500+later);}
-      if(L.boss!=="demon"&&!L.final)setTimeout(()=>say("Gandalf",PROG.sword?"¡Hacé clic para atacar con Herugrim! También podés saltarle encima cuando se canse.":"Esquivalo hasta que se canse. Cuando aparezca la flecha dorada, ¡saltale encima!",null),1500+later);
-      if(L.base===2&&PROG.riders){S.boss.hp=2;msg("¡Los Rohirrim ya debilitaron al capitán!",2000);}
+      if(L.boss==="demon"){spawnRunes();setTimeout(()=>{say("Brumo","¡Es un dragón de fuego! No podés saltarle encima: activá mis 3 runas azules (E) y esquivá su fuego.",null);hud();},1500+later);}
+      if(L.boss!=="demon"&&!L.final)setTimeout(()=>say("Brumo",PROG.sword?"¡Hacé clic para atacar con Filoclaro! También podés saltarle encima cuando se canse.":"Esquivalo hasta que se canse. Cuando aparezca la flecha dorada, ¡saltale encima!",null),1500+later);
+      if(L.base===2&&PROG.riders){S.boss.hp=2;msg("¡Los jinetes de las Praderas ya debilitaron al capitán!",2000);}
       outline(g);applyQuality();
       S.phase="boss";hud();
     }
     function hurt(fx,fz){
       if(S.inv>0||paused)return;
-      if(S.shield>0){S.shield--;S.inv=1.6;S.shake=.3;impact(.5,.05);beep(900,.15,"triangle",.05);msg("¡La cota de mithril te protegió!",1600);hud();return;}
+      if(S.shield>0){S.shield--;S.inv=1.6;S.shake=.3;impact(.5,.05);beep(900,.15,"triangle",.05);msg("¡La cota de lunarita te protegió!",1600);hud();return;}
       S.hearts--;S.inv=1.6;S.vy=10;S.ground=false;S.shake=.4;impact(.6,.06);beep(140,.3,"sawtooth",.07,.5);
       if(fx!=null){const dx=S.x-fx,dz=S.z-fz,d=Math.hypot(dx,dz)||1;S.kx=dx/d*18;S.kz=dz/d*18;}
       hud();
@@ -2648,7 +2648,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       if(lvl>=CAMP.length-1){PROG.sword=false;delete PROG.found["t:sword"];if(swordG){swordG.parent&&swordG.parent.remove(swordG);swordG=null;}beep(523,.2,"triangle",.07);setTimeout(()=>beep(659,.2,"triangle",.07),180);setTimeout(()=>beep(784,.5,"triangle",.07),360);
         card("Fin del camino · "+PATH.name,PATH.ending[0],PATH.ending[1]+" ¡Completaste este camino!","Volver a jugar",()=>build(0),"Elegir otro personaje",()=>{$("gCard").hidden=true;openCustomizer(()=>startIntro());});return;}
       if(false){beep(523,.2,"triangle",.07);setTimeout(()=>beep(659,.2,"triangle",.07),180);setTimeout(()=>beep(784,.5,"triangle",.07),360);
-        card("Fin del viaje","El Anillo cayó al fuego","La Torre Oscura se derrumbó y Mordor fue vencido. Los hobbits vuelven a casa y la Comarca vuelve a estar en paz. Ganaste el juego.","Volver a jugar",()=>build(0),"Ver el mapa",()=>{closeGame();document.getElementById("mapa").scrollIntoView();});return;}
+        card("Fin del viaje","El Anillo cayó al fuego","La Torre Oscura se derrumbó y Tierra de Ceniza fue vencido. Los medianos vuelven a casa y Valle Trébol vuelve a estar en paz. Ganaste el juego.","Volver a jugar",()=>build(0),"Ver el mapa",()=>{closeGame();document.getElementById("mapa").scrollIntoView();});return;}
       const n=CAMP[lvl+1];card(n.kick,n.name,n.text,"Viajar al siguiente mundo",()=>{paused=true;adBreak("midgame",()=>{paused=false;build(lvl+1);});});
     }
 
@@ -2657,24 +2657,24 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     const fem=(i,o={})=>hob(i,Object.assign({female:true,hairStyle:["longWavy","bob","pony","braid","bun"][i%5],dress:[0xff8fb1,0x8fc7ff,0xffd36a,0xb7e39a,0xc9a8ff][i%5],flower:[0xff5f8f,0xffffff,0xffb040,null,0xb18cff][i%5],bow:[0xff5f8f,0x2fb4ff,0xffd60a,0x5fdc3a,0xc9a8ff][i%5],vest:null,shirt:0xfff6ee},o));
     const hob=(i,o={})=>Object.assign({hair:HAIR[i%8],hairStyle:["mop","wavy","swept","shaggy"][i%4],vest:VEST[i%7],shirt:SHIRT[i%4],eye:EYE[i%4],scarf:[0xd9442b,0xf1c84a,0x2f6fd8,0xffffff][i%4],scale:1.12+((i*37)%10)/50},o);
     const man=(i,o={})=>Object.assign({tall:true,hair:[0xf3d27a,0xc89a4a,0x7a5a3a][i%3],vest:[0x6f8a5a,0x8a5a3a,0x5a6a8a][i%3],shirt:0xefe6d0,pants:0x5a4a3a,boots:0x4a3424,scarf:null,eye:[0x3f7fbf,0x6b3d1f][i%2],scale:1.22},o);
-    const GENERIC=[["Hobbit vecino",0],["Abuela hobbit",1,{hair:0xdadada,hairStyle:"bun",dress:0xb7a0d0}],["Pequeño hobbit",0,{scale:1.0}],["Jardinero",0,{hairStyle:"bald",hair:0xbdbdbd}],["Panadera",1,{apron:0xffffff}],["Cartero",0],["Vecina",1],["Florista",1],["Tío hobbit",0,{hair:0xb5532a}]];
-    const CHAT=[["¡Buen día! ¿Ya almorzaste? ¿Y el segundo almuerzo?","Dicen que hay hongos perdidos cerca de los campos."],["Las puertas redondas son las mejores: no se traban nunca.","Pasá por El Dragón Verde, la cerveza es de la casa."],["¡Cuidado con el Jinete Oscuro! Anda por el camino del este.","Si estás cansado, en casa siempre hay torta: entrá y servite."],["El molino del río muele la mejor harina de la Comarca.","¿Viste los fuegos artificiales de Gandalf? ¡Increíbles!"]];
+    const GENERIC=[["Mediano vecino",0],["Abuela mediano",1,{hair:0xdadada,hairStyle:"bun",dress:0xb7a0d0}],["Pequeño mediano",0,{scale:1.0}],["Jardinero",0,{hairStyle:"bald",hair:0xbdbdbd}],["Panadera",1,{apron:0xffffff}],["Cartero",0],["Vecina",1],["Florista",1],["Tío mediano",0,{hair:0xb5532a}]];
+    const CHAT=[["¡Buen día! ¿Ya almorzaste? ¿Y el segundo almuerzo?","Dicen que hay hongos perdidos cerca de los campos."],["Las puertas redondas son las mejores: no se traban nunca.","Pasá por El Dragón Verde, la cerveza es de la casa."],["¡Cuidado con el Jinete Oscuro! Anda por el camino del este.","Si estás cansado, en casa siempre hay torta: entrá y servite."],["El molino del río muele la mejor harina de Valle Trébol.","¿Viste los fuegos artificiales de Brumo? ¡Increíbles!"]];
     LEVELS[0].npcs=[
-      {name:"Gandalf",look:{tall:true,robe:0x9aa0a8,shirt:0x9aa0a8,vest:null,scarf:null,hair:0xdedede,hairStyle:"longStraight",beard:0xeeeeee,hat:0x8a9098,staff:true,eye:0x3a5a8a,scale:1.3},home:[10,-2],still:true,
-        lines:["Llegué justo a tiempo, como siempre. Los magos tenemos nuestro propio reloj.","El Anillo debe salir de la Comarca. Juntá los hongos y prepará el viaje.","Si ves al Jinete, esperá a que se canse y saltale encima."]},
-      {name:"Sam Gamyi",look:hob(1,{hairStyle:"wavy",hair:0xb98a4e,vest:0x8a6a3a,scarf:0xf1c84a,scale:1.22}),home:[-10,-4],roam:8,lines:["¡Señor Frodo! Yo cuido el jardín mientras usted no está.","Papá dice que no hay que meterse en asuntos de magos… pero yo voy con usted."]},
-      {name:"Rosita Coto",look:fem(0,{hair:0xe8c060,hairStyle:"curlyLong",dress:0xffa3c4,flower:0xff8fb1,crown:true}),home:[54,70],roam:10,lines:["¿Viste a Sam? Siempre se pone colorado cuando me ve.","En El Dragón Verde hoy hay música."]},
-      {name:"Merry",look:hob(4,{hairStyle:"swept",hair:0x9a5a2a,vest:0xc4442f}),home:[-74,38],roam:16,lines:["Pippin y yo tenemos un plan… no le digas a nadie.","¡Los fuegos artificiales de la fiesta fueron idea nuestra! Bueno, casi."]},
-      {name:"Pippin",look:hob(5,{hairStyle:"shaggy",hair:0xb5532a,vest:0x2f6fd8}),home:[-66,32],roam:16,lines:["¿Ya comimos? Porque yo podría comer otra vez. Y después otra.","Merry dice que no toque nada. ¡Pero esto brilla!"]},
-      {name:"Granjero Maggot",look:hob(0,{hair:0x8a7a6a,hairStyle:"balding",vest:0x6a5a3a,scale:1.38,scarf:null}),home:[118,-80],roam:12,lines:["¡Fuera de mis hongos! …Ah, sos vos. Encontrá los que perdí y te regalo una canasta.","Mis perros son buenos, solo ladran mucho."]}];
+      {name:"Brumo",look:{tall:true,robe:0x9aa0a8,shirt:0x9aa0a8,vest:null,scarf:null,hair:0xdedede,hairStyle:"longStraight",beard:0xeeeeee,hat:0x8a9098,staff:true,eye:0x3a5a8a,scale:1.3},home:[10,-2],still:true,
+        lines:["Llegué justo a tiempo, como siempre. Los magos tenemos nuestro propio reloj.","El Anillo debe salir de Valle Trébol. Juntá los hongos y prepará el viaje.","Si ves al Jinete, esperá a que se canse y saltale encima."]},
+      {name:"Tomillo",look:hob(1,{hairStyle:"wavy",hair:0xb98a4e,vest:0x8a6a3a,scarf:0xf1c84a,scale:1.22}),home:[-10,-4],roam:8,lines:["¡Señor Lino! Yo cuido el jardín mientras usted no está.","Papá dice que no hay que meterse en asuntos de magos… pero yo voy con usted."]},
+      {name:"Amapola Trigal",look:fem(0,{hair:0xe8c060,hairStyle:"curlyLong",dress:0xffa3c4,flower:0xff8fb1,crown:true}),home:[54,70],roam:10,lines:["¿Viste a Tomillo? Siempre se pone colorado cuando me ve.","En El Dragón Verde hoy hay música."]},
+      {name:"Nuez",look:hob(4,{hairStyle:"swept",hair:0x9a5a2a,vest:0xc4442f}),home:[-74,38],roam:16,lines:["Pimienta y yo tenemos un plan… no le digas a nadie.","¡Los fuegos artificiales de la fiesta fueron idea nuestra! Bueno, casi."]},
+      {name:"Pimienta",look:hob(5,{hairStyle:"shaggy",hair:0xb5532a,vest:0x2f6fd8}),home:[-66,32],roam:16,lines:["¿Ya comimos? Porque yo podría comer otra vez. Y después otra.","Nuez dice que no toque nada. ¡Pero esto brilla!"]},
+      {name:"Granjero Rábano",look:hob(0,{hair:0x8a7a6a,hairStyle:"balding",vest:0x6a5a3a,scale:1.38,scarf:null}),home:[118,-80],roam:12,lines:["¡Fuera de mis hongos! …Ah, sos vos. Encontrá los que perdí y te regalo una canasta.","Mis perros son buenos, solo ladran mucho."]}];
     LEVELS[1].npcs=[{name:"Enano perdido",look:{hair:0x8a4a2a,beard:0x8a4a2a,vest:0x5a5a6a,shirt:0x8a7a6a,scarf:null,helmet:0x9aa0aa,scale:1.25,eye:0x6b3d1f},home:[20,100],roam:12,
-        lines:["¡Moria era la ciudad más grande de los enanos!","El mithril es liviano como una pluma y duro como el dragón."]},
+        lines:["¡las Minas de Cristal era la ciudad más grande de los enanos!","El lunarita es liviano como una pluma y duro como el dragón."]},
       {name:"Enana minera",look:{female:true,hairStyle:"braids",hair:0xc06a2a,dress:0x6a4a3a,shirt:0x9a8a7a,vest:null,scarf:null,scale:1.22,bow:0xffd60a},home:[-30,80],roam:14,lines:["No despiertes a lo que duerme en las profundidades…","Las gemas brillan más cerca de las columnas."]}];
-    LEVELS[2].npcs=[{name:"Éowyn",look:man(0,{female:true,hairStyle:"longWavy",hair:0xf0c860,shirt:0xf4f0e6,dress:0xf4f0e6,vest:null,flower:null}),home:[12,0],roam:10,lines:["Rohan no caerá mientras queden jinetes.","El rey Théoden está en Meduseld, el Salón Dorado. Podés entrar.","Las tres almenaras se encienden de la más baja a la más alta. Si las encendés, los jinetes vendrán."]},
-      ...[0,1,2,3].map(i=>({name:["Jinete de Rohan","Guardia del muro","Mozo de cuadra","Aldeano"][i],look:man(i,{spear:i<2,helmet:i<2?0xb9bcc6:undefined}),home:[[-60,40],[40,-70],[70,30],[-40,-60]][i],roam:20,
-        lines:[["¡Por Rohan! Juntá los estandartes y reuniremos a los jinetes.","El capitán uruk ataca los campos del sur."],["Desde el muro se ve todo el valle.","Los uruks no se cansan nunca… salvo cuando se cansan."],["Los caballos están nerviosos hoy.","Sombragrís es el caballo más rápido de la Tierra Media."],["Las casas del pueblo están abiertas, pasá.","Mi abuelo luchó en el Abismo de Helm."]][i]}))];
+    LEVELS[2].npcs=[{name:"Lía",look:man(0,{female:true,hairStyle:"longWavy",hair:0xf0c860,shirt:0xf4f0e6,dress:0xf4f0e6,vest:null,flower:null}),home:[12,0],roam:10,lines:["las Praderas Doradas no caerá mientras queden jinetes.","El rey Aldric está en el Salón Dorado. Podés entrar.","Las tres almenaras se encienden de la más baja a la más alta. Si las encendés, los jinetes vendrán."]},
+      ...[0,1,2,3].map(i=>({name:["Jinete de las Praderas Doradas","Guardia del muro","Mozo de cuadra","Aldeano"][i],look:man(i,{spear:i<2,helmet:i<2?0xb9bcc6:undefined}),home:[[-60,40],[40,-70],[70,30],[-40,-60]][i],roam:20,
+        lines:[["¡Por las Praderas Doradas! Juntá los estandartes y reuniremos a los jinetes.","El capitán uruk ataca los campos del sur."],["Desde el muro se ve todo el valle.","Los orcos no se cansan nunca… salvo cuando se cansan."],["Los caballos están nerviosos hoy.","Nubeveloz es el caballo más rápido del mundo."],["Las casas del pueblo están abiertas, pasá.","Mi abuelo luchó en el Abismo de Hielo."]][i]}))];
     LEVELS[1].npcs.push({name:"Borin, guerrero enano",look:{hair:0x6a6a72,beard:0x6a6a72,vest:0x3a4a6a,shirt:0x7a6a5a,scarf:null,helmet:0xb08a3a,scale:1.3,eye:0x6b3d1f},home:[-12,108],roam:6,
-        lines:["Mis abuelos tallaron estas columnas con martillo y paciencia.","Hay un silencio raro acá abajo… los enanos nunca fuimos callados.","Cuando aparezca el fuego, buscá las runas de Gandalf. ¡Yo te cubro!"]},
+        lines:["Mis abuelos tallaron estas columnas con martillo y paciencia.","Hay un silencio raro acá abajo… los enanos nunca fuimos callados.","Cuando aparezca el fuego, buscá las runas de Brumo. ¡Yo te cubro!"]},
       {name:"Elarion, arquero del bosque",look:{elf:true,hairStyle:"longStraight",hair:0x2a2a3a,shirt:0x5a7a8a,vest:0x3a5a6a,scarf:null,scale:1.42},home:[14,112],roam:6,
         lines:["Mis ojos ven en la oscuridad como un gato… bueno, casi.","Algo muy viejo se mueve allá en el fondo.","Llevo la cuenta de los orcos. Borin dice que él va ganando."]});
     LEVELS[3].npcs=[{name:"Tomillo, el jardinero",look:hob(7,{hairStyle:"mop",hair:0x6a4a2a,vest:0x4a7a3a,scarf:0xe0b040,scale:1.2,backpack:0x7a5a3a}),home:[6,124],roam:5,
@@ -2682,7 +2682,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       {name:"Lucerna, guía de las cuevas",look:{hair:0xd8d8e8,hairStyle:"strands",shirt:0x5a4a6a,vest:0x3a2a4a,scarf:0x9fd8ff,pants:0x3a3040,eye:0x9fd8ff,scale:1.1},home:[-8,118],roam:9,
         lines:["Conozco cada piedra de este paso. Seguí las luces.","Arriba, en la oscuridad, teje alguien muy grande… no hagas ruido.","Cinco destellos y vas a ver el camino."]}];
     LEVELS[4].npcs=[{name:"Tomillo, el jardinero",look:hob(7,{hairStyle:"mop",hair:0x6a4a2a,vest:0x4a7a3a,scarf:0xe0b040,scale:1.2,backpack:0x7a5a3a}),home:[6,26],roam:5,
-        lines:["¿Se acuerda de la Comarca? Pronto vuelven a florecer los manzanos.","Cuando volvamos a casa le hago un guiso con papas, se lo prometo.","¡Mire! La montaña de fuego está ahí nomás."]}];
+        lines:["¿Se acuerda de Valle Trébol? Pronto vuelven a florecer los manzanos.","Cuando volvamos a casa le hago un guiso con papas, se lo prometo.","¡Mire! La montaña de fuego está ahí nomás."]}];
     function makeNPC(n,parent){const m=n.model?n.model():makeChar(n.look);parent.add(m);const N=Object.assign({li:0,m,x:n.home[0],z:n.home[1],yaw:Math.random()*6.28,wait:Math.random()*3,phase:0,spd:2.2+Math.random()*1.4,roam:n.roam||10,lx:0,lz:0,st:0},n);
       N.tx=N.x;N.tz=N.z;collide(N,.5);N.y=W.H(N.x,N.z);m.position.set(N.x,N.y,N.z);return N;}
     function spawnNPCs(){S.npcs=[];const me=(PATH.who||[]).map(w=>w.toLowerCase());(L.npcs||[]).forEach(n=>{if(PATH.who&&PATH.who.length===1&&me.includes(n.name.split(/[ ,]/)[0].toLowerCase()))return;S.npcs.push(makeNPC(n,world));});
@@ -2721,7 +2721,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         if(W.cake&&!S.eaten[W.key]){const d2=Math.hypot(W.cake.x-S.x,W.cake.z-S.z);if(d2<3.3&&d2<bd){bd=d2;best={type:"cake",label:S.hearts<PROG.maxHearts?"Comer torta (+1 ♥)":"Comer torta"};}}}
       if(S.inside&&W.ringSpot&&S.phase==="volcano"){const d=Math.hypot(W.ringSpot.x-S.x,W.ringSpot.z-S.z);if(d<3.8&&d<bd){bd=d;best={type:"ring",label:"Arrojar el Anillo al fuego"};}}
       if(S.inside&&W.treasure&&(W.treasure.key==="sword"||!PROG.found["t:"+W.treasure.key])&&(!W.treasure.cond||W.treasure.cond())){const d=Math.hypot(W.treasure.x-S.x,W.treasure.z-S.z);if(d<3.2&&d<bd){bd=d;best={type:"treasure",label:W.treasure.label};}}
-      if(!S.inside){for(const r of S.runes||[])if(!r.used&&S.boss&&S.boss.alive){const d=Math.hypot(r.x-S.x,r.z-S.z);if(d<3.6&&d<bd){bd=d;best={type:"rune",r,label:"Activar runa de Gandalf"};}}
+      if(!S.inside){for(const r of S.runes||[])if(!r.used&&S.boss&&S.boss.alive){const d=Math.hypot(r.x-S.x,r.z-S.z);if(d<3.6&&d<bd){bd=d;best={type:"rune",r,label:"Activar runa de Brumo"};}}
         for(const b of S.beacons||[])if(!b.lit&&!PROG.riders){const d=Math.hypot(b.x-S.x,b.z-S.z);if(d<4.2&&d<bd){bd=d;best={type:"beacon",b,label:"Encender almenara"};}}}
       for(const N of (S.inside?S.inNpcs:S.npcs)){const d=Math.hypot(N.x-S.x,N.z-S.z);if(d<3.2&&d<bd){bd=d;best={type:"talk",N,label:(S.talk&&S.talk.N===N?"Seguir hablando con ":"Hablar con ")+N.name};}}
       S.prompt=best;const lab=best?best.label:"";if(lab!==lastPrompt){lastPrompt=lab;promptEl.hidden=!best;if(best)promptEl.querySelector("b").textContent=lab;
@@ -2804,34 +2804,34 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       W2.rect=[hw-.7,hd-.7];W2.ceil=hh-.35;W2.exit={x:0,z:hd-1.3};W2.spawn=[0,Math.max(hd-3.4,0)];return W2;}
     const resident=(n,i,lines)=>({name:n,look:/^(Señora|Abuela|Vecina)/.test(n)?fem(i):hob(i),home:[-2,-1],roam:3.5,lines});
     const ROOMS={
-      hobbit(g,E){const big=E.big;const W2=hobbitRoom(g,E,{door:big?0x2f8a3e:undefined,
-        npcs:big?[{name:"Bilbo Bolsón",look:hob(2,{hairStyle:"balding",hair:0xeeeeee,vest:0xb03a2e,scarf:0xf1c84a,scale:1.12,eye:0x6b3d1f}),home:[-2,1],roam:3.5,
-          lines:["¡Bienvenido a Bolsón Cerrado! Limpiate los pies, por favor.","Estoy escribiendo un libro: «Historia de una ida y de una vuelta».","Cuidá el Anillo, muchacho. Es más peligroso de lo que parece."]}]
-          :[resident(E.name.replace("Smial de los ","Señor "),(E.name.length*3)%9,["¡Visita! Pasá, que hay té y torta.","Ese Gandalf siempre trae problemas… y fuegos artificiales.","Si te falta un corazón, comé un poco de torta."])]});return W2;},
-      house(g,E){const W2=rectRoom(g,E,{hw:6,hd:5,npcs:[resident(E.name.includes("Coto")?"Señora Coto":"Señor Redondo",4,["Pasá, pasá. ¿Querés un poco de torta?","Esta casa la construyó mi bisabuelo con sus propias manos."])]});
+      mediano(g,E){const big=E.big;const W2=hobbitRoom(g,E,{door:big?0x2f8a3e:undefined,
+        npcs:big?[{name:"Teo Colina",look:hob(2,{hairStyle:"balding",hair:0xeeeeee,vest:0xb03a2e,scarf:0xf1c84a,scale:1.12,eye:0x6b3d1f}),home:[-2,1],roam:3.5,
+          lines:["¡Bienvenido a Casa Colina! Limpiate los pies, por favor.","Estoy escribiendo un libro: «La gran aventura de Teo».","Cuidá el Anillo, muchacho. Es más peligroso de lo que parece."]}]
+          :[resident(E.name.replace("Smial de los ","Señor "),(E.name.length*3)%9,["¡Visita! Pasá, que hay té y torta.","Ese Brumo siempre trae problemas… y fuegos artificiales.","Si te falta un corazón, comé un poco de torta."])]});return W2;},
+      house(g,E){const W2=rectRoom(g,E,{hw:6,hd:5,npcs:[resident(E.name.includes("Trigal")?"Señora Trigal":"Señor Redondo",4,["Pasá, pasá. ¿Querés un poco de torta?","Esta casa la construyó mi bisabuelo con sus propias manos."])]});
         fireplace(g,0,-4.3,0,W2);table(g,2.2,-.6,1.4);food(g,2.2,-.6);W2.cakeM=cake(g,2.7,-.2);W2.cake={x:2.2,z:-.6};W2.solid.push([2.2,-.6,1.7]);
         chair(g,2.2,1,Math.PI);shelf(g,-4.4,-1.5,Math.PI/2,W2);
         const bed=new T.Group();bed.position.set(-3.6,0,3);g.add(bed);mesh(Box(2.4,.7,3.4),M(0x8a5a32),0,.35,0,bed);mesh(Box(2.2,.35,3),M(0xe9e2f0),0,.85,0,bed);mesh(Box(1.6,.3,.7),M(0xffffff),0,1.1,-1.1,bed);mesh(Box(2.2,.36,1.6),M(0x4a8ad9),0,.9,.6,bed);W2.boxes.push([-3.6,3,1.3,1.8,0,1]);
         plant(g,4.8,3.8);W2.solid.push([4.8,3.8,.7]);return W2;},
       inn(g,E){const W2=rectRoom(g,E,{hw:10,hd:7,hh:5.4,wall:0xe6cfa6,lightI:2.6,light:[0,3.6,0],npcs:[
           {name:"El posadero",look:hob(6,{apron:0xffffff,scale:1.3,hair:0x5a3a20}),home:[0,-5.2],still:true,lines:["¡Bienvenido a El Dragón Verde! La mejor cerveza de los alrededores.","Si escuchás hablar de dragones, no les creas: acá solo hay uno, el del cartel."]},
-          {name:"Hobbit cantor",look:hob(8),home:[-5,1],roam:3,lines:["🎵 ¡Una jarra, dos jarras, la posada se llena de risas y de pan!","¡Cantá conmigo!"]},
-          {name:"Hobbit charlatán",look:hob(9),home:[5,2],roam:2.5,lines:["Dicen que el señor Bilbo tiene túneles llenos de oro.","Yo no creo en los Jinetes Oscuros. …Bueno, un poco."]}]});
+          {name:"Mediano cantor",look:hob(8),home:[-5,1],roam:3,lines:["🎵 ¡Una jarra, dos jarras, la posada se llena de risas y de pan!","¡Cantá conmigo!"]},
+          {name:"Mediano charlatán",look:hob(9),home:[5,2],roam:2.5,lines:["Dicen que el señor Teo tiene túneles llenos de oro.","Yo no creo en los Jinetes Oscuros. …Bueno, un poco."]}]});
         mesh(Box(9,1.3,1.2),M(0x7a4a28),0,.65,-4.4,g);mesh(Box(9.4,.2,1.5),M(0x9a6438),0,1.35,-4.4,g);W2.boxes.push([0,-4.4,4.6,.7,0,1.4]);
         for(let i=0;i<8;i++)mesh(Cyl(.12,.12,.5,10),M([0x3f9a4a,0x8a4ab0,0xc4442f][i%3]),-3.5+i,1.7,-4.4,g);
         [[-8.2,-5.6],[-7,-5.8],[-8.4,-4.2],[8.2,-5.6],[7.1,-5.6]].forEach(([x,z])=>{const b=mesh(Cyl(.65,.65,1.5,18),M(0x8a5a32),x,.75,z,g);mesh(Tor(.66,.06,6,24),M(0x3a3a3a),x,.4,z,g).rotation.x=Math.PI/2;W2.solid.push([x,z,.7]);});
         [[-5,3.5],[5,3.8],[0,1]].forEach(([x,z])=>{table(g,x,z,1.3);for(let k=0;k<3;k++)mesh(Cyl(.16,.14,.36,10),M(0xd9b46a),x-.4+k*.4,1.45,z,g);W2.solid.push([x,z,1.6]);});
         fireplace(g,-9.3,1,Math.PI/2,W2);return W2;},
-      mill(g,E){const W2=rectRoom(g,E,{hw:6,hd:6,hh:6,wall:0xe9dcc0,npcs:[{name:"Ted Arenas, el molinero",look:hob(3,{apron:0xe9e2d0,hair:0x3a2a1a,scale:1.3}),home:[2,-2],roam:3,lines:["La rueda del río nunca para. Escuchá cómo cruje.","Esta harina va para la torta de cumpleaños del señor Bilbo."]}]});
+      mill(g,E){const W2=rectRoom(g,E,{hw:6,hd:6,hh:6,wall:0xe9dcc0,npcs:[{name:"Ted Arenas, el molinero",look:hob(3,{apron:0xe9e2d0,hair:0x3a2a1a,scale:1.3}),home:[2,-2],roam:3,lines:["La rueda del río nunca para. Escuchá cómo cruje.","Esta harina va para la torta de cumpleaños del señor Teo."]}]});
         const gear=new T.Group();gear.position.set(-5.4,3,-1);gear.rotation.y=Math.PI/2;g.add(gear);mesh(Tor(1.8,.22,10,40),M(0x7a5634),0,0,0,gear);for(let i=0;i<6;i++)mesh(Box(.22,3.6,.3),M(0x8a5a32),0,0,0,gear).rotation.z=i*Math.PI/6;W2.spin.push(gear);
         mesh(Cyl(1.6,1.8,.8,28),M(0xb9ad96),-2,.4,-3,g);mesh(Cyl(1.6,1.6,.4,28),M(0xa89a86),-2,1,-3,g);W2.solid.push([-2,-3,1.9]);
         for(let i=0;i<7;i++){const x=3+(i%3)*1.1,z=-4.5+Math.floor(i/3)*1.2;mesh(Sph(.6,12,10),M(0xd9c08a),x,.55+(i>5?1:0),z,g).scale.set(1,1.2,.9);}W2.boxes.push([4.1,-3.4,1.9,1.6,0,2]);
         mesh(Cone(1.4,1.2,24),M(0xf3ead2),3.4,.6,2.6,g);W2.solid.push([3.4,2.6,1.4]);return W2;},
-      rohan(g,E){const W2=rectRoom(g,E,{hw:5,hd:4.5,wall:0xd9c09a,floor:0x9a7a52,npcs:[{name:"Aldeana de Rohan",look:man(1,{female:true,hairStyle:"pony",shirt:0xe8dcc8,dress:0x8a5a3a,vest:null}),home:[-1,-1],roam:2.5,lines:["Mi esposo cabalga con el rey. Volverá con la victoria.","Tomá agua fresca del pozo antes de seguir."]}]});
+      rohan(g,E){const W2=rectRoom(g,E,{hw:5,hd:4.5,wall:0xd9c09a,floor:0x9a7a52,npcs:[{name:"Aldeana de las Praderas Doradas",look:man(1,{female:true,hairStyle:"pony",shirt:0xe8dcc8,dress:0x8a5a3a,vest:null}),home:[-1,-1],roam:2.5,lines:["Mi esposo cabalga con el rey. Volverá con la victoria.","Tomá agua fresca del pozo antes de seguir."]}]});
         fireplace(g,0,-3.8,0,W2);table(g,2,0,1.2);W2.cakeM=cake(g,2.3,.3);W2.cake={x:2,z:0};W2.solid.push([2,0,1.5]);
         const sh=new T.Group();sh.position.set(-4.3,2.4,0);sh.rotation.y=Math.PI/2;g.add(sh);mesh(Cyl(1,1,.15,24),M(0x2f6d3b),0,0,0,sh).rotation.x=Math.PI/2;mesh(Sph(.3,12,8),M(0xf1c84a),0,0,.1,sh);return W2;},
       hall(g,E){const W2=rectRoom(g,E,{hw:8,hd:14,hh:8,wall:0x8a6a44,floor:0x6e5434,lightI:3,light:[0,5,-8],bg:0x120c08,npcs:[
-          {name:"Théoden, rey de Rohan",onTalk:N=>kingTalk(N),look:man(1,{hairStyle:"longStraight",hair:0xe6e6e6,beard:0xeeeeee,vest:0x8a1a1a,shirt:0xd9c08a,helmet:0xf1c84a,scale:1.32}),home:[0,-10.5],still:true,lines:["¿Dónde está el caballo y el jinete? ¿Dónde el cuerno que sonaba?","Juntá los cinco estandartes y Rohan cabalgará contigo.","Ese capitán uruk caerá. ¡A los campos!"]},
+          {name:"Aldric, rey de las Praderas Doradas",onTalk:N=>kingTalk(N),look:man(1,{hairStyle:"longStraight",hair:0xe6e6e6,beard:0xeeeeee,vest:0x8a1a1a,shirt:0xd9c08a,helmet:0xf1c84a,scale:1.32}),home:[0,-10.5],still:true,lines:["¿Dónde está el caballo y el jinete? ¿Dónde el cuerno que sonaba?","Juntá los cinco estandartes y las Praderas Doradas cabalgará contigo.","Ese capitán uruk caerá. ¡A los campos!"]},
           {name:"Guardia real",look:man(0,{spear:true,helmet:0xb9bcc6}),home:[-3,-6],still:true,lines:["Ningún enemigo entra al Salón Dorado.","El rey te espera al fondo."]},
           {name:"Guardia real",look:man(2,{spear:true,helmet:0xb9bcc6}),home:[3,-6],still:true,lines:["Hablá con el rey con respeto.","Afuera hay más casas para visitar."]}]});
         noOut(mesh(new T.PlaneGeometry(3,26),toon({color:0xa82a2a},false),0,.03,0,g)).rotation.x=-Math.PI/2;
@@ -2842,12 +2842,12 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         const sw=new T.Group();sw.position.y=2;sw.rotation.z=Math.PI;stand.add(sw);ell(.12,1,7.5,.3,M(0xdfe6f2,0x6a7a9a,.4),0,1.05,0,sw);ell(.14,3.2,.7,.9,M(0xf1c84a),0,.12,0,sw);ell(.09,1,2.6,1,M(0x6e4a2c),0,-.2,0,sw);
         noOut(mesh(Cyl(.5,.5,6,16,1,true),new T.MeshBasicMaterial({color:0xfff0a0,transparent:true,opacity:.22,depthWrite:false,side:T.DoubleSide}),0,3,0,stand));
         stand.visible=!!S.swordGranted&&!PROG.sword;W2.swordStand=stand;W2.solid.push([0,-8.4,.9]);
-        W2.treasure={x:0,z:-8.4,key:"sword",cond:()=>S.swordGranted&&!PROG.sword,label:"Tomar a Herugrim, la espada del rey",take:()=>{PROG.sword=true;stand.visible=false;equipSword();S.pendingBoss=true;S.phase="boss";hud();
-          msg("¡Ha aparecido el capitán Uruk-hai!",2800,true);say("Théoden","¡Los Uruk-hai de Saruman atacan los campos! Salí y hacé clic para atacar con Herugrim.",null);}};
+        W2.treasure={x:0,z:-8.4,key:"sword",cond:()=>S.swordGranted&&!PROG.sword,label:"Tomar a Filoclaro, la espada del rey",take:()=>{PROG.sword=true;stand.visible=false;equipSword();S.pendingBoss=true;S.phase="boss";hud();
+          msg("¡Ha aparecido el capitán orcos gigantes!",2800,true);say("Aldric","¡Los orcos gigantes de Malvar atacan los campos! Salí y hacé clic para atacar con Filoclaro.",null);}};
         W2.spawn=[0,11.6];return W2;}
     };
     /* ---------- Progreso entre mundos: recompensas de secretos y puzzles ---------- */
-    const PROG={maxHearts:3,mithril:false,phial:false,riders:false,riddles:false,found:{}};
+    const PROG={maxHearts:3,lunarita:false,phial:false,riders:false,riddles:false,found:{}};
     // partida guardada: progreso, personaje, camino y mundo (en el navegador; en CrazyGames también en su nube)
     const SAVE_KEY="tm_partida";let SAVED=null;
     try{SAVED=JSON.parse(localStorage.getItem(SAVE_KEY));}catch(e){SAVED=null;}
@@ -2874,10 +2874,10 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       if(PROG.riddles){say(N.name,"¡Nos ganó, nos ganó! Ya no jugamos más, mi brillante… ¡ji ji!",N);return;}
       if(N.riddling)return;N.riddling=true;riddleN=N;
       const pool=RIDDLES.slice().sort(()=>Math.random()-.5).slice(0,3);let k=0;
-      const ask=()=>{const R=pool[k];choice("Acertijo "+(k+1)+" de 3","Gollum pregunta…",R.q,R.o,i=>{
+      const ask=()=>{const R=pool[k];choice("Acertijo "+(k+1)+" de 3","Grisp pregunta…",R.q,R.o,i=>{
         if(i===R.a){k++;beep(880,.1,"triangle",.05);
           if(k===3){PROG.riddles=true;PROG.maxHearts=Math.min(5,PROG.maxHearts+1);S.hearts=PROG.maxHearts;hud();
-            N.riddling=false;say(N.name,"¡Ssss! Nos ganó… Tomá, tomá esta lembas élfica y andate de nuestra cueva.",N);msg("¡Corazón extra! Ahora tenés "+PROG.maxHearts+" ♥",2400,true);}
+            N.riddling=false;say(N.name,"¡Ssss! Nos ganó… Tomá, tomá esta pan élfico élfica y andate de nuestra cueva.",N);msg("¡Corazón extra! Ahora tenés "+PROG.maxHearts+" ♥",2400,true);}
           else{say(N.name,"Mmm… bien, bien. Otro más, mi brillante.",N);setTimeout(ask,900);}}
         else{N.riddling=false;say(N.name,"¡Nooo! ¡Mal, mal! ¡Nos lo comemos! ¡Ji ji ji! (volvé a hablarle para intentar de nuevo)",N);hurt(null,null);}});};
       say(N.name,"¿Juguemos a los acertijos, mi brillante? Si pierde, nos lo comemos. Si gana… le damos un regalo.",N);setTimeout(ask,1500);}
@@ -2891,7 +2891,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       [[-4.8,2],[4.6,1.6]].forEach(([rx,rz])=>mesh(Blob(1.8),M(0x3f8a33),rx,1.4,rz,g));
       W.solid.push([x-Math.sin(a)*1.5,z-Math.cos(a)*1.5,4.4]);
       W.enter.push({x:x+Math.sin(a)*4.8,z:z+Math.cos(a)*4.8,a,kind,name,secret:true});}
-    /* ---------- Runas de Gandalf (jefe de Moria) ---------- */
+    /* ---------- Runas de Brumo (jefe de las Minas de Cristal) ---------- */
     function spawnRunes(){S.runes=[[-82,-50],[82,-50],[0,50]].map(([x,z])=>{const g=new T.Group();g.position.set(x,W.H(x,z),z);world.add(g);
       mesh(Cyl(1.5,1.8,.8,24),M(0x5a5870),0,.4,0,g);mesh(Box(1.1,3.2,.6),M(0x6a6880),0,2.2,0,g);
       const disc=new T.MeshBasicMaterial({color:0x8fd8ff});[1,-1].forEach(sd=>{const c=mesh(Circ(.38,28),disc,0,2.6,sd*.31,g);if(sd<0)c.rotation.y=Math.PI;});
@@ -2901,9 +2901,9 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       const bolt=noOut(mesh(Cyl(.45,.45,80,10),new T.MeshBasicMaterial({color:0xeaf6ff}),B.x,bossY(B)+40,B.z,world));setTimeout(()=>world.remove(bolt),380);
       impact(1.2,.12);S.shake=.8;burst(B.x,bossY(B)+5,B.z,0xbfe6ff,26);beep(1200,.08,"sawtooth",.06,.2);setTimeout(()=>beep(90,.5,"sawtooth",.08,.4),80);
       B.hp--;B.stun=2.2;hud();
-      if(B.hp<=0){B.alive=false;if(L.boss==="demon"&&W.bridge)startBridgeFall(B);else{say("Gandalf","¡Volvé a las sombras! …Bien hecho, Frodo.",null);defeat(B);}}
-      else{msg(B.hp===1?"¡Una runa más!":"¡Rayo de Gandalf!",1300,true);say("Gandalf",B.hp===2?"¡Eso lo frenó! Buscá las otras runas.":"¡Una más y queda atontado!",null);}}
-    /* ---------- Almenaras de Rohan (puzzle de orden) ---------- */
+      if(B.hp<=0){B.alive=false;if(L.boss==="demon"&&W.bridge)startBridgeFall(B);else{say("Brumo","¡Volvé a las sombras! …Bien hecho, Lino.",null);defeat(B);}}
+      else{msg(B.hp===1?"¡Una runa más!":"¡Rayo de Brumo!",1300,true);say("Brumo",B.hp===2?"¡Eso lo frenó! Buscá las otras runas.":"¡Una más y queda atontado!",null);}}
+    /* ---------- Almenaras de las Praderas Doradas (puzzle de orden) ---------- */
     function spawnBeacons(){S.beacons=[[-140,158],[172,-30],[-30,-185]].map(([x,z])=>{const y=W.H(x,z),g=new T.Group();g.position.set(x,y,z);world.add(g);
       mesh(Cyl(2,2.3,1,22),M(0x8a8478),0,.5,0,g);for(let i=0;i<4;i++){const l=mesh(Cyl(.25,.25,3.4,10),M(0x6e4a2c),0,1.4+i*.5,0,g);l.rotation.set(Math.PI/2,i*Math.PI/4,0);}
       const fire=new T.Group();fire.position.y=3.3;g.add(fire);fire.visible=false;[0xffb040,0xff7a1a,0xffe080].forEach((c,i)=>noOut(mesh(Blob(1.1-i*.25),new T.MeshBasicMaterial({color:c}),0,i*.7,0,fire)));
@@ -2911,15 +2911,15 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       S.beaconOrder=S.beacons.slice().sort((a,b)=>a.h-b.h);S.beaconNext=0;}
     function lightBeacon(b){if(PROG.riders)return;
       if(b===S.beaconOrder[S.beaconNext]){b.lit=true;b.fire.visible=true;S.beaconNext++;burst(b.x,b.h+4,b.z,0xffb040,18);beep(520+S.beaconNext*120,.15,"triangle",.05);
-        if(S.beaconNext===3){PROG.riders=true;msg("¡Las almenaras arden! Los Rohirrim cabalgan",2600,true);
+        if(S.beaconNext===3){PROG.riders=true;msg("¡Las almenaras arden! Los jinetes de las Praderas cabalgan",2600,true);
           if(S.boss&&S.boss.alive){S.boss.hp=Math.max(1,S.boss.hp-1);hud();}}
         else msg("Almenara "+S.beaconNext+" de 3 encendida",1300);}
-      else{S.beacons.forEach(x=>{x.lit=false;x.fire.visible=false;});S.beaconNext=0;beep(140,.3,"sawtooth",.05,.5);msg("Se apagaron todas… Ese no era el orden. Preguntale a Éowyn",2400);}}
+      else{S.beacons.forEach(x=>{x.lit=false;x.fire.visible=false;});S.beaconNext=0;beep(140,.3,"sawtooth",.05,.5);msg("Se apagaron todas… Ese no era el orden. Preguntale a Lía",2400);}}
     function addSecrets(){S.runes=[];S.beacons=[];
-      if(L.base===0)caveMouth(-158,-140,"Cueva de Gollum","gollum");
+      if(L.base===0)caveMouth(-158,-140,"Cueva de Grisp","gollum");
       if(L.base===1)caveMouth(-116,124,"Cámara de Mazarbul","tomb");
-      if(L.base===2){caveMouth(168,-150,"Cavernas Centelleantes de Aglarond","glitter");spawnBeacons();}
-      if(L.base===3&&PROG.phial){hemi.intensity=.62;setTimeout(()=>msg("El Frasco de Galadriel ilumina la oscuridad",2400),600);}
+      if(L.base===2){caveMouth(168,-150,"Cavernas Centelleantes de Brillaluz","glitter");spawnBeacons();}
+      if(L.base===3&&PROG.phial){hemi.intensity=.62;setTimeout(()=>msg("El Frasco de la Dama del Bosque ilumina la oscuridad",2400),600);}
       outline(world);}
     /* ---------- Interiores secretos ---------- */
     function caveRoom(g,E,o){const Rr=o.r||9,hh=o.h||6;const W2=baseRoom(g,{key:E.name,light:o.light||[0,4,0],lightI:o.lightI||1.6,bg:o.bg||0x07060c,fog:o.fog||0x0b0a14,npcs:o.npcs});
@@ -2930,7 +2930,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       const door=faceIn(new T.Mesh(Circ(1.6,32),new T.MeshBasicMaterial({color:0xfff4d0})),0,1.6,Rr-.08);g.add(door);
       W2.round=Rr-1.6;W2.ceil=hh+1.4;W2.exit={x:0,z:Rr-1.6};W2.spawn=[0,Rr-3];return W2;}
     Object.assign(ROOMS,{
-      doom(g,E){// Sammath Naur: el piso termina en una grieta; muy abajo burbujea un charquito de lava
+      doom(g,E){// la Cámara de Fuego: el piso termina en una grieta; muy abajo burbujea un charquito de lava
         const hx=0,hz=-3.5,hr=5.5;
         const W2=caveRoom(g,E,{r:16,h:10,wall:0x3a1a12,floor:0x2a1410,rock:0x4a2a20,light:[0,-4,-3.5],lightI:4,bg:0x1a0604,fog:0x3a1208,hole:[hx,hz,hr]});
         noOut(mesh(Cyl(hr,hr*.7,16,40,6,true),toon({color:0x3a1810,side:T.BackSide},false),hx,-8,hz,g));                 // paredes de la caída
@@ -2942,7 +2942,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         // puente de piedra angosto que cruza la grieta (para perseguir al ladrón)
         mesh(Box(hr*2+3,.5,2.4),M(0x4a2a20),hx,-.25,hz,g);[-1,1].forEach(sd=>{for(let k=-5;k<=5;k++)mesh(Cyl(.12,.14,.8,6),M(0x5a3a2a),hx+k*1.1,.4,hz+sd*1.1,g);});
         W2.pit={x:hx,z:hz,r:hr+.6,bw:1};W2.ringSpot={x:0,z:3.4};W2.volcano={x:hx,z:hz};W2.ringTarget=new V3(hx,-15.4,hz);W2.spawn=[0,11];
-        setTimeout(()=>say("Sam","¡Ahí está la grieta, señor Frodo! Acercate al borde y tirá el Anillo.",null),900);return W2;},
+        setTimeout(()=>say("Tomillo","¡Ahí está la grieta, señor Lino! Acercate al borde y tirá el Anillo.",null),900);return W2;},
       gollum(g,E){const W2=caveRoom(g,E,{light:[0,3,-2],lightI:1.3,npcs:[{name:"Grisp, el ladrón de las cuevas",still:true,home:[1.8,-2.4],model:()=>thiefModel(),
           onTalk:N=>gollumRiddles(N),lines:["¡Lo brillante me encanta!"]}]});
         const pool=noOut(mesh(Circ(3.4,40),new T.MeshBasicMaterial({color:0x2a6a9a}),-1.5,.04,-1.5,g));pool.rotation.x=-Math.PI/2;W2.solid.push([-1.5,-1.5,3.2]);
@@ -2953,8 +2953,8 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         const t=new T.Group();t.position.set(0,0,-3.2);g.add(t);mesh(Box(3.2,1.4,1.8),M(0xdcd8cc),0,.7,0,t);mesh(Box(3.4,.25,2),M(0xc9c4b6),0,1.5,0,t);mesh(Circ(.4,24),M(0xd9a84a,0xa86a10,.5),0,.8,.91,t);W2.boxes.push([0,-3.2,1.7,1,0,1.6]);
         const ch=new T.Group();ch.position.set(3.6,0,-1.6);ch.rotation.y=-.5;g.add(ch);mesh(Box(1.6,1,1),M(0x7a4a28),0,.5,0,ch);const lid=mesh(Box(1.7,.35,1.1),M(0xd9a84a,0x6a4a00,.3),0,1.15,0,ch);W2.solid.push([3.6,-1.6,1.1]);
         [[-4,-4.5],[4,-4.5]].forEach(([x,z])=>{mesh(Cyl(.12,.12,1.6,8),M(0x6e4a2c),x,2.2,z,g);W2.fire=(W2.fire||[]).concat([noOut(mesh(Blob(.35),new T.MeshBasicMaterial({color:0xffa030}),x,3.1,z,g))]);});
-        W2.treasure={x:3.6,z:-1.6,key:"mithril",label:"Abrir el cofre",take:()=>{PROG.mithril=true;S.shield=1;lid.rotation.x=-1.1;lid.position.z=-.5;hud();
-          msg("¡Cota de mithril! Te protege de un golpe en cada mundo",2600,true);say("Inscripción","«Aquí yace Balin, hijo de Fundin, Señor de Moria.»",null);}};
+        W2.treasure={x:3.6,z:-1.6,key:"lunarita",label:"Abrir el cofre",take:()=>{PROG.lunarita=true;S.shield=1;lid.rotation.x=-1.1;lid.position.z=-.5;hud();
+          msg("¡Cota de lunarita! Te protege de un golpe en cada mundo",2600,true);say("Inscripción","«Aquí yace Barin, hijo de Fundin, Señor de las Minas de Cristal.»",null);}};
         return W2;},
       glitter(g,E){const W2=caveRoom(g,E,{r:10,h:7,wall:0x2a2450,floor:0x3a3460,rock:0x4a3a7a,light:[0,4,0],lightI:1.4,bg:0x0a0820,fog:0x140f30});
         const cols=[0x7fd4ff,0xff9ec4,0xb18cff,0x9fffd0,0xfff27a];
@@ -2962,10 +2962,10 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         mesh(Cyl(.9,1.1,1.2,24),M(0xcfc8e8),0,.6,-2,g);W2.solid.push([0,-2,1.2]);
         const ph=new T.Group();ph.position.set(0,1.7,-2);g.add(ph);mesh(Sph(.28,16,12),new T.MeshBasicMaterial({color:0xffffff}),0,0,0,ph);
         noOut(mesh(Sph(.8,16,12),new T.MeshBasicMaterial({color:0xcfe8ff,transparent:true,opacity:.25,depthWrite:false}),0,0,0,ph));
-        W2.treasure={x:0,z:-2,key:"phial",label:"Tomar el Frasco de Galadriel",take:()=>{PROG.phial=true;ph.visible=false;
-          msg("¡Frasco de Galadriel! Ilumina Cirith Ungol y asusta a la araña",2800,true);say("Galadriel (eco)","«Que sea una luz para vos en los lugares oscuros, cuando todas las otras luces se apaguen.»",null);}};
+        W2.treasure={x:0,z:-2,key:"phial",label:"Tomar el Frasco de la Dama del Bosque",take:()=>{PROG.phial=true;ph.visible=false;
+          msg("¡Frasco de la Dama del Bosque! Ilumina el Paso de las Telarañas y asusta a la araña",2800,true);say("la Dama del Bosque (eco)","«Que sea una luz para vos en los lugares oscuros, cuando todas las otras luces se apaguen.»",null);}};
         return W2;}});
-    /* ---------- Espada Herugrim (Rohan): el rey te la da y atacás con clic ---------- */
+    /* ---------- Espada Filoclaro (las Praderas Doradas): el rey te la da y atacás con clic ---------- */
     let swordG=null,trail=null;
     function equipSword(){if(swordG)return;const h=player.userData.arms[1].userData.hand;swordG=new T.Group();h.add(swordG);swordG.rotation.x=1.35;
       E(.12,1,7.5,.3,M(0xdfe6f2,0x6a7a9a,.25),0,1.05,0,swordG);E(.14,3.2,.7,.9,M(0xf1c84a),0,.12,0,swordG);E(.09,1,2.6,1,M(0x6e4a2c),0,-.2,0,swordG);mesh(Sph(.11,12,10),M(0xf1c84a),0,-.45,0,swordG);
@@ -2990,22 +2990,22 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       if(S.attackT<=0){S.attackT=0;if(trail)trail.material.opacity=0;}}
     function kingTalk(N){
       if(S.phase==="king"&&!S.swordGranted){S.swordGranted=true;if(W.swordStand)W.swordStand.visible=true;
-        say(N.name,"¡Los estandartes de Rohan! Tomá a Herugrim, la espada de los reyes. Está frente al trono.",N);burst(0,1.6,-8.4,0xfff0a0,20);return;}
+        say(N.name,"¡Los estandartes de las Praderas Doradas! Tomá a Filoclaro, la espada de los reyes. Está frente al trono.",N);burst(0,1.6,-8.4,0xfff0a0,20);return;}
       say(N.name,N.lines[N.li%N.lines.length],N);N.li++;}
-    /* ---------- Escena final: Frodo saca el Anillo y lo tira al Monte del Destino ---------- */
-    // escena del puente de Moria: el demonio queda atontado, Gandalf se tira de cabeza (como la zambullida), lo empuja al abismo y caen los dos
+    /* ---------- Escena final: Lino saca el Anillo y lo tira al Monte del Destino ---------- */
+    // escena del puente de las Minas de Cristal: el demonio queda atontado, Brumo se tira de cabeza (como la zambullida), lo empuja al abismo y caen los dos
     function startBridgeFall(B){S.prompt=null;lastPrompt="";promptEl.hidden=true;$("gAct").hidden=true;clearInput();S.vx=S.vz=S.kx=S.kz=S.vy=0;
       S.shots.forEach(q=>world.remove(q.m));S.shots=[];closeTalk();
-      const gl=LEVELS[0].npcs.find(n=>n.name==="Gandalf");const gm=makeChar(gl?gl.look:{tall:true,robe:0x9aa0a8,hat:0x8a9098,beard:0xeeeeee,staff:true});outline(gm);
+      const gl=LEVELS[0].npcs.find(n=>n.name==="Brumo");const gm=makeChar(gl?gl.look:{tall:true,robe:0x9aa0a8,hat:0x8a9098,beard:0xeeeeee,staff:true});outline(gm);
       const hold=new T.Group();hold.add(gm);world.add(hold);hold.position.set(-1,0,6);hold.rotation.y=Math.PI;   // parado en el puente, mirando al demonio
       Object.assign(S,{x:0,z:16,y:W.H(0,16),yaw:Math.PI,ground:true});
       B.x=0;B.z=-6;B.g.position.set(0,0,-6);B.g.rotation.set(0,0,0);
       const stars=new T.Group();B.g.add(stars);for(let i=0;i<5;i++){const st=noOut(mesh(Gem(.35,0),M(0xffe14a,0xffd000,1),Math.cos(i/5*6.283)*1.8,10,Math.sin(i/5*6.283)*1.8,stars));st.scale.set(1,1,.4);}
-      if(PATH.id==="gandalf")player.visible=false;   // si jugás con Gandalf, el de la escena sos vos
+      if(PATH.id==="gandalf")player.visible=false;   // si jugás con Brumo, el de la escena sos vos
       S.fall={t:0,step:0,B,gm,hold,stars,vy:0,gvy:0,bx:0,gx:.2};msg("¡El demonio quedó atontado!",2200,true);beep(300,.3,"triangle",.05,.6);}
     function updateFall(dt){const f=S.fall;f.t+=dt;const B=f.B,bg=B.g,h=f.hold,gm=f.gm;
       f.stars.rotation.y+=dt*3;if(f.step<2)bg.rotation.z=Math.sin(f.t*5)*.12;
-      if(f.step===0&&f.t>.5){f.step=1;f.t1=f.t;say("Gandalf","¡Dejá tranquilo a Frodo!",null);h.rotation.y=Math.atan2(1.2,-12);}
+      if(f.step===0&&f.t>.5){f.step=1;f.t1=f.t;say("Brumo","¡Dejá tranquilo a Lino!",null);h.rotation.y=Math.atan2(1.2,-12);}
       if(f.step===1){const e=f.t-f.t1;
         if(e<.9){h.position.z=6-e*2.2;h.position.y=Math.abs(Math.sin(e*14))*.15;}                       // corre unos pasos
         else{const k=Math.min(1,(e-.9)/.55);h.position.z=4-k*7.2;h.position.x=-1+k*1.2;h.position.y=Math.sin(k*Math.PI)*2.6+(1-k)*.1;
@@ -3015,11 +3015,11 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         f.bx=Math.min(f.bx+dt*9,9);bg.position.x=f.bx;bg.rotation.z=-Math.min(e*1.2,1.4);                 // el empujón lo saca del puente
         if(f.bx>3){f.vy-=dt*22;bg.position.y+=f.vy*dt;bg.rotation.x+=dt*.8;}
         h.rotation.y+=(Math.PI/2-h.rotation.y)*Math.min(1,dt*6);h.position.z+=(-5-h.position.z)*Math.min(1,dt*4);
-        f.gx=Math.min(f.gx+dt*7,6.5);h.position.x=f.gx;gm.rotation.x=1.25+Math.min(e,1)*.6;                 // Gandalf sigue de largo y cae también
+        f.gx=Math.min(f.gx+dt*7,6.5);h.position.x=f.gx;gm.rotation.x=1.25+Math.min(e,1)*.6;                 // Brumo sigue de largo y cae también
         if(f.gx>2.6){f.gvy-=dt*20;h.position.y+=f.gvy*dt;gm.rotation.z-=dt*1.4;}else h.position.y=Math.max(0,h.position.y-dt*4);
-        if(e>.5&&!f.cried){f.cried=true;say("Frodo","¡No, Gandalf!",null);}
+        if(e>.5&&!f.cried){f.cried=true;say("Lino","¡No, Brumo!",null);}
         if(bg.position.y<-38&&!f.splash){f.splash=true;burst(bg.position.x,-37,-6,0xff8a2b,30);S.shake=.8;beep(80,.6,"sawtooth",.07,.3);}
-        if(e>3.4){world.remove(bg);world.remove(h);S.fall=null;player.visible=true;closeTalk();msg("Gandalf cayó al abismo con el demonio…",3000,true);
+        if(e>3.4){world.remove(bg);world.remove(h);S.fall=null;player.visible=true;closeTalk();msg("Brumo cayó al abismo con el demonio…",3000,true);
           setTimeout(()=>{if(L.boss==="demon")defeat(B,{x:0,z:32});},1800);return;}}
       // cámara de costado, arriba del abismo, para ver la caída
       const fallY=f.step===2?Math.max(-24,Math.min(bg.position.y,h.position.y)*.55):2;
@@ -3043,7 +3043,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         if(d>.3){c.x+=dx/d*Math.min(d,dt*11);c.z+=dz/d*Math.min(d,dt*11);}g.position.set(c.x,Math.abs(Math.sin(N.t*16))*.3,c.z);g.rotation.y=Math.atan2(dx,dz);
         if(N.t>.3&&!N.said){N.said=true;say("Grisp, el ladrón de las cuevas","¡Brilla, brilla! ¡Eso es mío!",null);}
         if(N.t>1.3&&!N.grab){N.grab=true;if(u.ring){g.userData.hand.add(u.ring);u.ring.position.set(0,0,0);u.ring.scale.setScalar(1.4);}burst(c.x,2,c.z,0xffd24a,16);beep(880,.1,"square",.05,1.5);S.shake=.4;}
-        if(N.t>2.1){N.step=1;N.t1=N.t;say("Frodo","¡Devolvé el Anillo, Grisp! ¡Atrapalo!",null);msg("¡Atrapá a Grisp! Corre por el puente",2200,true);c.th=Math.atan2(S.x-hx,S.z-hz)+Math.PI;}
+        if(N.t>2.1){N.step=1;N.t1=N.t;say("Lino","¡Devolvé el Anillo, Grisp! ¡Atrapalo!",null);msg("¡Atrapá a Grisp! Corre por el puente",2200,true);c.th=Math.atan2(S.x-hx,S.z-hz)+Math.PI;}
         player.position.set(S.x,S.y,S.z);cam(S.x-4.5,4.4,S.z+3.2,(S.x+c.x)/2,1.6,(S.z+c.z)/2);sky.position.copy(camera.position);return true;}
       if(N.step===1){// Grisp huye: prueba 12 direcciones y elige la que más lo aleja (puede cruzar el puente)
         const pd=Math.hypot(S.x-c.x,S.z-c.z);const lead=N.t-N.t1<.8;const sp=lead?12:(pd<5?10.5:8.5);
@@ -3055,8 +3055,8 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         if(pd<1.9&&!lead){N.step=2;N.t2=N.t;clearInput();S.vx=S.vz=0;S.yaw=Math.atan2(c.x-S.x,c.z-S.z);}
         return false;}
       if(N.step===2){const e=N.t-N.t2;
-        if(e>.15&&!c.bit){c.bit=true;burst(S.x+Math.sin(S.yaw)*.8,2,S.z+Math.cos(S.yaw)*.8,0xffffff,18);S.shake=.6;impact(.8,.08);beep(220,.2,"square",.06,.5);say("Frodo","¡Aaay! ¡Me mordió la mano!",null);}
-        if(e>.9&&!N.push){N.push=true;beep(140,.3,"sawtooth",.06,.5);burst(c.x,1.6,c.z,0xffd24a,20);say("Frodo","¡Soltalo!",null);
+        if(e>.15&&!c.bit){c.bit=true;burst(S.x+Math.sin(S.yaw)*.8,2,S.z+Math.cos(S.yaw)*.8,0xffffff,18);S.shake=.6;impact(.8,.08);beep(220,.2,"square",.06,.5);say("Lino","¡Aaay! ¡Me mordió la mano!",null);}
+        if(e>.9&&!N.push){N.push=true;beep(140,.3,"sawtooth",.06,.5);burst(c.x,1.6,c.z,0xffd24a,20);say("Lino","¡Soltalo!",null);
           const dx=hx-c.x,dz=hz-c.z,d=Math.hypot(dx,dz)||1;N.onB=Math.abs(c.z-hz)<1.6&&Math.abs(c.x-hx)<W.pit.r;if(N.onB){N.px=0;N.pz=Math.sign(c.z-hz)||1;}else{N.px=dx/d;N.pz=dz/d;}}
         if(N.push){const over=N.onB?Math.abs(c.z-hz)>1.6:Math.hypot(c.x-hx,c.z-hz)<W.pit.r-1.5;if(!over){c.x+=N.px*dt*9;c.z+=N.pz*dt*9;}else{N.vy-=dt*24;}const gy=Math.min(0,(g.position.y||0)+N.vy*dt);
           g.position.set(c.x,gy,c.z);g.rotation.x+=dt*(N.vy<0?3:0);if(N.vy<0&&!N.cry){N.cry=true;say("Grisp","¡Nooo, mi brillante!",null);}
@@ -3065,7 +3065,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         // te resbalás hacia la grieta, quedás colgando del borde con los brazos arriba y Tomillo te agarra la mano
         const u2=player.userData,P=W.pit;
         if(e>2.6&&!N.slip){N.slip=true;N.sx=S.x;N.sz=S.z;const dx=S.x-P.x,dz=S.z-P.z,d=Math.hypot(dx,dz)||1;N.ex=P.x+dx/d*(P.r-.4);N.ez=P.z+dz/d*(P.r-.4);N.ox=dx/d;N.oz=dz/d;
-          S.yaw=Math.atan2(N.ox,N.oz);say("Frodo","¡Me resbalo…! ¡Ayuda!",null);beep(300,.4,"sawtooth",.05,.5);}
+          S.yaw=Math.atan2(N.ox,N.oz);say("Lino","¡Me resbalo…! ¡Ayuda!",null);beep(300,.4,"sawtooth",.05,.5);}
         if(N.slip&&!N.saved){const k=Math.min(1,(e-2.6)/.5);player.position.set(N.sx+(N.ex-N.sx)*k,-2.3*k,N.sz+(N.ez-N.sz)*k);player.rotation.y=S.yaw;
           if(u2.arms)u2.arms.forEach((A,i)=>{A.rotation.x=-2.9*k;A.rotation.z=(i?-1:1)*.25*k;});player.position.y+=Math.sin(e*9)*.06*k;}
         if(e>3.2&&!N.helper){const tl=LEVELS[3].npcs&&LEVELS[3].npcs[0]?LEVELS[3].npcs[0].look:hob(7);N.helper=makeChar(tl);interior.add(N.helper);outline(N.helper);
@@ -3088,13 +3088,13 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       const ease=(a,b,k)=>a+(b-a)*Math.min(1,k);c.trail=c.trail||[];
       player.position.set(S.x,S.y,S.z);player.rotation.y=S.yaw;u.body.rotation.x*=.9;
       if(c.t<1.2){R.rotation.x=ease(R.rotation.x,-1.4,dt*5);L2.rotation.x=ease(L2.rotation.x,-1.1,dt*5);}
-      if(c.step===0&&c.t>.7){c.step=1;hand.add(u.ring);u.ring.position.set(0,-.08,.12);u.ring.scale.setScalar(1.6);beep(880,.2,"triangle",.04);say("Frodo","El Anillo… pesa tanto. No. ¡Esto se termina acá!",null);S.talk.t=99;}
+      if(c.step===0&&c.t>.7){c.step=1;hand.add(u.ring);u.ring.position.set(0,-.08,.12);u.ring.scale.setScalar(1.6);beep(880,.2,"triangle",.04);say("Lino","El Anillo… pesa tanto. No. ¡Esto se termina acá!",null);S.talk.t=99;}
       if(c.t>1.2&&c.t<3.7){R.rotation.x=ease(R.rotation.x,-2.95,dt*4);R.rotation.z=ease(R.rotation.z,.35,dt*4);L2.rotation.x=ease(L2.rotation.x,0,dt*3);u.ring.rotation.y+=dt*4;
         if(Math.random()<dt*8){const wp=new V3();hand.getWorldPosition(wp);burst(wp.x,wp.y,wp.z,0xffe27a,2);}}
       if(c.t>=3.7&&c.t<4.1){R.rotation.x=ease(R.rotation.x,-.5,dt*16);R.rotation.z=ease(R.rotation.z,-.2,dt*16);}
       if(c.step===1&&c.t>=3.9){c.step=2;const wp=new V3();hand.getWorldPosition(wp);u.ring.visible=false;c.t2=c.t;
         c.fly=noOut(mesh(Tor(.45,.12,10,28),M(0xffd24a,0xffb000,1),wp.x,wp.y,wp.z,par));c.from=wp.clone();
-        c.to=W.ringTarget?W.ringTarget.clone():new V3(V.x,W.H(V.x,V.z)+2,V.z-9);say("Frodo","¡No quiero verte nunca más!",null);S.talk.t=99;beep(500,.3,"triangle",.05,.4);}
+        c.to=W.ringTarget?W.ringTarget.clone():new V3(V.x,W.H(V.x,V.z)+2,V.z-9);say("Lino","¡No quiero verte nunca más!",null);S.talk.t=99;beep(500,.3,"triangle",.05,.4);}
       if(c.step===2){const k=Math.min(1,(c.t-c.t2)/2.2),p=c.from.clone().lerp(c.to,k);p.y+=Math.sin(Math.min(1,k*1.6)*Math.PI)*4*(1-k);c.fly.position.copy(p);c.fly.rotation.x+=dt*9;c.fly.rotation.y+=dt*6;
         // estela amarilla: bolitas brillantes que quedan atrás y se apagan
         const t1=noOut(new T.Mesh(sparkGeo,sparkM(0xffd24a)));t1.position.copy(p);t1.scale.setScalar(1.3);par.add(t1);c.trail.push({m:t1,l:.9});
@@ -3191,13 +3191,13 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       if(S.inv>0){S.inv-=dt;player.visible=Math.floor(S.inv*12)%2===0;}else player.visible=true;
       shadow.position.set(S.x,gy+.08,S.z);const ss=Math.max(.35,1-(S.y-gy)*.12);shadow.scale.set(ss,ss,ss);
       S.speedLines=A.run&&moving&&S.ground?Math.min(1,speed/CTRL.run):0;
-      // lava de Mordor: ahora sí quema
+      // lava de Tierra de Ceniza: ahora sí quema
       if(W.lava&&S.ground){let ld=1e9;for(const P of W.lava)ld=Math.min(ld,segDist(S.x,S.z,P));if(ld<1.6){if(S.inv<=0)msg("¡Cuidado, la lava quema!",1300);hurt(null,null);S.vy=14;S.ground=false;}}
       // objetos
       if(S.goal)updateGoal(dt);
       S.items.forEach(it=>{if(!it.alive||S.inside)return;it.model.rotation.y+=dt*2;it.model.position.y=Math.sin(t*3+it.x)*.3+.3;
         if(Math.hypot(it.x-S.x,it.z-S.z)<2.4&&S.y-W.H(it.x,it.z)<3.2){it.alive=false;world.remove(it.g);S.got++;burst(it.x,W.H(it.x,it.z)+1.6,it.z,0xfff0a0);beep(880,.1,"square",.05,1.5);setTimeout(()=>beep(1320,.12,"square",.05),90);hud();
-          if(S.got===5){if(L.base===2&&!PROG.sword&&!L.noKing){S.phase="king";msg("¡Estandartes reunidos! Llevalos al rey",2600,true);setTimeout(()=>say("Éowyn","¡Los juntaste todos! Subí a Meduseld, el Salón Dorado: el rey Théoden quiere verte.",null),900);hud();}else if(L.goal){finishGoal();}else{msg("¡Los tenés todos!",1500,true);setTimeout(spawnBoss,1400);}}else msg(`${L.itemName}: ${S.got}/5`,1100);}});
+          if(S.got===5){if(L.base===2&&!PROG.sword&&!L.noKing){S.phase="king";msg("¡Estandartes reunidos! Llevalos al rey",2600,true);setTimeout(()=>say("Lía","¡Los juntaste todos! Subí a el Salón Dorado: el rey Aldric quiere verte.",null),900);hud();}else if(L.goal){finishGoal();}else{msg("¡Los tenés todos!",1500,true);setTimeout(spawnBoss,1400);}}else msg(`${L.itemName}: ${S.got}/5`,1100);}});
       const B=S.boss;if(B&&B.alive&&!S.inside){if(L.final)updateFinal(dt,t,B);else updateBoss(dt,t,B);}
       if(!S.inside)S.shots=S.shots.filter(s=>{s.life-=dt;s.x+=s.vx*dt;s.z+=s.vz*dt;s.m.position.set(s.x,W.H(s.x,s.z)+1.6,s.z);s.m.rotation.x+=dt*5;
         if(Math.hypot(s.x-S.x,s.z-S.z)<1.4&&S.y-groundAt(S.x,S.z)<2){hurt(s.x,s.z);s.life=0;}
@@ -3291,7 +3291,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       S.meteors.forEach(m=>{world.remove(m.m);world.remove(m.ring);});S.meteors=[];
       msg("¡La Torre Oscura se derrumba!",2600);S.shake=1.6;beep(90,1,"sawtooth",.08,.3);
       let k=0;const iv=setInterval(()=>{k++;B.g.position.y-=.9;B.g.rotation.y+=.05;if(k>=50){clearInterval(iv);world.remove(B.g);}},50);
-      if(!L.ringScene){S.phase="done";hud();setTimeout(()=>msg("¡Sauron cayó!",2800,true),2600);setTimeout(winLevel,5200);return;}
+      if(!L.ringScene){S.phase="done";hud();setTimeout(()=>msg("¡Umbra cayó!",2800,true),2600);setTimeout(winLevel,5200);return;}
       S.phase="volcano";if(W.volcano&&!W.enter.some(E=>E.kind==="doom"))W.enter.push({x:W.volcano.x,z:W.volcano.z+4,a:0,kind:"doom",name:"el Monte del Destino"});hud();setTimeout(()=>msg("Ahora llevá el Anillo a la puerta del volcán",2800),2800);
     }
     // líneas de velocidad del anime al correr
@@ -3345,18 +3345,18 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     const C_EYE=[0x3b86ff,0x2f6fd8,0x6b3d1f,0x3f9a5a,0x8a5a2a,0x7a5acd,0x9fd8ff,0x1e1410];
     const C_CLOTH=[0xfff6e4,0xefe2c4,0xd9442b,0xff8fb1,0xf1c84a,0x5fdc3a,0x3f9a4a,0x6b7d64,0x2fb4ff,0x2f6fd8,0x7a5acd,0x8a5a32,0x7a5a3a,0x5a4a32,0x3a3a42,0x14111a];
     const PRESETS=[
-      ["Frodo",{hairStyle:"mop",hair:0x3a2414,eye:0x3b86ff,vest:0x7a5a3a,shirt:0xf6eedc,pants:0x6e5236,cloak:0x6b7d64,scarf:null,brooch:true}],
-      ["Sam",{hairStyle:"wavy",hair:0xb98a4e,eye:0x6b3d1f,vest:0x8a6a3a,shirt:0xefe2c4,pants:0x5a4a32,scarf:0xf1c84a,backpack:0x8a5a32,cloak:0x6b7d64,brooch:true}],
-      ["Merry",{hairStyle:"swept",hair:0x9a5a2a,eye:0x3f9a5a,vest:0xc4442f,shirt:0xfff6e4,pants:0x6e5236,cloak:0x6b7d64,scarf:null,brooch:true}],
-      ["Pippin",{hairStyle:"shaggy",hair:0xb5532a,eye:0x3f9a5a,vest:0x2f6fd8,shirt:0xfff6e4,pants:0x5a4a32,scarf:0xf1c84a,cloak:0x6b7d64,brooch:true}],
-      ["Bilbo",{hairStyle:"balding",hair:0xeeeeee,eye:0x6b3d1f,vest:0xb03a2e,shirt:0xfff6e4,pants:0x6e5236,scarf:0xf1c84a,headwear:"straw",hatColor:0x8a5a32}],
-      ["Rosita",{female:true,hairStyle:"curlyLong",hair:0xe8c060,eye:0x2f6fd8,dress:0xffa3c4,shirt:0xfff6ee,vest:null,scarf:null,flower:0xff8fb1,headwear:"flowers"}],
-      ["Éowyn",{female:true,tall:true,hairStyle:"longWavy",hair:0xf0c860,eye:0x3f7fbf,dress:0xf4f0e6,shirt:0xf4f0e6,vest:null,scarf:null,cloak:0x6f8a5a,boots:0x4a3424,scale:1.22}],
-      ["Arwen",{elf:true,female:true,tall:true,hairStyle:"longStraight",hair:0x1e1410,eye:0x6fa0ff,dress:0x5a4aa8,shirt:0x7a6ac8,vest:null,scarf:null,boots:0x3a2a4a,scale:1.22}],
-      ["Aragorn",{tall:true,hairStyle:"longWavy",hair:0x3a2a1e,beard:0x3a2a1e,eye:0x6b8aa0,vest:0x3a3a32,shirt:0x5a5040,pants:0x3a3028,cloak:0x4a4a3a,scarf:null,boots:0x3a2a1a,scale:1.24}],
-      ["Legolas",{elf:true,tall:true,hairStyle:"longStraight",hair:0xf3e3a0,eye:0x3b86ff,vest:0x5f7a4a,shirt:0x8aa06a,pants:0x4a4a3a,cloak:0x6b7d64,scarf:null,boots:0x5a4a32,backpack:0x8a5a32,scale:1.26}],
-      ["Gimli",{hairStyle:"braid",hair:0xc0502a,beard:0xc0502a,eye:0x6b3d1f,vest:0x6a3a2a,shirt:0x8a7a6a,pants:0x4a3a2a,scarf:null,boots:0x3a2a1a,headwear:"helmet",bow:0xf1c84a,scale:1.32}],
-      ["Gandalf",{tall:true,robe:0x9aa0a8,shirt:0x9aa0a8,vest:null,scarf:null,hair:0xdedede,hairStyle:"longStraight",beard:0xeeeeee,headwear:"wizard",hatColor:0x8a9098,staff:true,eye:0x3a5a8a,scale:1.3}]];
+      ["Lino",{hairStyle:"mop",hair:0x3a2414,eye:0x3b86ff,vest:0x7a5a3a,shirt:0xf6eedc,pants:0x6e5236,cloak:0x6b7d64,scarf:null,brooch:true}],
+      ["Tomillo",{hairStyle:"wavy",hair:0xb98a4e,eye:0x6b3d1f,vest:0x8a6a3a,shirt:0xefe2c4,pants:0x5a4a32,scarf:0xf1c84a,backpack:0x8a5a32,cloak:0x6b7d64,brooch:true}],
+      ["Nuez",{hairStyle:"swept",hair:0x9a5a2a,eye:0x3f9a5a,vest:0xc4442f,shirt:0xfff6e4,pants:0x6e5236,cloak:0x6b7d64,scarf:null,brooch:true}],
+      ["Pimienta",{hairStyle:"shaggy",hair:0xb5532a,eye:0x3f9a5a,vest:0x2f6fd8,shirt:0xfff6e4,pants:0x5a4a32,scarf:0xf1c84a,cloak:0x6b7d64,brooch:true}],
+      ["Teo",{hairStyle:"balding",hair:0xeeeeee,eye:0x6b3d1f,vest:0xb03a2e,shirt:0xfff6e4,pants:0x6e5236,scarf:0xf1c84a,headwear:"straw",hatColor:0x8a5a32}],
+      ["Amapola",{female:true,hairStyle:"curlyLong",hair:0xe8c060,eye:0x2f6fd8,dress:0xffa3c4,shirt:0xfff6ee,vest:null,scarf:null,flower:0xff8fb1,headwear:"flowers"}],
+      ["Lía",{female:true,tall:true,hairStyle:"longWavy",hair:0xf0c860,eye:0x3f7fbf,dress:0xf4f0e6,shirt:0xf4f0e6,vest:null,scarf:null,cloak:0x6f8a5a,boots:0x4a3424,scale:1.22}],
+      ["Selene",{elf:true,female:true,tall:true,hairStyle:"longStraight",hair:0x1e1410,eye:0x6fa0ff,dress:0x5a4aa8,shirt:0x7a6ac8,vest:null,scarf:null,boots:0x3a2a4a,scale:1.22}],
+      ["Darién",{tall:true,hairStyle:"longWavy",hair:0x3a2a1e,beard:0x3a2a1e,eye:0x6b8aa0,vest:0x3a3a32,shirt:0x5a5040,pants:0x3a3028,cloak:0x4a4a3a,scarf:null,boots:0x3a2a1a,scale:1.24}],
+      ["Elarion",{elf:true,tall:true,hairStyle:"longStraight",hair:0xf3e3a0,eye:0x3b86ff,vest:0x5f7a4a,shirt:0x8aa06a,pants:0x4a4a3a,cloak:0x6b7d64,scarf:null,boots:0x5a4a32,backpack:0x8a5a32,scale:1.26}],
+      ["Borin",{hairStyle:"braid",hair:0xc0502a,beard:0xc0502a,eye:0x6b3d1f,vest:0x6a3a2a,shirt:0x8a7a6a,pants:0x4a3a2a,scarf:null,boots:0x3a2a1a,headwear:"helmet",bow:0xf1c84a,scale:1.32}],
+      ["Brumo",{tall:true,robe:0x9aa0a8,shirt:0x9aa0a8,vest:null,scarf:null,hair:0xdedede,hairStyle:"longStraight",beard:0xeeeeee,headwear:"wizard",hatColor:0x8a9098,staff:true,eye:0x3a5a8a,scale:1.3}]];
     const HAIRS=[["mop","Rulos"],["curlyShort","Rulos cortos"],["afro","Rulos grandes (afro)"],["wavy","Ondulado corto"],["swept","Flequillo al costado"],["shaggy","Desmechado"],["bob","Melena corta"],["longStraight","Largo lacio"],["longWavy","Largo ondulado"],["curlyLong","Rulos largos"],["pony","Cola de caballo"],["braid","Trenza"],["bun","Rodete"],["balding","Pelado"]];
     const HEADS=[[null,"Nada"],["cap","Gorra"],["beanie","Gorro de lana"],["straw","Sombrero de paja"],["explorer","Sombrero de explorador"],["wizard","Sombrero de mago"],["helmet","Casco"],["flowers","Corona de flores"]];
     const clone=o=>JSON.parse(JSON.stringify(o));
@@ -3382,13 +3382,13 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
           b.onclick=()=>{PATH=P;renderCustom();beep(720,.05,"triangle",.03);};r.appendChild(b);});}
       if(customTab==="hair"){const r=sec("Peinado");HAIRS.forEach(([k,l])=>opt(r,l,(LOOK.hairStyle||"mop")===k,()=>set("hairStyle",k)));sws(sec("Color de pelo"),C_HAIR,"hair");}
       if(customTab==="face"){const r=sec("Cuerpo");opt(r,"Hombre",!LOOK.female,()=>set("female",undefined));opt(r,"Mujer",!!LOOK.female,()=>{LOOK.dress=LOOK.dress||0xff8fb1;set("female",true);});
-        const a=sec("Altura");opt(a,"Hobbit",!LOOK.tall,()=>{delete LOOK.scale;set("tall",undefined);});opt(a,"Alto (hombres y elfos)",!!LOOK.tall,()=>{LOOK.scale=1.22;set("tall",true);});
+        const a=sec("Altura");opt(a,"Mediano",!LOOK.tall,()=>{delete LOOK.scale;set("tall",undefined);});opt(a,"Alto (hombres y elfos)",!!LOOK.tall,()=>{LOOK.scale=1.22;set("tall",true);});
         sws(sec("Piel"),C_SKIN,"skin");sws(sec("Ojos"),C_EYE,"eye");sws(sec("Barba"),C_HAIR,"beard",true);
         const g=sec("Anteojos");opt(g,"Sin anteojos",!LOOK.glasses,()=>set("glasses",undefined));opt(g,"Con anteojos",!!LOOK.glasses,()=>set("glasses",true));}
       if(customTab==="clothes"){sws(sec("Camisa"),C_CLOTH,"shirt");sws(sec(LOOK.female?"Vestido":"Pantalón"),C_CLOTH,LOOK.female?"dress":"pants");
         if(!LOOK.robe)sws(sec("Chaleco"),C_CLOTH,"vest",true);sws(sec("Capa"),C_CLOTH,"cloak",true);sws(sec("Bufanda"),C_CLOTH,"scarf",true);
         const t=sec("Túnica larga (mago)");opt(t,"No",!LOOK.robe,()=>set("robe",undefined));opt(t,"Sí",!!LOOK.robe,()=>set("robe",0x9aa0a8));
-        sws(sec("Botas (✕ = descalzo, como los hobbits)"),[0x3a2a1a,0x5a4a32,0x8a5a32,0x14111a,0xd9442b],"boots",true);}
+        sws(sec("Botas (✕ = descalzo, como los medianos)"),[0x3a2a1a,0x5a4a32,0x8a5a32,0x14111a,0xd9442b],"boots",true);}
       if(customTab==="acc"){const r=sec("En la cabeza");HEADS.forEach(([k,l])=>opt(r,l,(LOOK.headwear||null)===k,()=>set("headwear",k||undefined)));
         sws(sec("Color de gorra o sombrero"),C_CLOTH,"hatColor");sws(sec("Mochila"),[0x8a5a32,0x5a4a32,0xd9442b,0x2f6fd8,0x5fdc3a,0xff8fb1,0x14111a],"backpack",true);
         const b=sec("Broche élfico de hoja");opt(b,"Sin broche",!LOOK.brooch,()=>set("brooch",undefined));opt(b,"Con broche",!!LOOK.brooch,()=>set("brooch",true));
