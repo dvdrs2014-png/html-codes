@@ -2086,20 +2086,20 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
 };
         W.items=[[-116,-116],[110,-70],[-120,60],[90,110],[0,-40]];}});
     // 3) ROHAN
-    LEVELS.push({name:"Rohan",kick:"Nivel 3 de 5 · Las Dos Torres",size:400,sky:[0x3f8ee0,0xffe3bd],fog:[0xffe8cc,100,320],sun:0xffe0b0,
+    LEVELS.push({name:"Rohan",kick:"Nivel 3 de 5 · Las Dos Torres",size:400,sky:[0x3f8ee0,0xffe3bd],fog:[0xffe8cc,90,240],sun:0xffe0b0,
       text:"La Comunidad se rompió en Amon Hen. Aragorn, Legolas y Gimli corren tras los uruks de Saruman hasta Rohan. Gandalf volvió como el Blanco y liberó al rey Théoden. Juntá 5 estandartes, llevalos a Meduseld, recibí la espada Herugrim y enfrentá al capitán Uruk-hai.",
       bossLine:["Éowyn","¡Los uruks de Isengard! ¡Arriba, jinetes, por Rohan!"],winLine:["Théoden","¡Rohan resiste! Que suenen los cuernos: hoy ganamos todos juntos."],
       item:"banner",itemName:"Estandartes",boss:"uruk",bossName:"El capitán Uruk-hai",speed:11,shoot:0,start:[0,100],bossStart:[0,-150],
       setup(W){const hill=(x,z)=>22*Math.exp(-(x*x+(z+30)*(z+30))/(2*30*30));W.H=(x,z)=>4*Math.sin(x*.015)*Math.cos(z*.018)+2*Math.sin(x*.04+z*.03)+hill(x,z)+smooth(150,195,Math.max(Math.abs(x),Math.abs(z)))*40;
         W.color=(x,z,y)=>{const n=.5+.5*Math.sin(x*.09)*Math.cos(z*.08);return new C(0xa8963e).lerp(new C(0x7f8a38),n);};
         W.after=(g,ti)=>{const top=W.H(0,-30);const hall=thatched(g,0,top,-30,0,18,10,7,0x8a6a44,0xd9b24a,false,"Meduseld, el Salón Dorado","hall");
-          const pal=new Inst(Cyl(.35,.35,4,5),M(0x6e4a2c));pal.noOutline=true;for(let i=0;i<120;i++){const a=i/120*6.28;const x=Math.cos(a)*34,z=-30+Math.sin(a)*34;pal.add(x,W.H(x,z)+2,z);}pal.build(g);
+          const pal=new Inst(Cyl(.45,.45,4,5),M(0x6e4a2c));pal.noOutline=true;for(let i=0;i<80;i++){const a=i/80*6.28;const x=Math.cos(a)*34,z=-30+Math.sin(a)*34;pal.add(x,W.H(x,z)+2,z);}pal.build(g);
           for(let i=0;i<8;i++){const a=i/8*6.28+.3;const x=Math.cos(a)*22,z=-30+Math.sin(a)*22;thatched(g,x,W.H(x,z),z,-a+Math.PI/2,6,5,3.6,0x9a7a52,0xd9b24a,false,"Casa de Rohan","rohan");}
           const gr=new Inst(geo("tuft",()=>{const parts=[[-.28,0,.38],[0,.12,0],[.28,0,-.38],[.05,-.2,.15]].map(([x,z,rz])=>{const c=new T.ConeGeometry(.11,1.25,5,1,true).toNonIndexed();c.translate(0,.62,0);c.rotateZ(rz);c.translate(x,0,z);return c;});
             const n=parts.reduce((a,c)=>a+c.attributes.position.count,0),P=new Float32Array(n*3),N=new Float32Array(n*3);let o=0;parts.forEach(c=>{P.set(c.attributes.position.array,o*3);N.set(c.attributes.normal.array,o*3);o+=c.attributes.position.count;});
             const m=new T.BufferGeometry();m.setAttribute("position",new T.BufferAttribute(P,3));m.setAttribute("normal",new T.BufferAttribute(N,3));return m;}),M(0xd2b956));gr.noOutline=true;
-          for(let i=0;i<1800;i++){const x=rnd(-190,190),z=rnd(-190,190);gr.add(x,W.H(x,z)-.1,z,rnd(.8,1.5),rnd(0,6));}gr.build(g);
-          for(let i=0;i<60;i++){const x=rnd(-180,180),z=rnd(-180,180);if(Math.hypot(x,z+30)<45)continue;tree(ti,x,W.H(x,z),z,rnd(.9,1.4),i);W.solid.push([x,z,.8]);}};
+          for(let i=0;i<800;i++){const x=rnd(-190,190),z=rnd(-190,190);gr.add(x,W.H(x,z)-.1,z,rnd(.8,1.5),rnd(0,6));}gr.build(g);
+          for(let i=0;i<40;i++){const x=rnd(-180,180),z=rnd(-180,180);if(Math.hypot(x,z+30)<45)continue;tree(ti,x,W.H(x,z),z,rnd(.9,1.4),i);W.solid.push([x,z,.8]);}};
         W.treeCols=[0x7a9a3a,0x8aa847,0x6b8a33];W.items=[[-140,-120],[150,-100],[-150,90],[140,120],[0,-30+40]];}});
     // 4) CIRITH UNGOL
     LEVELS.push({name:"Cirith Ungol",kick:"Nivel 4 de 5 · Las Dos Torres",size:320,sky:[0x0b0612,0x2c1a3e],fog:[0x2c1a3e,40,220],sun:0xb09aff,dark:true,
@@ -3319,7 +3319,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     /* Calidad: 2 = Alta (todo), 1 = Media (sin contorno en decoración, menos nubes), 0 = Baja (sin contornos ni nubes) */
     let quality=2,autoQ=true;const QN=["Baja","Media","Alta"]; // en todas se mantiene el estilo anime (contornos en personajes, jefes y casas)
     function applyQuality(){const roots=[world,interior,player,sky].filter(Boolean);let ci=0;
-      roots.forEach(r=>r.traverse(o=>{if(o.userData.hull)o.visible=quality===2||!o.isInstancedMesh;
+      roots.forEach(r=>r.traverse(o=>{if(o.userData.hull)o.visible=(quality===2&&!(L&&L.base===2&&!S.inside))||!o.isInstancedMesh;
         if(o.userData.cloud){o.visible=quality===2&&(MODE!=="touch"||ci%2===0);ci++;}}));
       if(S.boss&&S.boss.g)S.boss.g.traverse(o=>{if(o.userData.hull)o.visible=true;});}
     addEventListener("keydown",e=>{if(!ov.hidden&&e.code==="KeyG"&&!e.repeat){autoQ=false;quality=(quality+2)%3;applyQuality();msg("Calidad: "+QN[quality]+" (automática apagada)",1400);}});
