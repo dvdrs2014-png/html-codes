@@ -2691,7 +2691,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
         const Gn=GENERIC[i%GENERIC.length];S.npcs.push(makeNPC({name:Gn[0],look:(Gn[1]?fem:hob)(i+7,Gn[2]||{}),home:[E.x+Math.sin(E.a)*3,E.z+Math.cos(E.a)*3],roam:22,lines:CHAT[i%CHAT.length]},world));}}}
     function freeSpot(x,z){if(W.water!=null&&W.H(x,z)<W.water+.6)return false;for(const [ox,oz,r] of W.solid)if(Math.hypot(x-ox,z-oz)<r+1)return false;return !inBox(x,W.H(x,z)+.5,z);}
     function pickTarget(N){for(let k=0;k<12;k++){const a=Math.random()*6.283,r=Math.random()*N.roam,x=N.home[0]+Math.cos(a)*r,z=N.home[1]+Math.sin(a)*r;if(Math.abs(x)<L.size/2-12&&Math.abs(z)<L.size/2-12&&freeSpot(x,z)){N.tx=x;N.tz=z;return;}}N.tx=N.home[0];N.tz=N.home[1];}
-    function animChar(m,moving,ph){const u=m.userData;if(!u.body){m.children.forEach(c=>{c.position.y=moving?Math.abs(Math.sin(ph))*.25:Math.sin(ph*.5)*.05;});return;}   // personajes con modelo propio (como Grisp): solo rebotananimArms(m,moving?"run":"idle",ph,.2);u.body.position.y=moving?Math.abs(Math.sin(ph))*.12:0;u.body.rotation.x=moving?.12:0;const sw=moving?Math.sin(ph)*.3:0;
+    function animChar(m,moving,ph){const u=m.userData;if(!u.body){m.children.forEach(c=>{c.position.y=moving?Math.abs(Math.sin(ph))*.25:Math.sin(ph*.5)*.05;});return;}   /* personajes con modelo propio (como Grisp): solo rebotan */animArms(m,moving?"run":"idle",ph,.2);u.body.position.y=moving?Math.abs(Math.sin(ph))*.12:0;u.body.rotation.x=moving?.12:0;const sw=moving?Math.sin(ph)*.3:0;
       if(u.feet.length&&!(u.legs&&u.legs.length)){u.feet[0].position.z=.12+sw;u.feet[1].position.z=.12-sw;}u.head.rotation.z=moving?Math.sin(ph)*.05:Math.sin(ph*.35)*.04;}
     function updateNPCs(dt){
       const list=S.inside?S.inNpcs:S.npcs;
