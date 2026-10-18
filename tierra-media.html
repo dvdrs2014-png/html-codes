@@ -2645,7 +2645,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
           ()=>{msg("El anuncio no se pudo ver. Probá de nuevo en un rato.",2200);$("gCustom").hidden=false;});},
         "Elegir otro camino",()=>{$("gCard").hidden=true;$("gCustom").hidden=false;});}
     function winLevel(){setTimeout(()=>{try{saveGame();}catch(e){}},0);
-      if(lvl>=CAMP.length-1){PROG.sword=false;PROG.mithril=false;PROG.phial=false;["t:sword","t:mithril","t:phial"].forEach(k=>delete PROG.found[k]);if(swordG){swordG.parent&&swordG.parent.remove(swordG);swordG=null;}beep(523,.2,"triangle",.07);setTimeout(()=>beep(659,.2,"triangle",.07),180);setTimeout(()=>beep(784,.5,"triangle",.07),360);
+      if(lvl>=CAMP.length-1){PROG.sword=false;PROG.mithril=false;PROG.phial=false;PROG.maxHearts=3;PROG.riddles=false;["t:sword","t:mithril","t:phial"].forEach(k=>delete PROG.found[k]);if(swordG){swordG.parent&&swordG.parent.remove(swordG);swordG=null;}beep(523,.2,"triangle",.07);setTimeout(()=>beep(659,.2,"triangle",.07),180);setTimeout(()=>beep(784,.5,"triangle",.07),360);
         card("Fin del camino · "+PATH.name,PATH.ending[0],PATH.ending[1]+" ¡Completaste este camino!","Volver a jugar",()=>build(0),"Elegir otro personaje",()=>{$("gCard").hidden=true;openCustomizer(()=>startIntro());});return;}
       if(false){beep(523,.2,"triangle",.07);setTimeout(()=>beep(659,.2,"triangle",.07),180);setTimeout(()=>beep(784,.5,"triangle",.07),360);
         card("Fin del viaje","El Anillo cayó al fuego","La Torre Oscura se derrumbó y Mordor fue vencido. Los hobbits vuelven a casa y la Comarca vuelve a estar en paz. Ganaste el juego.","Volver a jugar",()=>build(0),"Ver el mapa",()=>{closeGame();document.getElementById("mapa").scrollIntoView();});return;}
@@ -2851,7 +2851,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
     // partida guardada: progreso, personaje, camino y mundo (en el navegador; en CrazyGames también en su nube)
     const SAVE_KEY="tm_partida";let SAVED=null;
     try{SAVED=JSON.parse(localStorage.getItem(SAVE_KEY));}catch(e){SAVED=null;}
-    if(SAVED&&SAVED.prog){Object.assign(PROG,SAVED.prog);if(PROG.found)["t:sword","t:mithril","t:phial"].forEach(k=>delete PROG.found[k]);PROG.sword=false;PROG.mithril=false;PROG.phial=false;}   // la espada no se guarda: se gana en cada camino
+    if(SAVED&&SAVED.prog){Object.assign(PROG,SAVED.prog);if(PROG.found)["t:sword","t:mithril","t:phial"].forEach(k=>delete PROG.found[k]);PROG.sword=false;PROG.mithril=false;PROG.phial=false;PROG.maxHearts=3;PROG.riddles=false;}   // la espada no se guarda: se gana en cada camino
     function saveGame(){const data={prog:PROG,look:typeof LOOK!=="undefined"?LOOK:null,path:PATH&&PATH.id,lvl:typeof lvl==="number"?lvl:0,t:Date.now()};
       const txt=JSON.stringify(data);try{localStorage.setItem(SAVE_KEY,txt);}catch(e){}
       try{if(CG.sdk&&CG.sdk.data)CG.sdk.data.setItem(SAVE_KEY,txt);}catch(e){}}
@@ -2931,17 +2931,17 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       W2.round=Rr-1.6;W2.ceil=hh+1.4;W2.exit={x:0,z:Rr-1.6};W2.spawn=[0,Rr-3];return W2;}
     Object.assign(ROOMS,{
       doom(g,E){// Sammath Naur: el piso termina en una grieta; muy abajo burbujea un charquito de lava
-        const hx=0,hz=-3.5,hr=5.5;
-        const W2=caveRoom(g,E,{r:16,h:10,wall:0x3a1a12,floor:0x2a1410,rock:0x4a2a20,light:[0,-4,-3.5],lightI:4,bg:0x1a0604,fog:0x3a1208,hole:[hx,hz,hr]});
+        const hx=0,hz=-3.5,hr=9;
+        const W2=caveRoom(g,E,{r:22,h:12,wall:0x3a1a12,floor:0x2a1410,rock:0x4a2a20,light:[0,-4,-3.5],lightI:4,bg:0x1a0604,fog:0x3a1208,hole:[hx,hz,hr]});
         noOut(mesh(Cyl(hr,hr*.7,16,40,6,true),toon({color:0x3a1810,side:T.BackSide},false),hx,-8,hz,g));                 // paredes de la caída
         for(let i=0;i<12;i++){const a=i/12*6.283;mesh(Blob(.45+Math.random()*.3),M(0x4a2418),hx+Math.cos(a)*(hr+.3),0,hz+Math.sin(a)*(hr+.3),g);}  // borde de rocas
         const lava=noOut(mesh(Circ(hr*.65,36),new T.MeshBasicMaterial({color:0xff5a1a}),hx,-15.8,hz,g));lava.rotation.x=-Math.PI/2;   // charquito de lava al fondo
         W2.fire=[0,1,2,3,4,5].map(i=>noOut(mesh(Blob(.7),new T.MeshBasicMaterial({color:[0xffb040,0xff7a1a,0xffe080][i%3]}),hx+Math.cos(i*1.1)*1.8,-15.4,hz+Math.sin(i*1.1)*1.6,g)));
         noOut(mesh(Cyl(hr*.95,hr*.6,15,30,1,true),new T.MeshBasicMaterial({color:0xff6a1a,transparent:true,opacity:.18,side:T.DoubleSide,depthWrite:false}),hx,-8.5,hz,g)); // resplandor que sube
-        mesh(Box(2.6,.35,2),M(0x3a2a24),0,.18,3.3,g);
+        mesh(Box(2.6,.35,2),M(0x3a2a24),0,.18,7.1,g);
         // puente de piedra angosto que cruza la grieta (para perseguir al ladrón)
-        mesh(Box(hr*2+3,.5,2.4),M(0x4a2a20),hx,-.25,hz,g);[-1,1].forEach(sd=>{for(let k=-5;k<=5;k++)mesh(Cyl(.12,.14,.8,6),M(0x5a3a2a),hx+k*1.1,.4,hz+sd*1.1,g);});
-        W2.pit={x:hx,z:hz,r:hr+.6,bw:1};W2.ringSpot={x:0,z:3.4};W2.volcano={x:hx,z:hz};W2.ringTarget=new V3(hx,-15.4,hz);W2.spawn=[0,11];
+        mesh(Box(hr*2+3,.6,3.6),M(0x4a2a20),hx,-.3,hz,g);[-1,1].forEach(sd=>{for(let k=-9;k<=9;k++)mesh(Cyl(.14,.16,1,6),M(0x5a3a2a),hx+k*1.1,.5,hz+sd*1.7,g);mesh(Box(hr*2+3,.18,.2),M(0x6a4a3a),hx,1,hz+sd*1.7,g);});   // puente gigante con barandas
+        W2.pit={x:hx,z:hz,r:hr+.6,bw:1.5};W2.ringSpot={x:0,z:7.2};W2.volcano={x:hx,z:hz};W2.ringTarget=new V3(hx,-15.4,hz);W2.spawn=[0,16];
         setTimeout(()=>say("Sam","¡Ahí está la grieta, señor Frodo! Acercate al borde y tirá el Anillo.",null),900);return W2;},
       gollum(g,E){const W2=caveRoom(g,E,{light:[0,3,-2],lightI:1.3,npcs:[{name:"Grisp, el ladrón de las cuevas",still:true,home:[1.8,-2.4],model:()=>thiefModel(),
           onTalk:N=>gollumRiddles(N),lines:["¡Lo brillante me encanta!"]}]});
@@ -3038,7 +3038,7 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
       const g=thiefModel();interior.add(g);outline(g);const c={g,x:-6.5,z:5,th:0,bit:false};g.position.set(c.x,0,c.z);
       S.snatch={step:0,t:0,c,vy:0};}
     function updateSnatch(dt){const N=S.snatch,c=N.c,g=c.g,u=player.userData;N.t+=dt;const hx=0,hz=-3.5;
-      const cam=(px,py,pz,lx,ly,lz)=>{const d=Math.hypot(px,pz),m=12.5;if(d>m){px*=m/d;pz*=m/d;}py=Math.min(py,7);camera.position.lerp(new V3(px,py,pz),1-Math.exp(-dt*3));camera.lookAt(lx,ly,lz);};   // la cámara nunca sale de la cueva
+      const cam=(px,py,pz,lx,ly,lz)=>{const d=Math.hypot(px,pz),m=18;if(d>m){px*=m/d;pz*=m/d;}py=Math.min(py,7);camera.position.lerp(new V3(px,py,pz),1-Math.exp(-dt*3));camera.lookAt(lx,ly,lz);};   // la cámara nunca sale de la cueva
       if(N.step===0){const tx=S.x+1.3,tz=S.z+.6,dx=tx-c.x,dz=tz-c.z,d=Math.hypot(dx,dz);
         if(d>.3){c.x+=dx/d*Math.min(d,dt*11);c.z+=dz/d*Math.min(d,dt*11);}g.position.set(c.x,Math.abs(Math.sin(N.t*16))*.3,c.z);g.rotation.y=Math.atan2(dx,dz);
         if(N.t>.3&&!N.said){N.said=true;say("Grisp, el ladrón de las cuevas","¡Brilla, brilla! ¡Eso es mío!",null);}
@@ -3064,19 +3064,19 @@ if(dot(dir,dir)>1e-8)gl_Position.xy+=normalize(dir)*px*2./oRes*gl_Position.w;`);
           if(gy<-14&&!N.boom){N.boom=true;g.visible=false;burst(hx,-14,hz,0xff8a2b,40);burst(hx,-12,hz,0xffd24a,24);S.shake=1.2;impact(1.2,.12);beep(70,.9,"sawtooth",.08,.3);msg("¡El Anillo se derritió en el fuego!",3200,true);}}
         // te resbalás hacia la grieta, quedás colgando del borde con los brazos arriba y Tomillo te agarra la mano
         const u2=player.userData,P=W.pit;
-        if(e>2.6&&!N.slip){N.slip=true;N.sx=S.x;N.sz=S.z;const dx=S.x-P.x,dz=S.z-P.z,d=Math.hypot(dx,dz)||1;N.ex=P.x+dx/d*(P.r-.4);N.ez=P.z+dz/d*(P.r-.4);N.ox=dx/d;N.oz=dz/d;
+        if(e>2.6&&!N.slip){N.slip=true;N.sx=S.x;N.sz=S.z;const dx=S.x-P.x,dz=S.z-P.z,d=Math.hypot(dx,dz)||1;N.ex=P.x+dx/d*(P.r-1.2);N.ez=P.z+dz/d*(P.r-1.2);N.ox=dx/d;N.oz=dz/d;
           S.yaw=Math.atan2(N.ox,N.oz);say("Frodo","¡Me resbalo…! ¡Ayuda!",null);beep(300,.4,"sawtooth",.05,.5);}
         if(N.slip&&!N.saved){const k=Math.min(1,(e-2.6)/.5);player.position.set(N.sx+(N.ex-N.sx)*k,-2.3*k,N.sz+(N.ez-N.sz)*k);player.rotation.y=S.yaw;
           if(u2.arms)u2.arms.forEach((A,i)=>{A.rotation.x=-2.9*k;A.rotation.z=(i?-1:1)*.25*k;});player.position.y+=Math.sin(e*9)*.06*k;}
         if(e>3.2&&!N.helper){const tl=LEVELS[3].npcs&&LEVELS[3].npcs[0]?LEVELS[3].npcs[0].look:hob(7);N.helper=makeChar(tl);interior.add(N.helper);outline(N.helper);
           N.hx0=N.ex+N.ox*7;N.hz0=N.ez+N.oz*7;N.helper.position.set(N.hx0,0,N.hz0);N.helper.rotation.y=Math.atan2(-N.ox,-N.oz);say("Tomillo","¡Aguantá! ¡Ya voy!",null);}
-        if(N.helper&&!N.saved){const k=Math.min(1,(e-3.2)/.9);const hx2=N.hx0+(N.ex+N.ox*1.3-N.hx0)*k,hz2=N.hz0+(N.ez+N.oz*1.3-N.hz0)*k;
-          N.helper.position.set(hx2,Math.abs(Math.sin(e*14))*.25*(1-k)-(k>=1?.5:0),hz2);N.helper.rotation.x=k>=1?.75:0;const ha=N.helper.userData.arms;
+        if(N.helper&&!N.saved){const k=Math.min(1,(e-3.2)/.9);const hx2=N.hx0+(N.ex+N.ox*1.9-N.hx0)*k,hz2=N.hz0+(N.ez+N.oz*1.9-N.hz0)*k;const dv=Math.max(0,(k-.6)/.4);
+          N.helper.position.set(hx2,Math.abs(Math.sin(e*14))*.25*(1-dv)+Math.sin(dv*Math.PI)*1.2-(k>=1?.6:0),hz2);N.helper.rotation.x=dv*1.35;const ha=N.helper.userData.arms;
           if(ha&&k>=1){ha.forEach(A=>A.rotation.x=-1.4);if(!N.grabbed){N.grabbed=true;say("Tomillo","¡Agarrá mi mano! ¡No te suelto!",null);beep(520,.15,"triangle",.05);burst(N.ex+N.ox*.6,.3,N.ez+N.oz*.6,0xffffff,10);}}}
         if(e>5.4&&!N.saved){N.saved=true;N.pull=0;}
-        if(N.saved&&N.pull<1){N.pull=Math.min(1,N.pull+dt*.8);const k=N.pull,tx=N.ex+N.ox*2.4,tz=N.ez+N.oz*2.4;
+        if(N.saved&&N.pull<1){N.pull=Math.min(1,N.pull+dt*.8);const k=N.pull,tx=N.ex+N.ox*3.4,tz=N.ez+N.oz*3.4;
           player.position.set(N.ex+(tx-N.ex)*k,-2.3*(1-k)+Math.sin(k*Math.PI)*.8,N.ez+(tz-N.ez)*k);if(u2.arms)u2.arms.forEach(A=>A.rotation.x=-2.9*(1-k));
-          N.helper.rotation.x=.75*(1-k);N.helper.position.y=-.5*(1-k);if(k>=1){S.x=player.position.x;S.z=player.position.z;S.y=0;if(N.helper.userData.arms)N.helper.userData.arms.forEach(A=>A.rotation.x=0);}}
+          N.helper.rotation.x=1.35*(1-k);N.helper.position.y=-.6*(1-k);if(k>=1){S.x=player.position.x;S.z=player.position.z;S.y=0;if(N.helper.userData.arms)N.helper.userData.arms.forEach(A=>A.rotation.x=0);}}
         if(e>6&&!N.end){N.end=true;say("Tomillo","Se terminó, amigo. Ahora sí… volvamos a casa.",null);}
         if(e>8.4){S.snatch=null;S.snatchDone=true;closeTalk();player.rotation.x=0;winLevel();return true;}
         if(N.slip){const W3=W.pit;cam(W3.x+N.ox*(W3.r-5)+N.oz*3,2.5,W3.z+N.oz*(W3.r-5)-N.ox*3,N.ex,-.8,N.ez);sky.position.copy(camera.position);return true;}
